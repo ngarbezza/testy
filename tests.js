@@ -30,5 +30,9 @@ suite('testing testy',
     assertThat(() => { throw 'hey!' }, raises("ho!"))
   ),
   
+  test("object comparison",
+    assertEquals({ a: 2, b: [1,2,3]}, { a: 2, b: [1,2,3]})
+  ),
+  
   test("I'm a WIP")
 );

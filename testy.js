@@ -1,10 +1,18 @@
+const assert = require('assert');
+
 let pp = object => JSON.stringify(object);
 
 exports.isEqualTo = expected =>
-  actual => ({
-    success: actual === expected,
-    failureMessage: `Expected ${pp(actual)} to equal ${pp(expected)}`
-  });
+  actual => {
+    let success = true;
+    try { assert.deepStrictEqual(actual, expected) }
+    catch(assertionError) { success = false }
+    
+    return {
+      success: success,
+      failureMessage: `Expected ${pp(actual)} to equal ${pp(expected)}`
+    };
+  };
 
 exports.includes = value =>
   list => ({
