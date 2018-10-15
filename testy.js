@@ -1,13 +1,15 @@
+let pp = object => JSON.stringify(object);
+
 exports.isEqualTo = expected =>
   actual => ({
     success: actual === expected,
-    failureMessage: `Expected ${actual} to equal ${expected}`
+    failureMessage: `Expected ${pp(actual)} to equal ${pp(expected)}`
   });
 
 exports.includes = value =>
   list => ({
     success: list.includes(value),
-    failureMessage: `Expected ${list} to include ${value}`
+    failureMessage: `Expected ${pp(list)} to include ${pp(value)}`
   });
 
 exports.raises = expectedError =>
@@ -16,7 +18,7 @@ exports.raises = expectedError =>
       code();
       return {
         success: false,
-        failureMessage: `Expected error ${expectedError} to happen`
+        failureMessage: `Expected error ${pp(expectedError)} to happen`
       }
     }
     catch(actualError) {
@@ -25,9 +27,9 @@ exports.raises = expectedError =>
   };
 
 exports.assertThat = (actual, expectation) => expectation(actual);
-exports.assertTrue = boolean => exports.assertThat(boolean, exports.isEqualTo(true));
-exports.assertFalse = boolean => exports.assertThat(boolean, exports.isEqualTo(false));
 exports.assertEquals = (actual, expected) => exports.assertThat(actual, exports.isEqualTo(expected));
+exports.assertTrue = boolean => exports.assertEquals(boolean, true);
+exports.assertFalse = boolean => exports.assertEquals(boolean, false);
 
 exports.test = function(name, testBody) {
   if (testBody === undefined) {
