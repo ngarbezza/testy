@@ -1,4 +1,4 @@
-const { suite, test, assertTrue, assertFalse, assertThat, isEqualTo, raises, includes } = require('./testy');
+const { suite, test, assertTrue, assertFalse, assertThat, assertEquals, isEqualTo, raises, includes } = require('./testy');
 
 suite('testing testy',
   test("there's assertTrue", assertTrue(1 === 1)),
@@ -12,6 +12,10 @@ suite('testing testy',
   
   test("object equality",
     assertThat(42, isEqualTo(40 + 2))
+  ),
+  
+  test("object equality - different syntax",
+    assertEquals(42, 40 + 2)
   ),
   
   test("inclusion in collection",

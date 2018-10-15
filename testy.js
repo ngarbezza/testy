@@ -27,6 +27,7 @@ exports.raises = expectedError =>
 exports.assertThat = (actual, expectation) => expectation(actual);
 exports.assertTrue = boolean => exports.assertThat(boolean, exports.isEqualTo(true));
 exports.assertFalse = boolean => exports.assertThat(boolean, exports.isEqualTo(false));
+exports.assertEquals = (actual, expected) => exports.assertThat(actual, exports.isEqualTo(expected));
 
 exports.test = function(name, testBody) {
   if (testBody === undefined) {
