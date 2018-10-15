@@ -1,0 +1,22 @@
+{
+  "name": "@ngarbezza/testy",
+  "version": "1.0.1",
+  "description": "a very simple test library",
+  "homepage": "https://github.com/ngarbezza/testy",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/ngarbezza/testy"
+  },
+  "main": "testy.js",
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "files": ["testy.js"],
+  "keywords": [
+    "testing",
+    "tdd",
+    "simple"
+  ],
+  "author": "Nahuel Garbezza <nahuel@10pines.com>",
+  "license": "MIT"
+}
