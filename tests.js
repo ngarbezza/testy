@@ -1,4 +1,4 @@
-const { suite, test, assertTrue, assertFalse, assertThat, assertEquals, isEqualTo, raises, includes } = require('./testy');
+const { suite, test, before, assertTrue, assertFalse, assertThat, assertEquals, isEqualTo, raises, includes } = require('./testy');
 
 suite('testing testy', () => {
   test("there's assertTrue", assertTrue(1 === 1));
@@ -34,5 +34,13 @@ suite('testing testy', () => {
     assertEquals({ a: 2, b: [1,2,3]}, { a: 2, b: [1,2,3]})
   );
   
-  test("I'm a WIP")
+  test("I'm a WIP");
+  
+  before(() => {
+    return { myVar: 7 }
+  });
+  
+  test("before hook can be used", (c) =>
+    assertEquals(c.myVar, 7)
+  );
 });

@@ -15,17 +15,16 @@ global.testy = Testy;
 let testy = () => global.testy;
 
 function test(name, testBody) {
-  let test = new Test(name, testBody);
-  testy().currentSuite().addTest(test);
-  
-  test.run({
-    whenPending: () => console.log(`[WIP] ${test.name()}`),
-    whenSuccess: () => console.log(`[OK] ${test.name()}`),
-    whenFailed: () => {
+  let callbacks = {
+    whenPending: (test) => console.log(`[WIP] ${test.name()}`),
+    whenSuccess: (test) => console.log(`[OK] ${test.name()}`),
+    whenFailed: (test) => {
       console.log(`[FAIL] ${test.name()}`);
       console.log(`  => ${test.result().failureMessage}`)
     }
-  });
+  };
+  let test = new Test(name, testBody, callbacks);
+  testy().currentSuite().addTest(test);
 }
 
 function suite(name, suiteBody) {
@@ -41,4 +40,8 @@ function suite(name, suiteBody) {
   console.log(`${total} tests, ${success} passed, ${failures} failed, ${pending} pending`)
 }
 
-module.exports = Object.assign({ suite: suite, test: test }, Assertions);
+function before(initialization) {
+  testy().currentSuite().before(initialization);
+}
+
+module.exports = Object.assign({ suite: suite, test: test, before: before }, Assertions);
