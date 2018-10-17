@@ -1,64 +1,44 @@
-const assert = require('assert');
+const { Test } = require('./lib/test');
+const { TestSuite } = require('./lib/test_suite');
+const Assertions = require('./lib/assertions');
 
-let pp = object => JSON.stringify(object);
+let Testy = {
+  currentSuite: function () {
+    return this._currentSuite
+  },
+  setCurrentSuite: function (suite) {
+    this._currentSuite = suite
+  }
+};
 
-exports.isEqualTo = expected =>
-  actual => {
-    let success = true;
-    try { assert.deepStrictEqual(actual, expected) }
-    catch(assertionError) { success = false }
-    
-    return {
-      success: success,
-      failureMessage: `Expected ${pp(actual)} to equal ${pp(expected)}`
-    };
-  };
+global.testy = Testy;
+let testy = () => global.testy;
 
-exports.includes = value =>
-  list => ({
-    success: list.includes(value),
-    failureMessage: `Expected ${pp(list)} to include ${pp(value)}`
+function test(name, testBody) {
+  let test = new Test(name, testBody);
+  testy().currentSuite().addTest(test);
+  
+  test.run({
+    whenPending: () => console.log(`[WIP] ${test.name()}`),
+    whenSuccess: () => console.log(`[OK] ${test.name()}`),
+    whenFailed: () => {
+      console.log(`[FAIL] ${test.name()}`);
+      console.log(`  => ${test.result().failureMessage}`)
+    }
   });
+}
 
-exports.raises = expectedError =>
-  code => {
-    try {
-      code();
-      return {
-        success: false,
-        failureMessage: `Expected error ${pp(expectedError)} to happen`
-      }
-    }
-    catch(actualError) {
-      return exports.assertThat(actualError, exports.isEqualTo(expectedError))
-    }
-  };
-
-exports.assertThat = (actual, expectation) => expectation(actual);
-exports.assertEquals = (actual, expected) => exports.assertThat(actual, exports.isEqualTo(expected));
-exports.assertTrue = boolean => exports.assertEquals(boolean, true);
-exports.assertFalse = boolean => exports.assertEquals(boolean, false);
-
-exports.test = function(name, testBody) {
-  if (testBody === undefined) {
-    console.log(`[WIP] ${name}`);
-    return null
-  }
-  let assertion = (typeof testBody === 'function') ? testBody() : testBody;
-  if (assertion.success) {
-    console.log(`[OK] ${name}`)
-  } else {
-    console.log(`[FAIL] ${name}`);
-    console.log(`  => ${assertion.failureMessage}`)
-  }
-  return assertion.success
-};
-
-exports.suite = function(name, ...tests) {
-  console.log(`${name} summary:`);
-  let total = tests.length;
-  let success = tests.filter(testResult => testResult).length;
-  let pending = tests.filter(testResult => testResult === null).length;
-  let failures = total - success - pending;
+function suite(name, suiteBody) {
+  let suite = new TestSuite(name, suiteBody);
+  testy().setCurrentSuite(suite);
+  suite.run();
+  
+  console.log(`${suite.name()} summary:`);
+  let total = suite.totalCount();
+  let success = suite.successCount();
+  let pending = suite.pendingCount();
+  let failures = suite.failuresCount();
   console.log(`${total} tests, ${success} passed, ${failures} failed, ${pending} pending`)
-};
+}
+
+module.exports = Object.assign({ suite: suite, test: test }, Assertions);
