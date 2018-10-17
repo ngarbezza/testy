@@ -1,7 +1,3 @@
-const { Test } = require('./lib/test');
-const { TestSuite } = require('./lib/test_suite');
-const Assertions = require('./lib/assertions');
-
 let Testy = {
   currentSuite: function () {
     return this._currentSuite
@@ -11,8 +7,12 @@ let Testy = {
   }
 };
 
-global.testy = Testy;
-let testy = () => global.testy;
+global.__testy__ = Testy;
+let testy = () => global.__testy__;
+
+const { Test } = require('./lib/test');
+const { TestSuite } = require('./lib/test_suite');
+const Assertions = require('./lib/assertions');
 
 function test(name, testBody) {
   let callbacks = {
