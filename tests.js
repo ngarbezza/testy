@@ -49,5 +49,9 @@ suite('testing testy', () => {
   
   test("failures don't break the suite", () => {
     assertTrue(notAFunction())
-  })
+  });
+  
+  test("successful test after the failure", () =>
+    assertTrue(true)
+  )
 });

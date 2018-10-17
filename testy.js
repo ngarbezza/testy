@@ -1,47 +1,21 @@
-let Testy = {
-  currentSuite: function () {
-    return this._currentSuite
-  },
-  setCurrentSuite: function (suite) {
-    this._currentSuite = suite
-  }
-};
+const { TestRunner } = require('./lib/test_runner');
+const ConsoleUI = require('./lib/console_ui');
 
-global.__testy__ = Testy;
-let testy = () => global.__testy__;
-
-const { Test } = require('./lib/test');
-const { TestSuite } = require('./lib/test_suite');
-const Assertions = require('./lib/assertions');
+let testRunner = new TestRunner();
 
 function test(name, testBody) {
-  let callbacks = {
-    whenPending: (test) => console.log(`[WIP] ${test.name()}`),
-    whenSuccess: (test) => console.log(`[OK] ${test.name()}`),
-    whenFailed: (test) => {
-      console.log(`[FAIL] ${test.name()}`);
-      console.log(`  => ${test.result().failureMessage}`)
-    }
-  };
-  let test = new Test(name, testBody, callbacks);
-  testy().currentSuite().addTest(test);
+  testRunner.registerTest(name, testBody, ConsoleUI.testCallbacks)
 }
 
 function suite(name, suiteBody) {
-  let suite = new TestSuite(name, suiteBody);
-  testy().setCurrentSuite(suite);
-  suite.run();
-  
-  console.log(`${suite.name()} summary:`);
-  let total = suite.totalCount();
-  let success = suite.successCount();
-  let pending = suite.pendingCount();
-  let failures = suite.failuresCount();
-  console.log(`${total} tests, ${success} passed, ${failures} failed, ${pending} pending`)
+  testRunner.registerSuite(name, suiteBody, ConsoleUI.suiteCallbacks)
 }
 
 function before(initialization) {
-  testy().currentSuite().before(initialization);
+  testRunner.registerBefore(initialization);
 }
 
-module.exports = Object.assign({ suite: suite, test: test, before: before }, Assertions);
+module.exports = Object.assign(
+  { suite: suite, test: test, before: before },
+  testRunner.availableAssertions()
+);
