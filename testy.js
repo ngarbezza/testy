@@ -2,13 +2,16 @@ const { TestRunner } = require('./lib/test_runner');
 const ConsoleUI = require('./lib/console_ui');
 
 let testRunner = new TestRunner();
+const UI = ConsoleUI;
 
 function test(name, testBody) {
-  testRunner.registerTest(name, testBody, ConsoleUI.testCallbacks)
+  testRunner.registerTest(name, testBody, UI.testCallbacks)
 }
 
 function suite(name, suiteBody) {
-  testRunner.registerSuite(name, suiteBody, ConsoleUI.suiteCallbacks)
+  UI.measure('total time', () =>
+    testRunner.registerSuite(name, suiteBody, UI.suiteCallbacks)
+  )
 }
 
 function before(initialization) {
