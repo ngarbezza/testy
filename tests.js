@@ -53,5 +53,10 @@ suite('testing testy', () => {
   
   test("successful test after the failure", () =>
     assertTrue(true)
-  )
+  );
+  
+  test("custom equality check", () => {
+    let criteria = (o1, o2) => o1.a === o2.a;
+    assertEquals({ a: 'a', b: 'b1'}, { a: 'a', b: 'b2'}, criteria)
+  });
 });
