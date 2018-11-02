@@ -1,11 +1,11 @@
 {
   "name": "@pmoo/testy",
-  "version": "2.5.1",
+  "version": "2.6.1",
   "description": "a very simple test library",
   "homepage": "https://github.com/ngarbezza/testy",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/ngarbezza/testy"
+    "type": "git",
+    "url": "https://github.com/ngarbezza/testy"
   },
   "main": "testy.js",
   "scripts": {
@@ -24,5 +24,8 @@
     "simple"
   ],
   "author": "Nahuel Garbezza <nahuel@10pines.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "require-dir": "^1.1.0"
+  }
 }

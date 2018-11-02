@@ -1,3 +1,4 @@
+const requireDir = require('require-dir');
 const { TestRunner } = require('./lib/test_runner');
 const ConsoleUI = require('./lib/console_ui');
 
@@ -18,7 +19,9 @@ function before(initialization) {
   testRunner.registerBefore(initialization);
 }
 
+function runTesty(options) { requireDir(options.directory) }
+
 module.exports = Object.assign(
-  { suite: suite, test: test, before: before },
+  { runTesty: runTesty, suite: suite, test: test, before: before },
   testRunner.availableAssertions()
 );
