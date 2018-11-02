@@ -22,7 +22,7 @@ suite('a boring test suite', () => {
 ```javascript
 const { runTesty } = require('@pmoo/testy');
 
-runTesty({ directory: './tests' })
+runTesty({ directory: require('path').resolve('./tests') });
 ```
 
 And it will run every file under the `test` directory, and you can define suites in those files.
