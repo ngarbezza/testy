@@ -18,11 +18,11 @@ suite('testing testy', () => {
   );
   
   test("assert error messages", () =>
-    assertThat(() => { throw 'hey!' }, raises("hey!"))
+    assertThat(() => { throw 'hey!'; }, raises("hey!"))
   );
   
   test("tests can fail as well :)", () =>
-    assertThat(() => { throw 'hey!' }, raises("ho!"))
+    assertThat(() => { throw 'hey!'; }, raises("ho!"))
   );
   
   test("object comparison", () =>

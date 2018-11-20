@@ -1,11 +1,11 @@
-const { suite, test, before, assertTrue, assertThat, assertEquals, isEqualTo } = require('../testy');
+const { suite, test, before, assertTrue, assertThat, assertEquals, isEqualTo, fail } = require('../testy');
 
 suite('testing testy', () => {
-  before(() => { return { myVar: 7 } });
+  before(() => { return { myVar: 7 }; });
   
   test("tests with body", () => {
     let pepe = { nombre: "pepe" };
-    assertThat(pepe.nombre, isEqualTo("pepe"))
+    assertThat(pepe.nombre, isEqualTo("pepe"));
   });
   
   test("I'm a WIP");
@@ -20,7 +20,7 @@ suite('testing testy', () => {
   });
   
   test("failures don't break the suite", () => {
-    assertTrue(notAFunction())
+    assertTrue(notAFunction());
   });
   
   test("successful test after the failure", () =>
@@ -29,6 +29,14 @@ suite('testing testy', () => {
   
   test("custom equality check", () => {
     let criteria = (o1, o2) => o1.a === o2.a;
-    assertEquals({ a: 'a', b: 'b1'}, { a: 'a', b: 'b2'}, criteria)
+    assertEquals({ a: 'a', b: 'b1'}, { a: 'a', b: 'b2'}, criteria);
+  });
+  
+  test("failing on purpose", () => {
+    fail("I just want to fail");
+  });
+  
+  test("failing on purpose with no message", () => {
+    fail();
   });
 });
