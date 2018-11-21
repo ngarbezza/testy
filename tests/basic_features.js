@@ -19,7 +19,7 @@ suite('testing testy', () => {
     assertTrue(true || false);
   });
   
-  test("failures don't break the suite", () => {
+  test("unexpected errors don't break the suite", () => {
     assertTrue(notAFunction());
   });
   
