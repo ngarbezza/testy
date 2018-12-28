@@ -9,7 +9,7 @@
   },
   "main": "testy.js",
   "scripts": {
-    "test": "node tests.js"
+    "test": "node $NODE_DEBUG_OPTION tests.js"
   },
   "files": [
     "testy.js",
