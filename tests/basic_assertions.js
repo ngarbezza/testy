@@ -1,6 +1,6 @@
 const { suite, test, assertTrue, assertFalse, assertThat, assertEquals, isEqualTo, raises, includes } = require('../testy');
 
-suite('testing testy', () => {
+suite('testing testy - basic assertions', () => {
   test("there's assertTrue", () => assertTrue(1 === 1));
   
   test("there's assertFalse", () => assertFalse(1 === 0));

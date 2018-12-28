@@ -1,6 +1,6 @@
 const { suite, test, before, assertTrue, assertThat, assertEquals, isEqualTo, fail } = require('../testy');
 
-suite('testing testy', () => {
+suite('testing testy - basic features', () => {
   before(() => { return { myVar: 7 }; });
   
   test("tests with body", () => {
@@ -32,11 +32,7 @@ suite('testing testy', () => {
     assertEquals({ a: 'a', b: 'b1'}, { a: 'a', b: 'b2'}, criteria);
   });
   
-  test("failing on purpose", () => {
-    fail("I just want to fail");
-  });
+  test("failing on purpose", () => fail("I just want to fail"));
   
-  test("failing on purpose with no message", () => {
-    fail();
-  });
+  test("failing on purpose with no message", () => fail());
 });
