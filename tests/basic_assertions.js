@@ -1,13 +1,19 @@
-const { suite, test, assertTrue, assertFalse, assertThat, assertEquals, isEqualTo, raises, includes } = require('../testy');
+const {
+  suite, test,
+  assertTrue, assertFalse, assertThat, assertEquals,
+  isEqualTo, isNotEqualTo, raises, doesNotRaise, doesNotRaiseAnyErrors, includes
+} = require('../testy');
+
+let emptyFunction = () => { };
 
 suite('testing testy - basic assertions', () => {
   test("there's assertTrue", () => assertTrue(1 === 1));
   
   test("there's assertFalse", () => assertFalse(1 === 0));
   
-  test("object equality", () =>
-    assertThat(42, isEqualTo(40 + 2))
-  );
+  test("object equality", () => assertThat(42, isEqualTo(40 + 2)));
+  
+  test("object is not equal", () => assertThat(42, isNotEqualTo(41)));
   
   test("object equality - different syntax", () =>
     assertEquals(42, 40 + 2)
@@ -23,6 +29,18 @@ suite('testing testy - basic assertions', () => {
   
   test("tests can fail as well :)", () =>
     assertThat(() => { throw 'hey!'; }, raises("ho!"))
+  );
+  
+  test('testing that no specific error happened', () =>
+    assertThat(emptyFunction, doesNotRaise("hey!"))
+  );
+  
+  test('testing that no specific error happened - even if other error occurs', () =>
+    assertThat(() => { throw "ho!"; }, doesNotRaise("hey!"))
+  );
+  
+  test('testing that no error happens at all', () =>
+    assertThat(emptyFunction, doesNotRaiseAnyErrors())
   );
   
   test("object comparison", () =>
