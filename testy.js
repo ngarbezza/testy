@@ -1,5 +1,5 @@
 const requireDir = require('require-dir');
-const { TestRunner } = require('./lib/test_runner');
+const TestRunner = require('./lib/test_runner');
 const ConsoleUI = require('./lib/console_ui');
 
 const UI = ConsoleUI;
@@ -20,6 +20,10 @@ function before(initialization) {
 function runTesty(options) {
   requireDir(options.directory);
   UI.measure('total time', () => testRunner.run());
+  testRunner.finish({
+    success: () => process.exit(0),
+    failure: () => process.exit(1),
+  });
 }
 
 module.exports = Object.assign(
