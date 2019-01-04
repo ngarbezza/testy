@@ -27,9 +27,10 @@ suite('testing testy - basic assertions', () => {
     assertThat(() => { throw 'hey!'; }, raises("hey!"))
   );
   
-  test("tests can fail as well :)", () =>
-    assertThat(() => { throw 'hey!'; }, raises("ho!"))
-  );
+  // commented so CI can pass - uncomment to see the failure
+  // test("tests can fail as well :)", () =>
+  //   assertThat(() => { throw 'hey!'; }, raises("ho!"))
+  // );
   
   test('testing that no specific error happened', () =>
     assertThat(emptyFunction, doesNotRaise("hey!"))
