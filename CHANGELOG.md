@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay!
 
+## [2.10.0] - 2019-01-18
+### Added
+- [Error result if test does not have assertions (#7)](https://github.com/ngarbezza/testy/issues/7)
+
 ## [2.9.1] - 2019-01-04
 ### Fixed
 - [Return exit code 1 when tests fail or raise any error (#6)](https://github.com/ngarbezza/testy/issues/6)
@@ -20,6 +24,7 @@ Everything is released. Yay!
 ### Changed
 - Fix passed count at test runner level
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v2.9.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v2.10.0...HEAD
+[2.10.0]: https://github.com/ngarbezza/testy/compare/v2.9.1...v2.10.0
 [2.9.1]: https://github.com/ngarbezza/testy/compare/v2.9.0...v2.9.1
 [2.9.0]: https://github.com/ngarbezza/testy/compare/v2.8.1...v2.9.0
