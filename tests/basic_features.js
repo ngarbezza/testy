@@ -32,4 +32,7 @@ suite('testing testy - basic features', () => {
   
   // commented so CI can pass - uncomment to see the failure
   // test("failing on purpose with no message", () => fail());
+  
+  // commented so CI can pass - uncomment to see the failure
+  // test("failing if there are no assertions in the test body", () => { return 'no assert'; });
 });
