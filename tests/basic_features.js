@@ -1,3 +1,5 @@
+'use strict';
+
 const { suite, test, before, assertTrue, assertThat, assertEquals, isEqualTo, fail } = require('../testy');
 
 suite('testing testy - basic features', () => {

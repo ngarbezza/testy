@@ -1,6 +1,9 @@
+'use strict';
+
+const libDir = './lib';
 const requireDir = require('require-dir');
-const TestRunner = require('./lib/test_runner');
-const ConsoleUI = require('./lib/console_ui');
+const TestRunner = require(`${libDir}/test_runner`);
+const ConsoleUI = require(`${libDir}/console_ui`);
 
 const UI = ConsoleUI;
 let testRunner = new TestRunner(UI.testRunnerCallbacks);

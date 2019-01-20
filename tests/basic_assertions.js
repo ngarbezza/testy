@@ -1,3 +1,5 @@
+'use strict';
+
 const {
   suite, test,
   assertTrue, assertFalse, assertThat, assertEquals,
