@@ -3,6 +3,8 @@
 const { suite, test, before, assertTrue, assertThat, assertEquals, isEqualTo, fail } = require('../testy');
 
 suite('testing testy - basic features', () => {
+  let circular = {}; circular.yourself = circular;
+  
   before(() => { return { myVar: 7 }; });
   
   test("tests with body", () => {
@@ -36,5 +38,8 @@ suite('testing testy - basic features', () => {
   // test("failing on purpose with no message", () => fail());
   
   // commented so CI can pass - uncomment to see the failure
-  // test("failing if there are no assertions in the test body", () => { return 'no assert'; });
+  // test("failing if there are no assertions in the test body", () => 'no assert');
+  
+  // commented so CI can pass - uncomment to see the failure
+  // test('equality check with objects having circular dependencies fails', () => assertEquals(circular, circular));
 });
