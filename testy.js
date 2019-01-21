@@ -13,7 +13,7 @@ function test(name, testBody) {
 }
 
 function suite(name, suiteBody) {
-  testRunner.registerSuite(name, suiteBody, UI.suiteCallbacks);
+  return testRunner.registerSuite(name, suiteBody, UI.suiteCallbacks);
 }
 
 function before(initialization) {

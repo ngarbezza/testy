@@ -20,12 +20,14 @@ A very simple JS testing library, for educational purposes. Live at npm at [@pmo
 ### Running a single file
 
 ```javascript
-const { suite, tests, assertTrue } = require('@pmoo/testy');
+const { suite, test, assertTrue } = require('@pmoo/testy');
 
 suite('a boring test suite', () => {
   test('true is obviously true', () => assertTrue(true))
-})
+}).run();
 ```
+
+(notice the `run()` at the end)
 
 ### Running tests from a folder
 
@@ -36,6 +38,8 @@ runTesty({ directory: require('path').resolve('./tests') });
 ```
 
 And it will run every file under the `tests` directory, and you can define suites in those files.
+
+In this case, make sure the suites don't have the `run()` at the end, otherwise they are going to be executed twice.
 
 ### Examples and available assertions
 
