@@ -3,10 +3,11 @@
 const libDir = './lib';
 const requireDir = require('require-dir');
 const TestRunner = require(`${libDir}/test_runner`);
+const { Asserter, fail } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
 
 const UI = ConsoleUI;
-let testRunner = new TestRunner(UI.testRunnerCallbacks);
+const testRunner = new TestRunner(UI.testRunnerCallbacks);
 
 function test(name, testBody) {
   testRunner.registerTest(name, testBody, UI.testCallbacks);
@@ -29,7 +30,4 @@ function runTesty(options) {
   });
 }
 
-module.exports = Object.assign(
-  { runTesty: runTesty, suite: suite, test: test, before: before },
-  testRunner.availableAssertions()
-);
+module.exports = { runTesty, suite, test, before, assert: Asserter, fail };

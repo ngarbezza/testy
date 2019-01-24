@@ -1,52 +1,50 @@
 'use strict';
 
-const {
-  suite, test,
-  assertTrue, assertFalse, assertThat, assertEquals,
-  isEqualTo, isNotEqualTo, raises, doesNotRaise, doesNotRaiseAnyErrors, includes
-} = require('../testy');
+const { suite, test, assert } = require('../testy');
 
 let emptyFunction = () => { };
 
 suite('testing testy - basic assertions', () => {
-  test("there's assertTrue", () => assertTrue(1 === 1));
+  test('something is true', () => {
+    assert.isTrue(1 === 1);
+    assert.that(1 === 1).isTrue();
+  });
   
-  test("there's assertFalse", () => assertFalse(1 === 0));
+  test('something is false', () => {
+    assert.isFalse(1 === 0);
+    assert.that(1 === 0).isFalse();
+  });
   
-  test("object equality", () => assertThat(42, isEqualTo(40 + 2)));
+  test('objects are equal (using ===)', () => {
+    assert.that(42).isEqualTo(40 + 2);
+    assert.areEqual(42, 40 + 2);
+  });
   
-  test("object is not equal", () => assertThat(42, isNotEqualTo(41)));
+  test('objects are not equal (using !==)', () => {
+    assert.that(42).isNotEqualTo(41);
+    assert.areNotEqual(42, 41);
+  });
   
-  test("object equality - different syntax", () =>
-    assertEquals(42, 40 + 2)
-  );
+  test('inclusion in collection', () => assert.that([1, 2, 3]).includes(2));
   
-  test("inclusion in collection", () =>
-    assertThat([1, 2, 3], includes(2))
-  );
-  
-  test("assert error messages", () =>
-    assertThat(() => { throw 'hey!'; }, raises("hey!"))
-  );
+  test('error checking', () => assert.that(() => { throw 'hey!'; }).raises("hey!"));
   
   // commented so CI can pass - uncomment to see the failure
-  // test("tests can fail as well :)", () =>
-  //   assertThat(() => { throw 'hey!'; }, raises("ho!"))
-  // );
+  // test('tests can fail as well :)', () => assert.that(() => { throw 'hey!'; }).raises("ho!"));
   
-  test('testing that no specific error happened', () =>
-    assertThat(emptyFunction, doesNotRaise("hey!"))
+  test('no specific error happened', () =>
+    assert.that(emptyFunction).doesNotRaise("hey!")
   );
   
   test('testing that no specific error happened - even if other error occurs', () =>
-    assertThat(() => { throw "ho!"; }, doesNotRaise("hey!"))
+    assert.that(() => { throw "ho!"; }).doesNotRaise("hey!")
   );
   
   test('testing that no error happens at all', () =>
-    assertThat(emptyFunction, doesNotRaiseAnyErrors())
+    assert.that(emptyFunction).doesNotRaiseAnyErrors()
   );
   
-  test("object comparison", () =>
-    assertEquals({ a: 2, b: [1, 2, 3] }, { a: 2, b: [1, 2, 3] })
+  test('object comparison', () =>
+    assert.areEqual({ a: 2, b: [1, 2, 3] }, { a: 2, b: [1, 2, 3] })
   );
 });

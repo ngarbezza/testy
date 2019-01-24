@@ -20,10 +20,10 @@ A very simple JS testing library, for educational purposes. Live at npm at [@pmo
 ### Running a single file
 
 ```javascript
-const { suite, test, assertTrue } = require('@pmoo/testy');
+const { suite, test, assert } = require('@pmoo/testy');
 
 suite('a boring test suite', () => {
-  test('true is obviously true', () => assertTrue(true))
+  test('true is obviously true', () => assert.isTrue(true))
 }).run();
 ```
 
@@ -43,7 +43,7 @@ In this case, make sure the suites don't have the `run()` at the end, otherwise 
 
 ### Examples and available assertions
 
-Please take a look at the `tests` folder, you'll find examples of each possible test you can write.
+Please take a look at the `tests` folder, you'll find examples of each possible test you can write, including different ways of asserting the same (e.g `assert.that(...).isTrue()` vs. `assert.isTrue(...)`).
 
 ## Why?
 
@@ -51,7 +51,7 @@ Why another testing library? The main reason is that we want to keep simplicity,
 
 * **Less dependencies:** right now, we depend on just one npm package, making the library easy to install and avoiding conflict with other dependencies. This is also good for installing on places where the internet connection is not good and we don't want to download hundreds of libraries.
 * **Understandable object-oriented code:** we want to use this tool for teaching, so eventually we'll look at the code during lessons, and students should be able to see what is going on, and even contributing at it, with no dark magic involved. Also, we try to follow good OO practices.
-* **Unique set of features:** we are not following any specification or trying to copy behavior from other approaches (like the "xUnit" or "xSpec" way)  
+* **Unique set of features:** we are not following any specification nor trying to copy behavior from other approaches (like the "xUnit" or "xSpec" way)  
 
 ## Contributing
 
