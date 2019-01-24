@@ -34,10 +34,7 @@ suite('testing testy - basic features', () => {
   });
   
   // commented so CI can pass - uncomment to see the failure
-  // test("failing on purpose", () => fail("I just want to fail"));
-  
-  // commented so CI can pass - uncomment to see the failure
-  // test("failing on purpose with no message", () => fail());
+  // test("failing on purpose", () => fail.with("I just want to fail"));
   
   // commented so CI can pass - uncomment to see the failure
   // test("failing if there are no assertions in the test body", () => 'no assert');

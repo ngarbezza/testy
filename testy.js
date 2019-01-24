@@ -3,11 +3,13 @@
 const libDir = './lib';
 const requireDir = require('require-dir');
 const TestRunner = require(`${libDir}/test_runner`);
-const { Asserter, fail } = require(`${libDir}/asserter`);
+const { Asserter, FailureGenerator } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
 
 const UI = ConsoleUI;
 const testRunner = new TestRunner(UI.testRunnerCallbacks);
+const assert = new Asserter(testRunner);
+const fail = new FailureGenerator(testRunner);
 
 function test(name, testBody) {
   testRunner.registerTest(name, testBody, UI.testCallbacks);
@@ -30,4 +32,4 @@ function runTesty(options) {
   });
 }
 
-module.exports = { runTesty, suite, test, before, assert: Asserter, fail };
+module.exports = { runTesty, suite, test, before, assert, fail };
