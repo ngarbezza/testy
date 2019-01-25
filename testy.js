@@ -23,7 +23,7 @@ function before(initialization) {
   testRunner.registerBefore(initialization);
 }
 
-function runTesty(options) {
+function runTesty(options = {}) {
   requireDir(options.directory);
   UI.measure('total time', () => testRunner.run());
   testRunner.finish({
