@@ -40,5 +40,5 @@ suite('testing testy - basic features', () => {
   // test("failing if there are no assertions in the test body", () => 'no assert');
   
   // commented so CI can pass - uncomment to see the failure
-  // test('equality check with objects having circular dependencies fails', () => assert.areEqual(circular, circular));
+  // test('equality check with objects having circular references fails', () => assert.areEqual(circular, circular));
 });

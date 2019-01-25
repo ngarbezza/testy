@@ -43,7 +43,21 @@ In this case, make sure the suites don't have the `run()` at the end, otherwise 
 
 ### Examples and available assertions
 
-Please take a look at the `tests` folder, you'll find examples of each possible test you can write, including different ways of asserting the same (e.g `assert.that(...).isTrue()` vs. `assert.isTrue(...)`).
+* Boolean assertions:
+  * `assert.that(boolean).isTrue()` or `assert.isTrue(boolean)`. It does a strict comparison against `true` (`object === true`)
+  * `assert.that(boolean).isFalse()` or `assert.isFalse(boolean)`. It does a strict comparison against `false` (`object === false`)
+* Equality assertions:
+  * `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
+  * `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
+  * Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under comparison have circular references.
+* Exception testing:
+  * `assert.that(() => { ... }).raises(error)`
+  * `assert.that(() => { ... }).doesNotRaise(error)`
+  * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
+* Array inclusion:
+  * `assert.that(collection).includes(object)`
+
+Please take a look at the `tests` folder, you'll find examples of each possible test you can write.
 
 ## Why?
 
