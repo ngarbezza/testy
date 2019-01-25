@@ -34,11 +34,10 @@ suite('a boring test suite', () => {
 ```javascript
 const { runTesty } = require('@pmoo/testy');
 
-runTesty({ directory: './tests' });
+runTesty({ directory: require('path').resolve('./tests') });
 ```
 
-And it will run every file under the `tests` directory, and you can define suites in those files. `directory` can receive
-a relative or absolute path. 
+And it will run every file under the `tests` directory, and you can define suites in those files.
 
 In this case, make sure the suites don't have the `run()` at the end, otherwise they are going to be executed twice.
 
