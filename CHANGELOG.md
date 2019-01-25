@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay!
 
+## [3.0.0] - 2019-01-25
+
+This is a release that breaks compatibility with previous ones. The assertion syntax changed completely to be more
+readable and extensible. It also includes a huge internal refactor to make the tool easy to understand and debug.  
+
+### Added
+- [Fluent interface assert style (#13)](https://github.com/ngarbezza/testy/issues/13)
+
 ## [2.11.0] - 2019-01-20
 ### Added
 - [Colored output (#8)](https://github.com/ngarbezza/testy/issues/8)
@@ -29,9 +37,10 @@ Everything is released. Yay!
 - [isNotEqualTo(object) (#5)](https://github.com/ngarbezza/testy/issues/5)
 
 ### Changed
-- Fix passed count at test runner level
+- Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v2.11.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/ngarbezza/testy/compare/v2.11.0...v3.0.0
 [2.11.0]: https://github.com/ngarbezza/testy/compare/v2.10.0...v2.11.0
 [2.10.0]: https://github.com/ngarbezza/testy/compare/v2.9.1...v2.10.0
 [2.9.1]: https://github.com/ngarbezza/testy/compare/v2.9.0...v2.9.1
