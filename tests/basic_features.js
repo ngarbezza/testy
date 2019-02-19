@@ -33,6 +33,20 @@ suite('testing testy - basic features', () => {
     assert.that({ a: 'a', b: 'b1'}).isNotEqualTo({ a: 'a2', b: 'b1'}, criteria);
   });
   
+  test("equality check when objects understand equals()", () => {
+    let objectOne = { a: 'a', b: 'b1', equals: function(another) { return this.a === another.a; } };
+    let objectTwo = { a: 'a', b: 'b2', equals: function(another) { return this.b === another.b; } };
+    assert.that(objectOne).isEqualTo(objectTwo);
+    assert.that(objectTwo).isNotEqualTo(objectOne);
+  });
+  
+  test("equality check using custom message name", () => {
+    let objectOne = { a: 'a', b: 'b1', sameAs: function(another) { return this.a === another.a; } };
+    let objectTwo = { a: 'a', b: 'b2', sameAs: function(another) { return this.b === another.b; } };
+    assert.that(objectOne).isEqualTo(objectTwo, 'sameAs');
+    assert.that(objectTwo).isNotEqualTo(objectOne, 'sameAs');
+  });
+  
   // commented so CI can pass - uncomment to see the failure
   // test('fails in the first error', () => {
   //   assert.isTrue(false);

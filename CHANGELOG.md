@@ -6,11 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Everything is released. Yay!
+* [Equality message to use on isEqualTo and isNotEqualTo (#15)](https://github.com/ngarbezza/testy/issues/15)
 
 ## [3.0.1] - 2019-02-19
 
-A very important bugfix!  
+A very important bugfix!
 
 ### Fixed
 - [Test with more than one assertion does not fail at first failure (#16)](https://github.com/ngarbezza/testy/issues/16)
