@@ -34,6 +34,12 @@ suite('testing testy - basic features', () => {
   });
   
   // commented so CI can pass - uncomment to see the failure
+  // test('fails in the first error', () => {
+  //   assert.isTrue(false);
+  //   assert.isTrue(true);
+  // });
+  
+  // commented so CI can pass - uncomment to see the failure
   // test("failing on purpose", () => fail.with("I just want to fail"));
   
   // commented so CI can pass - uncomment to see the failure
