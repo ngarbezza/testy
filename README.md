@@ -50,6 +50,10 @@ In this case, make sure the suites don't have the `run()` at the end, otherwise 
   * `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
   * `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
   * Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under comparison have circular references.
+  * Equality criteria on non-primitive objects can be specified:
+    * Passing an extra two-arg comparator function to `isEqualTo(expected, criteria)` or `areEqual(actual, expected, criteria)`
+    * Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
+    * By default, if `actual` has an `equals` method it will be used.  
 * Exception testing:
   * `assert.that(() => { ... }).raises(error)`
   * `assert.that(() => { ... }).doesNotRaise(error)`
