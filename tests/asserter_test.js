@@ -54,4 +54,66 @@ suite('assertions behavior', () => {
     
     expectFailDueTo('Expected null to be false');
   });
-});
+  
+  test('isEqualTo pass with equal primitive objects', () => {
+    asserter.that(42).isEqualTo(42);
+  
+    expectSuccess();
+  });
+  
+  test('isEqualTo fails with different primitive objects', () => {
+    asserter.that(42).isEqualTo(21);
+    
+    expectFailDueTo('Expected 42 to be equal to 21');
+  });
+  
+  test('isEqualTo passes with boxed and unboxed numbers', () => {
+    asserter.that(42).isEqualTo((42));
+  
+    expectSuccess();
+  });
+  
+  test('isEqualTo passes with arrays in the same order', () => {
+    asserter.that([1, 2, 3]).isEqualTo([1, 2, 3]);
+    
+    expectSuccess();
+  });
+  
+  test('isEqualTo fails with arrays in different order', () => {
+    asserter.that([1, 2, 3]).isEqualTo([1, 3, 2]);
+  
+    expectFailDueTo('Expected [ 1, 2, 3 ] to be equal to [ 1, 3, 2 ]');
+  });
+  
+  test('isEqualTo passes with objects having the same property values', () => {
+    let objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
+    let objectTwo = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
+    asserter.that(objectOne).isEqualTo(objectTwo);
+    
+    expectSuccess();
+  });
+  
+  test('isEqualTo fails with objects having different property values', () => {
+    let objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
+    let objectTwo = { a: 'a', b: { b1: 'b1', b2: '' } };
+    asserter.that(objectOne).isEqualTo(objectTwo);
+    
+    expectFailDueTo("Expected { a: 'a', b: { b1: 'b1', b2: 'b2' } } to be equal to { a: 'a', b: { b1: 'b1', b2: '' } }");
+  });
+  
+  test('isEqualTo fails if one object has less properties than the other', () => {
+    let objectOne = { a: 'a', b: 'b' };
+    let objectTwo = { a: 'a', b: 'b', c: 'c' };
+    asserter.that(objectOne).isEqualTo(objectTwo);
+    
+    expectFailDueTo("Expected { a: 'a', b: 'b' } to be equal to { a: 'a', b: 'b', c: 'c' }");
+  });
+  
+  test('isEqualTo fails if one object has more properties than the other', () => {
+    let objectOne = { a: 'a', b: 'b', c: 'c' };
+    let objectTwo = { a: 'a', b: 'b' };
+    asserter.that(objectOne).isEqualTo(objectTwo);
+    
+    expectFailDueTo("Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
+  });
+}).run();
