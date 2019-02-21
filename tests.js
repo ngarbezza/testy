@@ -2,4 +2,4 @@
 
 const { runTesty } = require('./testy');
 
-runTesty({ directory: './tests' });
+runTesty({ directory: require('path').resolve('./tests') });

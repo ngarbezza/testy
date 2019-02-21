@@ -1,7 +1,7 @@
 'use strict';
 
-const { suite, test, assert } = require('../testy');
-const { Asserter } = require('../lib/asserter');
+const { suite, test, assert } = require('../../testy');
+const { Asserter } = require('../../lib/asserter');
 
 const fakeRunner = {
   setResultForCurrentTest(result) { this._result = result; },

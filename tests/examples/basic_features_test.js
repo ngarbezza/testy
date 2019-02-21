@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, before, assert, fail } = require('../testy');
+const { suite, test, before, assert, fail } = require('../../testy');
 
 suite('testing testy - basic features', () => {
   let circular = {}; circular.yourself = circular;

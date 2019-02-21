@@ -24,7 +24,7 @@ function before(initialization) {
 }
 
 function runTesty(options = {}) {
-  requireDir(options.directory);
+  requireDir(options.directory, { recurse: true });
   UI.measure('total time', () => testRunner.run());
   testRunner.finish({
     success: () => process.exit(0),

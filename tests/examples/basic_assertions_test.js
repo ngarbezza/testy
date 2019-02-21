@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, assert } = require('../testy');
+const { suite, test, assert } = require('../../testy');
 
 let emptyFunction = () => { };
 
