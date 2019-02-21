@@ -116,4 +116,4 @@ suite('assertions behavior', () => {
     
     expectFailDueTo("Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
   });
-}).run();
+});
