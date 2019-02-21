@@ -116,4 +116,34 @@ suite('assertions behavior', () => {
     
     expectFailDueTo("Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
   });
+  
+  test('includesExactly passes with a single object included', () => {
+    asserter.that(['hey']).includesExactly('hey');
+    
+    expectSuccess();
+  });
+  
+  test('includesExactly fails if the collection has more objects than expected', () => {
+    asserter.that(['hey', 'ho']).includesExactly('hey');
+    
+    expectFailDueTo("Expected [ 'hey', 'ho' ] to include exactly [ 'hey' ]");
+  });
+  
+  test('includesExactly fails if the collection has less objects than expected', () => {
+    asserter.that(['hey']).includesExactly('hey', 'ho');
+    
+    expectFailDueTo("Expected [ 'hey' ] to include exactly [ 'hey', 'ho' ]");
+  });
+  
+  test('includesExactly fails if none of the objects are included at all', () => {
+    asserter.that(['hey']).includesExactly('ho');
+    
+    expectFailDueTo("Expected [ 'hey' ] to include exactly [ 'ho' ]");
+  });
+  
+  test('includesExactly passes with many items no matter the order', () => {
+    asserter.that(['hey', 'ho']).includesExactly('ho', 'hey');
+    
+    expectSuccess();
+  });
 });

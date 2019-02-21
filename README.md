@@ -60,6 +60,7 @@ In this case, make sure the suites don't have the `run()` at the end, otherwise 
   * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Array inclusion:
   * `assert.that(collection).includes(object)`
+  * `assert.that(collection).includesExactly(...objects)`
 
 Please take a look at the `tests` folder, you'll find examples of each possible test you can write.
 

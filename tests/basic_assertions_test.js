@@ -27,6 +27,10 @@ suite('testing testy - basic assertions', () => {
   
   test('inclusion in collection', () => assert.that([1, 2, 3]).includes(2));
   
+  test('inclusion of all elements in collection', () => {
+    assert.that([1, 2, 3]).includesExactly(2, 3, 1);
+  });
+  
   test('error checking', () => assert.that(() => { throw 'hey!'; }).raises("hey!"));
   
   // commented so CI can pass - uncomment to see the failure

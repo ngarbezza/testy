@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * [Equality message to use on isEqualTo and isNotEqualTo (#15)](https://github.com/ngarbezza/testy/issues/15)
+* [Matcher: includesExactly (#18)](https://github.com/ngarbezza/testy/issues/18)
 
 ## [3.0.1] - 2019-02-19
 
