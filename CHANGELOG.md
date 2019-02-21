@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Everything is released. Yay!
+
+## [3.1.1] - 2019-02-21
+
+Continuing improving some assertions.
+
+### Added
 * [Equality message to use on isEqualTo and isNotEqualTo (#15)](https://github.com/ngarbezza/testy/issues/15)
 * [Matcher: includesExactly (#18)](https://github.com/ngarbezza/testy/issues/18)
 
@@ -47,7 +54,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v3.1.1...HEAD
+[3.1.1]: https://github.com/ngarbezza/testy/compare/v3.0.1...v3.1.1
 [3.0.1]: https://github.com/ngarbezza/testy/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/ngarbezza/testy/compare/v2.11.0...v3.0.0
 [2.11.0]: https://github.com/ngarbezza/testy/compare/v2.10.0...v2.11.0
