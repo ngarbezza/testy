@@ -10,12 +10,12 @@ const fakeRunner = {
 const asserter = new Asserter(fakeRunner);
 
 function expectFailDueTo(failureMessage) {
-  assert.isFalse(fakeRunner.result().success);
-  assert.areEqual(fakeRunner.result().failureMessage, failureMessage);
+  assert.isFalse(fakeRunner.result().isSuccess());
+  assert.areEqual(fakeRunner.result().failureMessage(), failureMessage);
 }
 
 function expectSuccess() {
-  assert.isTrue(fakeRunner.result().success);
+  assert.isTrue(fakeRunner.result().isSuccess());
 }
 
 suite('assertions behavior', () => {
