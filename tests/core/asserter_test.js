@@ -2,11 +2,14 @@
 
 const { suite, test, assert } = require('../../testy');
 const { Asserter } = require('../../lib/asserter');
+const I18n = require('../../lib/i18n');
 
 const fakeRunner = {
-  setResultForCurrentTest(result) { this._result = result; },
-  result() { return this._result; }
+  setResultForCurrentTest: function (result) { this._result = result; },
+  result: function () { return this._result; },
+  _i18n: new I18n(),
 };
+
 const asserter = new Asserter(fakeRunner);
 
 function expectFailDueTo(failureMessage) {

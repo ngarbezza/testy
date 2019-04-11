@@ -29,7 +29,9 @@ class Testy {
   
   constructor(options) {
     requireDir(options.directory, { recurse: true });
-    ui.useLanguage(options.language || I18n.defaultLanguage());
+    const languageToUse = options.language || I18n.defaultLanguage();
+    ui.useLanguage(languageToUse);
+    testRunner.useLanguage(languageToUse);
   }
   
   run() {

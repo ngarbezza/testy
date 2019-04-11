@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Deprecate context object passed to before() blocks](https://github.com/ngarbezza/testy/issues/23)
 - [Prevent definition of multiple before() blocks](https://github.com/ngarbezza/testy/issues/24)
 - [Change `runTesty` to be more object-oriented](https://github.com/ngarbezza/testy/issues/27)
+- [Multilanguage support](https://github.com/ngarbezza/testy/issues/25). Includes English and Spanish translations
 
 ## [3.1.1] - 2019-02-21
 

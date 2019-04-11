@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, assert, pending } = require('../../testy');
+const { suite, test, assert } = require('../../testy');
 const I18n = require('../../lib/i18n');
 
 suite('i18n', () => {
