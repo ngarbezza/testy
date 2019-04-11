@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Include actual error description in failure message when an exception is expected but another is raised](https://github.com/ngarbezza/testy/pull/22), thank you [@JavierGelatti](https://github.com/JavierGelatti)!
 - [Deprecate context object passed to before() blocks](https://github.com/ngarbezza/testy/issues/23)
+- [Prevent definition of multiple before() blocks](https://github.com/ngarbezza/testy/issues/24)
 
 ## [3.1.1] - 2019-02-21
 
