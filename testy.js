@@ -5,18 +5,19 @@ const requireDir = require('require-dir');
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
+const I18n = require(`${libDir}/i18n`);
 
-const UI = ConsoleUI;
-const testRunner = new TestRunner(UI.testRunnerCallbacks);
+const ui = new ConsoleUI();
+const testRunner = new TestRunner(ui.testRunnerCallbacks());
 const assert = new Asserter(testRunner);
 const fail = new FailureGenerator(testRunner);
 
 function test(name, testBody) {
-  testRunner.registerTest(name, testBody, UI.testCallbacks);
+  testRunner.registerTest(name, testBody, ui.testCallbacks());
 }
 
 function suite(name, suiteBody) {
-  return testRunner.registerSuite(name, suiteBody, UI.suiteCallbacks);
+  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
 }
 
 function before(initialization) {
@@ -25,7 +26,8 @@ function before(initialization) {
 
 function runTesty(options = {}) {
   requireDir(options.directory, { recurse: true });
-  UI.measure('total time', () => testRunner.run());
+  ui.useLanguage(options.language || I18n.defaultLanguage());
+  ui.measuringTotalTime(() => testRunner.run());
   testRunner.finish({
     success: () => process.exit(0),
     failure: () => process.exit(1),
