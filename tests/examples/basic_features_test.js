@@ -4,8 +4,9 @@ const { suite, test, before, assert, fail } = require('../../testy');
 
 suite('testing testy - basic features', () => {
   let circular = {}; circular.yourself = circular;
+  let myVar = 8;
   
-  before(() => { return { myVar: 7 }; });
+  before(() => myVar = 7);
   
   test('tests with body', () => {
     let pepe = { nombre: 'pepe' };
@@ -14,7 +15,7 @@ suite('testing testy - basic features', () => {
   
   test("I'm a WIP");
   
-  test('before hook can be used', (c) => assert.areEqual(c.myVar, 7));
+  test('before hook can be used', () => assert.areEqual(myVar, 7));
   
   test('many assertions', () => {
     assert.areEqual(2, 1 + 1);
