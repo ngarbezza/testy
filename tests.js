@@ -1,8 +1,8 @@
 'use strict';
 
-const { runTesty } = require('./testy');
+const { Testy } = require('./testy');
 
-runTesty({
+Testy.configuredWith({
   directory: require('path').resolve('./tests'),
   language: 'en' // you can try 'es' to see spanish output
-});
+}).run();

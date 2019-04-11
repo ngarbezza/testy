@@ -24,14 +24,21 @@ function before(initialization) {
   testRunner.registerBefore(initialization);
 }
 
-function runTesty(options = {}) {
-  requireDir(options.directory, { recurse: true });
-  ui.useLanguage(options.language || I18n.defaultLanguage());
-  ui.measuringTotalTime(() => testRunner.run());
-  testRunner.finish({
-    success: () => process.exit(0),
-    failure: () => process.exit(1),
-  });
+class Testy {
+  static configuredWith(options) { return new Testy(options); }
+  
+  constructor(options) {
+    requireDir(options.directory, { recurse: true });
+    ui.useLanguage(options.language || I18n.defaultLanguage());
+  }
+  
+  run() {
+    ui.measuringTotalTime(() => testRunner.run());
+    testRunner.finish({
+      success: () => process.exit(0),
+      failure: () => process.exit(1),
+    });
+  }
 }
 
-module.exports = { runTesty, suite, test, before, assert, fail };
+module.exports = { Testy, suite, test, before, assert, fail };
