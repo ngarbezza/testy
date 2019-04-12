@@ -6,12 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- [Include actual error description in failure message when an exception is expected but another is raised](https://github.com/ngarbezza/testy/pull/22), thank you [@JavierGelatti](https://github.com/JavierGelatti)!
-- [Deprecate context object passed to before() blocks](https://github.com/ngarbezza/testy/issues/23)
-- [Prevent definition of multiple before() blocks](https://github.com/ngarbezza/testy/issues/24)
-- [Change `runTesty` to be more object-oriented](https://github.com/ngarbezza/testy/issues/27)
-- [Multilanguage support](https://github.com/ngarbezza/testy/issues/25). Includes English and Spanish translations
-- [Fail-Fast mode](https://github.com/ngarbezza/testy/issues/9)
+Everything is released. Yay!
+
+## [4.0.0] - 2019-04-11
+
+Major release! Including breaking changes.
+
+### Changed
+* [Change `runTesty` to be more object-oriented](https://github.com/ngarbezza/testy/issues/27). This deprecates the `runTesty` function way of configuring Testy. README is up to date with the new configuration way.
+* [Deprecate context object passed to before() blocks](https://github.com/ngarbezza/testy/issues/23). Tests using this feature will break from now on.
+
+### Added
+* [Include actual error description in failure message when an exception is expected but another is raised](https://github.com/ngarbezza/testy/pull/22), thank you [@JavierGelatti](https://github.com/JavierGelatti)!
+* [Prevent definition of multiple before() blocks](https://github.com/ngarbezza/testy/issues/24)
+* [Multilanguage support](https://github.com/ngarbezza/testy/issues/25). Includes English and Spanish translations
+* [Fail-Fast mode](https://github.com/ngarbezza/testy/issues/9). This adds a new possible test result which is Skipped.
 
 ## [3.1.1] - 2019-02-21
 
@@ -59,7 +68,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v3.1.1...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/ngarbezza/testy/compare/v3.1.1...v4.0.0
 [3.1.1]: https://github.com/ngarbezza/testy/compare/v3.0.1...v3.1.1
 [3.0.1]: https://github.com/ngarbezza/testy/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/ngarbezza/testy/compare/v2.11.0...v3.0.0
