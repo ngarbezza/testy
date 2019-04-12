@@ -35,14 +35,18 @@ suite('a boring test suite', () => {
 const { Testy } = require('@pmoo/testy');
 
 Testy.configuredWith({
+  // Absolute path. Resolved by 'path' module
   directory: require('path').resolve('./tests'),
-  language: 'en' // you can try 'es' to see spanish output
+  // 'en' is the default. For example, you can try 'es' to see output in Spanish
+  language: 'en',
+  // Stops at the first failed or errored test. false by default
+  failFast: false,
 }).run();
 ```
 
 And it will run every file under the `tests` directory, and you can define suites in those files.
 
-In this case, make sure the suites don't have the `run()` at the end, otherwise they are going to be executed twice.
+In this case, make sure suites don't have the `run()` at the end, otherwise they are going to be executed twice.
 
 ### Examples and available assertions
 

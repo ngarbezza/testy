@@ -32,6 +32,7 @@ class Testy {
     const languageToUse = options.language || I18n.defaultLanguage();
     ui.useLanguage(languageToUse);
     testRunner.useLanguage(languageToUse);
+    testRunner.toggleFailFastMode(options.failFast || false);
   }
   
   run() {
