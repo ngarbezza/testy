@@ -5,6 +5,7 @@ const requireDir = require('require-dir');
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
+const FailFast = require(`${libDir}/fail_fast`);
 const I18n = require(`${libDir}/i18n`);
 
 const ui = new ConsoleUI();
@@ -32,7 +33,7 @@ class Testy {
     const languageToUse = options.language || I18n.defaultLanguage();
     ui.useLanguage(languageToUse);
     testRunner.useLanguage(languageToUse);
-    testRunner.toggleFailFastMode(options.failFast || false);
+    testRunner.setFailFastMode(new FailFast(options.failFast || false));
   }
   
   run() {
