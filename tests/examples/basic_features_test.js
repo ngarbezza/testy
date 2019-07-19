@@ -63,3 +63,5 @@ suite('testing testy - basic features', () => {
   // commented so CI can pass - uncomment to see the failure
   // test('equality check with objects having circular references fails', () => assert.areEqual(circular, circular));
 });
+
+suite('empty suites can be defined');
