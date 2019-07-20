@@ -1,6 +1,6 @@
 # Testy
 
-![ci](https://img.shields.io/travis/ngarbezza/testy.svg)
+[![ci](https://img.shields.io/travis/ngarbezza/testy.svg)](https://travis-ci.org/ngarbezza/testy)
 ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@pmoo/testy.svg)
 ![dependencies](https://img.shields.io/david/ngarbezza/testy.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6b6e4d071471379f31e7/maintainability)](https://codeclimate.com/github/ngarbezza/testy/maintainability)
