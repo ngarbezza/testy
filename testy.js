@@ -26,7 +26,9 @@ function before(initialization) {
 }
 
 class Testy {
-  static configuredWith(options) { return new Testy(options); }
+  static configuredWith(options) {
+    return new Testy(options);
+  }
   
   constructor(options) {
     requireDir(options.directory, { recurse: true });
@@ -37,7 +39,9 @@ class Testy {
   }
   
   run() {
-    ui.measuringTotalTime(() => testRunner.run());
+    ui.measuringTotalTime(() =>
+      testRunner.run()
+    );
     testRunner.finish({
       success: () => process.exit(0),
       failure: () => process.exit(1),
