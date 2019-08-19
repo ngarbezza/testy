@@ -22,6 +22,8 @@ function expectSuccess() {
 }
 
 suite('assertions behavior', () => {
+  // Boolean assertions - isTrue()
+  
   test('isTrue passes with true', () => {
     asserter.that(true).isTrue();
     
@@ -40,6 +42,8 @@ suite('assertions behavior', () => {
     expectFailDueTo('Expected null to be true');
   });
   
+  // Boolean assertions - isFalse()
+  
   test('isFalse passes with false', () => {
     asserter.that(false).isFalse();
     
@@ -57,6 +61,8 @@ suite('assertions behavior', () => {
     
     expectFailDueTo('Expected null to be false');
   });
+  
+  // Boolean assertions - isEqualTo()
   
   test('isEqualTo pass with equal primitive objects', () => {
     asserter.that(42).isEqualTo(42);
@@ -120,6 +126,22 @@ suite('assertions behavior', () => {
     expectFailDueTo("Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
   });
   
+  // Collection assertions - includes()
+  
+  test('includes passes if the object is in the array', () => {
+    asserter.that(['hey']).includes('hey');
+  
+    expectSuccess();
+  });
+  
+  test('includes does not pass if the actual object is not an array', () => {
+    asserter.that([]).includes('hey');
+    
+    expectFailDueTo("Expected [] to include hey");
+  });
+  
+  // Collection assertions - includesExactly()
+  
   test('includesExactly passes with a single object included', () => {
     asserter.that(['hey']).includesExactly('hey');
     
@@ -146,6 +168,58 @@ suite('assertions behavior', () => {
   
   test('includesExactly passes with many items no matter the order', () => {
     asserter.that(['hey', 'ho']).includesExactly('ho', 'hey');
+    
+    expectSuccess();
+  });
+  
+  // Collection assertions - isEmpty()
+  
+  test('isEmpty passes on an empty array', () => {
+    asserter.that([]).isEmpty();
+    
+    expectSuccess();
+  });
+  
+  test('isEmpty does not pass if the array has elements', () =>{
+    asserter.that(['hey']).isEmpty();
+  
+    expectFailDueTo("Expected [ 'hey' ] to be empty");
+  });
+  
+  test('isEmpty passes with an empty string', () => {
+    asserter.that('').isEmpty();
+  
+    expectSuccess();
+  });
+  
+  test('isEmpty shorthand works', () => {
+    asserter.isEmpty([]);
+    
+    expectSuccess();
+  });
+  
+  // Collection assertions - isEmpty()
+  
+  test('isNotEmpty passes on an array with element', () => {
+    asserter.that(['hey']).isNotEmpty();
+    
+    expectSuccess();
+  });
+  
+  test('isNotEmpty does not pass if the array is empty', () =>{
+    asserter.that([]).isNotEmpty();
+    
+    expectFailDueTo("Expected [] to be not empty");
+  });
+  
+  test('isNotEmpty passes with a string with content', () => {
+    asserter.that('hey').isNotEmpty();
+    
+    expectSuccess();
+  });
+  
+  test('isNotEmpty shorthand works', () => {
+    asserter.isNotEmpty(['hey']);
     
     expectSuccess();
   });
