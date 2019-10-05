@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay!
 
+## [4.1.1] - 2019-10-05
+
+Release emoji: :zero:
+
+### Added
+* [Failures summary section](https://github.com/ngarbezza/testy/issues/31): Now at the end of the console output, we
+should see (in case there are failures or errors) a summary so you don't have to scroll up to find the problems!
+* [New matchers: isEmpty(), isNotEmpty()](https://github.com/ngarbezza/testy/issues/34). Now strings and arrays can
+be tested using these matchers.
+
+### Changed
+* [Remove `require-dir` dependency](https://github.com/ngarbezza/testy/issues/36): Zero dependencies goal reached! :muscle:
+* [Increased "debuggability"](https://github.com/ngarbezza/testy/issues/33): Nobody should be afraid of debugging inside this library!
+If something is not understandable, let's change it.
+
 ## [4.0.1] - 2019-07-19
 
 A round of bugfixes on the last major release. 
@@ -76,8 +91,9 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.0.1...HEAD
-[4.0.0]: https://github.com/ngarbezza/testy/compare/v4.0.0...v4.0.1
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.1.1...HEAD
+[4.1.1]: https://github.com/ngarbezza/testy/compare/v4.0.1...v4.1.1
+[4.0.1]: https://github.com/ngarbezza/testy/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/ngarbezza/testy/compare/v3.1.1...v4.0.0
 [3.1.1]: https://github.com/ngarbezza/testy/compare/v3.0.1...v3.1.1
 [3.0.1]: https://github.com/ngarbezza/testy/compare/v3.0.0...v3.0.1
