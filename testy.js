@@ -1,7 +1,8 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
 const libDir = './lib';
-const requireDir = require('require-dir');
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
@@ -25,17 +26,24 @@ function before(initialization) {
   testRunner.registerBefore(initialization);
 }
 
+function allFilesIn(dir, results = []) {
+  if (fs.lstatSync(dir).isFile()) return [dir];
+  
+  fs.readdirSync(dir).forEach(f =>
+    results = results.concat(allFilesIn(path.join(dir, f), results))
+  );
+  return results;
+}
+
 class Testy {
   static configuredWith(options) {
     return new Testy(options);
   }
   
   constructor(options) {
-    requireDir(options.directory, { recurse: true });
-    const languageToUse = options.language || I18n.defaultLanguage();
-    ui.useLanguage(languageToUse);
-    testRunner.useLanguage(languageToUse);
-    testRunner.setFailFastMode(new FailFast(options.failFast || false));
+    this._configureLanguageToUse(options.language);
+    this._configureFailFastMode(options.failFast);
+    this._loadAllSuitesFrom(options.directory);
   }
   
   run() {
@@ -46,6 +54,22 @@ class Testy {
       success: () => process.exit(0),
       failure: () => process.exit(1),
     });
+  }
+  
+  _configureLanguageToUse(desiredLanguage) {
+    const languageToUse = desiredLanguage || I18n.defaultLanguage();
+    ui.useLanguage(languageToUse);
+    testRunner.useLanguage(languageToUse);
+  }
+  
+  _configureFailFastMode(failFastChoice) {
+    testRunner.setFailFastMode(new FailFast(failFastChoice || false));
+  }
+  
+  _loadAllSuitesFrom(testsDirectory) {
+    allFilesIn(testsDirectory).forEach(file =>
+      require(file)
+    );
   }
 }
 
