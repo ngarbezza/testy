@@ -62,12 +62,15 @@ In this case, make sure suites don't have the `run()` at the end, otherwise they
     * Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
     * By default, if `actual` has an `equals` method it will be used.  
 * Exception testing:
-  * `assert.that(() => { ... }).raises(error)`
+  * `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
   * `assert.that(() => { ... }).doesNotRaise(error)`
   * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Array inclusion:
   * `assert.that(collection).includes(object)`
   * `assert.that(collection).includesExactly(...objects)`
+* Emptiness
+  * `assert.that(arrayOrString).isEmpty()`
+  * `assert.that(arrayOrString).isNotEmpty()`
 
 Please take a look at the `tests` folder, you'll find examples of each possible test you can write.
 
