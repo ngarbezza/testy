@@ -6,22 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Everything is released. Yay!
+### Added
+* [Allow to pass a regex to the raises() matcher](https://github.com/ngarbezza/testy/issues/39)
+
+### Fixed
+* [Poor error message when custom equality method is not found](https://github.com/ngarbezza/testy/issues/35): Thank you, [@TomerPacific](https://github.com/@TomerPacific)!
 
 ## [4.1.1] - 2019-10-05
 
 Release emoji: :zero:
 
 ### Added
-* [Failures summary section](https://github.com/ngarbezza/testy/issues/31): Now at the end of the console output, we
-should see (in case there are failures or errors) a summary so you don't have to scroll up to find the problems!
-* [New matchers: isEmpty(), isNotEmpty()](https://github.com/ngarbezza/testy/issues/34). Now strings and arrays can
-be tested using these matchers.
+* [Failures summary section](https://github.com/ngarbezza/testy/issues/31): Now at the end of the console output, we should see (in case there are failures or errors) a summary so you don't have to scroll up to find the problems!
+* [New matchers: isEmpty(), isNotEmpty()](https://github.com/ngarbezza/testy/issues/34). Now strings and arrays can be tested using these matchers.
 
 ### Changed
 * [Remove `require-dir` dependency](https://github.com/ngarbezza/testy/issues/36): Zero dependencies goal reached! :muscle:
-* [Increased "debuggability"](https://github.com/ngarbezza/testy/issues/33): Nobody should be afraid of debugging inside this library!
-If something is not understandable, let's change it.
+* [Increased "debuggability"](https://github.com/ngarbezza/testy/issues/33): Nobody should be afraid of debugging inside this library! If something is not understandable, let's change it.
 
 ## [4.0.1] - 2019-07-19
 
