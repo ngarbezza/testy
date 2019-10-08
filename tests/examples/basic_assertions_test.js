@@ -51,4 +51,9 @@ suite('testing testy - basic assertions', () => {
   test('object comparison', () =>
     assert.areEqual({ a: 2, b: [1, 2, 3] }, { a: 2, b: [1, 2, 3] })
   );
+
+  // commented so CI can pass - uncomment to see the failure
+  // test('object comparison invalid property', () =>
+  //   assert.areEqual({'name': 'first-object'}, {'name': 'second-object'}, 'key')
+  // );
 });
