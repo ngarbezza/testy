@@ -6,8 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Everything is released. Yay! :tada:
+
+## [4.2.0] - 2019-10-09
+
 ### Added
 * [Allow to pass a regex to the raises() matcher](https://github.com/ngarbezza/testy/issues/39)
+* [New matcher: doesNotInclude()](https://github.com/ngarbezza/testy/issues/38)
 
 ### Fixed
 * [Poor error message when custom equality method is not found](https://github.com/ngarbezza/testy/issues/35): Thank you, [@TomerPacific](https://github.com/@TomerPacific)!
@@ -93,6 +98,7 @@ readable and extensible. It also includes a huge internal refactor to make the t
 - Fix passed count at test runner level (no reported issue)
 
 [Unreleased]: https://github.com/ngarbezza/testy/compare/v4.1.1...HEAD
+[4.2.0]: https://github.com/ngarbezza/testy/compare/v4.1.1...v4.2.0
 [4.1.1]: https://github.com/ngarbezza/testy/compare/v4.0.1...v4.1.1
 [4.0.1]: https://github.com/ngarbezza/testy/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/ngarbezza/testy/compare/v3.1.1...v4.0.0

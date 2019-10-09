@@ -1,6 +1,6 @@
 {
   "name": "@pmoo/testy",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "A very simple testing library, for educational purposes",
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
@@ -19,9 +19,11 @@
     "lib": "./lib"
   },
   "keywords": [
+    "unit-test",
     "testing",
     "tdd",
     "simple",
+    "learning",
     "teaching",
     "oop"
   ],
