@@ -141,6 +141,20 @@ suite('assertions behavior', () => {
     expectFailDueTo("Expected [] to include hey");
   });
   
+  // Collection assertions - doesNotInclude()
+  
+  test('doesNotInclude fails if the object is in the array', () => {
+    asserter.that(['hey']).doesNotInclude('hey');
+  
+    expectFailDueTo("Expected [ 'hey' ] to not include hey");
+  });
+  
+  test('doesNotInclude passes if the object is not an array', () => {
+    asserter.that([]).doesNotInclude('hey');
+  
+    expectSuccess();
+  });
+  
   // Collection assertions - includesExactly()
   
   test('includesExactly passes with a single object included', () => {

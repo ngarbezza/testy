@@ -67,6 +67,7 @@ In this case, make sure suites don't have the `run()` at the end, otherwise they
   * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Array inclusion:
   * `assert.that(collection).includes(object)`
+  * `assert.that(collection).doesNotInclude(object)`
   * `assert.that(collection).includesExactly(...objects)`
 * Emptiness
   * `assert.that(arrayOrString).isEmpty()`
