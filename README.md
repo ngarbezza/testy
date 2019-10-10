@@ -15,6 +15,8 @@ A very simple JS testing library, for educational purposes. Live at npm at [@pmo
 
 `npm install --save-dev @pmoo/testy`
 
+**Supported Node versions**: 6.x or higher
+
 ## Usage
 
 ### Running a single file
