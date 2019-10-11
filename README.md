@@ -77,6 +77,12 @@ In this case, make sure suites don't have the `run()` at the end, otherwise they
 
 Please take a look at the `tests` folder, you'll find examples of each possible test you can write. Testy is self-tested.
 
+### Other features
+
+* **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a failure.
+* **Fail-Fast mode**: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.
+* **Strict check for assertions**: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a "bad" test. 
+
 ## Why?
 
 Why another testing library? The main reason is that we want to keep simplicity, something it's hard to see in the main testing tools out there.
