@@ -75,7 +75,7 @@ In this case, make sure suites don't have the `run()` at the end, otherwise they
   * `assert.that(arrayOrString).isEmpty()`
   * `assert.that(arrayOrString).isNotEmpty()`
 
-Please take a look at the `tests` folder, you'll find examples of each possible test you can write.
+Please take a look at the `tests` folder, you'll find examples of each possible test you can write. Testy is self-tested.
 
 ## Why?
 
