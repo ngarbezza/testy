@@ -127,6 +127,46 @@ suite('assertions behavior', () => {
     expectFailDueTo("Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
   });
   
+  test('isEqualTo with custom criteria fails if objects do not have that property', () => {
+    let objectOne = { a: 'a', b: 'b' };
+    let objectTwo = { a: 'a', b: 'b' };
+    asserter.areEqual(objectOne, objectTwo, 'notFound');
+    
+    expectFailDueTo('Expected { a: \'a\', b: \'b\' } to be equal to { a: \'a\', b: \'b\' } Equality check failed. Objects do not have \'notFound\' property');
+  });
+  
+  test('isEqualTo with custom criteria passes if the criteria evaluates to true', () => {
+    let objectOne = { a: 'a', b: 'b1', myEqualMessage: () => true };
+    let objectTwo = { a: 'a', b: 'b2', myEqualMessage: () => true };
+    asserter.areEqual(objectOne, objectTwo, 'myEqualMessage');
+    
+    expectSuccess();
+  });
+  
+  test('isEqualTo with custom criteria passes if the criteria evaluates to true, and we are comparing instances of the same class', () => {
+    class AClass {
+      constructor(a) { this.a = a }
+      myEqualMessage() { return true }
+    }
+    let objectOne = new AClass();
+    let objectTwo = new AClass();
+    asserter.areEqual(objectOne, objectTwo, 'myEqualMessage');
+    
+    expectSuccess();
+  });
+  
+  test('isEqualTo with equals() default criteria passes if it evaluates to true, and we are comparing instances of the same class', () => {
+    class AClass {
+      constructor(a) { this.a = a }
+      equals() { return true }
+    }
+    let objectOne = new AClass(1);
+    let objectTwo = new AClass(2);
+    asserter.areEqual(objectOne, objectTwo);
+    
+    expectSuccess();
+  });
+  
   // Collection assertions - includes()
   
   test('includes passes if the object is in the array', () => {
