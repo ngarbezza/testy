@@ -8,7 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay! :tada:
 
+## [4.2.1] - 2019-10-10
+
+Release emoji: :six:
+
+### Fixed
+* [Support for Node 6.x](https://github.com/ngarbezza/testy/issues/46)
+
 ## [4.2.0] - 2019-10-09
+
+Release emoji :heavy_plus_sign:
 
 ### Added
 * [Allow to pass a regex to the raises() matcher](https://github.com/ngarbezza/testy/issues/39)
@@ -97,7 +106,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.1.1...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.2.1...HEAD
+[4.2.1]: https://github.com/ngarbezza/testy/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/ngarbezza/testy/compare/v4.1.1...v4.2.0
 [4.1.1]: https://github.com/ngarbezza/testy/compare/v4.0.1...v4.1.1
 [4.0.1]: https://github.com/ngarbezza/testy/compare/v4.0.0...v4.0.1
