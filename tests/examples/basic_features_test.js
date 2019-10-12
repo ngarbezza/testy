@@ -13,8 +13,6 @@ suite('testing testy - basic features', () => {
     assert.that(pepe.nombre).isEqualTo('pepe');
   });
   
-  test("I'm a WIP");
-  
   test('before hook can be used', () => assert.areEqual(myVar, 7));
   
   test('many assertions', () => {
@@ -63,5 +61,3 @@ suite('testing testy - basic features', () => {
   // commented so CI can pass - uncomment to see the failure
   // test('equality check with objects having circular references fails', () => assert.areEqual(circular, circular));
 });
-
-suite('empty suites can be defined');
