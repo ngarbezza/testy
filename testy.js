@@ -41,12 +41,13 @@ class Testy {
   }
   
   constructor(options) {
-    this._configureLanguageToUse(options.language);
-    this._configureFailFastMode(options.failFast);
-    this._loadAllSuitesFrom(options.directory);
+    this._options = options;
   }
   
   run() {
+    this._configureLanguageToUse();
+    this._configureFailFastMode();
+    this._loadAllRequestedFiles();
     ui.measuringTotalTime(() =>
       testRunner.run()
     );
@@ -56,20 +57,32 @@ class Testy {
     });
   }
   
-  _configureLanguageToUse(desiredLanguage) {
+  _configureLanguageToUse() {
+    const desiredLanguage = this._options.language;
     const languageToUse = desiredLanguage || I18n.defaultLanguage();
     ui.useLanguage(languageToUse);
     testRunner.useLanguage(languageToUse);
   }
   
-  _configureFailFastMode(failFastChoice) {
-    testRunner.setFailFastMode(new FailFast(failFastChoice || false));
+  _configureFailFastMode() {
+    const failFastChoice = this._options.failFast || false;
+    testRunner.setFailFastMode(new FailFast(failFastChoice));
   }
   
-  _loadAllSuitesFrom(testsDirectory) {
-    allFilesIn(testsDirectory).forEach(file =>
+  _requestedFileToRun() {
+    // first argument on the command line, e.g: npm test my_file.js
+    return process.argv[2];
+  }
+  
+  _loadAllRequestedFiles() {
+    const filesToRun = this._resolvePathFor(this._requestedFileToRun() || this._options.directory);
+    allFilesIn(filesToRun).forEach(file =>
       require(file)
     );
+  }
+  
+  _resolvePathFor(relativePath) {
+    return path.resolve(process.cwd(), relativePath);
   }
 }
 
