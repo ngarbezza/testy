@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "JavierGelatti",
+      "name": "Facundo Javier Gelatti",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/993337?v=4",
+      "profile": "https://github.com/JavierGelatti",
+      "contributions": [
+        "test",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "testy",
+  "projectOwner": "ngarbezza",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
