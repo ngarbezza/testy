@@ -58,6 +58,12 @@ suite('collection assertions', () => {
     expectSuccess();
   });
   
+  test('includesExactly passes on a Set', () => {
+    asserter.that(new Set(['hey', 'ho'])).includesExactly('ho', 'hey');
+    
+    expectSuccess();
+  });
+  
   test('isEmpty passes on an empty array', () => {
     asserter.that([]).isEmpty();
     
