@@ -82,7 +82,28 @@ Please take a look at the `tests` folder, you'll find examples of each possible 
 
 * **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a failure.
 * **Fail-Fast mode**: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.
-* **Strict check for assertions**: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a "bad" test. 
+* **Strict check for assertions**: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a "bad" test.
+* **Explicitly failing or marking a test as pending**: there's a possibility of marking a test as failed or pending, for example:
+
+    ```javascript
+    const { suite, test, fail, pending } = require('@pmoo/testy');
+    
+    suite('marking tests as failed and pending', () => {
+      test('marking as failed', () =>
+        fail.with('should not be here'));
+      
+      test('marking as pending', () =>
+        pending.dueTo('did not have time to finish'));
+    }).run();
+    ```
+    
+    The output includes the messages provided:
+    ```
+    [FAIL] marking as failed
+      => should not be here
+    [WIP] marking as pending
+      => did not have time to finish
+    ```
 
 ## Why?
 
