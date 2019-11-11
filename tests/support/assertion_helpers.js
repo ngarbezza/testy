@@ -2,7 +2,7 @@
 
 const { assert } = require('../../testy');
 const { Asserter } = require('../../lib/asserter');
-const { TestSucceeded } = require('../../lib/test_result');
+const TestResult = require('../../lib/test_result');
 const I18n = require('../../lib/i18n');
 
 const fakeRunner = {
@@ -14,7 +14,7 @@ const fakeRunner = {
 const asserter = new Asserter(fakeRunner);
 
 function expectSuccess() {
-  assert.areEqual(fakeRunner.result(), new TestSucceeded());
+  assert.areEqual(fakeRunner.result(), TestResult.success());
 }
 
 function expectFailDueTo(failureMessage) {

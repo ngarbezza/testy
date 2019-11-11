@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const libDir = './lib';
 const TestRunner = require(`${libDir}/test_runner`);
-const { Asserter, FailureGenerator } = require(`${libDir}/asserter`);
+const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
 const FailFast = require(`${libDir}/fail_fast`);
 const I18n = require(`${libDir}/i18n`);
@@ -13,6 +13,7 @@ const ui = new ConsoleUI();
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
 const assert = new Asserter(testRunner);
 const fail = new FailureGenerator(testRunner);
+const pending = new PendingMarker(testRunner);
 
 function test(name, testBody) {
   testRunner.registerTest(name, testBody, ui.testCallbacks());
@@ -86,4 +87,4 @@ class Testy {
   }
 }
 
-module.exports = { Testy, suite, test, before, assert, fail };
+module.exports = { Testy, suite, test, before, assert, fail, pending };
