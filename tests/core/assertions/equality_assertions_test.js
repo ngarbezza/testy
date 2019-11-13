@@ -105,4 +105,18 @@ suite('equality assertions', () => {
     
     expectSuccess();
   });
+  
+  test('isEqualTo fails when comparing undefined with an object', () => {
+    asserter.areEqual(undefined, {});
+    expectFailDueTo('Expected undefined to be equal to {}');
+    asserter.areEqual({}, undefined);
+    expectFailDueTo('Expected {} to be equal to undefined');
+  });
+  
+  test('isEqualTo fails when comparing null with an object', () => {
+    asserter.areEqual(null, {});
+    expectFailDueTo('Expected null to be equal to {}');
+    asserter.areEqual({}, null);
+    expectFailDueTo('Expected {} to be equal to null');
+  });
 });
