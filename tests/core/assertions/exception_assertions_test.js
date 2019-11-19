@@ -1,7 +1,7 @@
 'use strict';
 
 const { suite, test } = require('../../../testy');
-const { asserter, expectSuccess, expectFailDueTo } = require('../../support/assertion_helpers');
+const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
 
 suite('exception assertions', () => {
   test('raises() can receive a string and it passes when the exact string is expected', () => {
@@ -25,6 +25,6 @@ suite('exception assertions', () => {
   test('raises() can receive a regex and it fails if there is not a match in the error message', () => {
     asserter.that(() => { throw 'a terrible error' }).raises(/happiness/);
     
-    expectFailDueTo('Expected error /happiness/ to happen, but got \'a terrible error\' instead');
+    expectFailureDueTo('Expected error /happiness/ to happen, but got \'a terrible error\' instead');
   });
 });
