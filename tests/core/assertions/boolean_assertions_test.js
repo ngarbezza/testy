@@ -1,7 +1,7 @@
 'use strict';
 
 const { suite, test } = require('../../../testy');
-const { asserter, expectSuccess, expectFailDueTo } = require('../../support/assertion_helpers');
+const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
 
 suite('boolean assertions', () => {
   test('isTrue passes with true', () => {
@@ -13,13 +13,13 @@ suite('boolean assertions', () => {
   test('isTrue does not pass with false', () => {
     asserter.that(false).isTrue();
     
-    expectFailDueTo('Expected false to be true');
+    expectFailureDueTo('Expected false to be true');
   });
   
   test('isTrue does not pass with another value', () => {
     asserter.that(null).isTrue();
     
-    expectFailDueTo('Expected null to be true');
+    expectFailureDueTo('Expected null to be true');
   });
   
   test('isFalse passes with false', () => {
@@ -31,12 +31,12 @@ suite('boolean assertions', () => {
   test('isFalse does not pass with true', () => {
     asserter.that(true).isFalse();
     
-    expectFailDueTo('Expected true to be false');
+    expectFailureDueTo('Expected true to be false');
   });
   
   test('isFalse does not pass with another value', () => {
     asserter.that(null).isFalse();
     
-    expectFailDueTo('Expected null to be false');
+    expectFailureDueTo('Expected null to be false');
   });
 });

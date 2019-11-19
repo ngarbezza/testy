@@ -17,9 +17,9 @@ function expectSuccess() {
   assert.areEqual(fakeRunner.result(), TestResult.success());
 }
 
-function expectFailDueTo(failureMessage) {
+function expectFailureDueTo(failureMessage) {
   assert.isTrue(fakeRunner.result().isFailure());
   assert.areEqual(fakeRunner.result().failureMessage(), failureMessage);
 }
 
-module.exports = { asserter, expectSuccess, expectFailDueTo };
+module.exports = { asserter, expectSuccess, expectFailureDueTo };
