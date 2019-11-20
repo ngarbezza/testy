@@ -6,8 +6,12 @@ const TestResult = require('../../lib/test_result');
 const I18n = require('../../lib/i18n');
 
 const fakeRunner = {
-  setResultForCurrentTest: function (result) { this._result = result; },
-  result: function () { return this._result; },
+  setResultForCurrentTest(result) {
+    this._result = result;
+  },
+  result() {
+    return this._result;
+  },
   _i18n: new I18n(),
 };
 
