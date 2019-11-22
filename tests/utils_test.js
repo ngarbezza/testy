@@ -1,7 +1,7 @@
 'use strict';
 
-const { suite, test, assert } = require('../../testy');
-const Utils = require('../../lib/utils');
+const { suite, test, assert } = require('../testy');
+const Utils = require('../lib/utils');
 
 suite('utility functions', () => {
   test('isCyclic is true if the object has a cyclic reference', () => {
