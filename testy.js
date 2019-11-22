@@ -67,9 +67,13 @@ class Testy {
   
   _loadAllRequestedFiles() {
     const filesToRun = Utils.resolvePathFor(this._requestedFileToRun() || this._options.directory);
-    Utils.allFilesIn(filesToRun).forEach(file =>
+    Utils.allFilesMatching(filesToRun, this._testFilesFilter()).forEach(file =>
       require(file)
     );
+  }
+  
+  _testFilesFilter() {
+    return this._options.filter || /.*/;
   }
 }
 
