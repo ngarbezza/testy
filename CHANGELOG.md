@@ -8,6 +8,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay! :tada:
 
+## [4.4.0] - 2020-01-14
+
+First release in 2020! Release emoji: :muscle:
+
+### Added
+* [[feature] isUndefined() and isNotUndefined() assertions](https://github.com/ngarbezza/testy/issues/74): Thank you [@JavierGelatti](https://github.com/JavierGelatti)!
+* [[feature] comparing undefined with undefined should fail](https://github.com/ngarbezza/testy/issues/65): a feature for preventing false positives
+* [[feature] isNearTo() assertion](https://github.com/ngarbezza/testy/issues/67): `0.1 + 0.2` is not a problem anymore :)
+* [[feature] allow to mark tests as explicitly pending](https://github.com/ngarbezza/testy/issues/26): if you want to have a test 
+* [documentation] Add refactoring issue type for better reporting of potential refactorings
+
+### Changed
+
+* [[ui] Improve styles of test suite report](https://github.com/ngarbezza/testy/pull/79): Thank you [@JavierGelatti](https://github.com/JavierGelatti)!
+* [documentation] Improved README:
+  * Make a more guided setup with recommendations and concrete examples
+  * Add all the available assertions
+  * Describe what we call a suite and what a test
+  * Add section to explain `before()` helper
+* [infrastructure] Removed Travis CI support. Builds are executed only by Github Actions now.
+* [refactoring] Centralized utility functions in a single module
+
+### Fixed
+* [[bug] poor message in equality assertion when comparing against null/undefined](https://github.com/ngarbezza/testy/issues/63)
+
 ## [4.3.0] - 2019-11-10
 
 Release emoji: :open_file_folder:
@@ -125,7 +150,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.3.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.4.0...HEAD
+[4.4.0]: https://github.com/ngarbezza/testy/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/ngarbezza/testy/compare/v4.2.2...v4.3.0
 [4.2.2]: https://github.com/ngarbezza/testy/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/ngarbezza/testy/compare/v4.2.0...v4.2.1
