@@ -8,7 +8,7 @@ const TestRunner = require('../../lib/test_runner');
 
 const noop = () => {};
 const emptyRunnerCallbacks = { onFinish: noop };
-const emptySuiteCallbacks = { onFinish: noop };
+const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
 const emptyTestCallbacks = {
   whenErrored: noop,
   whenFailed: noop,
