@@ -35,11 +35,11 @@ class Testy {
     this._options = options;
   }
   
-  run() {
+  async run() {
     this._configureLanguageToUse();
     this._configureFailFastMode();
     this._loadAllRequestedFiles();
-    ui.measuringTotalTime(() =>
+    await ui.measuringTotalTime(() =>
       testRunner.run()
     );
     testRunner.finish({
