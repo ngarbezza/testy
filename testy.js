@@ -39,13 +39,15 @@ class Testy {
     this._configureLanguageToUse();
     this._configureFailFastMode();
     this._loadAllRequestedFiles();
-    ui.measuringTotalTime(() =>
+
+    return ui.measuringTotalTime(() =>
       testRunner.run()
+    ).then(() =>
+      testRunner.finish({
+        success: () => process.exit(0),
+        failure: () => process.exit(1),
+      })
     );
-    testRunner.finish({
-      success: () => process.exit(0),
-      failure: () => process.exit(1),
-    });
   }
   
   _configureLanguageToUse() {
