@@ -47,27 +47,27 @@ suite('test suite behavior', () => {
       .raises('There is already a before() block. Please leave just one before() block and run again the tests.');
   });
 
-  test('reporting failures and errors', async () => {
+  test('reporting failures and errors', () => {
     mySuite.addTest(passingTest);
     mySuite.addTest(failedTest);
     mySuite.addTest(erroredTest);
 
-    await runner.run();
-
-    assert.that(mySuite.allFailuresAndErrors()).includesExactly(failedTest, erroredTest);
+    return runner.run().then(() => {
+      assert.that(mySuite.allFailuresAndErrors()).includesExactly(failedTest, erroredTest);
+    });
   });
   
-  test('reporting failures and errors of async tests', async () => {
+  test('reporting failures and errors of async tests', () => {
     mySuite.addTest(passingAsyncTest);
     mySuite.addTest(failedAsyncTest);
     mySuite.addTest(erroredAsyncTest);
 
-    await runner.run();
-
-    assert.that(mySuite.allFailuresAndErrors()).includesExactly(failedAsyncTest, erroredAsyncTest);
+    return runner.run().then(() => {
+      assert.that(mySuite.allFailuresAndErrors()).includesExactly(failedAsyncTest, erroredAsyncTest);
+    });
   });
 
-  test('it is possible to have an async before block', async () => {
+  test('it is possible to have an async before block', () => {
     let beforeExecuted = false;
     mySuite.before(() => Promise.resolve().then(() => { beforeExecuted = true; }));
     mySuite.addTest(
@@ -77,23 +77,23 @@ suite('test suite behavior', () => {
       )
     );
 
-    await runner.run();
-
-    assert.that(mySuite.successCount()).isEqualTo(1);
+    return runner.run().then(() => {
+      assert.that(mySuite.successCount()).isEqualTo(1);
+    });
   });
 
-  test('an empty suite can be executed and it reports zero tests', async () => {
-    await runner.run();
-  
-    assert.that(mySuite.totalCount()).isEqualTo(0);
+  test('an empty suite can be executed and it reports zero tests', () => {
+    return runner.run().then(() => {
+      assert.that(mySuite.totalCount()).isEqualTo(0);
+    });
   });
   
-  test('a suite including a test without body reports it as pending', async () => {
+  test('a suite including a test without body reports it as pending', () => {
     mySuite.addTest(pendingTest);
 
-    await runner.run();
-  
-    assert.that(mySuite.totalCount()).isEqualTo(1);
-    assert.that(mySuite.pendingCount()).isEqualTo(1);
+    return runner.run().then(() => {
+      assert.that(mySuite.totalCount()).isEqualTo(1);
+      assert.that(mySuite.pendingCount()).isEqualTo(1);
+    });
   });
 });
