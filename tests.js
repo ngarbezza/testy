@@ -11,4 +11,6 @@ Testy.configuredWith({
   language: 'en',
   // Stops at the first failed or errored test. false by default
   failFast: false,
+  // Enforces randomness in the tests inside each suite. false by default
+  randomOrder: true,
 }).run();

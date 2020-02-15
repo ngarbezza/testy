@@ -56,10 +56,13 @@ Testy.configuredWith({
   language: 'en',
   // Stops at the first failed or errored test. false by default
   failFast: false,
+  // Enforces randomness in the tests inside each suite. false by default
+  randomOrder: false,
 }).run();
 ```
 
-And it will run every test suite under the `tests` directory (matching files ending with `*test.js`).
+These are all the configuration parameters you can set. Feel free to change it according to your needs.
+When declaring this configuration, every test suite under the `tests` directory (matching files ending with `*test.js`) will be executed.
 
 ### Running Testy
 
@@ -155,6 +158,7 @@ Please take a look at the `tests` folder, you'll find examples of each possible 
     ```
 * **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a failure.
 * **Fail-Fast mode**: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.
+* **Run tests and suites in random order**: a good test suite does not depend on a particular order. Enabling this setting is a good way to ensure that.
 * **Strict check for assertions**: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a "bad" test.
 * **Explicitly failing or marking a test as pending**: there's a possibility of marking a test as failed or pending, for example:
 

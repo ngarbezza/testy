@@ -84,8 +84,8 @@ suite('equality assertions', () => {
   
   test('isEqualTo with custom criteria passes if the criteria evaluates to true, and we are comparing instances of the same class', () => {
     class AClass {
-      constructor(a) { this.a = a }
-      myEqualMessage() { return true }
+      constructor(a) { this.a = a; }
+      myEqualMessage() { return true; }
     }
     let objectOne = new AClass();
     let objectTwo = new AClass();
@@ -96,8 +96,8 @@ suite('equality assertions', () => {
   
   test('isEqualTo with equals() default criteria passes if it evaluates to true, and we are comparing instances of the same class', () => {
     class AClass {
-      constructor(a) { this.a = a }
-      equals() { return true }
+      constructor(a) { this.a = a; }
+      equals() { return true; }
     }
     let objectOne = new AClass(1);
     let objectTwo = new AClass(2);

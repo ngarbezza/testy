@@ -1,7 +1,7 @@
 {
   "name": "@pmoo/testy",
   "version": "4.4.0",
-  "description": "A very simple testing library, for educational purposes",
+  "description": "A minimal testing library, for educational purposes.",
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
     "type": "git",

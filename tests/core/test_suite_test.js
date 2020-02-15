@@ -31,7 +31,7 @@ suite('test suite behavior', () => {
     runner.addSuite(mySuite);
     passingTest = new Test('a pure success', () => asserter.isTrue(true), emptyTestCallbacks);
     failedTest = new Test('a true failure', () => asserter.isFalse(true), emptyTestCallbacks);
-    erroredTest = new Test('an unexpected error', () => { throw 'oops' }, emptyTestCallbacks);
+    erroredTest = new Test('an unexpected error', () => { throw 'oops'; }, emptyTestCallbacks);
     pendingTest = new Test('a work in progress', undefined, emptyTestCallbacks);
   });
   
@@ -64,5 +64,5 @@ suite('test suite behavior', () => {
   
     assert.that(mySuite.totalCount()).isEqualTo(1);
     assert.that(mySuite.pendingCount()).isEqualTo(1);
-  })
+  });
 });
