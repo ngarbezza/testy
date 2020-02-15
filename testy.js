@@ -38,6 +38,7 @@ class Testy {
   run() {
     this._configureLanguageToUse();
     this._configureFailFastMode();
+    this._configureTestRandomness();
     this._loadAllRequestedFiles();
     ui.measuringTotalTime(() =>
       testRunner.run()
@@ -56,8 +57,12 @@ class Testy {
   }
   
   _configureFailFastMode() {
-    const failFastChoice = this._options.failFast || false;
+    const failFastChoice = !!this._options.failFast;
     testRunner.setFailFastMode(new FailFast(failFastChoice));
+  }
+  
+  _configureTestRandomness() {
+    testRunner.setTestRandomness(!!this._options.randomOrder);
   }
   
   _requestedFileToRun() {
