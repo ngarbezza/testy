@@ -17,13 +17,12 @@ const fakeRunner = {
 
 const asserter = new Asserter(fakeRunner);
 
-function expectSuccess() {
+const expectSuccess = () =>
   assert.areEqual(fakeRunner.result(), TestResult.success());
-}
 
-function expectFailureDueTo(failureMessage) {
+const expectFailureDueTo = failureMessage => {
   assert.isTrue(fakeRunner.result().isFailure());
   assert.areEqual(fakeRunner.result().failureMessage(), failureMessage);
-}
+};
 
 module.exports = { asserter, expectSuccess, expectFailureDueTo };
