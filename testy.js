@@ -65,16 +65,26 @@ class Testy {
     testRunner.setTestRandomness(!!this._options.randomOrder);
   }
   
-  _requestedFileToRun() {
-    // first argument on the command line, e.g: npm test my_file.js
-    return process.argv[2];
+  _requestedFilesToRun() {
+    // getting arguments after "npm test", e.g: npm test my_file_one.js my_file_two.js
+    return process.argv.slice(2);
   }
   
   _loadAllRequestedFiles() {
-    const filesToRun = Utils.resolvePathFor(this._requestedFileToRun() || this._options.directory);
-    Utils.allFilesMatching(filesToRun, this._testFilesFilter()).forEach(file =>
-      require(file)
-    );
+    this._testFilesPathsToRun().forEach(path =>
+      Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+        require(file)
+      )
+    )
+  }
+  
+  _testFilesPathsToRun() {
+    const testFilesPaths = this._requestedFilesToRun() || [this._pathForAllTests()];
+    return testFilesPaths.map(path => Utils.resolvePathFor(path));
+  }
+  
+  _pathForAllTests() {
+    return this._options.directory || './tests';
   }
   
   _testFilesFilter() {
