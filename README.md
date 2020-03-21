@@ -50,9 +50,9 @@ This is the recommended setup. Add a file `tests.js` (or whatever name you like)
 const { Testy } = require('@pmoo/testy');
 
 Testy.configuredWith({
-  // relative or absolute path
+  // Relative or absolute path to all the test files. Default './tests'
   directory: './tests',
-  // regular expression to filter test files to run
+  // Regular expression to filter test files to run
   filter: /.*test.js$/,
   // 'en' is the default. For example, you can try 'es' to see output in Spanish
   language: 'en',
@@ -109,33 +109,33 @@ suite('a boring test suite', () => {
 ### Examples and available assertions
 
 * Boolean assertions:
-  * `assert.that(boolean).isTrue()` or `assert.isTrue(boolean)`. It does a strict comparison against `true` (`object === true`)
-  * `assert.that(boolean).isFalse()` or `assert.isFalse(boolean)`. It does a strict comparison against `false` (`object === false`)
+    * `assert.that(boolean).isTrue()` or `assert.isTrue(boolean)`. It does a strict comparison against `true` (`object === true`)
+    * `assert.that(boolean).isFalse()` or `assert.isFalse(boolean)`. It does a strict comparison against `false` (`object === false`)
 * Equality assertions:
-  * `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
-  * `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
-  * Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under comparison have circular references.
-  * Equality criteria on non-primitive objects can be specified:
-    * Passing an extra two-arg comparator function to `isEqualTo(expected, criteria)` or `areEqual(actual, expected, criteria)`
-    * Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
-    * By default, if `actual` has an `equals` method it will be used.
-    * If we compare `undefined` with `undefined` using `isEqualTo()`, it will make the test fail. For explicit check for `undefined`, use the `isUndefined()`/`isNotUndefined()` assertions documented above. 
+    * `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
+    * `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
+    * Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under comparison have circular references.
+    * Equality criteria on non-primitive objects can be specified:
+        * Passing an extra two-arg comparator function to `isEqualTo(expected, criteria)` or `areEqual(actual, expected, criteria)`
+        * Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
+        * By default, if `actual` has an `equals` method it will be used.
+        * If we compare `undefined` with `undefined` using `isEqualTo()`, it will make the test fail. For explicit check for `undefined`, use the `isUndefined()`/`isNotUndefined()` assertions documented above. 
 * Check for `undefined` presence/absence:
-  * `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
-  * `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`
+    * `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
+    * `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`
 * Exception testing:
-  * `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
-  * `assert.that(() => { ... }).doesNotRaise(error)`
-  * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
+    * `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
+    * `assert.that(() => { ... }).doesNotRaise(error)`
+    * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Numeric assertions:
-  * `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
+    * `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
 * Array inclusion:
-  * `assert.that(collection).includes(object)`
-  * `assert.that(collection).doesNotInclude(object)`
-  * `assert.that(collection).includesExactly(...objects)`
+    * `assert.that(collection).includes(object)`
+    * `assert.that(collection).doesNotInclude(object)`
+    * `assert.that(collection).includesExactly(...objects)`
 * Emptiness
-  * `assert.that(arrayOrString).isEmpty()`
-  * `assert.that(arrayOrString).isNotEmpty()`
+    * `assert.that(arrayOrString).isEmpty()`
+    * `assert.that(arrayOrString).isNotEmpty()`
 
 Please take a look at the `tests` folder, you'll find examples of each possible test you can write. Testy is self-tested.
 

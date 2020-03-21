@@ -3,9 +3,9 @@
 const { Testy } = require('./testy');
 
 Testy.configuredWith({
-  // relative or absolute path
+  // Relative or absolute path to all the test files. Default './tests'
   directory: './tests',
-  // regular expression to filter test files to run
+  // Regular expression to filter test files to run
   filter: /.*test.js$/,
   // 'en' is the default. For example, you can try 'es' to see output in Spanish
   language: 'en',
