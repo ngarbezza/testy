@@ -12,6 +12,8 @@
 
 A very simple JS testing library, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
+[Versión en español aquí](README.md)
+
 ## Installation
 
 `npm install --save-dev @pmoo/testy`
