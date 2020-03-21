@@ -35,48 +35,48 @@ suite('equality assertions', () => {
   });
   
   test('isEqualTo passes with objects having the same property values', () => {
-    let objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
-    let objectTwo = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
+    const objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
+    const objectTwo = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
     asserter.that(objectOne).isEqualTo(objectTwo);
     
     expectSuccess();
   });
   
   test('isEqualTo fails with objects having different property values', () => {
-    let objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
-    let objectTwo = { a: 'a', b: { b1: 'b1', b2: '' } };
+    const objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
+    const objectTwo = { a: 'a', b: { b1: 'b1', b2: '' } };
     asserter.that(objectOne).isEqualTo(objectTwo);
     
     expectFailureDueTo("Expected { a: 'a', b: { b1: 'b1', b2: 'b2' } } to be equal to { a: 'a', b: { b1: 'b1', b2: '' } }");
   });
   
   test('isEqualTo fails if one object has less properties than the other', () => {
-    let objectOne = { a: 'a', b: 'b' };
-    let objectTwo = { a: 'a', b: 'b', c: 'c' };
+    const objectOne = { a: 'a', b: 'b' };
+    const objectTwo = { a: 'a', b: 'b', c: 'c' };
     asserter.that(objectOne).isEqualTo(objectTwo);
     
     expectFailureDueTo("Expected { a: 'a', b: 'b' } to be equal to { a: 'a', b: 'b', c: 'c' }");
   });
   
   test('isEqualTo fails if one object has more properties than the other', () => {
-    let objectOne = { a: 'a', b: 'b', c: 'c' };
-    let objectTwo = { a: 'a', b: 'b' };
+    const objectOne = { a: 'a', b: 'b', c: 'c' };
+    const objectTwo = { a: 'a', b: 'b' };
     asserter.that(objectOne).isEqualTo(objectTwo);
     
     expectFailureDueTo("Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
   });
   
   test('isEqualTo with custom criteria fails if objects do not have that property', () => {
-    let objectOne = { a: 'a', b: 'b' };
-    let objectTwo = { a: 'a', b: 'b' };
+    const objectOne = { a: 'a', b: 'b' };
+    const objectTwo = { a: 'a', b: 'b' };
     asserter.areEqual(objectOne, objectTwo, 'notFound');
     
     expectFailureDueTo('Expected { a: \'a\', b: \'b\' } to be equal to { a: \'a\', b: \'b\' } Equality check failed. Objects do not have \'notFound\' property');
   });
   
   test('isEqualTo with custom criteria passes if the criteria evaluates to true', () => {
-    let objectOne = { a: 'a', b: 'b1', myEqualMessage: () => true };
-    let objectTwo = { a: 'a', b: 'b2', myEqualMessage: () => true };
+    const objectOne = { a: 'a', b: 'b1', myEqualMessage: () => true };
+    const objectTwo = { a: 'a', b: 'b2', myEqualMessage: () => true };
     asserter.areEqual(objectOne, objectTwo, 'myEqualMessage');
     
     expectSuccess();
@@ -87,8 +87,8 @@ suite('equality assertions', () => {
       constructor(a) { this.a = a; }
       myEqualMessage() { return true; }
     }
-    let objectOne = new AClass();
-    let objectTwo = new AClass();
+    const objectOne = new AClass();
+    const objectTwo = new AClass();
     asserter.areEqual(objectOne, objectTwo, 'myEqualMessage');
     
     expectSuccess();
@@ -99,8 +99,8 @@ suite('equality assertions', () => {
       constructor(a) { this.a = a; }
       equals() { return true; }
     }
-    let objectOne = new AClass(1);
-    let objectTwo = new AClass(2);
+    const objectOne = new AClass(1);
+    const objectTwo = new AClass(2);
     asserter.areEqual(objectOne, objectTwo);
     
     expectSuccess();

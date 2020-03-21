@@ -12,11 +12,13 @@
 
 A very simple JS testing library, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
+[Versión en español aquí](README.md)
+
 ## Installation
 
 `npm install --save-dev @pmoo/testy`
 
-**Supported Node versions**: 6.x or higher
+**Supported Node versions**: 8.x or higher
 
 ## Usage
 
