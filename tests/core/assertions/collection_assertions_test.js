@@ -70,7 +70,7 @@ suite('collection assertions', () => {
     expectSuccess();
   });
   
-  test('isEmpty does not pass if the array has elements', () =>{
+  test('isEmpty does not pass if the array has elements', () => {
     asserter.that(['hey']).isEmpty();
     
     expectFailureDueTo("Expected [ 'hey' ] to be empty");
@@ -94,7 +94,7 @@ suite('collection assertions', () => {
     expectSuccess();
   });
   
-  test('isNotEmpty does not pass if the array is empty', () =>{
+  test('isNotEmpty does not pass if the array is empty', () => {
     asserter.that([]).isNotEmpty();
     
     expectFailureDueTo("Expected [] to be not empty");

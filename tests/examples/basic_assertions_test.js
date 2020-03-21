@@ -2,7 +2,7 @@
 
 const { suite, test, assert } = require('../../testy');
 
-let emptyFunction = () => { };
+const emptyFunction = () => { };
 
 suite('testing testy - basic assertions', () => {
   test('something is true', () => {
