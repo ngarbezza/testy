@@ -18,7 +18,7 @@ Una simple biblioteca JS de testeo, para propósitos educativos. Disponible en n
 
 `npm install --save-dev @pmoo/testy`
 
-**Versiones de Node soportadas**: 6.x o mayor
+**Versiones de Node soportadas**: 8.x o mayor
 
 ## Uso
 
