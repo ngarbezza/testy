@@ -75,7 +75,7 @@ class Testy {
       Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
         require(file)
       )
-    )
+    );
   }
   
   _testFilesPathsToRun() {
