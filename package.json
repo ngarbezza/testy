@@ -9,8 +9,9 @@
   },
   "main": "testy.js",
   "scripts": {
-    "test": "node tests.js"
+    "test": "node lib/testy_cli.js"
   },
+  "bin": "./lib/testy_cli.js",
   "files": [
     "testy.js",
     "lib"
