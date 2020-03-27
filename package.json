@@ -9,7 +9,7 @@
   },
   "main": "testy.js",
   "scripts": {
-    "test": "node lib/testy_cli.js"
+    "test": "npx testy"
   },
   "bin": "./lib/testy_cli.js",
   "files": [
