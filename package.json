@@ -9,9 +9,9 @@
   },
   "main": "testy.js",
   "scripts": {
-    "test": "npx testy"
+    "test": "lib/testy_cli.js"
   },
-  "bin": "./lib/testy_cli.js",
+  "bin": "lib/testy_cli.js",
   "files": [
     "testy.js",
     "lib"
