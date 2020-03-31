@@ -1,0 +1,7 @@
+{
+  "directory": "./tests",
+  "filter": ".*_test.js$",
+  "language": "en",
+  "failFast": false,
+  "randomOrder": true
+}
