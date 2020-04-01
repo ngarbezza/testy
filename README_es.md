@@ -1,14 +1,23 @@
 # Testy
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
-[![ci](https://img.shields.io/travis/ngarbezza/testy.svg)](https://travis-ci.org/ngarbezza/testy)
-![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@pmoo/testy.svg)
-![dependencies](https://img.shields.io/david/ngarbezza/testy.svg)
-[![Maintainability](https://api.codeclimate.com/v1/badges/6b6e4d071471379f31e7/maintainability)](https://codeclimate.com/github/ngarbezza/testy/maintainability)
-![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg)
-![downloads](https://img.shields.io/npm/dt/@pmoo/testy.svg)
-![activity](https://img.shields.io/github/commit-activity/w/ngarbezza/testy.svg)
-![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg)
+![ci](https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/develop?logo=github)
+\
+[![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy/maintainability)
+![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)
+\
+![open-issues](https://img.shields.io/github/issues-raw/ngarbezza/testy?logo=github)
+![closed-issues](https://img.shields.io/github/issues-closed-raw/ngarbezza/testy?logo=github)
+![open-prs](https://img.shields.io/github/issues-pr-raw/ngarbezza/testy?logo=github)
+ \
+![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@pmoo/testy.svg?logo=npm)
+![downloads](https://img.shields.io/npm/dt/@pmoo/testy.svg?logo=npm)
+![dependencies](https://img.shields.io/david/ngarbezza/testy.svg?logo=dependabot)
+\
+![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm)
+![activity](https://img.shields.io/github/commit-activity/w/ngarbezza/testy.svg?logo=npm)
+![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
+\
+[![all-contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?logo=open-source-initiative)](#contributors)
 
 Una simple biblioteca JS de testeo, para propósitos educativos. Disponible en npm: [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
