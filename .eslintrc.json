@@ -22,7 +22,7 @@
     "no-var": "error",
     "prefer-const": "error",
     "arrow-spacing": "warn",
-    "dot-location": [ "error", "property"],
+    "dot-location": ["error", "property"],
     "prefer-template": "warn"
   }
 }
