@@ -39,6 +39,7 @@ class Testy {
   
   run() {
     this._loadAllRequestedFiles();
+    ui.displayInitialSummary(this._configuration, this._testFilesPathsToRun());
     ui.measuringTotalTime(() =>
       testRunner.run()
     );
@@ -64,7 +65,7 @@ class Testy {
   }
   
   _loadAllRequestedFiles() {
-    this._testFilesPathsToRun().forEach(path =>
+    this._resolvedTestFilesPathsToRun().forEach(path =>
       Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
         require(file)
       )
@@ -73,8 +74,11 @@ class Testy {
   
   _testFilesPathsToRun() {
     const requestedPaths = this._requestedPathsToRun();
-    const testFilesPaths = requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
-    return testFilesPaths.map(path => Utils.resolvePathFor(path));
+    return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
+  }
+  
+  _resolvedTestFilesPathsToRun() {
+    return this._testFilesPathsToRun().map(path => Utils.resolvePathFor(path));
   }
   
   _pathForAllTests() {
