@@ -39,4 +39,12 @@ suite('utility functions', () => {
     const method = 'func';
     assert.isFalse(Utils.hasMethodDefined(object, method));
   });
+  
+  test('number of elements of Set', () => {
+    assert.areEqual(Utils.numberOfElements(new Set([1,2])), 2);
+  });
+  
+  test('number of elements of Array', () => {
+    assert.areEqual(Utils.numberOfElements([1,2, 3]), 3);
+  });
 });
