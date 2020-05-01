@@ -111,4 +111,28 @@ suite('collection assertions', () => {
     
     expectSuccess();
   });
+  
+  test('isEmpty passes on an empty set', () => {
+    asserter.that(new Set()).isEmpty();
+    
+    expectSuccess();
+  });
+  
+  test('isEmpty does not pass on a set with elements', () => {
+    asserter.that(new Set([1])).isEmpty();
+    
+    expectFailureDueTo('Expected Set { 1 } to be empty');
+  });
+  
+  test('isNotEmpty does not pass on an empty set', () => {
+    asserter.that(new Set()).isNotEmpty();
+    
+    expectFailureDueTo('Expected Set {} to be not empty');
+  });
+  
+  test('isNotEmpty passes on a set with elements', () => {
+    asserter.that(new Set([1])).isNotEmpty();
+    
+    expectSuccess();
+  });
 });

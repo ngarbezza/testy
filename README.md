@@ -129,8 +129,9 @@ There must be at least one assertion on the test to be valid. These are all the 
   * `assert.that(collection).doesNotInclude(object)`
   * `assert.that(collection).includesExactly(...objects)`
 * Emptiness
-  * `assert.that(arrayOrString).isEmpty()` or `assert.isEmpty(arrayOrString)`
-  * `assert.that(arrayOrString).isNotEmpty()` or `assert.isNotEmpty(arrayOrString)`
+  * `assert.that(collection).isEmpty()` or `assert.isEmpty(collection)`
+  * `assert.that(collection).isNotEmpty()` or `assert.isNotEmpty(collection)`
+  * the collection under test can be an `Array`, a `String` or a `Set`
 
 Please take a look at the `tests` folder, you'll find examples of each possible test you can write. Testy is self-tested.
 

@@ -145,8 +145,9 @@ suite('una suite aburrida', () => {
   * `assert.that(collection).doesNotInclude(object)`
   * `assert.that(collection).includesExactly(...objects)`
 * Verificar si una colección es o no vacía:
-  * `assert.that(arrayOrString).isEmpty()` or `assert.isEmpty(arrayOrString)`
-  * `assert.that(arrayOrString).isNotEmpty()` or `assert.isNotEmpty(arrayOrString)`
+  * `assert.that(collection).isEmpty()` or `assert.isEmpty(collection)`
+  * `assert.that(collection).isNotEmpty()` or `assert.isNotEmpty(collection)`
+  * la colección a verificar puede ser un `Array`, un `String` o un `Set`
 
 En la carpeta `tests` podrás encontrar más ejemplos y todas las posibles aserciones que puedes escribir. Testy está testeado en sí mismo.
 
