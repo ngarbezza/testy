@@ -17,17 +17,17 @@
 ![activity](https://img.shields.io/github/commit-activity/w/ngarbezza/testy.svg?logo=npm)
 ![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
 \
-[![all-contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?logo=open-source-initiative)](#Contribuyentes)
+[![all-contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?logo=open-source-initiative)](#contribuyentes)
 
 Una simple biblioteca JS de testeo, para propósitos educativos. Disponible en npm: [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
-:arrow_right: [Documentación de v4 (versión anterior) aquí](README_v4_es.md) \
-:arrow_right: [English version here](README.md)
+:warning: **Esta versión se encuentra deprecada. [Ver la documentación de la versión actual aquí](README_es.md)** :warning:
 
-## Para comenzar
+:arrow_right: [English version here](README_v4.md)
 
-`npm install --save-dev @pmoo/testy` (si utilizas [npm](https://www.npmjs.com/)) \
-`yarn add --dev @pmoo/testy` (si utilizas [yarn](https://classic.yarnpkg.com/en/))
+## Instalación
+
+`npm install --save-dev @pmoo/testy`
 
 **Versiones de Node soportadas**: 8.x o mayor
 
@@ -35,7 +35,7 @@ Una simple biblioteca JS de testeo, para propósitos educativos. Disponible en n
 
 ### Escribiendo suites de test 
 
-Una suite de test no es más que un archivo cuyo nombre finaliza con `_test.js` y tiene la siguiente forma:
+Una suite de test no es más que un archivo de la siguiente forma:
 
 ```javascript
 const { suite, test, assert } = require('@pmoo/testy');
@@ -53,50 +53,69 @@ Un test se escribe llamando a la función `test(name, body)`, que toma como par�
 
 Dentro del test se pueden evaluar diferentes aserciones que están documentadas más adelante.
 
+### Configurando Testy
+
+Esta es la configuración recomendada. Agrega un archivo `tests.js` (o el nombre que gustes) con el siguiente contenido:
+
+```javascript
+const { Testy } = require('@pmoo/testy');
+
+Testy.configuredWith({
+  // ruta absoluta o relativa a la carpeta en donde vamos a ubicar nuestras suites de tests
+  directory: './tests',
+  // una expresión regular para indicar qué archivos se deben interpretar como suites de tests
+  filter: /.*test.js$/,
+  // idioma de los mensajes de salida. 'en' (inglés) es el valor por defecto; 'es' para Español es también una opción posible
+  language: 'en',
+  // Cuando es true, se detiene apenas encuentra un test que no pasa. Por defecto, es false
+  failFast: false,
+  // Fuerza a que los tests se ejecuten en un orden aleatorio. Por defecto, es false
+  randomOrder: false,
+}).run();
+```
+
+Estos son todos los parámetros de configuración que existen, ajustalos de acuerdo a tus necesidades.
+Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite de test dentro del directorio `tests`, cuyos nombres de archivos finalicen con `*test.js`.
+
 ### Ejecutando Testy
 
-Puedes ejecutar una suite de test con el siguiente comando:
+Asumiendo que en el archivo `tests.js` tenemos la configuración de Testy creada anteriorente, podemos ejecutar los tests con:
 
 ```
-$ npx testy my_test.js 
+$ node tests.js 
 ```
 
-Or, al ejecutar `testy` sin argumentos se ejecutarán todos los test, por defecto, que están dentro del directorio `tests`:
-
-```
-$ npx testy 
-```
-
-También se puede registrar `testy` como script de `test` script en `package.json`:
+Además se puede agregar como script de `test` para tu `package.json`:
 
 ```
 {
   ...
   "scripts": {
-    "test": "npx testy"
+    "test": "node tests.js"
   },
   ...
 }
 ```
 
-Para luego ejecutar los tests con `npm test` o `yarn test`.
-
-### Configurando Testy
-
-Testy se puede configurar a través de un archivo llamado `.testyrc.json` que debe ser declarado en el directorio raíz del proyecto. Puedes usar la siguiente configuración como plantilla (los valores aquí mencionados son los valores por defecto):
-
+Y luego ejecutar los tests utilizando `npm`:
+ 
 ```
-{
-  "directory": "./tests",   // directorio con los archivos de test
-  "filter": ".*_test.js$",  // qué convención utilizar para el nombrado de archivos de test
-  "language": "en",         // idioma de los mensajes de salida ("en" y "es" soportados por el momento)
-  "failFast": false,        // habilita/deshabilita el modo "fail fast" (detener la ejecución en el primer fallo)
-  "randomOrder": false      // habilita/deshabilita la ejecución de tests en orden aleatorio.
-}
+$ npm test
 ```
 
-Estos son todos los parámetros de configuración que existen, ajústalos de acuerdo a tus necesidades.
-Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite de test dentro del directorio `tests`, cuyos nombres de archivos finalicen con `*test.js`.
+### Ejecutar un único archivo de suite
+
+**Nota:** esto puede ser util para ejecutar ejemplos pequeños o realizar pruebas rápidas; no es la configuración recomendada, en próximas versiones será deprecado.
+
+```javascript
+const { suite, test, assert } = require('@pmoo/testy');
+
+suite('una suite aburrida', () => {
+  test('true es obviamente true', () => assert.isTrue(true))
+}).run();
+```
+
+(es similar al ejemplo inicial, pero con un `run()` al final)
 
 ### Ejemplos y aserciones disponibles
 

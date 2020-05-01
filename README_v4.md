@@ -21,13 +21,13 @@
 
 A very simple JS testing library, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
-:arrow_right: [v4 (legacy version) documentation here](README_v4.md) \
-:arrow_right: [Documentación en español aquí](README_es.md)
+:warning: **This version is deprecated. [See current documentation here](README.md)** :warning:
 
-## Getting started
+:arrow_right: [Documentación en español aquí](README_v4_es.md)
 
-`npm install --save-dev @pmoo/testy` (if you use [npm](https://www.npmjs.com/)) \
-`yarn add --dev @pmoo/testy` (if you use [yarn](https://classic.yarnpkg.com/en/))
+## Installation
+
+`npm install --save-dev @pmoo/testy`
 
 **Supported Node versions**: 8.x or higher
 
@@ -35,10 +35,9 @@ A very simple JS testing library, for educational purposes. Live at npm at [@pmo
 
 ### Writing test suites
 
-A test suite is a file ending `_test.js` that looks like this:
+A test suite is a file that looks like this:
 
 ```javascript
-// my_test.js
 const { suite, test, assert } = require('@pmoo/testy');
 
 suite('a boring test suite', () => {
@@ -48,95 +47,108 @@ suite('a boring test suite', () => {
 });
 ```
 
-A test suite represents a grouping of tests, and it is implemented as a function call to `suite` passing a name and a zero-argument function, which is the suite body.
+A test suite represents a grouping of tests and it is implemented as a function call to `suite` passing a name and a zero-argument function, which is the suite body.
 
 A test is implemented as a function call to `test()`, passing a name and the test body as a zero-argument function. 
 
 Inside the test you can call different assertions that are documented in detail later on.
 
-### Running Testy
+### Setting up the configuration
 
-You can run an individual test file using:
+This is the recommended setup. Add a file `tests.js` (or whatever name you like) with the following content:
 
-```
-$ npx testy my_test.js 
-```
+```javascript
+const { Testy } = require('@pmoo/testy');
 
-Or, you can run it without arguments to run all the tests (by default it looks on a `tests` folder located in the project root):
-
-```
-$ npx testy 
-```
-
-You can also add it as the `test` script for npm/yarn in your `package.json`:
-
-```
-{
-  ...
-  "scripts": {
-    "test": "npx testy"
-  },
-  ...
-}
-```
-
-And then run the tests using `npm test` or `yarn test`.
-
-### Configuring Testy
-
-Testy will look for a `.testyrc.json` configuration file in the project root directory. You can use this configuration as a template (values here are the defaults):
-
-```
-{
-  "directory": "./tests",   // directory including your test files
-  "filter": ".*_test.js$",  // which convention to use to recognize test files
-  "language": "en",         // language of the output messages. "es" and "en" supported for now
-  "failFast": false,        // enable/disable fail fast mode (stop as soon as a failed test appears)
-  "randomOrder": false      // enable/disable execution of tests in random order
-}
+Testy.configuredWith({
+  // Relative or absolute path to all the test files. Default './tests'
+  directory: './tests',
+  // Regular expression to filter test files to run
+  filter: /.*test.js$/,
+  // 'en' is the default. For example, you can try 'es' to see output in Spanish
+  language: 'en',
+  // Stops at the first failed or errored test. false by default
+  failFast: false,
+  // Enforces randomness in the tests inside each suite. false by default
+  randomOrder: false,
+}).run();
 ```
 
 These are all the configuration parameters you can set. Feel free to change it according to your needs.
 When declaring this configuration, every test suite under the `tests` directory (matching files ending with `*test.js`) will be executed.
 
+### Running Testy
+
+Assuming you created `tests.js` with the Testy configuration, you can run it with:
+
+```
+$ node tests.js 
+```
+
+Or you can add it as the `test` script for npm in your `package.json`:
+
+```
+{
+  ...
+  "scripts": {
+    "test": "node tests.js"
+  },
+  ...
+}
+```
+
+And then run the tests using:
+ 
+```
+$ npm test
+```
+
+### Running a single file
+
+**Note:** this could be good for prototyping or running small examples but it is not the recommended setup. It will be deprecated at some point.
+
+```javascript
+const { suite, test, assert } = require('@pmoo/testy');
+
+suite('a boring test suite', () => {
+  test('true is obviously true', () => assert.isTrue(true))
+}).run();
+```
+
+(notice the `run()` at the end)
+
 ### Examples and available assertions
 
-There must be at least one assertion on the test to be valid. These are all the supported assertion types:
-
 * Boolean assertions:
-  * `assert.that(boolean).isTrue()` or `assert.isTrue(boolean)`. It does a strict comparison against `true` (`object === true`)
-  * `assert.that(boolean).isFalse()` or `assert.isFalse(boolean)`. It does a strict comparison against `false` (`object === false`)
+    * `assert.that(boolean).isTrue()` or `assert.isTrue(boolean)`. It does a strict comparison against `true` (`object === true`)
+    * `assert.that(boolean).isFalse()` or `assert.isFalse(boolean)`. It does a strict comparison against `false` (`object === false`)
 * Equality assertions:
-  * `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
-  * `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
-  * Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under comparison have circular references.
-  * Equality criteria on non-primitive objects can be specified:
-    * Passing an extra two-arg comparator function to `isEqualTo(expected, criteria)` or `areEqual(actual, expected, criteria)`
-    * Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
-    * By default, if `actual` has an `equals` method it will be used.
-    * If we compare `undefined` with `undefined` using `isEqualTo()`, it will make the test fail. For explicit check for `undefined`, use the `isUndefined()`/`isNotUndefined()` assertions documented above. 
+    * `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
+    * `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
+    * Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under comparison have circular references.
+    * Equality criteria on non-primitive objects can be specified:
+        * Passing an extra two-arg comparator function to `isEqualTo(expected, criteria)` or `areEqual(actual, expected, criteria)`
+        * Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
+        * By default, if `actual` has an `equals` method it will be used.
+        * If we compare `undefined` with `undefined` using `isEqualTo()`, it will make the test fail. For explicit check for `undefined`, use the `isUndefined()`/`isNotUndefined()` assertions documented above. 
 * Check for `undefined` presence/absence:
-  * `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
-  * `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`
+    * `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
+    * `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`
 * Exception testing:
-  * `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
-  * `assert.that(() => { ... }).doesNotRaise(error)`
-  * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
+    * `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
+    * `assert.that(() => { ... }).doesNotRaise(error)`
+    * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Numeric assertions:
-  * `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
+    * `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
 * Array inclusion:
-  * `assert.that(collection).includes(object)`
-  * `assert.that(collection).doesNotInclude(object)`
-  * `assert.that(collection).includesExactly(...objects)`
+    * `assert.that(collection).includes(object)`
+    * `assert.that(collection).doesNotInclude(object)`
+    * `assert.that(collection).includesExactly(...objects)`
 * Emptiness
-  * `assert.that(arrayOrString).isEmpty()` or `assert.isEmpty(arrayOrString)`
-  * `assert.that(arrayOrString).isNotEmpty()` or `assert.isNotEmpty(arrayOrString)`
+    * `assert.that(arrayOrString).isEmpty()` or `assert.isEmpty(arrayOrString)`
+    * `assert.that(arrayOrString).isNotEmpty()` or `assert.isNotEmpty(arrayOrString)`
 
 Please take a look at the `tests` folder, you'll find examples of each possible test you can write. Testy is self-tested.
-
-### Running testy globally
-
-If you don't have a NPM project you can install testy globally using `npm install -g testy` and then run `testy <files>` 
 
 ### Other features
 
