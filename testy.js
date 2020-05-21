@@ -37,7 +37,8 @@ class Testy {
   
   // running
   
-  run() {
+  run(requestedPaths) {
+    this._requestedPaths = requestedPaths;
     this._loadAllRequestedFiles();
     ui.displayInitialSummary(this._configuration, this._testFilesPathsToRun());
     ui.measuringTotalTime(() =>
@@ -60,8 +61,7 @@ class Testy {
   // private
   
   _requestedPathsToRun() {
-    // getting arguments after "npm test", e.g: npm test my_file_one.js my_file_two.js
-    return process.argv.slice(2);
+    return this._requestedPaths;
   }
   
   _loadAllRequestedFiles() {
