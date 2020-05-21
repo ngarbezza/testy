@@ -19,7 +19,7 @@ jobs:
     - name: npm install, lint, and test
       run: |
         npm install
-        npm i -g eslint
+        npm i -g eslint@6.8.0
         eslint .
         npm test
       env:
