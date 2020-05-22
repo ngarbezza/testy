@@ -118,12 +118,17 @@ There must be at least one assertion on the test to be valid. These are all the 
 * Check for `undefined` presence/absence:
   * `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
   * `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`
+* Check for `null` presence/absence:
+  * `assert.that(aValue).isNull()` or `assert.isNull(aValue)`
+  * `assert.that(aValue).isNotNull()` or `assert.isNotNull(aValue)`
 * Exception testing:
   * `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
   * `assert.that(() => { ... }).doesNotRaise(error)`
   * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Numeric assertions:
   * `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
+* String assertions:
+  * `assert.that(string).matches(regexOrString)` or `assert.isMatching(string, regexOrString)`
 * Array inclusion:
   * `assert.that(collection).includes(object)`
   * `assert.that(collection).doesNotInclude(object)`
