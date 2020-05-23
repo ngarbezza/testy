@@ -4,12 +4,11 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [6.x, 8.x, 10.x, 12.x]
+        node-version: [8.x, 10.x, 12.x, 14.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -17,10 +16,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
+    - name: npm install, lint, and test
       run: |
         npm install
-        npm run build --if-present
+        npm i -g eslint@6.8.0
+        eslint .
         npm test
       env:
         CI: true

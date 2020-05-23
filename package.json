@@ -1,16 +1,20 @@
 {
   "name": "@pmoo/testy",
-  "version": "4.4.0",
-  "description": "A very simple testing library, for educational purposes",
+  "version": "5.0.0",
+  "description": "A minimal testing library, for educational purposes.",
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngarbezza/testy"
   },
+  "engines": {
+    "node": ">= 8.*"
+  },
   "main": "testy.js",
   "scripts": {
-    "test": "node tests.js"
+    "test": "lib/testy_cli.js"
   },
+  "bin": "lib/testy_cli.js",
   "files": [
     "testy.js",
     "lib"
@@ -27,7 +31,7 @@
     "teaching",
     "oop"
   ],
-  "author": "Nahuel Garbezza <nahuel@10pines.com>",
+  "author": "Nahuel Garbezza <n.garbezza@gmail.com>",
   "license": "MIT",
   "dependencies": {}
 }

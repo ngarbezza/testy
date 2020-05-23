@@ -12,18 +12,23 @@ const fakeRunner = {
   result() {
     return this._result;
   },
+  reset() {
+    this.setResultForCurrentTest(undefined);
+  },
   _i18n: new I18n(),
 };
 
 const asserter = new Asserter(fakeRunner);
 
-function expectSuccess() {
+const expectSuccess = () => {
   assert.areEqual(fakeRunner.result(), TestResult.success());
-}
+  fakeRunner.reset();
+};
 
-function expectFailureDueTo(failureMessage) {
+const expectFailureDueTo = failureMessage => {
   assert.isTrue(fakeRunner.result().isFailure());
   assert.areEqual(fakeRunner.result().failureMessage(), failureMessage);
-}
+  fakeRunner.reset();
+};
 
 module.exports = { asserter, expectSuccess, expectFailureDueTo };

@@ -1,9 +1,13 @@
 'use strict';
 
+const Utils = require('../../../lib/utils');
 const { suite, test } = require('../../../testy');
 const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
 
 suite('collection assertions', () => {
+  const nonEmptySet = new Set([1]);
+  const emptySet = new Set([]);
+  
   test('includes passes if the object is in the array', () => {
     asserter.that(['hey']).includes('hey');
     
@@ -70,7 +74,7 @@ suite('collection assertions', () => {
     expectSuccess();
   });
   
-  test('isEmpty does not pass if the array has elements', () =>{
+  test('isEmpty does not pass if the array has elements', () => {
     asserter.that(['hey']).isEmpty();
     
     expectFailureDueTo("Expected [ 'hey' ] to be empty");
@@ -94,7 +98,7 @@ suite('collection assertions', () => {
     expectSuccess();
   });
   
-  test('isNotEmpty does not pass if the array is empty', () =>{
+  test('isNotEmpty does not pass if the array is empty', () => {
     asserter.that([]).isNotEmpty();
     
     expectFailureDueTo("Expected [] to be not empty");
@@ -108,6 +112,30 @@ suite('collection assertions', () => {
   
   test('isNotEmpty shorthand works', () => {
     asserter.isNotEmpty(['hey']);
+    
+    expectSuccess();
+  });
+  
+  test('isEmpty passes on an empty set', () => {
+    asserter.that(emptySet).isEmpty();
+    
+    expectSuccess();
+  });
+  
+  test('isEmpty does not pass on a set with elements', () => {
+    asserter.that(nonEmptySet).isEmpty();
+    
+    expectFailureDueTo(`Expected ${Utils.prettyPrint(nonEmptySet)} to be empty`);
+  });
+  
+  test('isNotEmpty does not pass on an empty set', () => {
+    asserter.that(emptySet).isNotEmpty();
+    
+    expectFailureDueTo(`Expected ${Utils.prettyPrint(emptySet)} to be not empty`);
+  });
+  
+  test('isNotEmpty passes on a set with elements', () => {
+    asserter.that(nonEmptySet).isNotEmpty();
     
     expectSuccess();
   });

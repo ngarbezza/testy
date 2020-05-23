@@ -1,10 +1,28 @@
 {
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 9,
     "sourceType": "module",
     "ecmaFeatures": { }
   },
+  "extends": "eslint:recommended",
+  "env": {
+    "es6": true,
+    "browser": false,
+    "node": true
+  },
   "rules": {
-    "semi": 2
+    "semi": 2,
+    "block-scoped-var": "error",
+    "dot-notation": "error",
+    "eqeqeq": "error",
+    "no-eval": "error",
+    "no-multi-spaces": "error",
+    "no-param-reassign": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-var": "error",
+    "prefer-const": "error",
+    "arrow-spacing": "warn",
+    "dot-location": ["error", "property"],
+    "prefer-template": "warn"
   }
 }

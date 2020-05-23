@@ -4,9 +4,7 @@ const libDir = './lib';
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
-const FailFast = require(`${libDir}/fail_fast`);
 const Utils = require(`${libDir}/utils`);
-const I18n = require(`${libDir}/i18n`);
 
 const ui = new ConsoleUI();
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
@@ -27,18 +25,22 @@ function before(initialization) {
 }
 
 class Testy {
-  static configuredWith(options) {
-    return new Testy(options);
+  // instance creation
+  
+  static configuredWith(configuration) {
+    return new Testy(configuration);
   }
   
-  constructor(options) {
-    this._options = options;
+  constructor(configuration) {
+    this._initializeConfiguredWith(configuration);
   }
   
-  run() {
-    this._configureLanguageToUse();
-    this._configureFailFastMode();
+  // running
+  
+  run(requestedPaths) {
+    this._requestedPaths = requestedPaths;
     this._loadAllRequestedFiles();
+    ui.displayInitialSummary(this._configuration, this._testFilesPathsToRun());
     ui.measuringTotalTime(() =>
       testRunner.run()
     );
@@ -48,32 +50,43 @@ class Testy {
     });
   }
   
-  _configureLanguageToUse() {
-    const desiredLanguage = this._options.language;
-    const languageToUse = desiredLanguage || I18n.defaultLanguage();
-    ui.useLanguage(languageToUse);
-    testRunner.useLanguage(languageToUse);
+  // initialization
+  
+  _initializeConfiguredWith(configuration) {
+    this._configuration = configuration;
+    this._configuration.configureUI(ui);
+    this._configuration.configureTestRunner(testRunner);
   }
   
-  _configureFailFastMode() {
-    const failFastChoice = this._options.failFast || false;
-    testRunner.setFailFastMode(new FailFast(failFastChoice));
-  }
+  // private
   
-  _requestedFileToRun() {
-    // first argument on the command line, e.g: npm test my_file.js
-    return process.argv[2];
+  _requestedPathsToRun() {
+    return this._requestedPaths;
   }
   
   _loadAllRequestedFiles() {
-    const filesToRun = Utils.resolvePathFor(this._requestedFileToRun() || this._options.directory);
-    Utils.allFilesMatching(filesToRun, this._testFilesFilter()).forEach(file =>
-      require(file)
+    this._resolvedTestFilesPathsToRun().forEach(path =>
+      Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+        require(file)
+      )
     );
   }
   
+  _testFilesPathsToRun() {
+    const requestedPaths = this._requestedPathsToRun();
+    return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
+  }
+  
+  _resolvedTestFilesPathsToRun() {
+    return this._testFilesPathsToRun().map(path => Utils.resolvePathFor(path));
+  }
+  
+  _pathForAllTests() {
+    return this._configuration.directory();
+  }
+  
   _testFilesFilter() {
-    return this._options.filter || /.*/;
+    return this._configuration.filter();
   }
 }
 
