@@ -19,29 +19,29 @@ Everything is released. Yay! :tada:
 
 ### Added
 
-* [[feature] configuration to run tests in random order](#73): to ensure test isolation and therefore having robust suites :muscle:
-* [[feature] allow to pass multiple test paths to run testy](#86): this allows to have more flexibility and control which files we want to run
-* [[documentation] docs in Spanish](#90): now both README and CONTRIBUTING files are translated and updated in English and Spanish.
-* [[feature] testy binary](#17): **breaking change**, this makes testy more easy to be executed. There's a `testy` script that can be run globally or through `npx`.
-* [[feature] read configuration parameters from JSON file](#94): in order to run testy from a binary file, we now need a place to specify the configuration. Starting on v5, every project can have a `.testyrc.json` with the desired configuration parameters. Default values will be used in case the file is not present. 
-* [[feature] testy start message](#100): now testy says "Hi!" when starting to run tests.
-* [[documentation] v5 revamped docs](#91): new README with all the v5 features, and a more clear step by step guide. Also, there are links for v4 docs. Spanish and English.
-* [[feature] -h/--help command line option](#108): now that we have a binary, we need a help option! Added a simple. 
-* [[feature] -v/--version command line option](#109): simple text displaying the current version.
-* [[feature] isNull() and isNotNull() assertions](#66): checking for null now has a specific assertion with a helpful error message.
-* [[feature] matches() assertion](#113): other important assertion added to the core; check if a string matches a regex (or another string!).
+* [[feature] configuration to run tests in random order](https://github.com/ngarbezza/testy/issues/73): to ensure test isolation and therefore having robust suites :muscle:
+* [[feature] allow to pass multiple test paths to run testy](https://github.com/ngarbezza/testy/issues/86): this allows to have more flexibility and control which files we want to run
+* [[documentation] docs in Spanish](https://github.com/ngarbezza/testy/issues/90): now both README and CONTRIBUTING files are translated and updated in English and Spanish.
+* [[feature] testy binary](https://github.com/ngarbezza/testy/issues/17): **breaking change**, this makes testy more easy to be executed. There's a `testy` script that can be run globally or through `npx`.
+* [[feature] read configuration parameters from JSON file](https://github.com/ngarbezza/testy/issues/94): in order to run testy from a binary file, we now need a place to specify the configuration. Starting on v5, every project can have a `.testyrc.json` with the desired configuration parameters. Default values will be used in case the file is not present. 
+* [[feature] testy start message](https://github.com/ngarbezza/testy/issues/100): now testy says "Hi!" when starting to run tests.
+* [[documentation] v5 revamped docs](https://github.com/ngarbezza/testy/issues/91): new README with all the v5 features, and a more clear step by step guide. Also, there are links for v4 docs. Spanish and English.
+* [[feature] -h/--help command line option](https://github.com/ngarbezza/testy/issues/108): now that we have a binary, we need a help option! Added a simple. 
+* [[feature] -v/--version command line option](https://github.com/ngarbezza/testy/issues/109): simple text displaying the current version.
+* [[feature] isNull() and isNotNull() assertions](https://github.com/ngarbezza/testy/issues/66): checking for null now has a specific assertion with a helpful error message.
+* [[feature] matches() assertion](https://github.com/ngarbezza/testy/issues/113): other important assertion added to the core; check if a string matches a regex (or another string!).
 
 ### Changed
 
 * [version] Node 8.x is the minimum version (**breaking change**)
-* [[internal] use eslint as linter for the tool](#89): this is a good step forward having more consistency in this codebase.
+* [[internal] use eslint as linter for the tool](https://github.com/ngarbezza/testy/issues/89): this is a good step forward having more consistency in this codebase.
 * [documentation] add documentation issue type: keeping the repo more accessible for contributors.
 * [documentation] explain how CI and our linter works: helpful for contributors
 
 ### Fixed
 
-* [[bug] make name and body required for test suites](#84)
-* [[bug] isEmpty and isNotEmpty now work with Set instances](#111)
+* [[bug] make name and body required for test suites](https://github.com/ngarbezza/testy/issues/84)
+* [[bug] isEmpty and isNotEmpty now work with Set instances](https://github.com/ngarbezza/testy/issues/111)
 
 ## [4.4.0] - 2020-01-14
 
