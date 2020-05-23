@@ -8,6 +8,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay! :tada:
 
+## [5.0.0] - 2020-05-22
+
+:five: :tada: new release! Including some **breaking changes**.
+
+### Breaking changes
+
+* There's no need for a testy runner file, now there's a testy binary that runs the suites for you based on a configuration file. In other words, before: you have to call testy; now: testy calls you :smiley:
+* Node 6.x is no longer supported. Now Node 8.x is the minimum version required.
+
+### Added
+
+* [[feature] configuration to run tests in random order](#73): to ensure test isolation and therefore having robust suites :muscle:
+* [[feature] allow to pass multiple test paths to run testy](#86): this allows to have more flexibility and control which files we want to run
+* [[documentation] docs in Spanish](#90): now both README and CONTRIBUTING files are translated and updated in English and Spanish.
+* [[feature] testy binary](#17): **breaking change**, this makes testy more easy to be executed. There's a `testy` script that can be run globally or through `npx`.
+* [[feature] read configuration parameters from JSON file](#94): in order to run testy from a binary file, we now need a place to specify the configuration. Starting on v5, every project can have a `.testyrc.json` with the desired configuration parameters. Default values will be used in case the file is not present. 
+* [[feature] testy start message](#100): now testy says "Hi!" when starting to run tests.
+* [[documentation] v5 revamped docs](#91): new README with all the v5 features, and a more clear step by step guide. Also, there are links for v4 docs. Spanish and English.
+* [[feature] -h/--help command line option](#108): now that we have a binary, we need a help option! Added a simple. 
+* [[feature] -v/--version command line option](#109): simple text displaying the current version.
+* [[feature] isNull() and isNotNull() assertions](#66): checking for null now has a specific assertion with a helpful error message.
+* [[feature] matches() assertion](#113): other important assertion added to the core; check if a string matches a regex (or another string!).
+
+### Changed
+
+* [version] Node 8.x is the minimum version (**breaking change**)
+* [[internal] use eslint as linter for the tool](#89): this is a good step forward having more consistency in this codebase.
+* [documentation] add documentation issue type: keeping the repo more accessible for contributors.
+* [documentation] explain how CI and our linter works: helpful for contributors
+
+### Fixed
+
+* [[bug] make name and body required for test suites](#84)
+* [[bug] isEmpty and isNotEmpty now work with Set instances](#111)
+
 ## [4.4.0] - 2020-01-14
 
 First release in 2020! Release emoji: :muscle:
@@ -150,7 +185,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v4.4.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/ngarbezza/testy/compare/v4.4.0...v5.0.0
 [4.4.0]: https://github.com/ngarbezza/testy/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/ngarbezza/testy/compare/v4.2.2...v4.3.0
 [4.2.2]: https://github.com/ngarbezza/testy/compare/v4.2.1...v4.2.2
