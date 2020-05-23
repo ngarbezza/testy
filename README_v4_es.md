@@ -134,12 +134,17 @@ suite('una suite aburrida', () => {
 * Validar si un objeto es o no `undefined`:
   * `assert.that(aValue).isUndefined()` o `assert.isUndefined(aValue)`
   * `assert.that(aValue).isNotUndefined()` o `assert.isNotUndefined(aValue)`
+* Validar si un objeto es o no `null`:
+  * `assert.that(aValue).isNull()` o `assert.isNull(aValue)`
+  * `assert.that(aValue).isNotNull()` o `assert.isNotNull(aValue)`
 * Testeo de errores:
   * `assert.that(() => { ... }).raises(error)` o con una expresión regular `.raises(/part of message/)`
   * `assert.that(() => { ... }).doesNotRaise(error)`
   * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Aserciones numéricas:
   * `assert.that(aNumber).isNearTo(anotherNumber)`. Se puede pasar un segundo parámetro adicional que indica el número de dígitos de precisión que se van a considerar. Por defecto, son `4`.
+* Aserciones sobre strings:
+  * `assert.that(string).matches(regexOrString)` o `assert.isMatching(string, regexOrString)`
 * Inclusión de objetos en colecciones (`Array` y `Set`):
   * `assert.that(collection).includes(object)`
   * `assert.that(collection).doesNotInclude(object)`
