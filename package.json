@@ -12,6 +12,8 @@
   },
   "main": "testy.js",
   "scripts": {
+    "coverage": "npx nyc@latest --reporter=lcov --reporter=text-summary npm test",
+    "lint": "npx eslint@6.8.0 .",
     "test": "lib/testy_cli.js"
   },
   "bin": "lib/testy_cli.js",
