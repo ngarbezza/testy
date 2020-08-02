@@ -119,7 +119,7 @@ suite('collection assertions', () => {
   test('isNotEmpty does not pass if the array is empty', () => {
     asserter.that([]).isNotEmpty();
 
-    expectFailureDueTo("Expected [] to be not empty");
+    expectFailureDueTo('Expected [] to be not empty');
   });
 
   test('isNotEmpty passes with a string with content', () => {

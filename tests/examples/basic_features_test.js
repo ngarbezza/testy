@@ -24,23 +24,23 @@ suite('testing testy - basic features', () => {
   // commented so CI can pass - uncomment to see the failure
   // test("unexpected errors don't break the suite", () => assert.isTrue(notAFunction()));
   
-  test("successful test after the failure", () => assert.isTrue(true));
+  test('successful test after the failure', () => assert.isTrue(true));
   
-  test("custom equality check", () => {
+  test('custom equality check', () => {
     const criteria = (o1, o2) => o1.a === o2.a;
-    assert.areEqual({ a: 'a', b: 'b1'}, { a: 'a', b: 'b2'}, criteria);
-    assert.that({ a: 'a', b: 'b1'}).isEqualTo({ a: 'a', b: 'b2'}, criteria);
-    assert.that({ a: 'a', b: 'b1'}).isNotEqualTo({ a: 'a2', b: 'b1'}, criteria);
+    assert.areEqual({ a: 'a', b: 'b1' }, { a: 'a', b: 'b2' }, criteria);
+    assert.that({ a: 'a', b: 'b1' }).isEqualTo({ a: 'a', b: 'b2' }, criteria);
+    assert.that({ a: 'a', b: 'b1' }).isNotEqualTo({ a: 'a2', b: 'b1' }, criteria);
   });
   
-  test("equality check when objects understand equals()", () => {
+  test('equality check when objects understand equals()', () => {
     const objectOne = { a: 'a', b: 'b1', equals: function(another) { return this.a === another.a; } };
     const objectTwo = { a: 'a', b: 'b2', equals: function(another) { return this.b === another.b; } };
     assert.that(objectOne).isEqualTo(objectTwo);
     assert.that(objectTwo).isNotEqualTo(objectOne);
   });
   
-  test("equality check using custom message name", () => {
+  test('equality check using custom message name', () => {
     const objectOne = { a: 'a', b: 'b1', sameAs: function(another) { return this.a === another.a; } };
     const objectTwo = { a: 'a', b: 'b2', sameAs: function(another) { return this.b === another.b; } };
     assert.that(objectOne).isEqualTo(objectTwo, 'sameAs');
