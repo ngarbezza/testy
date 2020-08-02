@@ -11,7 +11,8 @@ jobs:
         node-version: [8.x, 10.x, 12.x, 14.x]
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout repo
+      uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -19,8 +20,13 @@ jobs:
     - name: npm install, lint, and test
       run: |
         npm install
-        npm i -g eslint@6.8.0
-        eslint .
+        npm run lint
         npm test
       env:
         CI: true
+    - name: Code Climate Coverage Action
+      uses: paambaati/codeclimate-action@v2.6.0
+      env:
+        CC_TEST_REPORTER_ID: 6ace5bc20f45a4d3b1d1bd56b37e2ed97c92776e402f4f687bb5ee50853cb51c
+      with:
+        coverageCommand: npm run coverage
