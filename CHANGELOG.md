@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Everything is released. Yay! :tada:
+
+## [5.0.1] - 2020-08-02
+
 ### Fixed
 
 * [[bug] includesExactly uses === as comparison](https://github.com/ngarbezza/testy/issues/119): Now the same criteria as `isEqualTo` is used in `includes`, `doesNotInclude` and `includesExactly`.
@@ -187,7 +191,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.0.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.0.1...HEAD
+[5.0.1]: https://github.com/ngarbezza/testy/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/ngarbezza/testy/compare/v4.4.0...v5.0.0
 [4.4.0]: https://github.com/ngarbezza/testy/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/ngarbezza/testy/compare/v4.2.2...v4.3.0
