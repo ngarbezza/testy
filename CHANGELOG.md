@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Everything is released. Yay! :tada:
+### Fixed
+
+* [[bug] includesExactly uses === as comparison](https://github.com/ngarbezza/testy/issues/119): Now the same criteria as `isEqualTo` is used in `includes`, `doesNotInclude` and `includesExactly`.
 
 ## [5.0.0] - 2020-05-22
 

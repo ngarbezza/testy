@@ -17,13 +17,19 @@ suite('collection assertions', () => {
   test('includes does not pass if the actual object is not an array', () => {
     asserter.that([]).includes('hey');
     
-    expectFailureDueTo("Expected [] to include hey");
+    expectFailureDueTo("Expected [] to include 'hey'");
+  });
+  
+  test('includes works with non-primitives', () => {
+    asserter.that([{ a: '1' }]).includes({ a: '1' });
+    
+    expectSuccess();
   });
   
   test('doesNotInclude fails if the object is in the array', () => {
     asserter.that(['hey']).doesNotInclude('hey');
     
-    expectFailureDueTo("Expected [ 'hey' ] to not include hey");
+    expectFailureDueTo("Expected [ 'hey' ] to not include 'hey'");
   });
   
   test('doesNotInclude passes if the object is not an array', () => {
@@ -32,8 +38,20 @@ suite('collection assertions', () => {
     expectSuccess();
   });
   
+  test('doesNotInclude fails properly with non-primitives', () => {
+    asserter.that([{ a: '1' }]).doesNotInclude({ a: '1' });
+  
+    expectFailureDueTo("Expected [ { a: '1' } ] to not include { a: '1' }");
+  });
+  
   test('includesExactly passes with a single object included', () => {
     asserter.that(['hey']).includesExactly('hey');
+    
+    expectSuccess();
+  });
+  
+  test('includesExactly passes using a non-primitive single object', () => {
+    asserter.that([{ a: '1' }]).includesExactly({ a: '1' });
     
     expectSuccess();
   });
