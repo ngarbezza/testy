@@ -28,7 +28,7 @@ suite('Configuration parameters', () => {
   });
   
   test('there is a default fail fast setting', () => {
-    assert.areEqual(configuration.failFastMode(), new FailFast(false));
+    assert.areEqual(configuration.failFastMode(), FailFast.default());
   });
   
   test('there is a default random order setting', () => {
