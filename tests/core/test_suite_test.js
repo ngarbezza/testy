@@ -4,6 +4,7 @@ const { suite, test, before, assert } = require('../../testy');
 const TestSuite = require('../../lib/test_suite');
 const { Asserter } = require('../../lib/asserter');
 const TestRunner = require('../../lib/test_runner');
+const FailFast = require('../../lib/fail_fast');
 const { aPassingTest, aFailingTest, anErroredTest, aPendingTest } = require('../support/tests_factory');
 
 const noop = () => {};
@@ -73,5 +74,20 @@ suite('test suite behavior', () => {
   
   test('a suite cannot be created with a body that is not a function', () => {
     assert.that(() => new TestSuite('hey', 'ho')).raises('Suite does not have a valid body');
+  });
+  
+  test('running with fail fast enabled stops at the first failure', () => {
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+    mySuite.addTest(erroredTest);
+    mySuite.addTest(pendingTest);
+    runner.setFailFastMode(FailFast.enabled());
+    
+    runner.run();
+    
+    assert.isTrue(passingTest.isSuccess());
+    assert.isTrue(failingTest.isFailure());
+    assert.isTrue(erroredTest.isSkipped());
+    assert.isTrue(pendingTest.isSkipped());
   });
 });
