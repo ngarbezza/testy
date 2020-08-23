@@ -2,8 +2,9 @@
 
 ![ci](https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/develop?logo=github)
 \
-[![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy/maintainability)
-![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)
+[![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
+[![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
+[![coverage](https://img.shields.io/codeclimate/coverage/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 \
 ![open-issues](https://img.shields.io/github/issues-raw/ngarbezza/testy?logo=github)
 ![closed-issues](https://img.shields.io/github/issues-closed-raw/ngarbezza/testy?logo=github)
