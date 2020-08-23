@@ -2,8 +2,9 @@
 
 ![ci](https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/develop?logo=github)
 \
-[![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy/maintainability)
-![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)
+[![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
+[![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
+[![coverage](https://img.shields.io/codeclimate/coverage/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 \
 ![open-issues](https://img.shields.io/github/issues-raw/ngarbezza/testy?logo=github)
 ![closed-issues](https://img.shields.io/github/issues-closed-raw/ngarbezza/testy?logo=github)
@@ -19,7 +20,7 @@
 \
 [![all-contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?logo=open-source-initiative)](#contribuyentes)
 
-Una simple biblioteca JS de testeo, para propósitos educativos. Disponible en npm: [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
+Una simple herramienta de testeo en Javascript, para propósitos educativos. Disponible en npm: [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
 :warning: **Esta versión se encuentra deprecada. [Ver la documentación de la versión actual aquí](README_es.md)** :warning:
 
@@ -193,7 +194,7 @@ En la carpeta `tests` podrás encontrar más ejemplos y todas las posibles aserc
     });
     ```
     
-    The output includes the messages provided:
+    Al ejecutar veremos los siguientes mensajes:
     ```
     [FAIL] marcando como fallido
       => no debería estar aquí
@@ -201,13 +202,15 @@ En la carpeta `tests` podrás encontrar más ejemplos y todas las posibles aserc
       => no hubo tiempo de finalizarlo
     ```
 
-## Por qué?
+## ¿Por qué?
 
-Por qué tener una librería de tests cuando ya existen otras? La razón principal es que deseamos mantener la simplicidad, algo que no se puede encontrar en las principales herramientas de testing conocidas.
+¿Por qué tener una herramienta de tests cuando ya existen otras? La razón principal es que deseamos mantener la simplicidad, algo que no se puede encontrar en las principales herramientas de testing conocidas.
 
-* **Cero dependencias:** Esta biblioteca no depende de ningún otro paquete de npm para funcionar, lo que facilita su instalación, y lo hace más rápido: esencial para obtener feedback inmediato desarrollando con TDD. Esto es algo bueno también para instalar en lugares donde la conexión a internet no es buena y no queremos perder tiempo descargando múltiples dependencias.
+* **Cero dependencias:** Este proyecto no depende de ningún otro paquete de npm para funcionar, lo que facilita su instalación, y lo hace más rápido: esencial para obtener feedback inmediato desarrollando con TDD. Esto es algo bueno también para instalar en lugares donde la conexión a internet no es buena y no queremos perder tiempo descargando múltiples dependencias.
 * **Código orientado a objetos entendible:** Esta herramienta es utilizada para enseñar, así que es muy común durante las clases mirar el código para entender cómo se ejecutan los tests, para entender lo que sucede. El objetivo es que los alumnos puedan comprender la herramienta e incluso realizar contribuciones a ella. Intentamos seguir buenas prácticas de diseño con objetos y de _clean code_ en general.
 * **Conjunto único de funcionalidad:** Esta herramienta no sigue ninguna especificación ni trata de copiar la funcionalidad de enfoques conocidos de testing (como la forma "xUnit" la forma "xSpec"). La funcionalidad que existe, es la que tiene sentido que esté.  
+
+["Design Principles Behind Smalltalk"](https://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html) es una gran fuente de inspiración para este trabajo. Intentamos seguir los mismos principios aquí.
 
 ## Para contribuir
 

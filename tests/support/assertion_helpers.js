@@ -26,9 +26,18 @@ const expectSuccess = () => {
 };
 
 const expectFailureDueTo = failureMessage => {
-  assert.isTrue(fakeRunner.result().isFailure());
-  assert.areEqual(fakeRunner.result().failureMessage(), failureMessage);
+  expectFailureOn(fakeRunner, failureMessage);
   fakeRunner.reset();
 };
 
-module.exports = { asserter, expectSuccess, expectFailureDueTo };
+const expectFailureOn = (test, failureMessage) => {
+  assert.isTrue(test.result().isFailure());
+  assert.areEqual(test.result().failureMessage(), failureMessage);
+};
+
+const expectErrorOn = (test, errorMessage) => {
+  assert.isTrue(test.result().isError());
+  assert.areEqual(test.result().failureMessage(), errorMessage);
+};
+
+module.exports = { asserter, expectSuccess, expectFailureDueTo, expectFailureOn, expectErrorOn };

@@ -4,11 +4,10 @@ about: Write some documentation about the tool
 title: "[docs]"
 labels: docs
 assignees: ngarbezza
-
 ---
 
-**What is not documented**
-The part of the system that needs documentation; or improving the existing documentation.
+**What is not documented or is not clear**
+The part of the system that needs documentation; or needs an improvement.
 
 **Ideas**
-Which aspects to cover; possible sections; anything that might help the writer.
+Which aspects to cover, possible sections, examples. Anything that might help users.

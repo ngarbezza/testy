@@ -1,7 +1,7 @@
 {
   "name": "@pmoo/testy",
   "version": "5.0.1",
-  "description": "A minimal testing library, for educational purposes.",
+  "description": "A minimal testing framework, for educational purposes.",
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
     "type": "git",
@@ -12,6 +12,8 @@
   },
   "main": "testy.js",
   "scripts": {
+    "coverage": "npx nyc@latest --reporter=lcov --reporter=text-summary npm test",
+    "lint": "npx eslint@6.8.0 .",
     "test": "lib/testy_cli.js"
   },
   "bin": "lib/testy_cli.js",
