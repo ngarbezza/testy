@@ -4,7 +4,6 @@ about: Propose an improvement to the code
 title: "[refactoring]"
 labels: enhancement
 assignees: ngarbezza
-
 ---
 
 **Problem**

@@ -121,7 +121,7 @@ Release emoji: :zero:
 
 ### Changed
 * [Remove `require-dir` dependency](https://github.com/ngarbezza/testy/issues/36): Zero dependencies goal reached! :muscle:
-* [Increased "debuggability"](https://github.com/ngarbezza/testy/issues/33): Nobody should be afraid of debugging inside this library! If something is not understandable, let's change it.
+* [Increased "debuggability"](https://github.com/ngarbezza/testy/issues/33): Nobody should be afraid of debugging inside the code of this tool! If something is not understandable, let's change it.
 
 ## [4.0.1] - 2019-07-19
 
