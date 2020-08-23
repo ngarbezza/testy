@@ -19,7 +19,7 @@
 \
 [![all-contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?logo=open-source-initiative)](#contributors)
 
-A very simple JS testing library, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
+A very simple JS testing framework, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
 :warning: **This version is deprecated. [See current documentation here](README.md)** :warning:
 
@@ -203,11 +203,13 @@ Please take a look at the `tests` folder, you'll find examples of each possible 
 
 ## Why?
 
-Why another testing library? The main reason is that we want to keep simplicity, something it's hard to see in the main testing tools out there.
+Why another testing tool? The main reason is that we want to keep simplicity, something it's hard to see in the main testing tools out there.
 
-* **Zero dependencies:** right now, this library does not depend on any npm package, making the library easy to install, and fast: essential to have immediate feedback while doing TDD. This is also good for installing on places where the internet connection is not good and we don't want to download hundreds of libraries.
+* **Zero dependencies:** right now, this project does not depend on any npm package, making the tool easy to install, and fast: essential to have immediate feedback while doing TDD. This is also good for installing on places where the internet connection is not good and we don't want to download hundreds of libraries.
 * **Understandable object-oriented code:** we want to use this tool for teaching, so eventually we'll look at the code during lessons, and students should be able to see what is going on, and even contributing at it, with no dark magic involved. Also, we try to follow good OO practices.
 * **Unique set of features:** we are not following any specification nor trying to copy behavior from other approaches (like the "xUnit" or "xSpec" way).  
+
+["Design Principles Behind Smalltalk"](https://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html) is a source of inspiration for this work. We try to follow the same principles here.
 
 ## Contributing
 
