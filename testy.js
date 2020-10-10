@@ -13,11 +13,22 @@ const fail = new FailureGenerator(testRunner);
 const pending = new PendingMarker(testRunner);
 
 function test(name, testBody) {
-  testRunner.registerTest(name, testBody, ui.testCallbacks());
+  try{
+    if(name === '' || typeof name !== 'string')throw "invalid name"
+    testRunner.registerTest(name, testBody, ui.testCallbacks());
+  }catch(e){
+    console.error('Suite and test names cannot be empty')
+  }
 }
 
 function suite(name, suiteBody) {
-  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
+  try{
+    if(name === '' || typeof name !== 'string')throw "invalid name"
+    return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
+  }catch(e){
+    console.error('Suite and test names cannot be empty')
+  }
+  
 }
 
 function before(initialization) {
