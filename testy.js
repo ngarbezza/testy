@@ -13,6 +13,8 @@ const fail = new FailureGenerator(testRunner);
 const pending = new PendingMarker(testRunner);
 
 function test(name, testBody) {
+  validateName(name);
+  validateBody(testBody);
   testRunner.registerTest(name, testBody, ui.testCallbacks());
 }
 
