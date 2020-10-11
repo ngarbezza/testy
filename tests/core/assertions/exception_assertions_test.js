@@ -17,7 +17,7 @@ suite('exception assertions', () => {
   });
   
   test('raises() can receive an arbitrary object and it passes when the exact object is expected', () => {
-    asserter.that(() => { throw { an: 'object' } }).raises({ an: 'object' });
+    asserter.that(() => { throw { an: 'object' }; }).raises({ an: 'object' });
   
     expectSuccess();
   });
