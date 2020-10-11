@@ -47,4 +47,15 @@ suite('utility functions', () => {
   test('number of elements of Array', () => {
     assert.areEqual(Utils.numberOfElements([1,2, 3]), 3);
   });
+  
+  test('isRegex returns true for regexes', () => {
+    assert.isTrue(Utils.isRegex(/something/));
+    assert.isTrue(Utils.isRegex(new RegExp('something')));
+  });
+  
+  test('isRegex returns false for other objects', () => {
+    assert.isFalse(Utils.isRegex({}));
+    assert.isFalse(Utils.isRegex('hey'));
+    assert.isFalse(Utils.isRegex(() => {}));
+  });
 });
