@@ -34,6 +34,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "them",
+      "name": "The M",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/82949?v=4",
+      "profile": "https://github.com/them",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
