@@ -15,31 +15,6 @@ suite('utility functions', () => {
     assert.isFalse(Utils.isCyclic(obj));
   });
   
-  test('hasMethodDefined is true if the object has a function property with that name', () => {
-    const object = { func: () => 42 };
-    const method = 'func';
-    assert.isTrue(Utils.hasMethodDefined(object, method));
-  });
-  
-  test('hasMethodDefined is true if the object has a function property in any parent with that name', () => {
-    const parent = { func: () => 42 };
-    const object = { __proto__: parent };
-    const method = 'func';
-    assert.isTrue(Utils.hasMethodDefined(object, method));
-  });
-  
-  test('hasMethodDefined is false if the object does not have a property with that name', () => {
-    const object = {};
-    const method = 'func';
-    assert.isFalse(Utils.hasMethodDefined(object, method));
-  });
-  
-  test('hasMethodDefined is false if the object has a property with that name, but it is not a function', () => {
-    const object = { func: 'i am not a function' };
-    const method = 'func';
-    assert.isFalse(Utils.hasMethodDefined(object, method));
-  });
-  
   test('number of elements of Set', () => {
     assert.areEqual(Utils.numberOfElements(new Set([1,2])), 2);
   });
@@ -64,7 +39,7 @@ suite('utility functions', () => {
   });
   
   test('respondsTo() is true when the property exists as a function in the object', () => {
-    const thingThatKnowsHowToDance = { dance() { return 'I am dancing!' } };
+    const thingThatKnowsHowToDance = { dance() { return 'I am dancing!'; } };
     assert.isTrue(Utils.respondsTo(thingThatKnowsHowToDance, 'dance'));
   });
   
@@ -103,5 +78,26 @@ suite('utility functions', () => {
   
   test('prettyPrint() does not use toString() of strings, and uses inspect instead', () => {
     assert.that(Utils.prettyPrint('hello')).isEqualTo('\'hello\'');
+  });
+  
+  test('notNullOrUndefined() is false on null and undefined', () => {
+    assert.isFalse(Utils.notNullOrUndefined(null));
+    assert.isFalse(Utils.notNullOrUndefined(undefined));
+  });
+  
+  test('notNullOrUndefined() is true on objects and primitives', () => {
+    assert.isTrue(Utils.notNullOrUndefined(5));
+    assert.isTrue(Utils.notNullOrUndefined({ an: 'object' }));
+  });
+  
+  test('isUndefined() is true on undefined', () => {
+    assert.isTrue(Utils.isUndefined(undefined));
+  });
+  
+  test('isUndefined() is false on null, objects and primitives', () => {
+    assert.isFalse(Utils.isUndefined(null));
+    assert.isFalse(Utils.isUndefined(0));
+    assert.isFalse(Utils.isUndefined(''));
+    assert.isFalse(Utils.isUndefined([]));
   });
 });
