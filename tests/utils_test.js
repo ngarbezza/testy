@@ -58,4 +58,50 @@ suite('utility functions', () => {
     assert.isFalse(Utils.isRegex('hey'));
     assert.isFalse(Utils.isRegex(() => {}));
   });
+  
+  test('respondsTo() is false when the property does not exist in the object', () => {
+    assert.isFalse(Utils.respondsTo({}, 'dance'));
+  });
+  
+  test('respondsTo() is true when the property exists as a function in the object', () => {
+    const thingThatKnowsHowToDance = { dance() { return 'I am dancing!' } };
+    assert.isTrue(Utils.respondsTo(thingThatKnowsHowToDance, 'dance'));
+  });
+  
+  test('respondsTo() is false when the property exists in the object but it is not a function', () => {
+    const thingThatHasADanceProperty = { dance: true };
+    assert.isFalse(Utils.respondsTo(thingThatHasADanceProperty, 'dance'));
+  });
+  
+  test('respondsTo() is false object is null or undefined', () => {
+    assert.isFalse(Utils.respondsTo(null, 'dance'));
+    assert.isFalse(Utils.respondsTo(undefined, 'dance'));
+  });
+  
+  test('respondsTo() is true when the property exists as function at class-level, not instance-level', () => {
+    class Dancer {
+      dance() {
+        return 'I am dancing!';
+      }
+    }
+    const aDancer = new Dancer();
+    assert.isTrue(Utils.respondsTo(aDancer, 'dance'));
+  });
+  
+  test('respondsTo() works for non-object types', () => {
+    assert.isTrue(Utils.respondsTo('hey', 'toString'));
+  });
+  
+  test('prettyPrint() uses toString() when available', () => {
+    const printable = { toString: () => 'I know how to print myself' };
+    assert.that(Utils.prettyPrint(printable)).isEqualTo('I know how to print myself');
+  });
+  
+  test('prettyPrint() does not use toString() of arrays, and uses inspect instead', () => {
+    assert.that(Utils.prettyPrint([1, 2, 3])).isEqualTo('[ 1, 2, 3 ]');
+  });
+  
+  test('prettyPrint() does not use toString() of strings, and uses inspect instead', () => {
+    assert.that(Utils.prettyPrint('hello')).isEqualTo('\'hello\'');
+  });
 });
