@@ -16,6 +16,12 @@ suite('exception assertions', () => {
     expectSuccess();
   });
   
+  test('raises() can receive an arbitrary object and it passes when the exact object is expected', () => {
+    asserter.that(() => { throw { an: 'object' }; }).raises({ an: 'object' });
+  
+    expectSuccess();
+  });
+  
   test('raises() can receive a regex and it passes when it matches the thrown error with message', () => {
     asserter.that(() => { throw new TypeError('things happened'); }).raises(/happened/);
     
