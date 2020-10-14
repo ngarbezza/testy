@@ -176,6 +176,23 @@ Please take a look at the `tests` folder, you'll find examples of each possible 
       });
     });
     ```
+* **Running code after every test**: just like many testing frameworks have, there is a way to execute some code after (cleanp) every test in a suite using the `after()` function. Example:
+
+    ```javascript
+    const { suite, test, before, after, assert } = require('@pmoo/testy');
+    
+    suite('using the after() helper', () => {
+      let answer;
+    
+      before(() => {
+        answer = 42;
+      });
+    
+      after(() => {
+        answer = undefined;
+      });
+    });
+    ```
 * **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a failure.
 * **Fail-Fast mode**: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.
 * **Run tests and suites in random order**: a good test suite does not depend on a particular order. Enabling this setting is a good way to ensure that.

@@ -1,12 +1,17 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../testy');
+const { suite, test, before, after, assert } = require('../../testy');
+const TestSuite = require('../../lib/test_suite');
+const { Asserter } = require('../../lib/asserter');
+const TestRunner = require('../../lib/test_runner');
+const { aPassingTest } = require('../support/tests_factory');
 
 suite('testing testy - basic features', () => {
   const circular = {}; circular.yourself = circular;
   let myVar = 8;
   
   before(() => myVar = 7);
+  after(() => myVar = undefined);
   
   test('tests with body', () => {
     const pepe = { nombre: 'pepe' };
@@ -14,7 +19,35 @@ suite('testing testy - basic features', () => {
   });
   
   test('before hook can be used', () => assert.areEqual(myVar, 7));
+  test('after hook can be used', () => {
+    const noop = () => {};
+    const emptyRunnerCallbacks = { onFinish: noop };
+    const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
+
+    const newEmptySuite = () => suiteNamed('myTestSuite');
+    const suiteNamed = suiteName => new TestSuite(suiteName, () => {}, emptySuiteCallbacks);
+
+    const asserter = new Asserter(runner);
+    const suite = newEmptySuite();
+    const passingTest = aPassingTest(asserter);
+
+    let afterTestVar = 10;
+
+    const runner = new TestRunner(emptyRunnerCallbacks);
+    runner.addSuite(suite);
+
+    suite.before(() => {
+      afterTestVar = 9;
+    });
+    suite.after(() => {
+      afterTestVar = 0;
+    });
+    suite.addTest(passingTest);
+    runner.run();
+    assert.that(afterTestVar).isEqualTo(0);
+  });
   
+
   test('many assertions', () => {
     assert.areEqual(2, 1 + 1);
     assert.isTrue(true || false);
