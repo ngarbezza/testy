@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay! :tada:
 
+## [5.0.2] - 2020-10-13
+
+A hacktoberfest release! 5 bugs fixed and two new contributors! :muscle:
+
+It also includes an improvement in the contribution guidelines, and records of architectural decisions (ADRs).
+
+### Fixed
+
+* [[bug] isEmpty / isNotEmpty failing when passing an undefined value](https://github.com/ngarbezza/testy/issues/125): thank you, @abraaoduarte for your first contribution!
+* [[bug] validate argument types of test()](https://github.com/ngarbezza/testy/issues/137): thank you, @adico1 for your first contribution!
+* [[bug] raises() does not pass when throwing a non-primitive object](https://github.com/ngarbezza/testy/issues/140)
+* [[bug] toString() is not honored when printing objects](https://github.com/ngarbezza/testy/issues/143)
+* [[bug] cannot run testy binary using npx](https://github.com/ngarbezza/testy/issues/148)
+
 ## [5.0.1] - 2020-08-02
 
 ### Fixed
@@ -191,7 +205,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.0.1...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.0.2...HEAD
+[5.0.2]: https://github.com/ngarbezza/testy/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/ngarbezza/testy/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/ngarbezza/testy/compare/v4.4.0...v5.0.0
 [4.4.0]: https://github.com/ngarbezza/testy/compare/v4.3.0...v4.4.0
