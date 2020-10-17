@@ -26,8 +26,12 @@ suite('testing testy - basic assertions', () => {
   });
   
   test('inclusion in collection', () => assert.that([1, 2, 3]).includes(2));
+
+  test('value is included in collection', () => assert.that(2).isIncludedIn([1, 2, 3]));
   
   test('not inclusion in collection', () => assert.that([1, 2, 3]).doesNotInclude(4));
+
+  test('value is not included in collection', () => assert.that(4).isNotIncludedIn([1, 2, 3]));
   
   test('inclusion of all elements in collection', () => {
     assert.that([1, 2, 3]).includesExactly(2, 3, 1);
