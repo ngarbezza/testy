@@ -32,6 +32,8 @@
     "be_null": "be null",
     "be_not_null": "be not null",
     "include": "include",
+    "be_included_in": "be included in",
+    "be_not_included_in": "be not included in",
     "not_include": "not include",
     "include_exactly": "include exactly",
     "be_empty": "be empty",
