@@ -43,6 +43,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ask-imran",
+      "name": "Askar Imran",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20487103?v=4",
+      "profile": "https://github.com/ask-imran",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
