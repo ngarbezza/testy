@@ -63,6 +63,10 @@ suite('test suite behavior', () => {
   test('a suite cannot be created without a name', () => {
     assert.that(() => new TestSuite()).raises('Suite does not have a valid name');
   });
+
+  test('a suite cannot be created with name empty', () => {
+    assert.that(() => new TestSuite('')).raises('Suite and test names cannot be empty');
+  });
   
   test('a suite cannot be created with a name that is not a string', () => {
     assert.that(() => new TestSuite(new Date())).raises('Suite does not have a valid name');

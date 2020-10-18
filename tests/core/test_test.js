@@ -33,4 +33,8 @@ suite('tests behavior', () => {
   test('a test cannot be created with a body that is not a function', () => {
     assert.that(() => new Test('hey', 'ho')).raises('Test does not have a valid body');
   });
+
+  test('a test cannot be created with name empty', () => {
+    assert.that(() => new Test('', undefined)).raises('Suite and test names cannot be empty');
+  });
 });
