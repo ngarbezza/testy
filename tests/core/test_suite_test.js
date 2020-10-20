@@ -52,7 +52,21 @@ suite('test suite behavior', () => {
     
     assert
       .that(() => mySuite.after(() => 5 + 6))
-      .raises('There is already a after() block. Please leave just one after() block and run again the tests.');
+      .raises('There is already an after() block. Please leave just one after() block and run again the tests.');
+  });
+
+  test('after hook can be used', () => {
+    let afterTestVar = 10;
+
+    mySuite.before(() => {
+      afterTestVar = 9;
+    });
+    mySuite.after(() => {
+      afterTestVar = 0;
+    });
+    mySuite.addTest(passingTest);
+    runner.run();
+    assert.that(afterTestVar).isEqualTo(0);
   });
 
   test('reporting failures and errors', () => {
