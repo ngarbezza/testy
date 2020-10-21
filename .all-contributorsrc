@@ -53,6 +53,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "niyonx",
+      "name": "Nigel Yong",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/23243585?v=4",
+      "profile": "http://www.nigelyong.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
