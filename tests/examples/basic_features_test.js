@@ -1,12 +1,13 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../testy');
+const { suite, test, before, after, assert } = require('../../testy');
 
 suite('testing testy - basic features', () => {
   const circular = {}; circular.yourself = circular;
   let myVar = 8;
   
   before(() => myVar = 7);
+  after(() => myVar = undefined);
   
   test('tests with body', () => {
     const pepe = { nombre: 'pepe' };
