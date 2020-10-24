@@ -12,6 +12,8 @@ const assert = new Asserter(testRunner);
 const fail = new FailureGenerator(testRunner);
 const pending = new PendingMarker(testRunner);
 
+const red = '\x1b[31m';
+
 function test(name, testBody) {
   testRunner.registerTest(name, testBody, ui.testCallbacks());
 }
@@ -69,11 +71,17 @@ class Testy {
   }
   
   _loadAllRequestedFiles() {
-    this._resolvedTestFilesPathsToRun().forEach(path =>
-      Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
-        require(file)
-      )
-    );
+    try{
+      
+      this._resolvedTestFilesPathsToRun().forEach(path =>
+        Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+          require(file)
+        )
+      );
+    }catch(err){
+      ui._displayError(`Error: ${err.path} does not exist.`, red);
+      process.exit(1);
+    }
   }
   
   _testFilesPathsToRun() {
@@ -81,8 +89,9 @@ class Testy {
     return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
   }
   
-  _resolvedTestFilesPathsToRun() {
+  _resolvedTestFilesPathsToRun(){
     return this._testFilesPathsToRun().map(path => Utils.resolvePathFor(path));
+  
   }
   
   _pathForAllTests() {
