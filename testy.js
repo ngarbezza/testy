@@ -68,13 +68,14 @@ class Testy {
   
   _loadAllRequestedFiles() {
     try{
+      
       this._resolvedTestFilesPathsToRun().forEach(path =>
         Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
           require(file)
         )
       );
     }catch(err){
-      console.log(`${red}Error: the requested file/folder does not exist.`);
+      ui._displayError(`Error: ${err.path} does not exist.`, red);
       process.exit(1);
     }
   }
@@ -84,8 +85,9 @@ class Testy {
     return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
   }
   
-  _resolvedTestFilesPathsToRun() {
+  _resolvedTestFilesPathsToRun(){
     return this._testFilesPathsToRun().map(path => Utils.resolvePathFor(path));
+  
   }
   
   _pathForAllTests() {
