@@ -41,7 +41,8 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/5412270?v=4",
       "profile": "http://adico.tech",
       "contributions": [
-        "code"
+        "code",
+        "test"
       ]
     },
     {
@@ -52,6 +53,15 @@
       "contributions": [
         "code",
         "test"
+      ]
+    },
+    {
+      "login": "niyonx",
+      "name": "Nigel Yong",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/23243585?v=4",
+      "profile": "http://www.nigelyong.com/",
+      "contributions": [
+        "code"
       ]
     }
   ],

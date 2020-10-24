@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../testy');
+const { suite, test, before, after, assert } = require('../../testy');
 const TestSuite = require('../../lib/test_suite');
 const { Asserter } = require('../../lib/asserter');
 const TestRunner = require('../../lib/test_runner');
@@ -28,6 +28,16 @@ suite('test suite behavior', () => {
     erroredTest = anErroredTest();
     pendingTest = aPendingTest();
   });
+
+  after(() => {
+    runner = undefined;
+    asserter = undefined;
+    mySuite = undefined;
+    passingTest = undefined;
+    failingTest = undefined;
+    erroredTest = undefined;
+    pendingTest = undefined;
+  });
   
   test('more than one before block is not allowed', () => {
     mySuite.before(() => 3 + 4);
@@ -37,6 +47,28 @@ suite('test suite behavior', () => {
       .raises('There is already a before() block. Please leave just one before() block and run again the tests.');
   });
   
+  test('more than one after block is not allowed', () => {
+    mySuite.after(() => 3 + 4);
+    
+    assert
+      .that(() => mySuite.after(() => 5 + 6))
+      .raises('There is already an after() block. Please leave just one after() block and run again the tests.');
+  });
+
+  test('after hook can be used', () => {
+    let afterTestVar = 10;
+
+    mySuite.before(() => {
+      afterTestVar = 9;
+    });
+    mySuite.after(() => {
+      afterTestVar = 0;
+    });
+    mySuite.addTest(passingTest);
+    runner.run();
+    assert.that(afterTestVar).isEqualTo(0);
+  });
+
   test('reporting failures and errors', () => {
     mySuite.addTest(passingTest);
     mySuite.addTest(failingTest);

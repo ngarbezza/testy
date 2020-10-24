@@ -26,6 +26,10 @@ function before(initialization) {
   testRunner.registerBefore(initialization);
 }
 
+function after(initialization) {
+  testRunner.registerAfter(initialization);
+}
+
 class Testy {
   // instance creation
   
@@ -99,4 +103,4 @@ class Testy {
   }
 }
 
-module.exports = { Testy, suite, test, before, assert, fail, pending };
+module.exports = { Testy, suite, test, before, after, assert, fail, pending };
