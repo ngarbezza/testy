@@ -37,7 +37,9 @@ suite('testing testy - basic assertions', () => {
     assert.that([1, 2, 3]).includesExactly(2, 3, 1);
   });
   
-  test('error checking', () => assert.that(() => { throw 'hey!'; }).raises('hey!'));
+  test('error checking', () => assert.that(() => {
+    throw 'hey!'; 
+  }).raises('hey!'));
   
   // commented so CI can pass - uncomment to see the failure
   // test('tests can fail as well :)', () => assert.that(() => { throw 'hey!'; }).raises("ho!"));
@@ -47,7 +49,9 @@ suite('testing testy - basic assertions', () => {
   );
   
   test('testing that no specific error happened - even if other error occurs', () =>
-    assert.that(() => { throw 'ho!'; }).doesNotRaise('hey!')
+    assert.that(() => {
+      throw 'ho!'; 
+    }).doesNotRaise('hey!')
   );
   
   test('testing that no error happens at all', () =>

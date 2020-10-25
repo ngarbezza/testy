@@ -4,7 +4,7 @@ const libDir = './lib';
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
-const Utils = require(`${libDir}/utils`);
+const { allFilesMatching, resolvePathFor } = require(`${libDir}/utils`);
 
 const ui = new ConsoleUI();
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
@@ -71,14 +71,13 @@ class Testy {
   }
   
   _loadAllRequestedFiles() {
-    try{
-      
+    try {
       this._resolvedTestFilesPathsToRun().forEach(path =>
-        Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+        allFilesMatching(path, this._testFilesFilter()).forEach(file =>
           require(file)
         )
       );
-    }catch(err){
+    } catch (err){
       ui._displayError(`Error: ${err.path} does not exist.`, red);
       process.exit(1);
     }
@@ -90,8 +89,7 @@ class Testy {
   }
   
   _resolvedTestFilesPathsToRun(){
-    return this._testFilesPathsToRun().map(path => Utils.resolvePathFor(path));
-  
+    return this._testFilesPathsToRun().map(path => resolvePathFor(path));
   }
   
   _pathForAllTests() {

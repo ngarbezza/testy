@@ -34,15 +34,23 @@ suite('testing testy - basic features', () => {
   });
   
   test('equality check when objects understand equals()', () => {
-    const objectOne = { a: 'a', b: 'b1', equals: function(another) { return this.a === another.a; } };
-    const objectTwo = { a: 'a', b: 'b2', equals: function(another) { return this.b === another.b; } };
+    const objectOne = { a: 'a', b: 'b1', equals: function(another) {
+      return this.a === another.a; 
+    } };
+    const objectTwo = { a: 'a', b: 'b2', equals: function(another) {
+      return this.b === another.b; 
+    } };
     assert.that(objectOne).isEqualTo(objectTwo);
     assert.that(objectTwo).isNotEqualTo(objectOne);
   });
   
   test('equality check using custom message name', () => {
-    const objectOne = { a: 'a', b: 'b1', sameAs: function(another) { return this.a === another.a; } };
-    const objectTwo = { a: 'a', b: 'b2', sameAs: function(another) { return this.b === another.b; } };
+    const objectOne = { a: 'a', b: 'b1', sameAs: function(another) {
+      return this.a === another.a; 
+    } };
+    const objectTwo = { a: 'a', b: 'b2', sameAs: function(another) {
+      return this.b === another.b; 
+    } };
     assert.that(objectOne).isEqualTo(objectTwo, 'sameAs');
     assert.that(objectTwo).isNotEqualTo(objectOne, 'sameAs');
   });

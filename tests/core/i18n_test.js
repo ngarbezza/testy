@@ -9,21 +9,21 @@ suite('i18n', () => {
   });
   
   test('translating a existing message in the default language', () => {
-    const translations = { en: { a_key: 'a text' } };
+    const translations = { en: { aKey: 'a text' } };
     const i18n = new I18n('en', translations);
     
-    assert.areEqual(i18n.translate('a_key'), 'a text');
+    assert.areEqual(i18n.translate('aKey'), 'a text');
   });
   
   test('translating a existing message in another language', () => {
-    const translations = { es: { a_key: 'un texto' } };
+    const translations = { es: { aKey: 'un texto' } };
     const i18n = new I18n('es', translations);
     
-    assert.areEqual(i18n.translate('a_key'), 'un texto');
+    assert.areEqual(i18n.translate('aKey'), 'un texto');
   });
   
   test('an error is raised if the key is not found in the default language', () => {
-    const translations = { en: { a_key: 'un texto' } };
+    const translations = { en: { aKey: 'un texto' } };
     const i18n = new I18n('en', translations);
     
     assert
@@ -32,9 +32,9 @@ suite('i18n', () => {
   });
   
   test('falls back to default language if the key is not found in the given language', () => {
-    const translations = { en: { a_key: 'a text' } };
+    const translations = { en: { aKey: 'a text' } };
     const i18n = new I18n('es', translations);
     
-    assert.areEqual(i18n.translate('a_key'), 'a text');
+    assert.areEqual(i18n.translate('aKey'), 'a text');
   });
 });
