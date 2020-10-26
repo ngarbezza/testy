@@ -12,14 +12,12 @@ const assert = new Asserter(testRunner);
 const fail = new FailureGenerator(testRunner);
 const pending = new PendingMarker(testRunner);
 
-const red = '\x1b[31m';
-
 function test(name, testBody) {
   testRunner.registerTest(name, testBody, ui.testCallbacks());
 }
 
 function suite(name, suiteBody) {
-  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
+  testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
 }
 
 function before(initialization) {
@@ -50,10 +48,7 @@ class Testy {
     ui.measuringTotalTime(() =>
       testRunner.run()
     );
-    testRunner.finish({
-      success: () => process.exit(0),
-      failure: () => process.exit(1),
-    });
+    testRunner.finish();
   }
   
   // initialization
@@ -77,9 +72,8 @@ class Testy {
           require(file)
         )
       );
-    } catch (err){
-      ui._displayError(`Error: ${err.path} does not exist.`, red);
-      process.exit(1);
+    } catch (err) {
+      ui.exitWithError(`Error: ${err.path} does not exist.`);
     }
   }
   
