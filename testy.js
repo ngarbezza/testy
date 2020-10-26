@@ -4,7 +4,7 @@ const libDir = './lib';
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
-const Utils = require(`${libDir}/utils`);
+const { allFilesMatching, resolvePathFor } = require(`${libDir}/utils`);
 
 const ui = new ConsoleUI();
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
@@ -12,14 +12,12 @@ const assert = new Asserter(testRunner);
 const fail = new FailureGenerator(testRunner);
 const pending = new PendingMarker(testRunner);
 
-const red = '\x1b[31m';
-
 function test(name, testBody) {
   testRunner.registerTest(name, testBody, ui.testCallbacks());
 }
 
 function suite(name, suiteBody) {
-  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
+  testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
 }
 
 function before(initialization) {
@@ -50,10 +48,7 @@ class Testy {
     ui.measuringTotalTime(() =>
       testRunner.run()
     );
-    testRunner.finish({
-      success: () => process.exit(0),
-      failure: () => process.exit(1),
-    });
+    testRunner.finish();
   }
   
   // initialization
@@ -71,16 +66,14 @@ class Testy {
   }
   
   _loadAllRequestedFiles() {
-    try{
-      
+    try {
       this._resolvedTestFilesPathsToRun().forEach(path =>
-        Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+        allFilesMatching(path, this._testFilesFilter()).forEach(file =>
           require(file)
         )
       );
-    }catch(err){
-      ui._displayError(`Error: ${err.path} does not exist.`, red);
-      process.exit(1);
+    } catch (err) {
+      ui.exitWithError(`Error: ${err.path} does not exist.`);
     }
   }
   
@@ -90,8 +83,7 @@ class Testy {
   }
   
   _resolvedTestFilesPathsToRun(){
-    return this._testFilesPathsToRun().map(path => Utils.resolvePathFor(path));
-  
+    return this._testFilesPathsToRun().map(path => resolvePathFor(path));
   }
   
   _pathForAllTests() {

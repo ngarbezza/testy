@@ -16,11 +16,11 @@ suite('utility functions', () => {
   });
   
   test('number of elements of Set', () => {
-    assert.areEqual(Utils.numberOfElements(new Set([1,2])), 2);
+    assert.areEqual(Utils.numberOfElements(new Set([1, 2])), 2);
   });
   
   test('number of elements of Array', () => {
-    assert.areEqual(Utils.numberOfElements([1,2, 3]), 3);
+    assert.areEqual(Utils.numberOfElements([1, 2, 3]), 3);
   });
   
   test('isRegex returns true for regexes', () => {
@@ -39,7 +39,9 @@ suite('utility functions', () => {
   });
   
   test('respondsTo() is true when the property exists as a function in the object', () => {
-    const thingThatKnowsHowToDance = { dance() { return 'I am dancing!'; } };
+    const thingThatKnowsHowToDance = { dance() {
+      return 'I am dancing!'; 
+    } };
     assert.isTrue(Utils.respondsTo(thingThatKnowsHowToDance, 'dance'));
   });
   
