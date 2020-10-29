@@ -44,8 +44,7 @@ class Testy {
   run(requestedPaths) {
     this._requestedPaths = requestedPaths;
     this._loadAllRequestedFiles();
-    ui.displayInitialSummary(this._configuration, this._testFilesPathsToRun());
-    ui.measuringTotalTime(() =>
+    ui.start(this._configuration, this._testFilesPathsToRun(), () =>
       testRunner.run()
     );
     testRunner.finish();
