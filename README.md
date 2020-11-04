@@ -238,6 +238,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://www.nigelyong.com/"><img src="https://avatars2.githubusercontent.com/u/23243585?v=4" width="100px;" alt=""/><br /><sub><b>Nigel Yong</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=niyonx" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/chelsieng"><img src="https://avatars1.githubusercontent.com/u/60008262?v=4" width="100px;" alt=""/><br /><sub><b>Chelsie Ng</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=chelsieng" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/trochepablo"><img src="https://avatars2.githubusercontent.com/u/18213369?v=4" width="100px;" alt=""/><br /><sub><b>Pablo T</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=trochepablo" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=trochepablo" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
