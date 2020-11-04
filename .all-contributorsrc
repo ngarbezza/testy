@@ -72,6 +72,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "trochepablo",
+      "name": "Pablo T",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/18213369?v=4",
+      "profile": "https://github.com/trochepablo",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
