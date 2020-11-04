@@ -169,4 +169,41 @@ suite('collection assertions', () => {
 
     expectFailureDueTo('Expected undefined to be not empty');
   });
+
+  test('includes works with Sets', () => {
+    asserter.that(new Set([42])).includes(42);
+  
+    expectSuccess();
+  });
+
+  test('includes works with Maps', () => {
+    asserter.that(new Map([['key', 42]])).includes(42);
+  
+    expectSuccess();
+  });
+
+  test('includes works with Strings', () => {
+    asserter.that('42').includes('4');
+  
+    expectSuccess();
+  });
+
+  test('doesNotInclude works with Sets', () => {
+    asserter.that(new Set([24])).doesNotInclude(42);
+  
+    expectSuccess();
+  });
+
+  test('doesNotInclude works with Maps', () => {
+    asserter.that(new Map([['key', 24]])).doesNotInclude(42);
+  
+    expectSuccess();
+  });
+
+  test('doesNotInclude works with Strings', () => {
+    asserter.that('24').doesNotInclude('5');
+  
+    expectSuccess();
+  });
+
 });
