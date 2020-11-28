@@ -16,7 +16,7 @@ suite('test runner', () => {
       },
       onFailure: () => {
         result = 'failure';
-      }
+      },
     };
     const runner = new TestRunner(callbacks);
   

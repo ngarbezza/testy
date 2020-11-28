@@ -45,21 +45,21 @@ suite('testing testy - basic assertions', () => {
   // test('tests can fail as well :)', () => assert.that(() => { throw 'hey!'; }).raises("ho!"));
   
   test('no specific error happened', () =>
-    assert.that(emptyFunction).doesNotRaise('hey!')
+    assert.that(emptyFunction).doesNotRaise('hey!'),
   );
   
   test('testing that no specific error happened - even if other error occurs', () =>
     assert.that(() => {
       throw 'ho!'; 
-    }).doesNotRaise('hey!')
+    }).doesNotRaise('hey!'),
   );
   
   test('testing that no error happens at all', () =>
-    assert.that(emptyFunction).doesNotRaiseAnyErrors()
+    assert.that(emptyFunction).doesNotRaiseAnyErrors(),
   );
   
   test('object comparison', () =>
-    assert.areEqual({ a: 2, b: [1, 2, 3] }, { a: 2, b: [1, 2, 3] })
+    assert.areEqual({ a: 2, b: [1, 2, 3] }, { a: 2, b: [1, 2, 3] }),
   );
 
   // commented so CI can pass - uncomment to see the failure
