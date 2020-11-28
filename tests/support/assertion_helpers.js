@@ -1,7 +1,7 @@
 'use strict';
 
 const { assert } = require('../../testy');
-const { Asserter } = require('../../lib/asserter');
+const { Asserter, FailureGenerator, PendingMarker } = require('../../lib/asserter');
 const TestResult = require('../../lib/test_result');
 const I18n = require('../../lib/i18n');
 
@@ -19,6 +19,8 @@ const fakeRunner = {
 };
 
 const asserter = new Asserter(fakeRunner);
+const failGenerator = new FailureGenerator(fakeRunner);
+const pendingMarker = new PendingMarker(fakeRunner);
 
 const expectSuccess = () => {
   assert.areEqual(fakeRunner.result(), TestResult.success());
@@ -27,6 +29,12 @@ const expectSuccess = () => {
 
 const expectFailureDueTo = failureMessage => {
   expectFailureOn(fakeRunner, failureMessage);
+  fakeRunner.reset();
+};
+
+const expectPendingResultDueTo = reason => {
+  assert.isTrue(fakeRunner.result().isPending());
+  assert.areEqual(fakeRunner.result().reason(), reason);
   fakeRunner.reset();
 };
 
@@ -40,4 +48,13 @@ const expectErrorOn = (test, errorMessage) => {
   assert.areEqual(test.result().failureMessage(), errorMessage);
 };
 
-module.exports = { asserter, expectSuccess, expectFailureDueTo, expectFailureOn, expectErrorOn };
+module.exports = {
+  asserter,
+  failGenerator,
+  pendingMarker,
+  expectSuccess,
+  expectFailureDueTo,
+  expectPendingResultDueTo,
+  expectFailureOn,
+  expectErrorOn,
+};

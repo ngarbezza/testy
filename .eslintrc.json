@@ -16,7 +16,9 @@
     "block-scoped-var": "error",
     "brace-style": "warn",
     "camelcase": "warn",
+    "comma-dangle": ["warn", "always-multiline"],
     "comma-spacing": "warn",
+    "comma-style": "warn",
     "constructor-super": "error",
     "curly": "error",
     "dot-notation": "error",
@@ -43,6 +45,7 @@
     "quotes": [2, "single", "avoid-escape"],
     "semi": 2,
     "space-before-function-paren": ["error", "never"],
-    "space-infix-ops": "error"
+    "space-infix-ops": "error",
+    "space-in-parens": "warn"
   }
 }

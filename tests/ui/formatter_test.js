@@ -17,7 +17,7 @@ suite('formatter', () => {
       
       messages() {
         return Array.from(this._messages);
-      }
+      },
     };
   
     i18n = new I18n();

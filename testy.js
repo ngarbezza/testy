@@ -45,7 +45,7 @@ class Testy {
     this._requestedPaths = requestedPaths;
     this._loadAllRequestedFiles();
     ui.start(this._configuration, this._testFilesPathsToRun(), () =>
-      testRunner.run()
+      testRunner.run(),
     );
     testRunner.finish();
   }
@@ -68,8 +68,8 @@ class Testy {
     try {
       this._resolvedTestFilesPathsToRun().forEach(path =>
         allFilesMatching(path, this._testFilesFilter()).forEach(file =>
-          require(file)
-        )
+          require(file),
+        ),
       );
     } catch (err) {
       ui.exitWithError(`Error: ${err.path} does not exist.`);
