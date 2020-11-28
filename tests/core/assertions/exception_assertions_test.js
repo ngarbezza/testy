@@ -43,4 +43,24 @@ suite('exception assertions', () => {
     
     expectFailureDueTo('Expected error /happiness/ to happen, but got \'a terrible error\' instead');
   });
+  
+  test('raises() fails when no errors occur in the given function', () => {
+    asserter.that(() => 1 + 2).raises('a weird error');
+    
+    expectFailureDueTo('Expected error \'a weird error\' to happen');
+  });
+  
+  test('doesNoRaiseAnyErrors() passes when no errors occur in the given function', () => {
+    asserter.that(() => 1 + 2).doesNotRaiseAnyErrors();
+    
+    expectSuccess();
+  });
+  
+  test('doesNoRaiseAnyErrors() fails when an error happens', () => {
+    asserter.that(() => {
+      throw 'an unexpected error';
+    }).doesNotRaiseAnyErrors();
+  
+    expectFailureDueTo('Expected no errors to happen, but \'an unexpected error\' was raised');
+  });
 });
