@@ -34,7 +34,7 @@ suite('tests behavior', () => {
     assert.that(() => new Test('hey', 'ho')).raises('Test does not have a valid body');
   });
 
-  test('a test cannot be created with name empty', () => {
-    assert.that(() => new Test('', undefined)).raises('Suite and test names cannot be empty');
+  test('a test cannot be created with an empty name', () => {
+    assert.that(() => new Test('   ', undefined)).raises('Test does not have a valid name');
   });
 });

@@ -32,6 +32,11 @@ const expectFailureDueTo = failureMessage => {
   fakeRunner.reset();
 };
 
+const expectErrorDueTo = failureMessage => {
+  expectErrorOn(fakeRunner, failureMessage);
+  fakeRunner.reset();
+};
+
 const expectPendingResultDueTo = reason => {
   assert.isTrue(fakeRunner.result().isPending());
   assert.areEqual(fakeRunner.result().reason(), reason);
@@ -54,6 +59,7 @@ module.exports = {
   pendingMarker,
   expectSuccess,
   expectFailureDueTo,
+  expectErrorDueTo,
   expectPendingResultDueTo,
   expectFailureOn,
   expectErrorOn,

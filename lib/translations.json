@@ -46,7 +46,8 @@
     "running_tests_in": "Running tests in",
     "fail_fast": "Fail fast",
     "random_order": "Random order",
-    "starting_testy": "Starting Testy!"
+    "starting_testy": "Starting Testy!",
+    "invalid_pending_reason": "In order to mark a test as pending, you need to specify a reason."
   },
   "es": {
     "yes": "sí",
@@ -93,6 +94,7 @@
     "running_tests_in": "Ejecutando tests en",
     "fail_fast": "Fallo rápido",
     "random_order": "Orden aleatorio",
-    "starting_testy": "Comenzando a ejecutar Testy!"
+    "starting_testy": "Comenzando a ejecutar Testy!",
+    "invalid_pending_reason": "Para marcar un test como pendiente, es necesario especificar un motivo."
   }
 }
