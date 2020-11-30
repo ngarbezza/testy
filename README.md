@@ -15,14 +15,13 @@
 ![dependencies](https://img.shields.io/david/ngarbezza/testy.svg?logo=dependabot)
 \
 ![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm)
-![activity](https://img.shields.io/github/commit-activity/w/ngarbezza/testy.svg?logo=npm)
+![activity](https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm)
 ![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
 \
-[![all-contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?logo=open-source-initiative)](#contributors)
+[![all-contributors](https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative)](#Contributors)
 
 A very simple JS testing framework, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
-:arrow_right: [v4 (legacy version) documentation here](README_v4.md) \
 :arrow_right: [Documentación en español aquí](README_es.md)
 
 ## Getting started

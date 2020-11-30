@@ -15,14 +15,13 @@
 ![dependencies](https://img.shields.io/david/ngarbezza/testy.svg?logo=dependabot)
 \
 ![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm)
-![activity](https://img.shields.io/github/commit-activity/w/ngarbezza/testy.svg?logo=npm)
+![activity](https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm)
 ![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
 \
-[![all-contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?logo=open-source-initiative)](#Contribuyentes)
+[![all-contributors](https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative)](#Contribuyentes)
 
 Una simple herramienta de testeo en Javascript, para propósitos educativos. Disponible en npm: [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
-:arrow_right: [Documentación de v4 (versión anterior) aquí](README_v4_es.md) \
 :arrow_right: [English version here](README.md)
 
 ## Para comenzar
