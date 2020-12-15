@@ -3,6 +3,8 @@
 const { assert } = require('../../testy');
 const { Asserter, FailureGenerator, PendingMarker } = require('../../lib/asserter');
 const TestResult = require('../../lib/test_result');
+const TestRunner = require('../../lib/test_runner');
+const TestSuite = require('../../lib/test_suite');
 const I18n = require('../../lib/i18n');
 
 const fakeRunner = {
@@ -53,7 +55,27 @@ const expectErrorOn = (test, errorMessage) => {
   assert.areEqual(test.result().failureMessage(), errorMessage);
 };
 
+const runSingleTest = (runner, test) => {
+  const noop = () => {};
+  const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
+  const suite = new TestSuite(`suite for ${test.name()}`, noop, emptySuiteCallbacks);
+  suite.addTest(test);
+  runner.addSuite(suite);
+  runner.run();
+  return test.result();
+};
+
+const withRunner = testBlock => {
+  const noop = () => {};
+  const emptyRunnerCallbacks = { onFinish: noop };
+  const runner = new TestRunner(emptyRunnerCallbacks);
+  const asserter = new Asserter(runner);
+  testBlock(runner, asserter);
+};
+
 module.exports = {
+  withRunner,
+  runSingleTest,
   asserter,
   failGenerator,
   pendingMarker,
