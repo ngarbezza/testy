@@ -2,14 +2,16 @@
 
 const { suite, test, assert } = require('../../testy');
 const Test = require('../../lib/test');
+const FailFast = require('../../lib/fail_fast');
 const { aTestWithNoAssertions } = require('../support/tests_factory');
 const { expectErrorOn } = require('../support/assertion_helpers');
 
 suite('tests behavior', () => {
   test('running a test that does not have any assertion generates an error with a descriptive message', () => {
     const testToRun = aTestWithNoAssertions();
+    const context = { failFastMode: FailFast.default() };
     
-    testToRun.run();
+    testToRun.run(context);
     
     expectErrorOn(testToRun, 'This test does not have any assertions');
   });
