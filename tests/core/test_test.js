@@ -3,7 +3,8 @@
 const { suite, test, assert } = require('../../testy');
 const Test = require('../../lib/test');
 const { aTestWithNoAssertions, aTestWithBody } = require('../support/tests_factory');
-const { withRunner, runSingleTest, expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
+const { withRunner, runSingleTest } = require('../support/runner_helpers');
+const { expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
 
 suite('tests behavior', () => {
   test('running a test that does not have any assertion generates an error with a descriptive message', () => {

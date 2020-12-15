@@ -1,42 +1,31 @@
 'use strict';
 
-const { suite, test, before, after, assert } = require('../../testy');
+const { suite, test, before, assert } = require('../../testy');
 const TestSuite = require('../../lib/test_suite');
-const { Asserter } = require('../../lib/asserter');
-const TestRunner = require('../../lib/test_runner');
+const { withRunner } = require('../support/runner_helpers');
 const FailFast = require('../../lib/fail_fast');
 const { aPassingTest, aFailingTest, anErroredTest, aPendingTest } = require('../support/tests_factory');
 
 const noop = () => {};
-const emptyRunnerCallbacks = { onFinish: noop };
 const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
 
 const newEmptySuite = () => suiteNamed('myTestSuite');
 const suiteNamed = suiteName => new TestSuite(suiteName, () => {}, emptySuiteCallbacks);
 
 suite('test suite behavior', () => {
-  let runner, asserter, mySuite;
+  let runner, mySuite;
   let passingTest, failingTest, erroredTest, pendingTest;
   
   before(() => {
-    runner = new TestRunner(emptyRunnerCallbacks);
-    asserter = new Asserter(runner);
-    mySuite = newEmptySuite();
-    runner.addSuite(mySuite);
-    passingTest = aPassingTest(asserter);
-    failingTest = aFailingTest(asserter);
-    erroredTest = anErroredTest();
-    pendingTest = aPendingTest();
-  });
-
-  after(() => {
-    runner = undefined;
-    asserter = undefined;
-    mySuite = undefined;
-    passingTest = undefined;
-    failingTest = undefined;
-    erroredTest = undefined;
-    pendingTest = undefined;
+    withRunner((runnerToUse, asserterToUse) => {
+      runner = runnerToUse;
+      mySuite = newEmptySuite();
+      runner.addSuite(mySuite);
+      passingTest = aPassingTest(asserterToUse);
+      failingTest = aFailingTest(asserterToUse);
+      erroredTest = anErroredTest();
+      pendingTest = aPendingTest();
+    });
   });
   
   test('more than one before block is not allowed', () => {
