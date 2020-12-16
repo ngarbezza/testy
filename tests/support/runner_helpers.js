@@ -1,8 +1,8 @@
 'use strict';
 
-const { Asserter } = require('../../lib/asserter');
 const TestRunner = require('../../lib/test_runner');
 const TestSuite = require('../../lib/test_suite');
+const { Asserter, FailureGenerator, PendingMarker } = require('../../lib/asserter');
 const { aTestWithBody } = require('./tests_factory');
 
 const runSingleTest = (runner, test) => {
@@ -20,12 +20,14 @@ const withRunner = testBlock => {
   const emptyRunnerCallbacks = { onFinish: noop };
   const runner = new TestRunner(emptyRunnerCallbacks);
   const asserter = new Asserter(runner);
-  return testBlock(runner, asserter);
+  const failGenerator = new FailureGenerator(runner);
+  const pendingMarker = new PendingMarker(runner);
+  return testBlock(runner, asserter, failGenerator, pendingMarker);
 };
 
-const resultOfATestWith = assertBlock =>
-  withRunner((runner, asserter) => {
-    const testToRun = aTestWithBody(() => assertBlock(asserter));
+const resultOfATestWith = (assertBlock) =>
+  withRunner((runner, assert, fail, pending) => {
+    const testToRun = aTestWithBody(() => assertBlock(assert, fail, pending));
     runSingleTest(runner, testToRun);
     return testToRun.result();
   });

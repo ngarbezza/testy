@@ -10,9 +10,9 @@ suite('tests behavior', () => {
   test('running a test that does not have any assertion generates an error with a descriptive message', () => {
     withRunner(runner => {
       const testToRun = aTestWithNoAssertions();
-      runSingleTest(runner, testToRun);
+      const result = runSingleTest(runner, testToRun);
       
-      expectErrorOn(testToRun, 'This test does not have any assertions');
+      expectErrorOn(result, 'This test does not have any assertions');
     });
   });
 
