@@ -115,4 +115,19 @@ suite('test suite behavior', () => {
     assert.isTrue(erroredTest.isSkipped());
     assert.isTrue(pendingTest.isSkipped());
   });
+  
+  test('tests can be randomized based on a setting', () => {
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+    mySuite.addTest(erroredTest);
+    mySuite.addTest(pendingTest);
+    runner.setTestRandomness(true);
+    
+    const testsBefore = mySuite.tests();
+    runner.run();
+    const testsAfter = mySuite.tests();
+    
+    // we cannot test how the random process was done, but at least we ensure we keep the same tests
+    assert.areEqual(new Set(testsBefore), new Set(testsAfter));
+  });
 });

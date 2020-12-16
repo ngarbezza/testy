@@ -135,4 +135,14 @@ suite('equality assertions', () => {
     const result = resultOfATestWith(assert => assert.areEqual(undefined, undefined));
     expectFailureOn(result, 'Equality cannot be determined. Both parts are undefined');
   });
+  
+  test('isEqualTo fails with object with circular references', () => {
+    const objectOne = { toString() {
+      return 'circular!'; 
+    } };
+    objectOne.self = objectOne;
+    const result = resultOfATestWith(assert => assert.areEqual(objectOne, objectOne));
+    
+    expectFailureOn(result, "Expected circular! to be equal to circular! (circular references found, equality check cannot be done. Please compare objects' properties individually)");
+  });
 });
