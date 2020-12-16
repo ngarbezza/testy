@@ -26,11 +26,13 @@ const aPendingTest = () =>
   new Test('a work in progress', undefined, emptyTestCallbacks);
 
 const aTestWithNoAssertions = () =>
-  new Test('wrong', () => {
-    return 1 + 2; 
-  }, emptyTestCallbacks);
+  aTestWithBody(() => 1 + 2);
+
+const aTestWithBody = body =>
+  new Test('just a test', body, emptyTestCallbacks);
 
 module.exports = {
+  aTestWithBody,
   aPassingTest,
   aFailingTest,
   anErroredTest,

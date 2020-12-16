@@ -2,16 +2,18 @@
 
 const { suite, test, assert } = require('../../testy');
 const Test = require('../../lib/test');
-const { aTestWithNoAssertions } = require('../support/tests_factory');
-const { expectErrorOn } = require('../support/assertion_helpers');
+const { aTestWithNoAssertions, aTestWithBody } = require('../support/tests_factory');
+const { withRunner, runSingleTest } = require('../support/runner_helpers');
+const { expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
 
 suite('tests behavior', () => {
   test('running a test that does not have any assertion generates an error with a descriptive message', () => {
-    const testToRun = aTestWithNoAssertions();
-    
-    testToRun.run();
-    
-    expectErrorOn(testToRun, 'This test does not have any assertions');
+    withRunner(runner => {
+      const testToRun = aTestWithNoAssertions();
+      const result = runSingleTest(runner, testToRun);
+      
+      expectErrorOn(result, 'This test does not have any assertions');
+    });
   });
 
   test('a test cannot be created without a name', () => {
@@ -36,5 +38,18 @@ suite('tests behavior', () => {
 
   test('a test cannot be created with an empty name', () => {
     assert.that(() => new Test('   ', undefined)).raises('Test does not have a valid name');
+  });
+  
+  test('a test fails on the first assertion failed', () => {
+    withRunner((runner, assert) => {
+      const test = aTestWithBody(() => {
+        assert.isNotEmpty([]);
+        assert.areEqual(2, 3);
+      });
+      
+      const result = runSingleTest(runner, test);
+  
+      expectFailureOn(result, 'Expected [] to be not empty');
+    });
   });
 });

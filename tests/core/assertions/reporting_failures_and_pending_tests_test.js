@@ -1,30 +1,31 @@
 'use strict';
 
 const { suite, test } = require('../../../testy');
-const { failGenerator, pendingMarker, expectErrorDueTo, expectFailureDueTo, expectPendingResultDueTo } = require('../../support/assertion_helpers');
+const { resultOfATestWith } = require('../../support/runner_helpers');
+const { expectErrorOn, expectFailureOn, expectPendingResultOn } = require('../../support/assertion_helpers');
 
 suite('reporting failures and pending tests', () => {
   test('marking a test as explicitly failed with no message', () => {
-    failGenerator.with();
+    const result = resultOfATestWith((_assert, fail, _pending) => fail.with());
     
-    expectFailureDueTo('Explicitly failed');
+    expectFailureOn(result, 'Explicitly failed');
   });
   
   test('marking a test as explicitly failed with no message', () => {
-    failGenerator.with('I should not be here!');
+    const result = resultOfATestWith((_assert, fail, _pending) => fail.with('I should not be here!'));
     
-    expectFailureDueTo('I should not be here!');
+    expectFailureOn(result, 'I should not be here!');
   });
   
   test('marking a test as pending with no message', () => {
-    pendingMarker.dueTo();
+    const result = resultOfATestWith((_assert, _fail, pending) => pending.dueTo());
     
-    expectErrorDueTo('In order to mark a test as pending, you need to specify a reason.');
+    expectErrorOn(result, 'In order to mark a test as pending, you need to specify a reason.');
   });
   
   test('marking a test as pending with a custom message', () => {
-    pendingMarker.dueTo('No time to fix!');
+    const result = resultOfATestWith((_assert, _fail, pending) => pending.dueTo('No time to fix!'));
     
-    expectPendingResultDueTo('No time to fix!');
+    expectPendingResultOn(result, 'No time to fix!');
   });
 });

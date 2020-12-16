@@ -102,4 +102,16 @@ suite('utility functions', () => {
     assert.isFalse(Utils.isUndefined(''));
     assert.isFalse(Utils.isUndefined([]));
   });
+  
+  test('isStringWithContent() is true for a string containing one or more characters', () => {
+    assert.isTrue(Utils.isStringWithContent('a'));
+    assert.isTrue(Utils.isStringWithContent('an'));
+    assert.isTrue(Utils.isStringWithContent('an object'));
+  });
+  
+  test('isStringWithContent() is false for an empty string or string containing only separators', () => {
+    assert.isFalse(Utils.isStringWithContent(''));
+    assert.isFalse(Utils.isStringWithContent(' '));
+    assert.isFalse(Utils.isStringWithContent('   '));
+  });
 });

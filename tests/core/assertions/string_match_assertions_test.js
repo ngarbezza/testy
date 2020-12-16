@@ -1,30 +1,31 @@
 'use strict';
 
 const { suite, test } = require('../../../testy');
-const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
+const { resultOfATestWith } = require('../../support/runner_helpers');
+const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
 suite('assertions about strings match', () => {
   test('matches() passes when the regex match the actual string', () => {
-    asserter.that('hello').matches(/ll/);
+    const result = resultOfATestWith(assert => assert.that('hello').matches(/ll/));
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('matches() fails when the regex does the actual string', () => {
-    asserter.that('goodbye').matches(/ll/);
+    const result = resultOfATestWith(assert => assert.that('goodbye').matches(/ll/));
     
-    expectFailureDueTo("Expected 'goodbye' to match /ll/");
+    expectFailureOn(result, "Expected 'goodbye' to match /ll/");
   });
   
   test('isMatching() shortcut works', () => {
-    asserter.isMatching('hello', /ll/);
+    const result = resultOfATestWith(assert => assert.isMatching('hello', /ll/));
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('matches() passes with a exact string', () => {
-    asserter.that('hola').matches('hola');
+    const result = resultOfATestWith(assert => assert.that('hola').matches('hola'));
     
-    expectSuccess();
+    expectSuccess(result);
   });
 });
