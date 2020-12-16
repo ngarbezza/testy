@@ -9,6 +9,7 @@ const expectSuccess = result => {
 
 const expectPendingResultOn = (result, reason) => {
   assert.isTrue(result.isPending());
+  assert.isTrue(result.isExplicitlyMarkedPending());
   assert.areEqual(result.reason(), reason);
 };
 
