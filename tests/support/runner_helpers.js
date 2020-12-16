@@ -3,6 +3,7 @@
 const { Asserter } = require('../../lib/asserter');
 const TestRunner = require('../../lib/test_runner');
 const TestSuite = require('../../lib/test_suite');
+const { aTestWithBody } = require('./tests_factory');
 
 const runSingleTest = (runner, test) => {
   const noop = () => {};
@@ -19,10 +20,18 @@ const withRunner = testBlock => {
   const emptyRunnerCallbacks = { onFinish: noop };
   const runner = new TestRunner(emptyRunnerCallbacks);
   const asserter = new Asserter(runner);
-  testBlock(runner, asserter);
+  return testBlock(runner, asserter);
 };
+
+const resultOfATestWith = assertBlock =>
+  withRunner((runner, asserter) => {
+    const testToRun = aTestWithBody(() => assertBlock(asserter));
+    runSingleTest(runner, testToRun);
+    return testToRun.result();
+  });
 
 module.exports = {
   withRunner,
   runSingleTest,
+  resultOfATestWith,
 };

@@ -41,15 +41,15 @@ suite('tests behavior', () => {
   });
   
   test('a test fails on the first assertion failed', () => {
-    withRunner((runner, asserter) => {
+    withRunner((runner, assert) => {
       const test = aTestWithBody(() => {
-        asserter.isNotEmpty([]);
-        asserter.areEqual(2, 3);
+        assert.isNotEmpty([]);
+        assert.areEqual(2, 3);
       });
       
-      runSingleTest(runner, test);
+      const result = runSingleTest(runner, test);
   
-      expectFailureOn(test, 'Expected [] to be not empty');
+      expectFailureOn(result, 'Expected [] to be not empty');
     });
   });
 });

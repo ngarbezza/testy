@@ -22,13 +22,13 @@ const asserter = new Asserter(fakeRunner);
 const failGenerator = new FailureGenerator(fakeRunner);
 const pendingMarker = new PendingMarker(fakeRunner);
 
-const expectSuccess = () => {
-  assert.areEqual(fakeRunner.result(), TestResult.success());
+const expectSuccess = (result) => {
+  assert.areEqual(result || fakeRunner.result(), TestResult.success());
   fakeRunner.reset();
 };
 
 const expectFailureDueTo = failureMessage => {
-  expectFailureOn(fakeRunner, failureMessage);
+  expectFailureOn(fakeRunner.result(), failureMessage);
   fakeRunner.reset();
 };
 
@@ -43,9 +43,9 @@ const expectPendingResultDueTo = reason => {
   fakeRunner.reset();
 };
 
-const expectFailureOn = (test, failureMessage) => {
-  assert.isTrue(test.result().isFailure());
-  assert.areEqual(test.result().failureMessage(), failureMessage);
+const expectFailureOn = (result, failureMessage) => {
+  assert.isTrue(result.isFailure());
+  assert.areEqual(result.failureMessage(), failureMessage);
 };
 
 const expectErrorOn = (test, errorMessage) => {

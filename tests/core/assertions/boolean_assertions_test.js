@@ -1,42 +1,43 @@
 'use strict';
 
 const { suite, test } = require('../../../testy');
-const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
+const { resultOfATestWith } = require('../../support/runner_helpers');
+const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
 suite('boolean assertions', () => {
   test('isTrue passes with true', () => {
-    asserter.that(true).isTrue();
+    const result = resultOfATestWith(assert => assert.that(true).isTrue());
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('isTrue does not pass with false', () => {
-    asserter.that(false).isTrue();
+    const result = resultOfATestWith(assert => assert.that(false).isTrue());
     
-    expectFailureDueTo('Expected false to be true');
+    expectFailureOn(result, 'Expected false to be true');
   });
   
   test('isTrue does not pass with another value', () => {
-    asserter.that(null).isTrue();
+    const result = resultOfATestWith(assert => assert.that(null).isTrue());
     
-    expectFailureDueTo('Expected null to be true');
+    expectFailureOn(result, 'Expected null to be true');
   });
   
   test('isFalse passes with false', () => {
-    asserter.that(false).isFalse();
+    const result = resultOfATestWith(assert => assert.that(false).isFalse());
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('isFalse does not pass with true', () => {
-    asserter.that(true).isFalse();
+    const result = resultOfATestWith(assert => assert.that(true).isFalse());
     
-    expectFailureDueTo('Expected true to be false');
+    expectFailureOn(result, 'Expected true to be false');
   });
   
   test('isFalse does not pass with another value', () => {
-    asserter.that(null).isFalse();
+    const result = resultOfATestWith(assert => assert.that(null).isFalse());
     
-    expectFailureDueTo('Expected null to be false');
+    expectFailureOn(result, 'Expected null to be false');
   });
 });
