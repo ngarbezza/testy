@@ -1,66 +1,79 @@
 'use strict';
 
 const { suite, test } = require('../../../testy');
-const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
+const { resultOfATestWith } = require('../../support/runner_helpers');
+const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
 suite('exception assertions', () => {
   test('raises() can receive a string and it passes when the exact string is expected', () => {
-    asserter.that(() => {
-      throw 'an error happened'; 
-    }).raises('an error happened');
+    const result = resultOfATestWith(assert =>
+      assert.that(() => {
+        throw 'an error happened';
+      }).raises('an error happened'),
+    );
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('raises() can receive a regex and it passes when it matches the thrown string', () => {
-    asserter.that(() => {
-      throw 'an error happened'; 
-    }).raises(/error/);
+    const result = resultOfATestWith(assert =>
+      assert.that(() => {
+        throw 'an error happened';
+      }).raises(/error/),
+    );
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('raises() can receive an arbitrary object and it passes when the exact object is expected', () => {
-    asserter.that(() => {
-      throw { an: 'object' }; 
-    }).raises({ an: 'object' });
+    const result = resultOfATestWith(assert =>
+      assert.that(() => {
+        throw { an: 'object' };
+      }).raises({ an: 'object' }),
+    );
   
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('raises() can receive a regex and it passes when it matches the thrown error with message', () => {
-    asserter.that(() => {
-      throw new TypeError('things happened'); 
-    }).raises(/happened/);
+    const result = resultOfATestWith(assert =>
+      assert.that(() => {
+        throw new TypeError('things happened');
+      }).raises(/happened/),
+    );
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('raises() can receive a regex and it fails if there is not a match in the error message', () => {
-    asserter.that(() => {
-      throw 'a terrible error'; 
-    }).raises(/happiness/);
+    const result = resultOfATestWith(assert =>
+      assert.that(() => {
+        throw 'a terrible error';
+      }).raises(/happiness/),
+    );
     
-    expectFailureDueTo('Expected error /happiness/ to happen, but got \'a terrible error\' instead');
+    expectFailureOn(result, 'Expected error /happiness/ to happen, but got \'a terrible error\' instead');
   });
   
   test('raises() fails when no errors occur in the given function', () => {
-    asserter.that(() => 1 + 2).raises('a weird error');
+    const result = resultOfATestWith(assert => assert.that(() => 1 + 2).raises('a weird error'));
     
-    expectFailureDueTo('Expected error \'a weird error\' to happen');
+    expectFailureOn(result, 'Expected error \'a weird error\' to happen');
   });
   
   test('doesNoRaiseAnyErrors() passes when no errors occur in the given function', () => {
-    asserter.that(() => 1 + 2).doesNotRaiseAnyErrors();
+    const result = resultOfATestWith(assert => assert.that(() => 1 + 2).doesNotRaiseAnyErrors());
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('doesNoRaiseAnyErrors() fails when an error happens', () => {
-    asserter.that(() => {
-      throw 'an unexpected error';
-    }).doesNotRaiseAnyErrors();
+    const result = resultOfATestWith(assert =>
+      assert.that(() => {
+        throw 'an unexpected error';
+      }).doesNotRaiseAnyErrors(),
+    );
   
-    expectFailureDueTo('Expected no errors to happen, but \'an unexpected error\' was raised');
+    expectFailureOn(result, 'Expected no errors to happen, but \'an unexpected error\' was raised');
   });
 });
