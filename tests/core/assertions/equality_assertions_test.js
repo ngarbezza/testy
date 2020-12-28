@@ -36,48 +36,60 @@ suite('equality assertions', () => {
   });
   
   test('isEqualTo passes with objects having the same property values', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
     const objectTwo = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
+    /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.that(objectOne).isEqualTo(objectTwo));
     
     expectSuccess(result);
   });
   
   test('isEqualTo fails with objects having different property values', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: { b1: 'b1', b2: 'b2' } };
     const objectTwo = { a: 'a', b: { b1: 'b1', b2: '' } };
+    /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.that(objectOne).isEqualTo(objectTwo));
     
     expectFailureOn(result, "Expected { a: 'a', b: { b1: 'b1', b2: 'b2' } } to be equal to { a: 'a', b: { b1: 'b1', b2: '' } }");
   });
   
   test('isEqualTo fails if one object has less properties than the other', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: 'b' };
     const objectTwo = { a: 'a', b: 'b', c: 'c' };
+    /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.that(objectOne).isEqualTo(objectTwo));
     
     expectFailureOn(result, "Expected { a: 'a', b: 'b' } to be equal to { a: 'a', b: 'b', c: 'c' }");
   });
   
   test('isEqualTo fails if one object has more properties than the other', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: 'b', c: 'c' };
     const objectTwo = { a: 'a', b: 'b' };
+    /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.that(objectOne).isEqualTo(objectTwo));
     
     expectFailureOn(result, "Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
   });
   
   test('isEqualTo with custom criteria fails if objects do not have that property', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: 'b' };
     const objectTwo = { a: 'a', b: 'b' };
+    /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.areEqual(objectOne, objectTwo, 'notFound'));
     
     expectFailureOn(result, 'Expected { a: \'a\', b: \'b\' } to be equal to { a: \'a\', b: \'b\' } Equality check failed. Objects do not have \'notFound\' property');
   });
   
   test('isEqualTo with custom criteria passes if the criteria evaluates to true', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: 'b1', myEqualMessage: () => true };
     const objectTwo = { a: 'a', b: 'b2', myEqualMessage: () => true };
+    /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.areEqual(objectOne, objectTwo, 'myEqualMessage'));
     
     expectSuccess(result);
@@ -85,11 +97,11 @@ suite('equality assertions', () => {
   
   test('isEqualTo with custom criteria passes if the criteria evaluates to true, and we are comparing instances of the same class', () => {
     class AClass {
-      constructor(a) {
-        this.a = a; 
+      constructor(asd) {
+        this.asd = asd;
       }
       myEqualMessage() {
-        return true; 
+        return true;
       }
     }
     const objectOne = new AClass();
@@ -101,11 +113,11 @@ suite('equality assertions', () => {
   
   test('isEqualTo with equals() default criteria passes if it evaluates to true, and we are comparing instances of the same class', () => {
     class AClass {
-      constructor(a) {
-        this.a = a; 
+      constructor(asd) {
+        this.asd = asd;
       }
       equals() {
-        return true; 
+        return true;
       }
     }
     const objectOne = new AClass(1);
@@ -138,7 +150,7 @@ suite('equality assertions', () => {
   
   test('isEqualTo fails with object with circular references', () => {
     const objectOne = { toString() {
-      return 'circular!'; 
+      return 'circular!';
     } };
     objectOne.self = objectOne;
     const result = resultOfATestWith(assert => assert.areEqual(objectOne, objectOne));

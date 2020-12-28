@@ -5,13 +5,13 @@ const Utils = require('../lib/utils');
 
 suite('utility functions', () => {
   test('isCyclic is true if the object has a cyclic reference', () => {
-    const obj = { a: 2 };
+    const obj = { asd: 2 };
     obj.yourself = obj;
     assert.isTrue(Utils.isCyclic(obj));
   });
   
   test('isCyclic is false if the object does not have a cyclic reference', () => {
-    const obj = { a: 2 };
+    const obj = { asd: 2 };
     assert.isFalse(Utils.isCyclic(obj));
   });
   
@@ -40,7 +40,7 @@ suite('utility functions', () => {
   
   test('respondsTo() is true when the property exists as a function in the object', () => {
     const thingThatKnowsHowToDance = { dance() {
-      return 'I am dancing!'; 
+      return 'I am dancing!';
     } };
     assert.isTrue(Utils.respondsTo(thingThatKnowsHowToDance, 'dance'));
   });

@@ -4,6 +4,8 @@ const { suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
+const InternationalizedMessage = require('../../../lib/internationalized_message');
+
 suite('numeric assertions', () => {
   test('isNearTo passes if an exact integer matches', () => {
     const result = resultOfATestWith(assert => assert.that(42).isNearTo(42));
@@ -14,7 +16,7 @@ suite('numeric assertions', () => {
   test('isNearTo fails if the integer part of the number is not equal', () => {
     const result = resultOfATestWith(assert => assert.that(42).isNearTo(43));
     
-    expectFailureOn(result, 'Expected 42 to be near to 43 (using 4 precision digits)');
+    expectFailureOn(result, new InternationalizedMessage('expectation_be_near_to', '42', '43', '4'));
   });
   
   test('isNearTo passes if the actual number rounded using the specified decimals matches the expected number', () => {
@@ -26,7 +28,7 @@ suite('numeric assertions', () => {
   test('isNearTo fails if the actual number rounded using the specified decimals does not match the expected number', () => {
     const result = resultOfATestWith(assert => assert.that(42.001).isNearTo(42, 3));
   
-    expectFailureOn(result, 'Expected 42.001 to be near to 42 (using 3 precision digits)');
+    expectFailureOn(result, new InternationalizedMessage('expectation_be_near_to', '42.001', '42', '3'));
   });
   
   test('isNearTo passes with a default precision of 4', () => {

@@ -28,29 +28,35 @@ suite('testing testy - basic features', () => {
   
   test('custom equality check', () => {
     const criteria = (o1, o2) => o1.a === o2.a;
+    /* eslint-disable id-length */
     assert.areEqual({ a: 'a', b: 'b1' }, { a: 'a', b: 'b2' }, criteria);
     assert.that({ a: 'a', b: 'b1' }).isEqualTo({ a: 'a', b: 'b2' }, criteria);
     assert.that({ a: 'a', b: 'b1' }).isNotEqualTo({ a: 'a2', b: 'b1' }, criteria);
+    /* eslint-enable id-length */
   });
   
   test('equality check when objects understand equals()', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: 'b1', equals: function(another) {
-      return this.a === another.a; 
+      return this.a === another.a;
     } };
     const objectTwo = { a: 'a', b: 'b2', equals: function(another) {
-      return this.b === another.b; 
+      return this.b === another.b;
     } };
+    /* eslint-enable id-length */
     assert.that(objectOne).isEqualTo(objectTwo);
     assert.that(objectTwo).isNotEqualTo(objectOne);
   });
   
   test('equality check using custom message name', () => {
+    /* eslint-disable id-length */
     const objectOne = { a: 'a', b: 'b1', sameAs: function(another) {
-      return this.a === another.a; 
+      return this.a === another.a;
     } };
     const objectTwo = { a: 'a', b: 'b2', sameAs: function(another) {
-      return this.b === another.b; 
+      return this.b === another.b;
     } };
+    /* eslint-enable id-length */
     assert.that(objectOne).isEqualTo(objectTwo, 'sameAs');
     assert.that(objectTwo).isNotEqualTo(objectOne, 'sameAs');
   });

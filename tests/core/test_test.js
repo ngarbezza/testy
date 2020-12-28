@@ -1,10 +1,12 @@
 'use strict';
 
 const { suite, test, assert } = require('../../testy');
-const Test = require('../../lib/test');
 const { aTestWithNoAssertions, aTestWithBody } = require('../support/tests_factory');
 const { withRunner, runSingleTest } = require('../support/runner_helpers');
 const { expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
+
+const Test = require('../../lib/test');
+const InternationalizedMessage = require('../../lib/internationalized_message');
 
 suite('tests behavior', () => {
   test('running a test that does not have any assertion generates an error with a descriptive message', () => {
@@ -49,7 +51,7 @@ suite('tests behavior', () => {
       
       const result = runSingleTest(runner, test);
   
-      expectFailureOn(result, 'Expected [] to be not empty');
+      expectFailureOn(result, new InternationalizedMessage('expectation_be_not_empty', '[]'));
     });
   });
 });
