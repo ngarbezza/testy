@@ -4,6 +4,8 @@ const { suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
+const InternationalizedMessage = require('../../../lib/internationalized_message');
+
 suite('assertions about null', () => {
   test('isNull passes with a null value', () => {
     const result = resultOfATestWith(assert => assert.isNull(null));
@@ -14,7 +16,7 @@ suite('assertions about null', () => {
   test('isNull does not pass with a another value', () => {
     const result = resultOfATestWith(assert => assert.isNull(undefined));
     
-    expectFailureOn(result, 'Expected undefined to be null');
+    expectFailureOn(result, new InternationalizedMessage('expectation_be_null', 'undefined'));
   });
 
   test('isNotNull passes with a non-null value', () => {
@@ -26,6 +28,6 @@ suite('assertions about null', () => {
   test('isNotNull does not pass when the value is null', () => {
     const result = resultOfATestWith(assert => assert.isNotNull(null));
     
-    expectFailureOn(result, 'Expected null to be not null');
+    expectFailureOn(result, new InternationalizedMessage('expectation_be_not_null', 'null'));
   });
 });
