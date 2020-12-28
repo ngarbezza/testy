@@ -161,13 +161,13 @@ suite('collection assertions', () => {
     expectSuccess(result);
   });
 
-  test('isEmpty throwing error instead of failure', () => {
+  test('isEmpty fails when the object is undefined', () => {
     const result = resultOfATestWith(assert => assert.isEmpty(undefined));
 
     expectFailureOn(result, new InternationalizedMessage('expectation_be_empty', 'undefined'));
   });
 
-  test('isNotEmpty throwing error instead of failure', () => {
+  test('isNotEmpty fails when the object is undefined', () => {
     const result = resultOfATestWith(assert => assert.isNotEmpty(undefined));
 
     expectFailureOn(result, new InternationalizedMessage('expectation_be_not_empty', 'undefined'));

@@ -38,7 +38,7 @@ suite('exception assertions', () => {
   test('raises() can receive a regex and it passes when it matches the thrown error with message', () => {
     const result = resultOfATestWith(assert =>
       assert.that(() => {
-        throw new TypeError('things happened');
+        throw new Error('things happened');
       }).raises(/happened/),
     );
     
