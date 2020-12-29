@@ -1,10 +1,11 @@
 'use strict';
 
 const { suite, test, before, assert } = require('../../testy');
-const Formatter = require('../../lib/formatter');
-const I18n = require('../../lib/i18n');
 const { withRunner, runSingleTest } = require('../support/runner_helpers');
 const { aTestWithBody, aPendingTest } = require('../support/tests_factory');
+
+const Formatter = require('../../lib/formatter');
+const { I18n } = require('../../lib/i18n');
 
 suite('formatter', () => {
   let formatter, dummyConsole, i18n;

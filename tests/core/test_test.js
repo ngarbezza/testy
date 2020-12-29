@@ -6,7 +6,7 @@ const { withRunner, runSingleTest } = require('../support/runner_helpers');
 const { expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
 
 const Test = require('../../lib/test');
-const I18n = require('../../lib/i18n');
+const { I18nMessage } = require('../../lib/i18n');
 
 suite('tests behavior', () => {
   test('running a test that does not have any assertion generates an error with a descriptive message', () => {
@@ -51,7 +51,7 @@ suite('tests behavior', () => {
       
       const result = runSingleTest(runner, test);
   
-      expectFailureOn(result, I18n.message('expectation_be_not_empty', '[]'));
+      expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', '[]'));
     });
   });
 });

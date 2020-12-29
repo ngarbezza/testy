@@ -4,7 +4,7 @@ const { suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
-const I18n = require('../../../lib/i18n');
+const { I18nMessage } = require('../../../lib/i18n');
 
 suite('boolean assertions', () => {
   test('isTrue passes with true', () => {
@@ -16,13 +16,13 @@ suite('boolean assertions', () => {
   test('isTrue does not pass with false', () => {
     const result = resultOfATestWith(assert => assert.that(false).isTrue());
     
-    expectFailureOn(result, I18n.message('expectation_be_true', 'false'));
+    expectFailureOn(result, I18nMessage.of('expectation_be_true', 'false'));
   });
   
   test('isTrue does not pass with another value', () => {
     const result = resultOfATestWith(assert => assert.that(null).isTrue());
     
-    expectFailureOn(result, I18n.message('expectation_be_true', 'null'));
+    expectFailureOn(result, I18nMessage.of('expectation_be_true', 'null'));
   });
   
   test('isFalse passes with false', () => {
@@ -34,12 +34,12 @@ suite('boolean assertions', () => {
   test('isFalse does not pass with true', () => {
     const result = resultOfATestWith(assert => assert.that(true).isFalse());
     
-    expectFailureOn(result, I18n.message('expectation_be_false', 'true'));
+    expectFailureOn(result, I18nMessage.of('expectation_be_false', 'true'));
   });
   
   test('isFalse does not pass with another value', () => {
     const result = resultOfATestWith(assert => assert.that(null).isFalse());
     
-    expectFailureOn(result, I18n.message('expectation_be_false', 'null'));
+    expectFailureOn(result, I18nMessage.of('expectation_be_false', 'null'));
   });
 });

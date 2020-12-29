@@ -4,6 +4,8 @@ const { suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
+const { I18nMessage } = require('../../../lib/i18n');
+
 suite('equality assertions', () => {
   test('isEqualTo pass with equal primitive objects', () => {
     const result = resultOfATestWith(assert => assert.that(42).isEqualTo(42));
@@ -14,7 +16,7 @@ suite('equality assertions', () => {
   test('isEqualTo fails with different primitive objects', () => {
     const result = resultOfATestWith(assert => assert.that(42).isEqualTo(21));
     
-    expectFailureOn(result, 'Expected 42 to be equal to 21');
+    expectFailureOn(result, I18nMessage.of('equality_assertion_be_equal_to', '42', '21'));
   });
   
   test('isEqualTo passes with boxed and unboxed numbers', () => {
@@ -32,7 +34,7 @@ suite('equality assertions', () => {
   test('isEqualTo fails with arrays in different order', () => {
     const result = resultOfATestWith(assert => assert.that([1, 2, 3]).isEqualTo([1, 3, 2]));
     
-    expectFailureOn(result, 'Expected [ 1, 2, 3 ] to be equal to [ 1, 3, 2 ]');
+    expectFailureOn(result, I18nMessage.of('equality_assertion_be_equal_to', '[ 1, 2, 3 ]', '[ 1, 3, 2 ]'));
   });
   
   test('isEqualTo passes with objects having the same property values', () => {
@@ -52,7 +54,7 @@ suite('equality assertions', () => {
     /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.that(objectOne).isEqualTo(objectTwo));
     
-    expectFailureOn(result, "Expected { a: 'a', b: { b1: 'b1', b2: 'b2' } } to be equal to { a: 'a', b: { b1: 'b1', b2: '' } }");
+    expectFailureOn(result, I18nMessage.of('equality_assertion_be_equal_to', "{ a: 'a', b: { b1: 'b1', b2: 'b2' } }", "{ a: 'a', b: { b1: 'b1', b2: '' } }"));
   });
   
   test('isEqualTo fails if one object has less properties than the other', () => {
@@ -62,7 +64,7 @@ suite('equality assertions', () => {
     /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.that(objectOne).isEqualTo(objectTwo));
     
-    expectFailureOn(result, "Expected { a: 'a', b: 'b' } to be equal to { a: 'a', b: 'b', c: 'c' }");
+    expectFailureOn(result, I18nMessage.of('equality_assertion_be_equal_to', "{ a: 'a', b: 'b' }", "{ a: 'a', b: 'b', c: 'c' }"));
   });
   
   test('isEqualTo fails if one object has more properties than the other', () => {
@@ -72,7 +74,7 @@ suite('equality assertions', () => {
     /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.that(objectOne).isEqualTo(objectTwo));
     
-    expectFailureOn(result, "Expected { a: 'a', b: 'b', c: 'c' } to be equal to { a: 'a', b: 'b' }");
+    expectFailureOn(result, I18nMessage.of('equality_assertion_be_equal_to', "{ a: 'a', b: 'b', c: 'c' }", "{ a: 'a', b: 'b' }"));
   });
   
   test('isEqualTo with custom criteria fails if objects do not have that property', () => {
@@ -81,8 +83,10 @@ suite('equality assertions', () => {
     const objectTwo = { a: 'a', b: 'b' };
     /* eslint-enable id-length */
     const result = resultOfATestWith(assert => assert.areEqual(objectOne, objectTwo, 'notFound'));
-    
-    expectFailureOn(result, 'Expected { a: \'a\', b: \'b\' } to be equal to { a: \'a\', b: \'b\' } Equality check failed. Objects do not have \'notFound\' property');
+  
+    const assertionMessage = I18nMessage.of('equality_assertion_be_equal_to', "{ a: 'a', b: 'b' }", "{ a: 'a', b: 'b' }");
+    const additionalMessage = I18nMessage.of('equality_assertion_failed_due_to_missing_property', 'notFound');
+    expectFailureOn(result, I18nMessage.joined([assertionMessage, additionalMessage], ' '));
   });
   
   test('isEqualTo with custom criteria passes if the criteria evaluates to true', () => {
@@ -131,21 +135,21 @@ suite('equality assertions', () => {
     const resultOne = resultOfATestWith(assert => assert.areEqual(undefined, {}));
     const resultTwo = resultOfATestWith(assert => assert.areEqual({}, undefined));
     
-    expectFailureOn(resultOne, 'Expected undefined to be equal to {}');
-    expectFailureOn(resultTwo, 'Expected {} to be equal to undefined');
+    expectFailureOn(resultOne, I18nMessage.of('equality_assertion_be_equal_to', 'undefined', '{}'));
+    expectFailureOn(resultTwo, I18nMessage.of('equality_assertion_be_equal_to', '{}', 'undefined'));
   });
   
   test('isEqualTo fails when comparing null with an object', () => {
     const resultOne = resultOfATestWith(assert => assert.areEqual(null, {}));
     const resultTwo = resultOfATestWith(assert => assert.areEqual({}, null));
     
-    expectFailureOn(resultOne, 'Expected null to be equal to {}');
-    expectFailureOn(resultTwo, 'Expected {} to be equal to null');
+    expectFailureOn(resultOne, I18nMessage.of('equality_assertion_be_equal_to', 'null', '{}'));
+    expectFailureOn(resultTwo, I18nMessage.of('equality_assertion_be_equal_to', '{}', 'null'));
   });
   
   test('isEqualTo fails if both parts are undefined', () => {
     const result = resultOfATestWith(assert => assert.areEqual(undefined, undefined));
-    expectFailureOn(result, 'Equality cannot be determined. Both parts are undefined');
+    expectFailureOn(result, I18nMessage.of('equality_assertion_failed_due_to_undetermination'));
   });
   
   test('isEqualTo fails with object with circular references', () => {
@@ -154,7 +158,9 @@ suite('equality assertions', () => {
     } };
     objectOne.self = objectOne;
     const result = resultOfATestWith(assert => assert.areEqual(objectOne, objectOne));
-    
-    expectFailureOn(result, "Expected circular! to be equal to circular! (circular references found, equality check cannot be done. Please compare objects' properties individually)");
+  
+    const assertionMessage = I18nMessage.of('equality_assertion_be_equal_to', 'circular!', 'circular!');
+    const additionalMessage = I18nMessage.of('equality_assertion_failed_due_to_circular_references');
+    expectFailureOn(result, I18nMessage.joined([assertionMessage, additionalMessage], ' '));
   });
 });

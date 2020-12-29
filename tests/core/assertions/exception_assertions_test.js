@@ -4,7 +4,7 @@ const { suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
-const I18n = require('../../../lib/i18n');
+const { I18nMessage } = require('../../../lib/i18n');
 
 suite('exception assertions', () => {
   test('raises() can receive a string and it passes when the exact string is expected', () => {
@@ -54,13 +54,13 @@ suite('exception assertions', () => {
       }).raises(/happiness/),
     );
     
-    expectFailureOn(result, I18n.message('expectation_different_error', '/happiness/', "'a terrible error'"));
+    expectFailureOn(result, I18nMessage.of('expectation_different_error', '/happiness/', "'a terrible error'"));
   });
   
   test('raises() fails when no errors occur in the given function', () => {
     const result = resultOfATestWith(assert => assert.that(() => 1 + 2).raises('a weird error'));
     
-    expectFailureOn(result, I18n.message('expectation_error', "'a weird error'"));
+    expectFailureOn(result, I18nMessage.of('expectation_error', "'a weird error'"));
   });
   
   test('doesNotRaise() passes when no errors happen at all', () => {
@@ -86,7 +86,7 @@ suite('exception assertions', () => {
       }).doesNotRaise('this problem'),
     );
   
-    expectFailureOn(result, I18n.message('expectation_no_error', "'this problem'"));
+    expectFailureOn(result, I18nMessage.of('expectation_no_error', "'this problem'"));
   });
   
   test('doesNoRaiseAnyErrors() passes when no errors occur in the given function', () => {
@@ -102,6 +102,6 @@ suite('exception assertions', () => {
       }).doesNotRaiseAnyErrors(),
     );
   
-    expectFailureOn(result, I18n.message('expectation_no_errors', "'an unexpected error'"));
+    expectFailureOn(result, I18nMessage.of('expectation_no_errors', "'an unexpected error'"));
   });
 });
