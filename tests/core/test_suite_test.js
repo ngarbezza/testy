@@ -33,7 +33,7 @@ suite('test suite behavior', () => {
     
     assert
       .that(() => mySuite.before(() => 5 + 6))
-      .raises('There is already a before() block. Please leave just one before() block and run again the tests.');
+      .raises(/There is already a before\(\) block. Please leave just one before\(\) block and run again the tests./);
   });
   
   test('more than one after block is not allowed', () => {
@@ -41,7 +41,7 @@ suite('test suite behavior', () => {
     
     assert
       .that(() => mySuite.after(() => 5 + 6))
-      .raises('There is already an after() block. Please leave just one after() block and run again the tests.');
+      .raises(/There is already an after\(\) block. Please leave just one after\(\) block and run again the tests./);
   });
 
   test('after hook can be used', () => {
@@ -82,23 +82,23 @@ suite('test suite behavior', () => {
   });
   
   test('a suite cannot be created without a name', () => {
-    assert.that(() => new TestSuite()).raises('Suite does not have a valid name');
+    assert.that(() => new TestSuite()).raises(/Suite does not have a valid name/);
   });
 
   test('a suite cannot be created with an empty name', () => {
-    assert.that(() => new TestSuite('  ')).raises('Suite does not have a valid name');
+    assert.that(() => new TestSuite('  ')).raises(/Suite does not have a valid name/);
   });
   
   test('a suite cannot be created with a name that is not a string', () => {
-    assert.that(() => new TestSuite(new Date())).raises('Suite does not have a valid name');
+    assert.that(() => new TestSuite(new Date())).raises(/Suite does not have a valid name/);
   });
   
   test('a suite cannot be created without a body', () => {
-    assert.that(() => new TestSuite('hey')).raises('Suite does not have a valid body');
+    assert.that(() => new TestSuite('hey')).raises(/Suite does not have a valid body/);
   });
   
   test('a suite cannot be created with a body that is not a function', () => {
-    assert.that(() => new TestSuite('hey', 'ho')).raises('Suite does not have a valid body');
+    assert.that(() => new TestSuite('hey', 'ho')).raises(/Suite does not have a valid body/);
   });
   
   test('running with fail fast enabled stops at the first failure', () => {

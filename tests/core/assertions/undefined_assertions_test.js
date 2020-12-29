@@ -4,6 +4,8 @@ const { suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
+const { I18nMessage } = require('../../../lib/i18n');
+
 suite('undefined assertions', () => {
   test('isUndefined passes with an undefined value', () => {
     const result = resultOfATestWith(assert => assert.isUndefined(undefined));
@@ -14,7 +16,7 @@ suite('undefined assertions', () => {
   test('isUndefined does not pass with a another value', () => {
     const result = resultOfATestWith(assert => assert.isUndefined(null));
     
-    expectFailureOn(result, 'Expected null to be undefined');
+    expectFailureOn(result, I18nMessage.of('expectation_be_undefined', 'null'));
   });
 
   test('isNotUndefined passes with a not-undefined value', () => {
@@ -26,6 +28,6 @@ suite('undefined assertions', () => {
   test('isNotUndefined does not pass when the value is undefined', () => {
     const result = resultOfATestWith(assert => assert.isNotUndefined(undefined));
     
-    expectFailureOn(result, 'Expected undefined to be defined');
+    expectFailureOn(result, I18nMessage.of('expectation_be_defined', 'undefined'));
   });
 });

@@ -4,14 +4,16 @@ const { suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectErrorOn, expectFailureOn, expectPendingResultOn } = require('../../support/assertion_helpers');
 
+const { I18nMessage } = require('../../../lib/i18n');
+
 suite('reporting failures and pending tests', () => {
   test('marking a test as explicitly failed with no message', () => {
     const result = resultOfATestWith((_assert, fail, _pending) => fail.with());
     
-    expectFailureOn(result, 'Explicitly failed');
+    expectFailureOn(result, I18nMessage.of('explicitly_failed'));
   });
   
-  test('marking a test as explicitly failed with no message', () => {
+  test('marking a test as explicitly failed with a custom message', () => {
     const result = resultOfATestWith((_assert, fail, _pending) => fail.with('I should not be here!'));
     
     expectFailureOn(result, 'I should not be here!');
@@ -20,7 +22,7 @@ suite('reporting failures and pending tests', () => {
   test('marking a test as pending with no message', () => {
     const result = resultOfATestWith((_assert, _fail, pending) => pending.dueTo());
     
-    expectErrorOn(result, 'In order to mark a test as pending, you need to specify a reason.');
+    expectErrorOn(result, I18nMessage.of('invalid_pending_reason'));
   });
   
   test('marking a test as pending with a custom message', () => {

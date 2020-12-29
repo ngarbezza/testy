@@ -1,10 +1,11 @@
 'use strict';
 
 const { suite, test, before, assert } = require('../../testy');
-const Formatter = require('../../lib/formatter');
-const I18n = require('../../lib/i18n');
 const { withRunner, runSingleTest } = require('../support/runner_helpers');
 const { aTestWithBody, aPendingTest } = require('../support/tests_factory');
+
+const Formatter = require('../../lib/formatter');
+const { I18n } = require('../../lib/i18n');
 
 suite('formatter', () => {
   let formatter, dummyConsole, i18n;
@@ -22,7 +23,7 @@ suite('formatter', () => {
       },
     };
   
-    i18n = new I18n();
+    i18n = new I18n(I18n.defaultLanguage());
     formatter = new Formatter(dummyConsole, i18n);
   });
   
@@ -43,6 +44,17 @@ suite('formatter', () => {
     });
   });
   
+  test('display error status in red when not specifying a reason', () => {
+    withRunner((runner, _assert, _fail, pending) => {
+      const test = aTestWithBody(() => pending.dueTo());
+      runSingleTest(runner, test);
+      formatter.displayErrorResult(test);
+      const testResultMessage = '[\u001b[31m\u001b[1mERROR\u001b[0m] \u001b[31mjust a test\u001b[0m';
+      const pendingReasonMessage = '  => In order to mark a test as pending, you need to specify a reason.';
+      assert.that(dummyConsole.messages()).isEqualTo([testResultMessage, pendingReasonMessage]);
+    });
+  });
+  
   test('display failure status in red including reason', () => {
     withRunner((runner, _assert, fail) => {
       const test = aTestWithBody(() => fail.with('I wanted to fail'));
@@ -50,6 +62,17 @@ suite('formatter', () => {
       formatter.displayFailureResult(test);
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const failureDetailMessage = '  => I wanted to fail';
+      assert.that(dummyConsole.messages()).isEqualTo([testResultMessage, failureDetailMessage]);
+    });
+  });
+  
+  test('display failure status in red including default explicit failure reason', () => {
+    withRunner((runner, _assert, fail) => {
+      const test = aTestWithBody(() => fail.with());
+      runSingleTest(runner, test);
+      formatter.displayFailureResult(test);
+      const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
+      const failureDetailMessage = '  => Explicitly failed';
       assert.that(dummyConsole.messages()).isEqualTo([testResultMessage, failureDetailMessage]);
     });
   });

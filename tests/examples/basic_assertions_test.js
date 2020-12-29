@@ -38,7 +38,7 @@ suite('testing testy - basic assertions', () => {
   });
   
   test('error checking', () => assert.that(() => {
-    throw 'hey!'; 
+    throw 'hey!';
   }).raises('hey!'));
   
   // commented so CI can pass - uncomment to see the failure
@@ -50,7 +50,7 @@ suite('testing testy - basic assertions', () => {
   
   test('testing that no specific error happened - even if other error occurs', () =>
     assert.that(() => {
-      throw 'ho!'; 
+      throw 'ho!';
     }).doesNotRaise('hey!'),
   );
   
@@ -59,7 +59,7 @@ suite('testing testy - basic assertions', () => {
   );
   
   test('object comparison', () =>
-    assert.areEqual({ a: 2, b: [1, 2, 3] }, { a: 2, b: [1, 2, 3] }),
+    assert.areEqual({ asd: 2, bnm: [1, 2, 3] }, { asd: 2, bnm: [1, 2, 3] }),
   );
 
   // commented so CI can pass - uncomment to see the failure
