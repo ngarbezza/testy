@@ -23,7 +23,7 @@ suite('formatter', () => {
       },
     };
   
-    i18n = new I18n(I18n.defaultLanguage());
+    i18n = I18n.default();
     formatter = new Formatter(dummyConsole, i18n);
   });
   
