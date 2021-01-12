@@ -2,15 +2,10 @@
 
 const { suite, test, before, assert } = require('../../testy');
 const TestSuite = require('../../lib/test_suite');
-const { withRunner } = require('../support/runner_helpers');
 const FailFast = require('../../lib/fail_fast');
+const { withRunner } = require('../support/runner_helpers');
+const { newEmptySuite } = require('../support/suites_factory');
 const { aPassingTest, aFailingTest, anErroredTest, aPendingTest } = require('../support/tests_factory');
-
-const noop = () => {};
-const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
-
-const newEmptySuite = () => suiteNamed('myTestSuite');
-const suiteNamed = suiteName => new TestSuite(suiteName, () => {}, emptySuiteCallbacks);
 
 suite('test suite behavior', () => {
   let runner, mySuite;
