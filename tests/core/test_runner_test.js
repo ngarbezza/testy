@@ -2,17 +2,11 @@
 
 const { suite, test, assert } = require('../../testy');
 const TestRunner = require('../../lib/test_runner');
-const { suiteNamed } = require('../support/suites_factory');
 const { withRunner } = require('../support/runner_helpers');
-const { aFailingTest } = require('../support/tests_factory');
+const { suiteNamed } = require('../support/suites_factory');
+const { aFailingTest, anErroredTest } = require('../support/tests_factory');
 
 suite('test runner', () => {
-  const emptyRunnerCallbacks = {
-    onFinish: () => {},
-    onSuccess: () => {},
-    onFailure: () => {},
-  };
-  
   test('with no tests, it finishes with success', () => {
     let result = 'not called';
     let finished = false;
@@ -39,7 +33,9 @@ suite('test runner', () => {
   test('failures count is zero with no tests', () => {
     withRunner(runner => {
       runner.run();
-
+  
+      assert.isFalse(runner.hasErrorsOrFailures());
+      assert.isEmpty(runner.allFailuresAndErrors());
       assert.that(runner.failuresCount()).isEqualTo(0);
     });
   });
@@ -52,7 +48,56 @@ suite('test runner', () => {
       runner.addSuite(suite);
       runner.run();
   
+      assert.isTrue(runner.hasErrorsOrFailures());
       assert.that(runner.failuresCount()).isEqualTo(1);
+      assert.that(runner.allFailuresAndErrors()).includesExactly(failingTest);
+    });
+  });
+  
+  test('errors count is zero with no tests', () => {
+    withRunner(runner => {
+      runner.run();
+  
+      assert.isFalse(runner.hasErrorsOrFailures());
+      assert.isEmpty(runner.allFailuresAndErrors());
+      assert.that(runner.errorsCount()).isEqualTo(0);
+    });
+  });
+  
+  test('errors count is one with an errored test', () => {
+    withRunner((runner, asserter) => {
+      const suite = suiteNamed('with one error');
+      const erroredTest = anErroredTest(asserter);
+      suite.addTest(erroredTest);
+      runner.addSuite(suite);
+      runner.run();
+  
+      assert.isTrue(runner.hasErrorsOrFailures());
+      assert.that(runner.errorsCount()).isEqualTo(1);
+      assert.that(runner.allFailuresAndErrors()).includesExactly(erroredTest);
+    });
+  });
+  
+  test('counting several errors and failures', () => {
+    withRunner((runner, asserter) => {
+      const suite = suiteNamed('with errors and failures');
+      const errorOne = anErroredTest(asserter);
+      const errorTwo = anErroredTest(asserter);
+      const errorThree = anErroredTest(asserter);
+      const failureOne = aFailingTest(asserter);
+      const failureTwo = aFailingTest(asserter);
+      suite.addTest(errorOne);
+      suite.addTest(failureOne);
+      suite.addTest(errorTwo);
+      suite.addTest(errorThree);
+      suite.addTest(failureTwo);
+      runner.addSuite(suite);
+      runner.run();
+      
+      assert.that(runner.errorsCount()).isEqualTo(3);
+      assert.that(runner.failuresCount()).isEqualTo(2);
+      assert.isTrue(runner.hasErrorsOrFailures());
+      assert.that(runner.allFailuresAndErrors()).includesExactly(errorOne, errorTwo, errorThree, failureOne, failureTwo);
     });
   });
 });
