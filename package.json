@@ -1,11 +1,14 @@
 {
   "name": "@pmoo/testy",
-  "version": "5.0.2",
+  "version": "5.1.0",
   "description": "A minimal testing framework, for educational purposes.",
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngarbezza/testy"
+  },
+  "bugs": {
+    "url": "https://github.com/ngarbezza/testy/issues"
   },
   "engines": {
     "node": ">= 8.*"
@@ -13,7 +16,10 @@
   "main": "testy.js",
   "scripts": {
     "coverage": "npx nyc@latest --reporter=lcov --reporter=text-summary npm test",
+    "open-coverage-report": "xdg-open coverage/lcov-report/index.html",
+    "generate-dependencies-graph": "npx madge -i testy-dependencies.png lib/ bin/",
     "lint": "npx eslint@6.8.0 .",
+    "lint-fix": "npx eslint@6.8.0 . --fix",
     "test": "bin/testy_cli.js"
   },
   "bin": "bin/testy_cli.js",

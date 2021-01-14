@@ -1,172 +1,211 @@
 'use strict';
 
-const Utils = require('../../../lib/utils');
 const { suite, test } = require('../../../testy');
-const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
+const { resultOfATestWith } = require('../../support/runner_helpers');
+const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
+
+const Utils = require('../../../lib/utils');
+const { I18nMessage } = require('../../../lib/i18n');
 
 suite('collection assertions', () => {
   const nonEmptySet = new Set([1]);
   const emptySet = new Set([]);
 
   test('includes passes if the object is in the array', () => {
-    asserter.that(['hey']).includes('hey');
+    const result = resultOfATestWith(assert => assert.that(['hey']).includes('hey'));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('includes does not pass if the actual object is not an array', () => {
-    asserter.that([]).includes('hey');
+    const result = resultOfATestWith(assert => assert.that([]).includes('hey'));
 
-    expectFailureDueTo("Expected [] to include 'hey'");
+    expectFailureOn(result, I18nMessage.of('expectation_include', '[]', "'hey'"));
   });
 
   test('includes works with non-primitives', () => {
-    asserter.that([{ a: '1' }]).includes({ a: '1' });
+    const result = resultOfATestWith(assert => assert.that([{ asd: '1' }]).includes({ asd: '1' }));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('doesNotInclude fails if the object is in the array', () => {
-    asserter.that(['hey']).doesNotInclude('hey');
+    const result = resultOfATestWith(assert => assert.that(['hey']).doesNotInclude('hey'));
 
-    expectFailureDueTo("Expected [ 'hey' ] to not include 'hey'");
+    expectFailureOn(result, I18nMessage.of('expectation_not_include', "[ 'hey' ]", "'hey'"));
   });
 
   test('doesNotInclude passes if the object is not an array', () => {
-    asserter.that([]).doesNotInclude('hey');
+    const result = resultOfATestWith(assert => assert.that([]).doesNotInclude('hey'));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('doesNotInclude fails properly with non-primitives', () => {
-    asserter.that([{ a: '1' }]).doesNotInclude({ a: '1' });
+    const result = resultOfATestWith(assert => assert.that([{ asd: '1' }]).doesNotInclude({ asd: '1' }));
 
-    expectFailureDueTo("Expected [ { a: '1' } ] to not include { a: '1' }");
+    expectFailureOn(result, I18nMessage.of('expectation_not_include', "[ { asd: '1' } ]", "{ asd: '1' }"));
   });
 
   test('includesExactly passes with a single object included', () => {
-    asserter.that(['hey']).includesExactly('hey');
+    const result = resultOfATestWith(assert => assert.that(['hey']).includesExactly('hey'));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('includesExactly passes using a non-primitive single object', () => {
-    asserter.that([{ a: '1' }]).includesExactly({ a: '1' });
+    const result = resultOfATestWith(assert => assert.that([{ asd: '1' }]).includesExactly({ asd: '1' }));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('includesExactly fails if the collection has more objects than expected', () => {
-    asserter.that(['hey', 'ho']).includesExactly('hey');
+    const result = resultOfATestWith(assert => assert.that(['hey', 'ho']).includesExactly('hey'));
 
-    expectFailureDueTo("Expected [ 'hey', 'ho' ] to include exactly [ 'hey' ]");
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey', 'ho' ]", "[ 'hey' ]"));
   });
 
   test('includesExactly fails if the collection has less objects than expected', () => {
-    asserter.that(['hey']).includesExactly('hey', 'ho');
+    const result = resultOfATestWith(assert => assert.that(['hey']).includesExactly('hey', 'ho'));
 
-    expectFailureDueTo("Expected [ 'hey' ] to include exactly [ 'hey', 'ho' ]");
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey' ]", "[ 'hey', 'ho' ]"));
   });
 
   test('includesExactly fails if none of the objects are included at all', () => {
-    asserter.that(['hey']).includesExactly('ho');
+    const result = resultOfATestWith(assert => assert.that(['hey']).includesExactly('ho'));
 
-    expectFailureDueTo("Expected [ 'hey' ] to include exactly [ 'ho' ]");
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey' ]", "[ 'ho' ]"));
   });
 
   test('includesExactly passes with many items no matter the order', () => {
-    asserter.that(['hey', 'ho']).includesExactly('ho', 'hey');
+    const result = resultOfATestWith(assert => assert.that(['hey', 'ho']).includesExactly('ho', 'hey'));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('includesExactly passes on a Set', () => {
-    asserter.that(new Set(['hey', 'ho'])).includesExactly('ho', 'hey');
+    const result = resultOfATestWith(assert => assert.that(new Set(['hey', 'ho'])).includesExactly('ho', 'hey'));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isEmpty passes on an empty array', () => {
-    asserter.that([]).isEmpty();
+    const result = resultOfATestWith(assert => assert.that([]).isEmpty());
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isEmpty does not pass if the array has elements', () => {
-    asserter.that(['hey']).isEmpty();
+    const result = resultOfATestWith(assert => assert.that(['hey']).isEmpty());
 
-    expectFailureDueTo("Expected [ 'hey' ] to be empty");
+    expectFailureOn(result, I18nMessage.of('expectation_be_empty', "[ 'hey' ]"));
   });
 
   test('isEmpty passes with an empty string', () => {
-    asserter.that('').isEmpty();
+    const result = resultOfATestWith(assert => assert.that('').isEmpty());
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isEmpty shorthand works', () => {
-    asserter.isEmpty([]);
+    const result = resultOfATestWith(assert => assert.isEmpty([]));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isNotEmpty passes on an array with element', () => {
-    asserter.that(['hey']).isNotEmpty();
+    const result = resultOfATestWith(assert => assert.that(['hey']).isNotEmpty());
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isNotEmpty does not pass if the array is empty', () => {
-    asserter.that([]).isNotEmpty();
+    const result = resultOfATestWith(assert => assert.that([]).isNotEmpty());
 
-    expectFailureDueTo("Expected [] to be not empty");
+    expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', '[]'));
   });
 
   test('isNotEmpty passes with a string with content', () => {
-    asserter.that('hey').isNotEmpty();
+    const result = resultOfATestWith(assert => assert.that('hey').isNotEmpty());
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isNotEmpty shorthand works', () => {
-    asserter.isNotEmpty(['hey']);
+    const result = resultOfATestWith(assert => assert.isNotEmpty(['hey']));
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isEmpty passes on an empty set', () => {
-    asserter.that(emptySet).isEmpty();
+    const result = resultOfATestWith(assert => assert.that(emptySet).isEmpty());
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
   test('isEmpty does not pass on a set with elements', () => {
-    asserter.that(nonEmptySet).isEmpty();
+    const result = resultOfATestWith(assert => assert.that(nonEmptySet).isEmpty());
 
-    expectFailureDueTo(`Expected ${Utils.prettyPrint(nonEmptySet)} to be empty`);
+    expectFailureOn(result, I18nMessage.of('expectation_be_empty', Utils.prettyPrint(nonEmptySet)));
   });
 
   test('isNotEmpty does not pass on an empty set', () => {
-    asserter.that(emptySet).isNotEmpty();
+    const result = resultOfATestWith(assert => assert.that(emptySet).isNotEmpty());
 
-    expectFailureDueTo(`Expected ${Utils.prettyPrint(emptySet)} to be not empty`);
+    expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', Utils.prettyPrint(emptySet)));
   });
 
   test('isNotEmpty passes on a set with elements', () => {
-    asserter.that(nonEmptySet).isNotEmpty();
+    const result = resultOfATestWith(assert => assert.that(nonEmptySet).isNotEmpty());
 
-    expectSuccess();
+    expectSuccess(result);
   });
 
-  test('isEmpty throwing error instead of failure', () => {
-    asserter.isEmpty(undefined);
+  test('isEmpty fails when the object is undefined', () => {
+    const result = resultOfATestWith(assert => assert.isEmpty(undefined));
 
-    expectFailureDueTo('Expected undefined to be empty');
+    expectFailureOn(result, I18nMessage.of('expectation_be_empty', 'undefined'));
   });
 
-  test('isNotEmpty throwing error instead of failure', () => {
-    asserter.isNotEmpty(undefined);
+  test('isNotEmpty fails when the object is undefined', () => {
+    const result = resultOfATestWith(assert => assert.isNotEmpty(undefined));
 
-    expectFailureDueTo('Expected undefined to be not empty');
+    expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', 'undefined'));
+  });
+
+  test('includes works with Sets', () => {
+    const result = resultOfATestWith(assert => assert.that(new Set([42])).includes(42));
+  
+    expectSuccess(result);
+  });
+
+  test('includes works with Maps', () => {
+    const result = resultOfATestWith(assert => assert.that(new Map([['key', 42]])).includes(42));
+  
+    expectSuccess(result);
+  });
+
+  test('includes works with Strings', () => {
+    const result = resultOfATestWith(assert => assert.that('42').includes('4'));
+  
+    expectSuccess(result);
+  });
+
+  test('doesNotInclude works with Sets', () => {
+    const result = resultOfATestWith(assert => assert.that(new Set([24])).doesNotInclude(42));
+  
+    expectSuccess(result);
+  });
+
+  test('doesNotInclude works with Maps', () => {
+    const result = resultOfATestWith(assert => assert.that(new Map([['key', 24]])).doesNotInclude(42));
+  
+    expectSuccess(result);
+  });
+
+  test('doesNotInclude works with Strings', () => {
+    const result = resultOfATestWith(assert => assert.that('24').doesNotInclude('5'));
+  
+    expectSuccess(result);
   });
 });

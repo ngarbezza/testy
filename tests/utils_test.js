@@ -5,22 +5,22 @@ const Utils = require('../lib/utils');
 
 suite('utility functions', () => {
   test('isCyclic is true if the object has a cyclic reference', () => {
-    const obj = { a: 2 };
+    const obj = { asd: 2 };
     obj.yourself = obj;
     assert.isTrue(Utils.isCyclic(obj));
   });
   
   test('isCyclic is false if the object does not have a cyclic reference', () => {
-    const obj = { a: 2 };
+    const obj = { asd: 2 };
     assert.isFalse(Utils.isCyclic(obj));
   });
   
   test('number of elements of Set', () => {
-    assert.areEqual(Utils.numberOfElements(new Set([1,2])), 2);
+    assert.areEqual(Utils.numberOfElements(new Set([1, 2])), 2);
   });
   
   test('number of elements of Array', () => {
-    assert.areEqual(Utils.numberOfElements([1,2, 3]), 3);
+    assert.areEqual(Utils.numberOfElements([1, 2, 3]), 3);
   });
   
   test('isRegex returns true for regexes', () => {
@@ -39,7 +39,9 @@ suite('utility functions', () => {
   });
   
   test('respondsTo() is true when the property exists as a function in the object', () => {
-    const thingThatKnowsHowToDance = { dance() { return 'I am dancing!'; } };
+    const thingThatKnowsHowToDance = { dance() {
+      return 'I am dancing!';
+    } };
     assert.isTrue(Utils.respondsTo(thingThatKnowsHowToDance, 'dance'));
   });
   
@@ -99,5 +101,17 @@ suite('utility functions', () => {
     assert.isFalse(Utils.isUndefined(0));
     assert.isFalse(Utils.isUndefined(''));
     assert.isFalse(Utils.isUndefined([]));
+  });
+  
+  test('isStringWithContent() is true for a string containing one or more characters', () => {
+    assert.isTrue(Utils.isStringWithContent('a'));
+    assert.isTrue(Utils.isStringWithContent('an'));
+    assert.isTrue(Utils.isStringWithContent('an object'));
+  });
+  
+  test('isStringWithContent() is false for an empty string or string containing only separators', () => {
+    assert.isFalse(Utils.isStringWithContent(''));
+    assert.isFalse(Utils.isStringWithContent(' '));
+    assert.isFalse(Utils.isStringWithContent('   '));
   });
 });

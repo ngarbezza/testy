@@ -1,12 +1,13 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../testy');
+const { suite, test, before, after, assert } = require('../../testy');
 
 suite('testing testy - basic features', () => {
   const circular = {}; circular.yourself = circular;
   let myVar = 8;
   
   before(() => myVar = 7);
+  after(() => myVar = undefined);
   
   test('tests with body', () => {
     const pepe = { nombre: 'pepe' };
@@ -23,25 +24,39 @@ suite('testing testy - basic features', () => {
   // commented so CI can pass - uncomment to see the failure
   // test("unexpected errors don't break the suite", () => assert.isTrue(notAFunction()));
   
-  test("successful test after the failure", () => assert.isTrue(true));
+  test('successful test after the failure', () => assert.isTrue(true));
   
-  test("custom equality check", () => {
+  test('custom equality check', () => {
     const criteria = (o1, o2) => o1.a === o2.a;
-    assert.areEqual({ a: 'a', b: 'b1'}, { a: 'a', b: 'b2'}, criteria);
-    assert.that({ a: 'a', b: 'b1'}).isEqualTo({ a: 'a', b: 'b2'}, criteria);
-    assert.that({ a: 'a', b: 'b1'}).isNotEqualTo({ a: 'a2', b: 'b1'}, criteria);
+    /* eslint-disable id-length */
+    assert.areEqual({ a: 'a', b: 'b1' }, { a: 'a', b: 'b2' }, criteria);
+    assert.that({ a: 'a', b: 'b1' }).isEqualTo({ a: 'a', b: 'b2' }, criteria);
+    assert.that({ a: 'a', b: 'b1' }).isNotEqualTo({ a: 'a2', b: 'b1' }, criteria);
+    /* eslint-enable id-length */
   });
   
-  test("equality check when objects understand equals()", () => {
-    const objectOne = { a: 'a', b: 'b1', equals: function(another) { return this.a === another.a; } };
-    const objectTwo = { a: 'a', b: 'b2', equals: function(another) { return this.b === another.b; } };
+  test('equality check when objects understand equals()', () => {
+    /* eslint-disable id-length */
+    const objectOne = { a: 'a', b: 'b1', equals: function(another) {
+      return this.a === another.a;
+    } };
+    const objectTwo = { a: 'a', b: 'b2', equals: function(another) {
+      return this.b === another.b;
+    } };
+    /* eslint-enable id-length */
     assert.that(objectOne).isEqualTo(objectTwo);
     assert.that(objectTwo).isNotEqualTo(objectOne);
   });
   
-  test("equality check using custom message name", () => {
-    const objectOne = { a: 'a', b: 'b1', sameAs: function(another) { return this.a === another.a; } };
-    const objectTwo = { a: 'a', b: 'b2', sameAs: function(another) { return this.b === another.b; } };
+  test('equality check using custom message name', () => {
+    /* eslint-disable id-length */
+    const objectOne = { a: 'a', b: 'b1', sameAs: function(another) {
+      return this.a === another.a;
+    } };
+    const objectTwo = { a: 'a', b: 'b2', sameAs: function(another) {
+      return this.b === another.b;
+    } };
+    /* eslint-enable id-length */
     assert.that(objectOne).isEqualTo(objectTwo, 'sameAs');
     assert.that(objectTwo).isNotEqualTo(objectOne, 'sameAs');
   });

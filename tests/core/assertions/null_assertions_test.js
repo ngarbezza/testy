@@ -1,30 +1,33 @@
 'use strict';
 
 const { suite, test } = require('../../../testy');
-const { asserter, expectSuccess, expectFailureDueTo } = require('../../support/assertion_helpers');
+const { resultOfATestWith } = require('../../support/runner_helpers');
+const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
+
+const { I18nMessage } = require('../../../lib/i18n');
 
 suite('assertions about null', () => {
   test('isNull passes with a null value', () => {
-    asserter.isNull(null);
+    const result = resultOfATestWith(assert => assert.isNull(null));
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('isNull does not pass with a another value', () => {
-    asserter.isNull(undefined);
+    const result = resultOfATestWith(assert => assert.isNull(undefined));
     
-    expectFailureDueTo('Expected undefined to be null');
+    expectFailureOn(result, I18nMessage.of('expectation_be_null', 'undefined'));
   });
 
   test('isNotNull passes with a non-null value', () => {
-    asserter.isNotNull(3);
+    const result = resultOfATestWith(assert => assert.isNotNull(3));
     
-    expectSuccess();
+    expectSuccess(result);
   });
   
   test('isNotNull does not pass when the value is null', () => {
-    asserter.isNotNull(null);
+    const result = resultOfATestWith(assert => assert.isNotNull(null));
     
-    expectFailureDueTo('Expected null to be not null');
+    expectFailureOn(result, I18nMessage.of('expectation_be_not_null', 'null'));
   });
 });

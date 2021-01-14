@@ -41,6 +41,45 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/5412270?v=4",
       "profile": "http://adico.tech",
       "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "ask-imran",
+      "name": "Askar Imran",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20487103?v=4",
+      "profile": "https://github.com/ask-imran",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "niyonx",
+      "name": "Nigel Yong",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/23243585?v=4",
+      "profile": "http://www.nigelyong.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "chelsieng",
+      "name": "Chelsie Ng",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/60008262?v=4",
+      "profile": "https://github.com/chelsieng",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "trochepablo",
+      "name": "Pablo T",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/18213369?v=4",
+      "profile": "https://github.com/trochepablo",
+      "contributions": [
+        "test",
         "code"
       ]
     }

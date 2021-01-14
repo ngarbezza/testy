@@ -4,7 +4,7 @@ const libDir = './lib';
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
-const Utils = require(`${libDir}/utils`);
+const { allFilesMatching, resolvePathFor } = require(`${libDir}/utils`);
 
 const ui = new ConsoleUI();
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
@@ -17,11 +17,15 @@ function test(name, testBody) {
 }
 
 function suite(name, suiteBody) {
-  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
+  testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
 }
 
 function before(initialization) {
   testRunner.registerBefore(initialization);
+}
+
+function after(initialization) {
+  testRunner.registerAfter(initialization);
 }
 
 class Testy {
@@ -40,14 +44,10 @@ class Testy {
   run(requestedPaths) {
     this._requestedPaths = requestedPaths;
     this._loadAllRequestedFiles();
-    ui.displayInitialSummary(this._configuration, this._testFilesPathsToRun());
-    ui.measuringTotalTime(() =>
-      testRunner.run()
+    ui.start(this._configuration, this._testFilesPathsToRun(), () =>
+      testRunner.run(),
     );
-    testRunner.finish({
-      success: () => process.exit(0),
-      failure: () => process.exit(1),
-    });
+    testRunner.finish();
   }
   
   // initialization
@@ -65,11 +65,15 @@ class Testy {
   }
   
   _loadAllRequestedFiles() {
-    this._resolvedTestFilesPathsToRun().forEach(path =>
-      Utils.allFilesMatching(path, this._testFilesFilter()).forEach(file =>
-        require(file)
-      )
-    );
+    try {
+      this._resolvedTestFilesPathsToRun().forEach(path =>
+        allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+          require(file),
+        ),
+      );
+    } catch (err) {
+      ui.exitWithError(`Error: ${err.path} does not exist.`);
+    }
   }
   
   _testFilesPathsToRun() {
@@ -77,8 +81,8 @@ class Testy {
     return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
   }
   
-  _resolvedTestFilesPathsToRun() {
-    return this._testFilesPathsToRun().map(path => Utils.resolvePathFor(path));
+  _resolvedTestFilesPathsToRun(){
+    return this._testFilesPathsToRun().map(path => resolvePathFor(path));
   }
   
   _pathForAllTests() {
@@ -90,4 +94,4 @@ class Testy {
   }
 }
 
-module.exports = { Testy, suite, test, before, assert, fail, pending };
+module.exports = { Testy, suite, test, before, after, assert, fail, pending };
