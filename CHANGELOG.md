@@ -8,6 +8,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released. Yay! :tada:
 
+## [5.1.0] - 2021-01-13
+
+This release includes a lot of contributions (4 new contributors!), and several refactorings to continue improving the quality of the tool.
+
+### Added
+
+* [[feature] added after() hook to run code after each test](https://github.com/ngarbezza/testy/issues/135), thank you @adico1!
+* [[feature] isIncludedIn() and isNotIncludedIn() assertions](https://github.com/ngarbezza/testy/issues/75), thank you @ask-imran for your first contribution!
+* [[feature] warning message when no tests found](https://github.com/ngarbezza/testy/issues/157), thank you @niyonx for your first contribution!
+* [[feature] show error when a requested file does not exist](https://github.com/ngarbezza/testy/issues/158), thank you @chelsieng for your first contribution!
+* [[feature] global error handler](https://github.com/ngarbezza/testy/issues/177)
+
+### Fixed
+
+* [[bug] suite and test names cannot be empty](https://github.com/ngarbezza/testy/issues/136), thank you @ask-imran!
+* [[bug] includes() and doesNotInclude() matchers only work on Arrays](https://github.com/ngarbezza/testy/issues/130), thank you @trochepablo for your first contribution!
+* [[bug] color for pending summary was not painted](https://github.com/ngarbezza/testy/issues/173)
+* [[bug] it was possible to mark tests as pending without specifying reason](https://github.com/ngarbezza/testy/issues/172)
+
+### Refactored
+
+* [rename "master" branch to "main"](https://github.com/ngarbezza/testy/issues/133); also, an ADR was added to track the decision that we want a better vocabulary
+* [parametrizable i18n messages](https://github.com/ngarbezza/testy/issues/71)
+* [write more tests for the i18n module](https://github.com/ngarbezza/testy/issues/179)
+* [throw error objects instead of strings](https://github.com/ngarbezza/testy/issues/176)
+* [speed up tests by not creating error messages on successful assertions](https://github.com/ngarbezza/testy/commit/531d1d6360c93a3aae2f11bd0c957c45e93cd35c)
+* [added some npm scripts for test coverage and dependencies graph](https://github.com/ngarbezza/testy/commit/d4ca1fa7804b2353458eb214d1f302fefc9fed9d)
+* [changes in modularization: extract assertion and test result reporter](https://github.com/ngarbezza/testy/commit/4913b5a187bc0700b3de4b5b1a9adc0e2a8dc57e)
+* add more tests and increased the current coverage ([example 1](https://github.com/ngarbezza/testy/commit/be41db9872ea4490b5dae238d6c553b214667326), [example 2](https://github.com/ngarbezza/testy/commit/28b2ee51078300382c7398cb40203d6e40ca26d1))
+* formatter object decoupled from console ui (ADR 0004 added [here](https://github.com/ngarbezza/testy/commit/9ab5c55fd4738054effef1e1aab15824a62c6750))
+* avoid test doubles at all (ADR 0005 added [here](https://github.com/ngarbezza/testy/commit/5a65fbc6e6e58b1f03f996c381240d4a1b8c3875)), removed test runner double
+
+... and more minor cleanups.
+
 ## [5.0.2] - 2020-10-13
 
 A hacktoberfest release! 5 bugs fixed and two new contributors! :muscle:
@@ -205,7 +239,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 ### Changed
 - Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.0.2...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/ngarbezza/testy/compare/v5.0.2...v5.1.0
 [5.0.2]: https://github.com/ngarbezza/testy/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/ngarbezza/testy/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/ngarbezza/testy/compare/v4.4.0...v5.0.0
