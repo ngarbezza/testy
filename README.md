@@ -115,6 +115,10 @@ There must be at least one assertion on the test to be valid. These are all the 
     * Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
     * By default, if `actual` has an `equals` method it will be used.
     * If we compare `undefined` with `undefined` using `isEqualTo()`, it will make the test fail. For explicit check for `undefined`, use the `isUndefined()`/`isNotUndefined()` assertions documented above. 
+* Identity assertions:
+  * `assert.that(actual).isIdenticalTo(expected)` or `assert.areIdentical(actual, expected)`.
+  * `assert.that(actual).isNotIdenticalTo(expected)` or `assert.areNotIdentical(actual, expected)`
+  * Indentity assertions check if two references point to the same object using the '===' operator.
 * Check for `undefined` presence/absence:
   * `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
   * `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`

@@ -151,6 +151,11 @@ suite('equality assertions', () => {
     const result = resultOfATestWith(assert => assert.areEqual(undefined, undefined));
     expectFailureOn(result, I18nMessage.of('equality_assertion_failed_due_to_undetermination'));
   });
+
+  // test('isNotEqualTo fails if both parts are undefined', () => {
+  //   const result = resultOfATestWith(assert => assert.that(undefined).isNotEqual(undefined));
+  //   expectFailureOn(result, I18nMessage.of('equality_assertion_failed_due_to_undetermination'));
+  // });
   
   test('isEqualTo fails with object with circular references', () => {
     const objectOne = { toString() {
