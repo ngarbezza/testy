@@ -132,10 +132,10 @@ suite('identity assertions', () => {
   });
 
   test('areIdentical works in the same way as that isIdenticalTo', () => {
-    const resultOne = resultOfATestWith(assert => assert.areIdentical(42,42));
+    const resultOne = resultOfATestWith(assert => assert.areIdentical(42, 42));
     expectSuccess(resultOne);
 
-    const resultTwo = resultOfATestWith(assert => assert.areIdentical(42,21));
+    const resultTwo = resultOfATestWith(assert => assert.areIdentical(42, 21));
     expectFailureOn(resultTwo, I18nMessage.of('identity_assertion_be_identical_to', '42', '21'));
 
     /* eslint-disable id-length */
@@ -150,10 +150,10 @@ suite('identity assertions', () => {
   });
 
   test('areNotIdentical works in the same way as that isNotIdenticalTo', () => {
-    const resultOne = resultOfATestWith(assert => assert.areNotIdentical(42,42));
+    const resultOne = resultOfATestWith(assert => assert.areNotIdentical(42, 42));
     expectFailureOn(resultOne, I18nMessage.of('identity_assertion_be_not_identical_to', '42', '42'));
 
-    const resultTwo = resultOfATestWith(assert => assert.areNotIdentical(42,21));
+    const resultTwo = resultOfATestWith(assert => assert.areNotIdentical(42, 21));
     expectSuccess(resultTwo);
 
     /* eslint-disable id-length */
