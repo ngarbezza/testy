@@ -1,4 +1,15 @@
+version: "2"
+checks:
+  method-count:
+    config:
+      threshold: 25
 plugins:
+  duplication:
+    enabled: true
   eslint:
     enabled: true
     channel: "eslint-6"
+  fixme:
+    enabled: true
+  markdownlint:
+    enabled: true
