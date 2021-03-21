@@ -163,4 +163,9 @@ suite('equality assertions', () => {
     const additionalMessage = I18nMessage.of('equality_assertion_failed_due_to_circular_references');
     expectFailureOn(result, I18nMessage.joined([assertionMessage, additionalMessage], ' '));
   });
+
+  test('isNotEqualTo fails if both parts are undefined', () => { 
+    const result = resultOfATestWith(assert => assert.that(undefined).isNotEqualTo(undefined)); 
+    expectFailureOn(result, I18nMessage.of('equality_assertion_failed_due_to_undetermination')); 
+  });
 });
