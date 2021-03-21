@@ -82,6 +82,17 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "franciscojaimesfreyre",
+      "name": "Francisco Jaimes Freyre",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10203729?v=4",
+      "profile": "https://github.com/franciscojaimesfreyre",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
