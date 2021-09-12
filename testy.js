@@ -5,6 +5,7 @@ const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
 const { allFilesMatching, resolvePathFor } = require(`${libDir}/utils`);
+const { I18nMessage } = require(`${libDir}/i18n`);
 
 const ui = new ConsoleUI();
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
@@ -70,7 +71,7 @@ class Testy {
         this._loadAllFilesIn(path)
       );
     } catch (err) {
-      ui.exitWithError(`Error: ${err.path} does not exist.`);
+      ui.exitWithError(I18nMessage.of('error_path_not_found', err.path));
     }
   }
 
@@ -85,8 +86,8 @@ class Testy {
       require(file)
     } catch (err) {
       ui.exitWithError(
-        `Error loading suite ${file}!`, err.stack,
-        `Please check your file contains a valid suite declaration and try again.`,
+        I18nMessage.of('error_loading_suite', file), err.stack,
+        I18nMessage.of('feedback_for_error_loading_suite'),
       );
     }
   }
