@@ -67,21 +67,36 @@ class Testy {
   _loadAllRequestedFiles() {
     try {
       this._resolvedTestFilesPathsToRun().forEach(path =>
-        allFilesMatching(path, this._testFilesFilter()).forEach(file =>
-          require(file),
-        ),
+        this._loadAllFilesIn(path)
       );
     } catch (err) {
       ui.exitWithError(`Error: ${err.path} does not exist.`);
     }
   }
-  
+
+  _loadAllFilesIn(path) {
+    allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+      this._loadFileHandlingErrors(file)
+    );
+  }
+
+  _loadFileHandlingErrors(file) {
+    try {
+      require(file)
+    } catch (err) {
+      ui.exitWithError(
+        `Error loading suite ${file}!`, err.stack,
+        `Please check your file contains a valid suite declaration and try again.`,
+      );
+    }
+  }
+
   _testFilesPathsToRun() {
     const requestedPaths = this._requestedPathsToRun();
     return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
   }
   
-  _resolvedTestFilesPathsToRun(){
+  _resolvedTestFilesPathsToRun() {
     return this._testFilesPathsToRun().map(path => resolvePathFor(path));
   }
   
