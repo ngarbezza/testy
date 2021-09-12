@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Everything is released. Yay! :tada:
+### Fixed
+
+* [[bug] pretty print logic not giving details after depth 2](https://github.com/ngarbezza/testy/issues/188)
 
 ## [5.1.0] - 2021-01-13
 

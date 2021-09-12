@@ -81,6 +81,11 @@ suite('utility functions', () => {
   test('prettyPrint() does not use toString() of strings, and uses inspect instead', () => {
     assert.that(Utils.prettyPrint('hello')).isEqualTo('\'hello\'');
   });
+
+  test('prettyPrint() display objects in a compact style with infinite depth', () => {
+    const obj = { p1: { p2: { p3: { p4: { p5: true } } } } };
+    assert.that(Utils.prettyPrint(obj)).isEqualTo('{ p1: { p2: { p3: { p4: { p5: true } } } } }');
+  });
   
   test('notNullOrUndefined() is false on null and undefined', () => {
     assert.isFalse(Utils.notNullOrUndefined(null));
