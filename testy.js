@@ -45,9 +45,13 @@ class Testy {
   run(requestedPaths) {
     this._requestedPaths = requestedPaths;
     this._loadAllRequestedFiles();
-    ui.start(this._configuration, this._testFilesPathsToRun(), () =>
-      testRunner.run(),
-    );
+    ui.start(this._configuration, this._testFilesPathsToRun(), () => {
+      try {
+        testRunner.run();
+      } catch (err) {
+        ui.exitWithError(I18nMessage.of('error_running_suites'), err.stack,);
+      }
+    });
     testRunner.finish();
   }
   

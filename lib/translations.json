@@ -51,7 +51,8 @@
     "invalid_pending_reason": "In order to mark a test as pending, you need to specify a reason.",
     "error_path_not_found": "Error: path %s does not exist.",
     "error_loading_suite": "Error loading suite %s!",
-    "feedback_for_error_loading_suite": "Please check your file contains a valid suite declaration and try again."
+    "feedback_for_error_loading_suite": "Please check your file contains a valid suite declaration and try again.",
+    "error_running_suites": "Error executing the test suites"
   },
   "es": {
     "yes": "sí",
@@ -105,6 +106,7 @@
     "invalid_pending_reason": "Para marcar un test como pendiente, es necesario especificar un motivo.",
     "error_path_not_found": "Error: la ruta %s no existe.",
     "error_loading_suite": "Error cargando el archivo %s!",
-    "feedback_for_error_loading_suite": "Por favor, revisa que tu archivo contenga una declaración de suite válida, e intenta nuevamente."
+    "feedback_for_error_loading_suite": "Por favor, revisa que tu archivo contenga una declaración de suite válida, e intenta nuevamente.",
+    "error_running_suites": "Error ejecutando las suites de test"
   }
 }
