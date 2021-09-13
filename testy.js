@@ -7,7 +7,7 @@ const ConsoleUI = require(`${libDir}/console_ui`);
 const { allFilesMatching, resolvePathFor } = require(`${libDir}/utils`);
 const { I18nMessage } = require(`${libDir}/i18n`);
 
-const ui = new ConsoleUI();
+const ui = new ConsoleUI(process, console);
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
 const assert = new Asserter(testRunner);
 const fail = new FailureGenerator(testRunner);
