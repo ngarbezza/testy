@@ -49,7 +49,7 @@ class Testy {
       try {
         testRunner.run();
       } catch (err) {
-        ui.exitWithError(I18nMessage.of('error_running_suites'), err.stack,);
+        ui.exitWithError(I18nMessage.of('error_running_suites'), err.stack);
       }
     });
     testRunner.finish();
@@ -72,7 +72,7 @@ class Testy {
   _loadAllRequestedFiles() {
     try {
       this._resolvedTestFilesPathsToRun().forEach(path =>
-        this._loadAllFilesIn(path)
+        this._loadAllFilesIn(path),
       );
     } catch (err) {
       ui.exitWithError(I18nMessage.of('error_path_not_found', err.path));
@@ -81,13 +81,13 @@ class Testy {
 
   _loadAllFilesIn(path) {
     allFilesMatching(path, this._testFilesFilter()).forEach(file =>
-      this._loadFileHandlingErrors(file)
+      this._loadFileHandlingErrors(file),
     );
   }
 
   _loadFileHandlingErrors(file) {
     try {
-      require(file)
+      require(file);
     } catch (err) {
       ui.exitWithError(
         I18nMessage.of('error_loading_suite', file), err.stack,
