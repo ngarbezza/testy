@@ -23,6 +23,7 @@
 Una simple herramienta de testeo en Javascript, para propósitos educativos. Disponible en npm: [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
 :arrow_right: [English version here](README.md)
+:construction_worker: [Guías para contribuir](CONTRIBUTING_es.md)
 
 ## Para comenzar
 
@@ -205,13 +206,28 @@ Por favor revisar la [guía para contribuciones](CONTRIBUTING_es.md).
 Muchas gracias a estas maravillosas personas ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/JavierGelatti"><img src="https://avatars2.githubusercontent.com/u/993337?v=4" width="100px;" alt="Facundo Javier Gelatti"/><br /><sub><b>Facundo Javier Gelatti</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=JavierGelatti" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=JavierGelatti" title="Code">💻</a></td>
-    <td align="center"><a href="https://codepen.io/TomerBenRachel/"><img src="https://avatars2.githubusercontent.com/u/23402988?v=4" width="100px;" alt="Tomer Ben-Rachel"/><br /><sub><b>Tomer Ben-Rachel</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=TomerPacific" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=TomerPacific" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/JavierGelatti"><img src="https://avatars2.githubusercontent.com/u/993337?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Facundo Javier Gelatti</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=JavierGelatti" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=JavierGelatti" title="Code">💻</a></td>
+    <td align="center"><a href="https://codepen.io/TomerBenRachel/"><img src="https://avatars2.githubusercontent.com/u/23402988?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tomer Ben-Rachel</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=TomerPacific" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=TomerPacific" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/abraaoduarte"><img src="https://avatars2.githubusercontent.com/u/6676804?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abraão Duarte</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=abraaoduarte" title="Code">💻</a></td>
+    <td align="center"><a href="http://adico.tech"><img src="https://avatars0.githubusercontent.com/u/5412270?v=4?s=100" width="100px;" alt=""/><br /><sub><b>adico</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=adico1" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=adico1" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/ask-imran"><img src="https://avatars0.githubusercontent.com/u/20487103?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Askar Imran</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=ask-imran" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=ask-imran" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.nigelyong.com/"><img src="https://avatars2.githubusercontent.com/u/23243585?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nigel Yong</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=niyonx" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/chelsieng"><img src="https://avatars1.githubusercontent.com/u/60008262?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chelsie Ng</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=chelsieng" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/trochepablo"><img src="https://avatars2.githubusercontent.com/u/18213369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pablo T</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=trochepablo" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=trochepablo" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/franciscojaimesfreyre"><img src="https://avatars.githubusercontent.com/u/10203729?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Francisco Jaimes Freyre</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=franciscojaimesfreyre" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=franciscojaimesfreyre" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=franciscojaimesfreyre" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://rpt.altervista.org"><img src="https://avatars.githubusercontent.com/u/1763919?v=4?s=100" width="100px;" alt=""/><br /><sub><b>giovannipessiva</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=giovannipessiva" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://abhikhatri67.github.io/"><img src="https://avatars.githubusercontent.com/u/15958423?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhishek Khatri</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=abhikhatri67" title="Code">💻</a></td>
   </tr>
 </table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 

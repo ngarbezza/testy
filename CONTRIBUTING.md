@@ -1,6 +1,7 @@
 # Contributing
 
-Issues and Pull Requests are welcome. Please follow the issue templates that are already configured. Have in mind the "Why" section (simplicity, OO code with good practices) which explain the vision of this tool.
+Issues and Pull Requests are welcome. Please follow the issue templates that are already configured. Have in mind the
+"Why" section (simplicity, OO code with good practices) which explain the vision of this tool.
 
 ## Submitting issues
 
@@ -11,7 +12,8 @@ demonstrating the problem, like a small test or suite.
 ## Sending changes
 
 * Base branch: `main`. Please open PRs against `main`.
-* Not mandatory, but nice to have, use [Gitmoji](https://gitmoji.carloscuesta.me) for tagging the type of commits you're adding.
+* Not mandatory, but nice to have, use [Gitmoji](https://gitmoji.carloscuesta.me) for tagging the type of commits 
+you're adding.
 
 If you add a new feature, please add:
 * unit tests for it on the `tests/core` folder
@@ -20,8 +22,11 @@ If you add a new feature, please add:
 If you fix a bug, please add:
 * unit tests for it on the `tests/core` folder
 
-If you add an utilitary function, please put it in the `Utils` module. That way we control the complexity
+If you add a utility function, please put it in the `Utils` module. That way we control the complexity
 of utils in just one module, and we maximize reuse across different parts of the tool.
+
+If you are adding translations, you just need to change the `translations.json` file and your new language
+and keys will be automatically supported.
 
 Github Actions runs the CI builds. There are four steps on every build:
 
@@ -29,3 +34,8 @@ Github Actions runs the CI builds. There are four steps on every build:
 * lint check via `eslint`
 * unit tests
 * analyzing test coverage and send reports
+
+## Conventions and standards
+
+This project uses [Architectural Decision Records (ADR)](https://adr.github.io/). The `doc/decisions` folder
+contains the decisions taken so far. Please make sure the change you are sending is in line with those decisions.
