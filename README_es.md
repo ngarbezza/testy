@@ -1,6 +1,6 @@
 # Testy
 
-![ci](https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/develop?logo=github)
+![ci](https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/main?logo=github)
 \
 [![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 [![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
@@ -112,6 +112,10 @@ Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite 
     * Pasando un nombre de método que el objeto `actual` comprenda: `isEqualTo(expected, 'myEqMessage')` o `areEqual(actual, expected, 'myEqMessage')`
     * Por defecto, si `actual` entiende el mensaje `equals`, será utilizado para determinar la comparación
     * Si comparamos `undefined` con `undefined` usando `isEqualTo()`, el test fallará. Para chequear explícitamente por el valor `undefined`, se debe utilizar las aserciones `isUndefined()` o `isNotUndefined()` documentadas más adelante. 
+* Aserciones de identidad de objetos:
+  * `assert.that(actual).isIdenticalTo(expected)` o `assert.areIdentical(actual, expected)`
+  * `assert.that(actual).isNotIdenticalTo(expected)` o `assert.areNotIdentical(actual, expected)`
+  * Las aserciones de identidad comprueban si dos referencias apuntan al mismo objeto utilizando el operador `===`.
 * Validar si un objeto es o no `undefined`:
   * `assert.that(aValue).isUndefined()` o `assert.isUndefined(aValue)`
   * `assert.that(aValue).isNotUndefined()` o `assert.isNotUndefined(aValue)`

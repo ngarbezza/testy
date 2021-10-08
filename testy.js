@@ -5,8 +5,9 @@ const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
 const { allFilesMatching, resolvePathFor } = require(`${libDir}/utils`);
+const { I18nMessage } = require(`${libDir}/i18n`);
 
-const ui = new ConsoleUI();
+const ui = new ConsoleUI(process, console);
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
 const assert = new Asserter(testRunner);
 const fail = new FailureGenerator(testRunner);
@@ -44,9 +45,13 @@ class Testy {
   run(requestedPaths) {
     this._requestedPaths = requestedPaths;
     this._loadAllRequestedFiles();
-    ui.start(this._configuration, this._testFilesPathsToRun(), () =>
-      testRunner.run(),
-    );
+    ui.start(this._configuration, this._testFilesPathsToRun(), () => {
+      try {
+        testRunner.run();
+      } catch (err) {
+        ui.exitWithError(I18nMessage.of('error_running_suites'), err.stack);
+      }
+    });
     testRunner.finish();
   }
   
@@ -67,21 +72,36 @@ class Testy {
   _loadAllRequestedFiles() {
     try {
       this._resolvedTestFilesPathsToRun().forEach(path =>
-        allFilesMatching(path, this._testFilesFilter()).forEach(file =>
-          require(file),
-        ),
+        this._loadAllFilesIn(path),
       );
     } catch (err) {
-      ui.exitWithError(`Error: ${err.path} does not exist.`);
+      ui.exitWithError(I18nMessage.of('error_path_not_found', err.path));
     }
   }
-  
+
+  _loadAllFilesIn(path) {
+    allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+      this._loadFileHandlingErrors(file),
+    );
+  }
+
+  _loadFileHandlingErrors(file) {
+    try {
+      require(file);
+    } catch (err) {
+      ui.exitWithError(
+        I18nMessage.of('error_loading_suite', file), err.stack,
+        I18nMessage.of('feedback_for_error_loading_suite'),
+      );
+    }
+  }
+
   _testFilesPathsToRun() {
     const requestedPaths = this._requestedPathsToRun();
     return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
   }
   
-  _resolvedTestFilesPathsToRun(){
+  _resolvedTestFilesPathsToRun() {
     return this._testFilesPathsToRun().map(path => resolvePathFor(path));
   }
   

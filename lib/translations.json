@@ -40,12 +40,19 @@
     "equality_assertion_failed_due_to_undetermination": "Equality cannot be determined. Both parts are undefined",
     "equality_assertion_failed_due_to_missing_property": "Equality check failed. Objects do not have %s property",
     "equality_assertion_failed_due_to_circular_references": "(circular references found, equality check cannot be done. Please compare objects' properties individually)",
+    "identity_assertion_be_identical_to": "Expected %s to be identical to %s",
+    "identity_assertion_be_not_identical_to": "Expected %s to be not equal to %s",
+    "identity_assertion_failed_due_to_undetermination": "Identity cannot be determined. Both parts are undefined",
     "explicitly_failed": "Explicitly failed",
     "running_tests_in": "Running tests in",
     "fail_fast": "Fail fast",
     "random_order": "Random order",
     "starting_testy": "Starting Testy!",
-    "invalid_pending_reason": "In order to mark a test as pending, you need to specify a reason."
+    "invalid_pending_reason": "In order to mark a test as pending, you need to specify a reason.",
+    "error_path_not_found": "Error: path %s does not exist.",
+    "error_loading_suite": "Error loading suite %s!",
+    "feedback_for_error_loading_suite": "Please check your file contains a valid suite declaration and try again.",
+    "error_running_suites": "Error executing the test suites"
   },
   "es": {
     "yes": "sí",
@@ -88,12 +95,19 @@
     "equality_undetermined": "La igualdad no puede ser determinada. Ambas partes son undefined",
     "equality_assertion_failed_due_to_missing_property": "Igualdad entre objetos fallida. Los objetos no tienen la propiedad %s",
     "equality_assertion_failed_due_to_circular_references": "(se encontraron referencias circulares, no es posible verificar la igualdad. Por favor, comparar propiedades de los objetos de manera individual)",
+    "identity_assertion_be_identical_to": "Se esperaba que %s sea idéntico a %s",
+    "identity_assertion_be_not_identical_to": "Se esperaba que %s no sea idéntico a %s",
+    "identity_assertion_failed_due_to_undetermination": "Comparación de identidad no se puede determinar. Ambos son undefined",
     "explicitly_failed": "Explícitamente marcado como fallido",
     "running_tests_in": "Ejecutando tests en",
     "fail_fast": "Fallo rápido",
     "random_order": "Orden aleatorio",
     "starting_testy": "Comenzando a ejecutar Testy!",
-    "invalid_pending_reason": "Para marcar un test como pendiente, es necesario especificar un motivo."
+    "invalid_pending_reason": "Para marcar un test como pendiente, es necesario especificar un motivo.",
+    "error_path_not_found": "Error: la ruta %s no existe.",
+    "error_loading_suite": "Error cargando el archivo %s!",
+    "feedback_for_error_loading_suite": "Por favor, revisa que tu archivo contenga una declaración de suite válida, e intenta nuevamente.",
+    "error_running_suites": "Error ejecutando las suites de test"
   },
   "it": {
     "yes": "sì",

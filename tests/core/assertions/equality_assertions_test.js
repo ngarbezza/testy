@@ -1,10 +1,10 @@
 'use strict';
 
-const { suite, test } = require('../../../testy');
+const { assert, suite, test } = require('../../../testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
-const { I18nMessage } = require('../../../lib/i18n');
+const { I18nMessage, I18n } = require('../../../lib/i18n');
 
 suite('equality assertions', () => {
   test('isEqualTo pass with equal primitive objects', () => {
@@ -162,5 +162,16 @@ suite('equality assertions', () => {
     const assertionMessage = I18nMessage.of('equality_assertion_be_equal_to', 'circular!', 'circular!');
     const additionalMessage = I18nMessage.of('equality_assertion_failed_due_to_circular_references');
     expectFailureOn(result, I18nMessage.joined([assertionMessage, additionalMessage], ' '));
+  });
+
+  test('isNotEqualTo fails if both parts are undefined', () => { 
+    const result = resultOfATestWith(assert => assert.that(undefined).isNotEqualTo(undefined)); 
+    expectFailureOn(result, I18nMessage.of('equality_assertion_failed_due_to_undetermination')); 
+  });
+
+  test('displays equality failure messages with all depth', () => {
+    const result = resultOfATestWith(assert => assert.that({ a1: { a2: { a3: { a4: true } } } }).isEqualTo({ a1: { a2: { a3: { a4: false } } } }));
+    const actualFailureMessageInEnglish = result.failureMessage().expressedIn(I18n.default());
+    assert.that(actualFailureMessageInEnglish).isEqualTo('Expected { a1: { a2: { a3: { a4: true } } } } to be equal to { a1: { a2: { a3: { a4: false } } } }');
   });
 });

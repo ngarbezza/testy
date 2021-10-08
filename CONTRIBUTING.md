@@ -10,7 +10,7 @@ demonstrating the problem, like a small test or suite.
 
 ## Sending changes
 
-* Base branch: `develop`. Please open PRs against `develop`.
+* Base branch: `main`. Please open PRs against `main`.
 * Not mandatory, but nice to have, use [Gitmoji](https://gitmoji.carloscuesta.me) for tagging the type of commits you're adding.
 
 If you add a new feature, please add:
