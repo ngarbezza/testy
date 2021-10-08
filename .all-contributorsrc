@@ -82,6 +82,15 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "giovannipessiva",
+      "name": "giovannipessiva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1763919?v=4",
+      "profile": "https://rpt.altervista.org",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
