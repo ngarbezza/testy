@@ -1,6 +1,6 @@
 # Testy
 
-![ci](https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/develop?logo=github)
+![ci](https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/main?logo=github)
 \
 [![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 [![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)

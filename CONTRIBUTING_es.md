@@ -10,7 +10,7 @@ problema, como una suite o un test de ejemplo.
 
 ## Para enviar cambios
 
-* Rama principal: `develop`. Por favor, abrir pull requests hacia `develop`.
+* Rama principal: `main`. Por favor, abrir pull requests hacia `main`.
 * Utilizamos [Gitmoji](https://gitmoji.carloscuesta.me) como convención para anotar mensajes de commit. No es obligatorio pero si lo quieres seguir es bienvenido.
 
 Al agregar una nueva funcionalidad, por favor agregar:
