@@ -7,9 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* [[feature] isIdenticalTo() / isNotIdenticalTo() assertions](https://github.com/ngarbezza/testy/issues/182), thank you @franciscojaimesfreyre, for your first contribution!
+* [[feature] better error reporting when loading test suite files](https://github.com/ngarbezza/testy/issues/184)
+* [[docs] italian translations](https://github.com/ngarbezza/testy/issues/198), thank you @giovannipessiva for your first contribution!
+
 ### Fixed
 
+* [[bug] isNotEqualTo does not have expected behaviour when both parts are undefined](https://github.com/ngarbezza/testy/issues/191), thank you, @franciscojaimesfreyre, for reporting and fixing this bug!
 * [[bug] pretty print logic not giving details after depth 2](https://github.com/ngarbezza/testy/issues/188)
+
+### Other improvements and cleanups
+
+We now have a PR template, the branching model was simplified (before: your branch -> develop -> main, now: your branch -> main) and the test coverage was increased.
 
 ## [5.1.0] - 2021-01-13
 

@@ -23,6 +23,7 @@
 A very simple JS testing framework, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
 :arrow_right: [Documentación en español aquí](README_es.md)
+:construction_worker: [Contributing guidelines](CONTRIBUTING.md)
 
 ## Getting started
 
