@@ -93,6 +93,24 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "giovannipessiva",
+      "name": "giovannipessiva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1763919?v=4",
+      "profile": "https://rpt.altervista.org",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "abhikhatri67",
+      "name": "Abhishek Khatri",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15958423?v=4",
+      "profile": "https://abhikhatri67.github.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
