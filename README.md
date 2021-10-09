@@ -30,7 +30,8 @@ A very simple JS testing framework, for educational purposes. Live at npm at [@p
 `npm install --save-dev @pmoo/testy` (if you use [npm](https://www.npmjs.com/)) \
 `yarn add --dev @pmoo/testy` (if you use [yarn](https://classic.yarnpkg.com/en/))
 
-**Supported Node versions**: 8.x or higher
+**Supported Node versions**: 12.x or higher (versions with active and security support
+listed [here](https://endoflife.date/nodejs))
 
 ## Usage
 
