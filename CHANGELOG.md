@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking changes
+
+* :boom: Node 12.x or higher is required. Support for Node 8.x and 10.x has dropped.
+There is now an architectural decision record to specify how support will work
+going forward. [#214](https://github.com/ngarbezza/testy/issues/214)
+
 ### Added
 
 * [[feature] isIdenticalTo() / isNotIdenticalTo() assertions](https://github.com/ngarbezza/testy/issues/182), thank you @franciscojaimesfreyre, for your first contribution!
