@@ -12,7 +12,7 @@
  \
 ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@pmoo/testy.svg?logo=npm)
 ![downloads](https://img.shields.io/npm/dt/@pmoo/testy.svg?logo=npm)
-![dependencies](https://img.shields.io/david/ngarbezza/testy.svg?logo=dependabot)
+![dependencies](https://img.shields.io/librariesio/release/npm/@pmoo/testy)
 \
 ![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm)
 ![activity](https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm)
