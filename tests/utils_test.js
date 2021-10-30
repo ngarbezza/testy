@@ -14,6 +14,16 @@ suite('utility functions', () => {
     const obj = { asd: 2 };
     assert.isFalse(Utils.isCyclic(obj));
   });
+
+  test('isCyclic is false if the object is null, string or other non-object type', () => {
+    assert.isFalse(Utils.isCyclic(null));
+    assert.isFalse(Utils.isCyclic('just a string'));
+    assert.isFalse(Utils.isCyclic(42));
+  });
+
+  test('isCyclic does not fail if the object contains properties with null values', () => {
+    assert.isFalse(Utils.isCyclic({ thisValueIs: null }));
+  });
   
   test('number of elements of Set', () => {
     assert.areEqual(Utils.numberOfElements(new Set([1, 2])), 2);

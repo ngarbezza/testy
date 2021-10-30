@@ -23,6 +23,7 @@ going forward. [#214](https://github.com/ngarbezza/testy/issues/214)
 
 * [[bug] isNotEqualTo does not have expected behaviour when both parts are undefined](https://github.com/ngarbezza/testy/issues/191), thank you, @franciscojaimesfreyre, for reporting and fixing this bug!
 * [[bug] pretty print logic not giving details after depth 2](https://github.com/ngarbezza/testy/issues/188)
+* [[bug] null values in isEqualTo comparison fail with error](https://github.com/ngarbezza/testy/issues/217)
 
 ### Other improvements and cleanups
 
