@@ -6,6 +6,11 @@
 [![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 [![coverage](https://img.shields.io/codeclimate/coverage/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 \
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
+\
 ![open-issues](https://img.shields.io/github/issues-raw/ngarbezza/testy?logo=github)
 ![closed-issues](https://img.shields.io/github/issues-closed-raw/ngarbezza/testy?logo=github)
 ![open-prs](https://img.shields.io/github/issues-pr-raw/ngarbezza/testy?logo=github)
