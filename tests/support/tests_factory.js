@@ -2,7 +2,9 @@
 
 const Test = require('../../lib/test');
 
-const noop = () => {};
+const noop = () => {
+  // intentional empty function
+};
 const emptyTestCallbacks = {
   whenErrored: noop,
   whenFailed: noop,
@@ -19,7 +21,7 @@ const aFailingTest = asserter =>
 
 const anErroredTest = () =>
   new Test('an unexpected error', () => {
-    throw 'oops'; 
+    throw new Error('oops');
   }, emptyTestCallbacks);
 
 const aPendingTest = () =>

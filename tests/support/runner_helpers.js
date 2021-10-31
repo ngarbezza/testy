@@ -5,8 +5,11 @@ const TestSuite = require('../../lib/test_suite');
 const { Asserter, FailureGenerator, PendingMarker } = require('../../lib/asserter');
 const { aTestWithBody } = require('./tests_factory');
 
+const noop = () => {
+  // intentionally empty function
+};
+
 const runSingleTest = (runner, test) => {
-  const noop = () => {};
   const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
   const suite = new TestSuite(`suite for ${test.name()}`, noop, emptySuiteCallbacks);
   suite.addTest(test);
@@ -16,7 +19,6 @@ const runSingleTest = (runner, test) => {
 };
 
 const withRunner = testBlock => {
-  const noop = () => {};
   const emptyRunnerCallbacks = { onFinish: noop };
   const runner = new TestRunner(emptyRunnerCallbacks);
   const asserter = new Asserter(runner);
