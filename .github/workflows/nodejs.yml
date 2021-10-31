@@ -19,19 +19,21 @@ jobs:
       run: |
         npm install
         npm run lint
-        npm test
+        npm run coverage
       env:
         CI: true
     - name: Code Climate Coverage Action
       uses: paambaati/codeclimate-action@v2.6.0
       env:
         CC_TEST_REPORTER_ID: 6ace5bc20f45a4d3b1d1bd56b37e2ed97c92776e402f4f687bb5ee50853cb51c
-      with:
-        coverageCommand: npm run coverage
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       with:
         args: >
+          -Dsonar.projectKey=Testy
+          -Dsonar.organization=ngarbezza
+          -Dsonar.projectName=Testy
+          -Dsonar.projectVersion=5.1.0
           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
           -Dsonar.coverage.exclusions=tests/**
       env:
