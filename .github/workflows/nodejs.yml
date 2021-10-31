@@ -15,11 +15,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, lint, and test
+    - name: Build NPM package, run lint analysis and tests
       run: |
         npm install
         npm run lint
-        npm run coverage
+        npm run test
       env:
         CI: true
     - name: Code Climate Coverage Action
@@ -30,7 +30,7 @@ jobs:
       uses: SonarSource/sonarcloud-github-action@master
       with:
         args: >
-          -Dsonar.projectKey=Testy
+          -Dsonar.projectKey=ngarbezza_testy
           -Dsonar.organization=ngarbezza
           -Dsonar.projectName=Testy
           -Dsonar.projectVersion=5.1.0
