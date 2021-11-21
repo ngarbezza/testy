@@ -37,10 +37,10 @@ suite('testing testy - basic features', () => {
   
   test('equality check when objects understand equals()', () => {
     /* eslint-disable id-length */
-    const objectOne = { a: 'a', b: 'b1', equals: function(another) {
+    const objectOne = { a: 'a', b: 'b1', equals(another) {
       return this.a === another.a;
     } };
-    const objectTwo = { a: 'a', b: 'b2', equals: function(another) {
+    const objectTwo = { a: 'a', b: 'b2', equals(another) {
       return this.b === another.b;
     } };
     /* eslint-enable id-length */
@@ -50,10 +50,10 @@ suite('testing testy - basic features', () => {
   
   test('equality check using custom message name', () => {
     /* eslint-disable id-length */
-    const objectOne = { a: 'a', b: 'b1', sameAs: function(another) {
+    const objectOne = { a: 'a', b: 'b1', sameAs(another) {
       return this.a === another.a;
     } };
-    const objectTwo = { a: 'a', b: 'b2', sameAs: function(another) {
+    const objectTwo = { a: 'a', b: 'b2', sameAs(another) {
       return this.b === another.b;
     } };
     /* eslint-enable id-length */

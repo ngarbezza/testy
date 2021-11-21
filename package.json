@@ -18,8 +18,8 @@
     "coverage": "npx nyc@latest --reporter=lcov --reporter=text npm test",
     "open-coverage-report": "open coverage/lcov-report/index.html",
     "generate-dependencies-graph": "npx madge -i testy-dependencies.png lib/ bin/",
-    "lint": "npx eslint@6.8.0 .",
-    "lint-fix": "npx eslint@6.8.0 . --fix",
+    "lint": "npx eslint .",
+    "lint-fix": "npx eslint . --fix",
     "test": "bin/testy_cli.js"
   },
   "bin": "bin/testy_cli.js",
