@@ -27,7 +27,7 @@ const withRunner = testBlock => {
   return testBlock(runner, asserter, failGenerator, pendingMarker);
 };
 
-const resultOfATestWith = (assertBlock) =>
+const resultOfATestWith = assertBlock =>
   withRunner((runner, assert, fail, pending) => {
     const testToRun = aTestWithBody(() => assertBlock(assert, fail, pending));
     runSingleTest(runner, testToRun);
