@@ -1,6 +1,6 @@
 {
   "name": "@pmoo/testy",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "description": "A minimal testing framework, for educational purposes.",
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/ngarbezza/testy/issues"
   },
   "engines": {
-    "node": ">= 8.*"
+    "node": ">= 12.*"
   },
   "main": "testy.js",
   "scripts": {

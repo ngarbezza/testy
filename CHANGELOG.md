@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Everything is released :tada:
+
+## [6.0.0] - 2021-11-21
+
 ### Breaking changes
 
 * :boom: Node 12.x or higher is required. Support for Node 8.x and 10.x has dropped.
@@ -27,7 +31,10 @@ going forward. [#214](https://github.com/ngarbezza/testy/issues/214)
 
 ### Other improvements and cleanups
 
-We now have a PR template, the branching model was simplified (before: your branch -> develop -> main, now: your branch -> main) and the test coverage was increased.
+* We now have a PR template :tada:
+* The branching model was simplified (before: `your-branch` -> `develop` -> `main`, now: `your-branch` -> `main`)
+* Test coverage was increased
+* Lint rules have been updated and now we check the code with ESLint v7
 
 ## [5.1.0] - 2021-01-13
 
@@ -287,7 +294,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 
 * Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/ngarbezza/testy/compare/v5.1.0...v6.0.0
 [5.1.0]: https://github.com/ngarbezza/testy/compare/v5.0.2...v5.1.0
 [5.0.2]: https://github.com/ngarbezza/testy/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/ngarbezza/testy/compare/v5.0.0...v5.0.1
