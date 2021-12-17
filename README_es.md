@@ -30,6 +30,10 @@ Una simple herramienta de testeo en Javascript, para propósitos educativos. Dis
 :arrow_right: [English version here](README.md)
 :construction_worker: [Guías para contribuir](CONTRIBUTING_es.md)
 
+## Sponsors
+
+<a href="https://10pines.com"><img alt="10Pines logo" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a>
+
 ## Para comenzar
 
 `npm install --save-dev @pmoo/testy` (si utilizas [npm](https://www.npmjs.com/)) \

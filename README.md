@@ -30,6 +30,10 @@ A very simple JS testing framework, for educational purposes. Live at npm at [@p
 :arrow_right: [Documentación en español aquí](README_es.md)
 :construction_worker: [Contributing guidelines](CONTRIBUTING.md)
 
+## Sponsors
+
+<a href="https://10pines.com"><img alt="10Pines logo" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a>
+
 ## Getting started
 
 `npm install --save-dev @pmoo/testy` (if you use [npm](https://www.npmjs.com/)) \
