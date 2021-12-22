@@ -9,16 +9,16 @@ const noop = () => {
   // intentionally empty function
 };
 
-const runSingleTest = (runner, test) => {
+const runSingleTest = async(runner, test) => {
   const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
   const suite = new TestSuite(`suite for ${test.name()}`, noop, emptySuiteCallbacks);
   suite.addTest(test);
   runner.addSuite(suite);
-  runner.run();
+  await runner.run();
   return test.result();
 };
 
-const withRunner = testBlock => {
+const withRunner = async testBlock => {
   const emptyRunnerCallbacks = { onFinish: noop };
   const runner = new TestRunner(emptyRunnerCallbacks);
   const asserter = new Asserter(runner);
@@ -27,10 +27,10 @@ const withRunner = testBlock => {
   return testBlock(runner, asserter, failGenerator, pendingMarker);
 };
 
-const resultOfATestWith = assertBlock =>
-  withRunner((runner, assert, fail, pending) => {
+const resultOfATestWith = async assertBlock =>
+  withRunner(async(runner, assert, fail, pending) => {
     const testToRun = aTestWithBody(() => assertBlock(assert, fail, pending));
-    runSingleTest(runner, testToRun);
+    await runSingleTest(runner, testToRun);
     return testToRun.result();
   });
 

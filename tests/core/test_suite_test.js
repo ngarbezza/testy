@@ -10,9 +10,9 @@ const { aPassingTest, aFailingTest, anErroredTest, aPendingTest } = require('../
 suite('test suite behavior', () => {
   let runner, mySuite;
   let passingTest, failingTest, erroredTest, pendingTest;
-  
-  before(() => {
-    withRunner((runnerToUse, asserterToUse) => {
+
+  before(async() => {
+    await withRunner((runnerToUse, asserterToUse) => {
       runner = runnerToUse;
       mySuite = newEmptySuite();
       runner.addSuite(mySuite);
@@ -22,24 +22,24 @@ suite('test suite behavior', () => {
       pendingTest = aPendingTest();
     });
   });
-  
+
   test('more than one before block is not allowed', () => {
     mySuite.before(() => 3 + 4);
-    
+
     assert
       .that(() => mySuite.before(() => 5 + 6))
       .raises(/There is already a before\(\) block. Please leave just one before\(\) block and run again the tests./);
   });
-  
+
   test('more than one after block is not allowed', () => {
     mySuite.after(() => 3 + 4);
-    
+
     assert
       .that(() => mySuite.after(() => 5 + 6))
       .raises(/There is already an after\(\) block. Please leave just one after\(\) block and run again the tests./);
   });
 
-  test('after hook can be used', () => {
+  test('after hook can be used', async() => {
     let afterTestVar = 10;
 
     mySuite.before(() => {
@@ -49,33 +49,47 @@ suite('test suite behavior', () => {
       afterTestVar = 0;
     });
     mySuite.addTest(passingTest);
-    runner.run();
+    await runner.run();
     assert.that(afterTestVar).isEqualTo(0);
   });
 
-  test('reporting failures and errors', () => {
+  test('before() and after() can be used asynchronously', async() => {
+    let afterTestVar = 10;
+
+    mySuite.before(async() => {
+      Promise.resolve(9).then(value => afterTestVar = value);
+    });
+    mySuite.after(async() => {
+      Promise.resolve(0).then(value => afterTestVar = value);
+    });
+    mySuite.addTest(passingTest);
+    await runner.run();
+    assert.that(afterTestVar).isEqualTo(0);
+  });
+
+  test('reporting failures and errors', async() => {
     mySuite.addTest(passingTest);
     mySuite.addTest(failingTest);
     mySuite.addTest(erroredTest);
-    runner.run();
+    await runner.run();
 
     assert.that(mySuite.allFailuresAndErrors()).includesExactly(failingTest, erroredTest);
   });
-  
-  test('an empty suite can be executed and it reports zero tests', () => {
-    runner.run();
-  
+
+  test('an empty suite can be executed and it reports zero tests', async() => {
+    await runner.run();
+
     assert.that(mySuite.totalCount()).isEqualTo(0);
   });
-  
-  test('a suite including a test without body reports it as pending', () => {
+
+  test('a suite including a test without body reports it as pending', async() => {
     mySuite.addTest(pendingTest);
-    runner.run();
-  
+    await runner.run();
+
     assert.that(mySuite.totalCount()).isEqualTo(1);
     assert.that(mySuite.pendingCount()).isEqualTo(1);
   });
-  
+
   test('a suite cannot be created without a name', () => {
     assert.that(() => new TestSuite()).raises(/Suite does not have a valid name/);
   });
@@ -83,45 +97,45 @@ suite('test suite behavior', () => {
   test('a suite cannot be created with an empty name', () => {
     assert.that(() => new TestSuite('  ')).raises(/Suite does not have a valid name/);
   });
-  
+
   test('a suite cannot be created with a name that is not a string', () => {
     assert.that(() => new TestSuite(new Date())).raises(/Suite does not have a valid name/);
   });
-  
+
   test('a suite cannot be created without a body', () => {
     assert.that(() => new TestSuite('hey')).raises(/Suite does not have a valid body/);
   });
-  
+
   test('a suite cannot be created with a body that is not a function', () => {
     assert.that(() => new TestSuite('hey', 'ho')).raises(/Suite does not have a valid body/);
   });
-  
-  test('running with fail fast enabled stops at the first failure', () => {
+
+  test('running with fail fast enabled stops at the first failure', async() => {
     mySuite.addTest(passingTest);
     mySuite.addTest(failingTest);
     mySuite.addTest(erroredTest);
     mySuite.addTest(pendingTest);
     runner.setFailFastMode(FailFast.enabled());
-    
-    runner.run();
-    
+
+    await runner.run();
+
     assert.isTrue(passingTest.isSuccess());
     assert.isTrue(failingTest.isFailure());
     assert.isTrue(erroredTest.isSkipped());
     assert.isTrue(pendingTest.isSkipped());
   });
-  
-  test('tests can be randomized based on a setting', () => {
+
+  test('tests can be randomized based on a setting', async() => {
     mySuite.addTest(passingTest);
     mySuite.addTest(failingTest);
     mySuite.addTest(erroredTest);
     mySuite.addTest(pendingTest);
     runner.setTestRandomness(true);
-    
+
     const testsBefore = mySuite.tests();
-    runner.run();
+    await runner.run();
     const testsAfter = mySuite.tests();
-    
+
     // we cannot test how the random process was done, but at least we ensure we keep the same tests
     assert.areEqual(new Set(testsBefore), new Set(testsAfter));
   });
