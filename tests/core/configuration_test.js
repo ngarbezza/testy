@@ -14,27 +14,27 @@ suite('Configuration parameters', () => {
     randomOrder: true,
   };
   const configuration = new Configuration(emptyOptions, defaultConfiguration);
-  
+
   test('there is a default directory', () => {
     assert.areEqual(configuration.directory(), 'some_dir');
   });
-  
+
   test('the default files filter exists and it is a regex', () => {
     assert.areEqual(configuration.filter(), /.*_test.js$/);
   });
-  
+
   test('there is a default language', () => {
     assert.areEqual(configuration.language(), 'de');
   });
-  
+
   test('there is a default fail fast setting', () => {
     assert.areEqual(configuration.failFastMode(), FailFast.default());
   });
-  
+
   test('there is a default random order setting', () => {
     assert.areEqual(configuration.randomOrder(), true);
   });
-  
+
   test('user preference has higher precedence than defaults', () => {
     const userOptions = { directory: 'test_files_here' };
     const userCustomizedConfiguration = new Configuration(userOptions, defaultConfiguration);
