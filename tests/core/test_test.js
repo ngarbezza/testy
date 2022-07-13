@@ -2,13 +2,17 @@
 
 const { suite, test, assert } = require('../../testy');
 const { aTestWithNoAssertions, aTestWithBody } = require('../support/tests_factory');
-const { withRunner, runSingleTest } = require('../support/runner_helpers');
+const { withRunner, runSingleTest, resultOfASuiteWith } = require('../support/runner_helpers');
 const { expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
 
 const Test = require('../../lib/test');
 const { I18nMessage } = require('../../lib/i18n');
 
 suite('tests behavior', () => {
+  const noop = () => {
+    // intentionally empty function
+  };
+
   test('running a test that does not have any assertion generates an error with a descriptive message', async() => {
     await withRunner(async runner => {
       const testToRun = aTestWithNoAssertions();
@@ -52,6 +56,32 @@ suite('tests behavior', () => {
       const result = await runSingleTest(runner, test);
 
       expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', '[]'));
+    });
+  });
+
+  test('a before() hook that fails makes the test fail', async() => {
+    await withRunner(async(runner, assert) => {
+      const test = aTestWithBody(() => assert.isEmpty([]));
+      const before = () => {
+        throw 'oops I did it again';
+      };
+
+      const result = await resultOfASuiteWith(runner, test, before, noop);
+
+      expectErrorOn(result, 'oops I did it again');
+    });
+  });
+
+  test('an after() hook that fails makes the test fail', async() => {
+    await withRunner(async(runner, assert) => {
+      const test = aTestWithBody(() => assert.isEmpty([]));
+      const after = () => {
+        throw 'oops I did it again';
+      };
+
+      const result = await resultOfASuiteWith(runner, test, noop, after);
+
+      expectErrorOn(result, 'oops I did it again');
     });
   });
 });
