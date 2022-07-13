@@ -34,8 +34,20 @@ const resultOfATestWith = async assertBlock =>
     return testToRun.result();
   });
 
+const resultOfASuiteWith = async(runner, test, before, after) => {
+  const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
+  const suite = new TestSuite(`suite for ${test.name()}`, noop, emptySuiteCallbacks);
+  suite.addTest(test);
+  suite.before(before);
+  suite.after(after);
+  runner.addSuite(suite);
+  await runner.run();
+  return test.result();
+};
+
 module.exports = {
   withRunner,
   runSingleTest,
   resultOfATestWith,
+  resultOfASuiteWith,
 };
