@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released :tada:
 
+## [6.1.0] - 2022-07-13
+
+### Added
+
+* [[feature] support for asynchronous tests](https://github.com/ngarbezza/testy/issues/106), thank you
+[@JavierGelatti](https://github.com/JavierGelatti) for the [initial implementation](https://github.com/ngarbezza/testy/pull/82)!
+Now we can use `async`/`await` in test definitions.
+
+### Fixed
+
+* [[bug] before() and after() argument is not validated](https://github.com/ngarbezza/testy/issues/227)
+
+* [[bug] multiple before() or after() empty blocks can be added to a test suite](https://github.com/ngarbezza/testy/issues/202)
+
+* [[bug] swallowed/not precise exception when before() or after() fails](https://github.com/ngarbezza/testy/issues/230)
+
+### Other changes
+
+* Updates to the dev tools: eslint, github actions, code climate
+* Added [10Pines](https://10pines.com) as sponsor: thanks for the support!
+
 ## [6.0.0] - 2021-11-21
 
 ### Breaking changes
@@ -294,7 +315,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 
 * Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v6.1.0...HEAD
+[6.1.0]: https://github.com/ngarbezza/testy/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/ngarbezza/testy/compare/v5.1.0...v6.0.0
 [5.1.0]: https://github.com/ngarbezza/testy/compare/v5.0.2...v5.1.0
 [5.0.2]: https://github.com/ngarbezza/testy/compare/v5.0.1...v5.0.2

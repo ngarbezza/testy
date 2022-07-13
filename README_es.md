@@ -177,10 +177,34 @@ _suite_. `before()` y `after()` reciben una función como parámetro y pueden ut
       });
     });
     ```
-* **Soporte para tests pendientes**: Un test que no tenga cuerpo, será reportado como pendiente (`[WIP]`) y no se considerará una falla.
-* **Modo "fail-fast"**: Cuando está habilitado, se detiene apenas encuentra un test que falle o lance un error. Los tests restantes serán marcados como no ejecutados (_skipped_).
-* **Ejecutar tests en orden aleatorio**: Una buena suite de tests no depende de un orden particular de tests para ejecutarse correctamentee. Activando esta configuración es una buena forma de asegurar eso.
-* **Chequeo estricto de presencia de aserciones**: Si un test no evalúa ninguna aserción durante su ejecución, el resultado se considera un error. Básicamente, un test que no tiene aserciones es un "mal" test.
+* **Soporte para tests pendientes**: un test que no tenga cuerpo, será reportado como pendiente (`[WIP]`) y no se considerará una falla.
+* **Soporte para tests asíncronos**: si el código que estás testeando requiere de `async`, es posible hacer `await`
+dentro de la definicion del test y luego escribir las aserciones. También es posible hacer llamados asincrónicos en
+`before()` y `after()`. Ejemplo:
+
+    ```javascript
+    const { suite, test, assert, before } = require('@pmoo/testy');
+    
+    const promesaUno = async () => Promise.resolve(42);
+    const promesaDos = async () => Promise.resolve(21);
+  
+    suite('usando async y await', () => {
+      let respuestaUno;
+    
+      before(async () => {
+        respuestaUno = await promesaUno();
+      });
+    
+      test('comparando resultados de promesas', async () => {
+        const respuestaDos = await promesaDos();
+        assert.that(respuestaUno).isEqualTo(42);
+        assert.that(respuestaDos).isEqualTo(21);
+      });
+    });
+    ```
+* **Modo "fail-fast"**: cuando está habilitado, se detiene apenas encuentra un test que falle o lance un error. Los tests restantes serán marcados como no ejecutados (_skipped_).
+* **Ejecutar tests en orden aleatorio**: una buena suite de tests no depende de un orden particular de tests para ejecutarse correctamentee. Activando esta configuración es una buena forma de asegurar eso.
+* **Chequeo estricto de presencia de aserciones**: si un test no evalúa ninguna aserción durante su ejecución, el resultado se considera un error. Básicamente, un test que no tiene aserciones es un "mal" test.
 * **Explícitamente marcar un test como fallido o pendiente**: Ejemplos:
 
     ```javascript

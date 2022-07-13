@@ -42,10 +42,10 @@ suite('test runner', () => {
 
   test('failures count is one with one failed test', async() => {
     await withRunner(async(runner, asserter) => {
-      const suite = suiteNamed('with one failure');
+      const suiteWithAFailure = suiteNamed('with one failure');
       const failingTest = aFailingTest(asserter);
-      suite.addTest(failingTest);
-      runner.addSuite(suite);
+      suiteWithAFailure.addTest(failingTest);
+      runner.addSuite(suiteWithAFailure);
       await runner.run();
 
       assert.isTrue(runner.hasErrorsOrFailures());
@@ -66,10 +66,10 @@ suite('test runner', () => {
 
   test('errors count is one with an errored test', async() => {
     await withRunner(async(runner, asserter) => {
-      const suite = suiteNamed('with one error');
+      const suiteWithAnError = suiteNamed('with one error');
       const erroredTest = anErroredTest(asserter);
-      suite.addTest(erroredTest);
-      runner.addSuite(suite);
+      suiteWithAnError.addTest(erroredTest);
+      runner.addSuite(suiteWithAnError);
       await runner.run();
 
       assert.isTrue(runner.hasErrorsOrFailures());
@@ -80,18 +80,18 @@ suite('test runner', () => {
 
   test('counting several errors and failures', async() => {
     await withRunner(async(runner, asserter) => {
-      const suite = suiteNamed('with errors and failures');
+      const suiteWithAErrorsAndFailures = suiteNamed('with errors and failures');
       const errorOne = anErroredTest(asserter);
       const errorTwo = anErroredTest(asserter);
       const errorThree = anErroredTest(asserter);
       const failureOne = aFailingTest(asserter);
       const failureTwo = aFailingTest(asserter);
-      suite.addTest(errorOne);
-      suite.addTest(failureOne);
-      suite.addTest(errorTwo);
-      suite.addTest(errorThree);
-      suite.addTest(failureTwo);
-      runner.addSuite(suite);
+      suiteWithAErrorsAndFailures.addTest(errorOne);
+      suiteWithAErrorsAndFailures.addTest(failureOne);
+      suiteWithAErrorsAndFailures.addTest(errorTwo);
+      suiteWithAErrorsAndFailures.addTest(errorThree);
+      suiteWithAErrorsAndFailures.addTest(failureTwo);
+      runner.addSuite(suiteWithAErrorsAndFailures);
       await runner.run();
 
       assert.that(runner.errorsCount()).isEqualTo(3);
