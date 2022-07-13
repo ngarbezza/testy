@@ -26,9 +26,9 @@ suite('formatter', () => {
 
   test('display pending status in yellow including reason', async() => {
     await withRunner(async(runner, _assert, _fail, pending) => {
-      const test = aTestWithBody(() => pending.dueTo('in a rush'));
-      await runSingleTest(runner, test);
-      formatter.displayPendingResult(test);
+      const pendingTest = aTestWithBody(() => pending.dueTo('in a rush'));
+      await runSingleTest(runner, pendingTest);
+      formatter.displayPendingResult(pendingTest);
       const testResultMessage = '[\u001b[33m\u001b[1mWIP\u001b[0m] \u001b[33mjust a test\u001b[0m';
       const pendingReasonMessage = '  => in a rush';
       assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, pendingReasonMessage]);
@@ -37,9 +37,9 @@ suite('formatter', () => {
 
   test('display error status in red when not specifying a reason', async() => {
     await withRunner(async(runner, _assert, _fail, pending) => {
-      const test = aTestWithBody(() => pending.dueTo());
-      await runSingleTest(runner, test);
-      formatter.displayErrorResult(test);
+      const pendingTest = aTestWithBody(() => pending.dueTo());
+      await runSingleTest(runner, pendingTest);
+      formatter.displayErrorResult(pendingTest);
       const testResultMessage = '[\u001b[31m\u001b[1mERROR\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const pendingReasonMessage = '  => In order to mark a test as pending, you need to specify a reason.';
       assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, pendingReasonMessage]);
@@ -48,9 +48,9 @@ suite('formatter', () => {
 
   test('display failure status in red including reason', async() => {
     await withRunner(async(runner, _assert, fail) => {
-      const test = aTestWithBody(() => fail.with('I wanted to fail'));
-      await runSingleTest(runner, test);
-      formatter.displayFailureResult(test);
+      const failedTest = aTestWithBody(() => fail.with('I wanted to fail'));
+      await runSingleTest(runner, failedTest);
+      formatter.displayFailureResult(failedTest);
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const failureDetailMessage = '  => I wanted to fail';
       assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, failureDetailMessage]);
@@ -59,9 +59,9 @@ suite('formatter', () => {
 
   test('display failure status in red including default explicit failure reason', async() => {
     await withRunner(async(runner, _assert, fail) => {
-      const test = aTestWithBody(() => fail.with());
-      await runSingleTest(runner, test);
-      formatter.displayFailureResult(test);
+      const failedTest = aTestWithBody(() => fail.with());
+      await runSingleTest(runner, failedTest);
+      formatter.displayFailureResult(failedTest);
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const failureDetailMessage = '  => Explicitly failed';
       assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, failureDetailMessage]);
@@ -70,9 +70,9 @@ suite('formatter', () => {
 
   test('display pending status in yellow and no reason if the test is empty', async() => {
     await withRunner(async runner => {
-      const test = aPendingTest();
-      await runSingleTest(runner, test);
-      formatter.displayPendingResult(test);
+      const pendingTest = aPendingTest();
+      await runSingleTest(runner, pendingTest);
+      formatter.displayPendingResult(pendingTest);
       const testResultMessage = '[\u001b[33m\u001b[1mWIP\u001b[0m] \u001b[33ma work in progress\u001b[0m';
       assert.that(fakeConsole.messages()).includesExactly(testResultMessage);
     });

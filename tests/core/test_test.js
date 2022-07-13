@@ -47,10 +47,10 @@ suite('tests behavior', () => {
   });
 
   test('a test fails on the first assertion failed', async() => {
-    await withRunner(async(runner, assert) => {
+    await withRunner(async(runner, asserter) => {
       const test = aTestWithBody(() => {
-        assert.isNotEmpty([]);
-        assert.areEqual(2, 3);
+        asserter.isNotEmpty([]);
+        asserter.areEqual(2, 3);
       });
 
       const result = await runSingleTest(runner, test);
@@ -60,8 +60,8 @@ suite('tests behavior', () => {
   });
 
   test('a before() hook that fails makes the test fail', async() => {
-    await withRunner(async(runner, assert) => {
-      const test = aTestWithBody(() => assert.isEmpty([]));
+    await withRunner(async(runner, asserter) => {
+      const test = aTestWithBody(() => asserter.isEmpty([]));
       const before = () => {
         throw 'oops I did it again';
       };
@@ -73,8 +73,8 @@ suite('tests behavior', () => {
   });
 
   test('an after() hook that fails makes the test fail', async() => {
-    await withRunner(async(runner, assert) => {
-      const test = aTestWithBody(() => assert.isEmpty([]));
+    await withRunner(async(runner, asserter) => {
+      const test = aTestWithBody(() => asserter.isEmpty([]));
       const after = () => {
         throw 'oops I did it again';
       };
