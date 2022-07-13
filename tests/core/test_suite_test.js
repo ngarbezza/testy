@@ -51,32 +51,51 @@ suite('test suite behavior', () => {
       .raises(new Error(TestSuite.hookWasNotInitializedWithAFunctionErrorMessage(TestSuite.AFTER_HOOK_NAME)));
   });
 
-  test('after hook can be used', async() => {
-    let afterTestVar = 10;
+  test('before() and after() hooks are executed in the right order', async() => {
+    const hookExecutions = ['start'];
 
     mySuite.before(() => {
-      afterTestVar = 9;
+      hookExecutions.push('before');
     });
     mySuite.after(() => {
-      afterTestVar = 0;
+      hookExecutions.push('after');
     });
     mySuite.addTest(passingTest);
     await runner.run();
-    assert.that(afterTestVar).isEqualTo(0);
+
+    assert.that(hookExecutions).includesExactly('start', 'before', 'after');
   });
 
-  test('before() and after() can be used asynchronously', async() => {
-    let afterTestVar = 10;
+  test('before() and after() on their asynchronous versions are executed in the right order', async() => {
+    const hookExecutions = ['start'];
 
     mySuite.before(async() => {
-      Promise.resolve(9).then(value => afterTestVar = value);
+      Promise.resolve('before').then(value => hookExecutions.push(value));
     });
     mySuite.after(async() => {
-      Promise.resolve(0).then(value => afterTestVar = value);
+      Promise.resolve('after').then(value => hookExecutions.push(value));
     });
     mySuite.addTest(passingTest);
     await runner.run();
-    assert.that(afterTestVar).isEqualTo(0);
+
+    assert.that(hookExecutions).includesExactly('start', 'before', 'after');
+  });
+
+  test('before() and after() hooks are executed once per test, no matter the result of each test', async() => {
+    const hookExecutions = ['start'];
+
+    mySuite.before(() => {
+      hookExecutions.push('before');
+    });
+    mySuite.after(() => {
+      hookExecutions.push('after');
+    });
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+    mySuite.addTest(erroredTest);
+    await runner.run();
+
+    assert.that(hookExecutions).includesExactly('start', 'before', 'after', 'before', 'after', 'before', 'after');
   });
 
   test('reporting failures and errors', async() => {
