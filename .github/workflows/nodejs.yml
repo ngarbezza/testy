@@ -36,7 +36,7 @@ jobs:
           -Dsonar.projectKey=ngarbezza_testy
           -Dsonar.organization=ngarbezza
           -Dsonar.projectName=Testy
-          -Dsonar.projectVersion=6.0.0
+          -Dsonar.projectVersion=6.1.0
           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
           -Dsonar.coverage.exclusions=tests/**
       env:
