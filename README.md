@@ -185,6 +185,29 @@ definition of `before()` and `after()` per suite, and they always receive a func
     });
     ```
 * **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a failure.
+* **Support for asynchronous tests**: if the code you are testing has `async` logic, you can `await` inside the test
+definition and make assertions later. You can also use it on `before()` and `after()` declarations. Example:
+
+    ```javascript
+    const { suite, test, assert, before } = require('@pmoo/testy');
+    
+    const promiseOne = async () => Promise.resolve(42);
+    const promiseTwo = async () => Promise.resolve(21);
+  
+    suite('using async & await', () => {
+      let answerOne;
+    
+      before(async () => {
+        answerOne = await promiseOne();
+      });
+    
+      test('comparing results from promises', async () => {
+        const answerTwo = await promiseTwo();
+        assert.that(answerOne).isEqualTo(42);
+        assert.that(answerTwo).isEqualTo(21);
+      });
+    });
+    ```
 * **Fail-Fast mode**: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.
 * **Run tests and suites in random order**: a good test suite does not depend on a particular order. Enabling this setting is a good way to ensure that.
 * **Strict check for assertions**: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a "bad" test.
