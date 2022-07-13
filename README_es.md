@@ -154,12 +154,14 @@ En la carpeta `tests` podrás encontrar más ejemplos y todas las posibles aserc
 
 ### Otras funcionalidades
 
-* **Ejecutar código antes de cada test**: como todas las bibliotecas y frameworks de testing poseen, existe una forma de ejecutar un código siempre antes dde cada test en una suite utilizando la función `before()` Ejemplo:
+* **Ejecutar código antes y después de cada test**: al igual que muchas herramientas de testing, existe una forma de
+ejecutar código antes y después de cada test haciendo uso de `before()` y `after()` como parte de la definición de una
+_suite_. `before()` y `after()` reciben una función como parámetro y pueden utilizarse una sola vez por _suite_. Ejemplo:
 
     ```javascript
-    const { suite, test, before, assert } = require('@pmoo/testy');
+    const { suite, test, assert, before, after } = require('@pmoo/testy');
     
-    suite('usando la función before()', () => {
+    suite('usando las funciones before() y after()', () => {
       let answer;
     
       before(() => {
@@ -168,6 +170,10 @@ En la carpeta `tests` podrás encontrar más ejemplos y todas las posibles aserc
     
       test('la respuesta es 42', () => {
         assert.that(answer).isEqualTo(42);
+      });
+  
+      after(() => {
+        answer = undefined;
       });
     });
     ```
