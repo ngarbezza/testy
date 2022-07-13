@@ -2,13 +2,13 @@ version: "2"
 checks:
   method-count:
     config:
-      threshold: 25
+      threshold: 30
 plugins:
   duplication:
     enabled: true
   eslint:
     enabled: true
-    channel: "eslint-7"
+    channel: "eslint-8"
   fixme:
     enabled: true
   markdownlint:
