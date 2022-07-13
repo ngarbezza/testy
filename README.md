@@ -161,12 +161,14 @@ If you don't have a NPM project you can install testy globally using `npm instal
 
 ### Other features
 
-* **Running code before every test**: just like many testing frameworks have, there is a way to execute some code before every test in a suite using the `before()` function. Example:
+* **Running code before/after every test**: just like many testing frameworks have, there is a way to execute some code
+before or after each test in a suite using the `before()` and `after()` functions, respectively. You can use only one
+definition of `before()` and `after()` per suite, and they always receive a function as argument. Example:
 
     ```javascript
-    const { suite, test, before, assert } = require('@pmoo/testy');
+    const { suite, test, assert, before, after } = require('@pmoo/testy');
     
-    suite('using the before() helper', () => {
+    suite('using the before() and after() helpers', () => {
       let answer;
     
       before(() => {
@@ -176,20 +178,7 @@ If you don't have a NPM project you can install testy globally using `npm instal
       test('checking the answer', () => {
         assert.that(answer).isEqualTo(42);
       });
-    });
-    ```
-* **Running code after every test**: just like many testing frameworks have, there is a way to execute some code after (cleanp) every test in a suite using the `after()` function. Example:
-
-    ```javascript
-    const { suite, test, before, after, assert } = require('@pmoo/testy');
-    
-    suite('using the after() helper', () => {
-      let answer;
-    
-      before(() => {
-        answer = 42;
-      });
-    
+  
       after(() => {
         answer = undefined;
       });
