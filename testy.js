@@ -4,7 +4,7 @@ const libDir = './lib';
 const TestRunner = require(`${libDir}/test_runner`);
 const { Asserter, FailureGenerator, PendingMarker } = require(`${libDir}/asserter`);
 const ConsoleUI = require(`${libDir}/console_ui`);
-const { allFilesMatching, resolvePathFor } = require(`${libDir}/utils`);
+const { allFilesMatching, resolvePathFor, errorDetailOf } = require(`${libDir}/utils`);
 const { I18nMessage } = require(`${libDir}/i18n`);
 
 const ui = new ConsoleUI(process, console);
@@ -49,7 +49,7 @@ class Testy {
       try {
         await testRunner.run();
       } catch (err) {
-        ui.exitWithError(I18nMessage.of('error_running_suites'), err.stack);
+        ui.exitWithError(I18nMessage.of('error_running_suites'), errorDetailOf(err));
       }
     });
     testRunner.finish();
@@ -90,7 +90,7 @@ class Testy {
       require(file);
     } catch (err) {
       ui.exitWithError(
-        I18nMessage.of('error_loading_suite', file), err.stack,
+        I18nMessage.of('error_loading_suite', file), errorDetailOf(err),
         I18nMessage.of('feedback_for_error_loading_suite'),
       );
     }
