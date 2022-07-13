@@ -28,7 +28,13 @@ suite('test suite behavior', () => {
 
     assert
       .that(() => mySuite.before(() => 5 + 6))
-      .raises(/There is already a before\(\) block. Please leave just one before\(\) block and run again the tests./);
+      .raises(new Error(TestSuite.alreadyDefinedHookErrorMessage(TestSuite.BEFORE_HOOK_NAME)));
+  });
+
+  test('a before() hook with no function is considered invalid', () => {
+    assert
+      .that(() => mySuite.before())
+      .raises(new Error(TestSuite.hookWasNotInitializedWithAFunctionErrorMessage(TestSuite.BEFORE_HOOK_NAME)));
   });
 
   test('more than one after block is not allowed', () => {
@@ -36,7 +42,13 @@ suite('test suite behavior', () => {
 
     assert
       .that(() => mySuite.after(() => 5 + 6))
-      .raises(/There is already an after\(\) block. Please leave just one after\(\) block and run again the tests./);
+      .raises(new Error(TestSuite.alreadyDefinedHookErrorMessage(TestSuite.AFTER_HOOK_NAME)));
+  });
+
+  test('a after() hook with no function is considered invalid', () => {
+    assert
+      .that(() => mySuite.after())
+      .raises(new Error(TestSuite.hookWasNotInitializedWithAFunctionErrorMessage(TestSuite.AFTER_HOOK_NAME)));
   });
 
   test('after hook can be used', async() => {
@@ -91,23 +103,23 @@ suite('test suite behavior', () => {
   });
 
   test('a suite cannot be created without a name', () => {
-    assert.that(() => new TestSuite()).raises(/Suite does not have a valid name/);
+    assert.that(() => new TestSuite()).raises(new Error(TestSuite.invalidSuiteNameErrorMessage()));
   });
 
   test('a suite cannot be created with an empty name', () => {
-    assert.that(() => new TestSuite('  ')).raises(/Suite does not have a valid name/);
+    assert.that(() => new TestSuite('  ')).raises(new Error(TestSuite.invalidSuiteNameErrorMessage()));
   });
 
   test('a suite cannot be created with a name that is not a string', () => {
-    assert.that(() => new TestSuite(new Date())).raises(/Suite does not have a valid name/);
+    assert.that(() => new TestSuite(new Date())).raises(new Error(TestSuite.invalidSuiteNameErrorMessage()));
   });
 
   test('a suite cannot be created without a body', () => {
-    assert.that(() => new TestSuite('hey')).raises(/Suite does not have a valid body/);
+    assert.that(() => new TestSuite('hey')).raises(new Error(TestSuite.invalidSuiteDefinitionBodyErrorMessage()));
   });
 
   test('a suite cannot be created with a body that is not a function', () => {
-    assert.that(() => new TestSuite('hey', 'ho')).raises(/Suite does not have a valid body/);
+    assert.that(() => new TestSuite('hey', 'ho')).raises(new Error(TestSuite.invalidSuiteDefinitionBodyErrorMessage()));
   });
 
   test('running with fail fast enabled stops at the first failure', async() => {
