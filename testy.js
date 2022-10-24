@@ -9,14 +9,72 @@ const { I18nMessage } = require(`${libDir}/i18n`);
 
 const ui = new ConsoleUI(process, console);
 const testRunner = new TestRunner(ui.testRunnerCallbacks());
+
+/**
+ * Object used for writing assertions. Assertions are created with method calls to this object.
+ * Please refer to the comment of each assertion for more information.
+ *
+ * @example
+ * assert.isFalse(3 > 4)
+ * @example
+ * assert.that(['hey']).isNotEmpty()
+ *
+ * @type {Asserter}
+ */
 const assert = new Asserter(testRunner);
+
+/**
+ * Generates an explicit failure.
+ *
+ * @example
+ * fail.with('a descriptive message')
+ *
+ * @type {FailureGenerator}
+ */
 const fail = new FailureGenerator(testRunner);
+
+/**
+ * Marks a test as pending, which is a status that is reported separately, and it's not considered success/failure.
+ * It is useful to mark in-progress work and catch the developers attention in the resulting report.
+ *
+ * @example
+ * pending.dueTo('finish the set-up process')
+ *
+ * @type {PendingMarker}
+ */
 const pending = new PendingMarker(testRunner);
 
+/**
+ * Defines a new test.
+ *
+ * @example
+ * test('arithmetic works', () => {
+ *   assert.areEqual(3 + 4, 7);
+ * });
+ *
+ * @param {String} name - How you would like to call the test. Non-empty string.
+ * @param {Function} testBody - The test definition, written as a zero-argument function.
+ * @returns {void}
+ */
 function test(name, testBody) {
   testRunner.registerTest(name, testBody, ui.testCallbacks());
 }
 
+/**
+ * Defines a new test suite. Suites are expected to define tests inside it.
+ * There can be more than one suite per file, but it is not possible to nest suites.
+ *
+ * @example
+ * suite('arithmetic operations', () => {
+ *   test('the sum of two number works', () => {
+ *     assert.areEqual(3 + 4, 7);
+ *   });
+ * });
+ *
+ * @param {String} name - How you would like to call the suite. Non-empty string.
+ * @param {Function} suiteBody - The suite definition, written as a zero-argument function.
+ * @returns {void}
+ */
 function suite(name, suiteBody) {
   testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
 }
