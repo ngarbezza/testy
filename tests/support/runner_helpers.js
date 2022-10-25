@@ -19,7 +19,7 @@ const runSingleTest = async(runner, test) => {
 };
 
 const withRunner = async testBlock => {
-  const emptyRunnerCallbacks = { onFinish: noop };
+  const emptyRunnerCallbacks = { onFailure: noop, onSuccess: noop, onFinish: noop };
   const runner = new TestRunner(emptyRunnerCallbacks);
   const asserter = new Asserter(runner);
   const failGenerator = new FailureGenerator(runner);

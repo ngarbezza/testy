@@ -18,6 +18,7 @@ obligatorio, pero si lo quieres seguir es bienvenido.
 Al agregar una nueva funcionalidad, por favor agregar:
 * test para dicha funcionalidad en el directorio `tests/core`
 * si es posible, una entrada en el README indicando cómo utilizarla
+* comentarios JSDoc para todas las clases y métodos públicos, idealmente con ejemplos para ilustrar su uso
 
 Si solucionas un bug, por favor agregar:
 * tests que verifican que el error está arreglado en el directorio `tests/core`
@@ -34,7 +35,10 @@ Github Actions ejecuta builds de integración continua. En cada build se ejecuta
 * build en todas las versiones soportadas de Node
 * chequeo estático de reglas de estilo via `eslint`
 * ejecución de tests unitarios
-* análisis de cobertura de tests y reporte
+* análisis de cobertura de tests y calidad del código con sus respectivos reportes (Codeclimate y Sonarcloud)
+
+También existe un build que corre únicamente en el branch principal y calcula el porcentaje de mutation score,
+reportándolo al dashboard de Stryker.
 
 ## Conventions and standards
 

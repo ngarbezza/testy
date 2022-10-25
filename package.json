@@ -15,12 +15,14 @@
   },
   "main": "testy.js",
   "scripts": {
-    "coverage": "npx nyc@latest --reporter=lcov --reporter=text npm test",
-    "open-coverage-report": "open coverage/lcov-report/index.html",
-    "generate-dependencies-graph": "npx madge -i testy-dependencies.png lib/ bin/",
     "lint": "npx eslint@latest .",
-    "lint-fix": "npx eslint@latest . --fix",
-    "test": "bin/testy_cli.js"
+    "lint:fix": "npx eslint@latest . --fix",
+    "test": "bin/testy_cli.js",
+    "test:coverage": "npx nyc@latest --reporter=lcov --reporter=text npm test",
+    "see:coverage": "open coverage/lcov-report/index.html",
+    "test:mutation": "npx stryker run",
+    "see:mutation": "open reports/mutation/mutation.html",
+    "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/"
   },
   "bin": "bin/testy_cli.js",
   "files": [
