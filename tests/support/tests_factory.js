@@ -40,4 +40,5 @@ module.exports = {
   anErroredTest,
   aPendingTest,
   aTestWithNoAssertions,
+  emptyTestCallbacks,
 };

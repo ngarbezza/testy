@@ -13,10 +13,14 @@ const emptySuiteCallbacks = {
 const newEmptySuite = () =>
   suiteNamed('myTestSuite');
 
+const emptySuiteBody = noop;
+
 const suiteNamed = suiteName =>
   new TestSuite(suiteName, noop, emptySuiteCallbacks);
 
 module.exports = {
   newEmptySuite,
   suiteNamed,
+  emptySuiteBody,
+  emptySuiteCallbacks,
 };

@@ -110,7 +110,6 @@ class Testy {
         ui.exitWithError(I18nMessage.of('error_running_suites'), errorDetailOf(err));
       }
     });
-    testRunner.finish();
   }
 
   // initialization
