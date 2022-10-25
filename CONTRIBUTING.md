@@ -18,6 +18,7 @@ you're adding.
 If you add a new feature, please add:
 * unit tests for it on the `tests/core` folder
 * an entry in the README explaining how to use it
+* JSDoc on the public API classes and methods (ideally with examples on how to use them)
 
 If you fix a bug, please add:
 * unit tests for it on the `tests/core` folder
@@ -33,7 +34,10 @@ Github Actions runs the CI builds. There are four steps on every build:
 * npm build and install in every supported Node version
 * lint check via `eslint`
 * unit tests
-* analyzing test coverage and send reports
+* analyzing test coverage and code quality and send reports (Codeclimate and Sonarcloud)
+
+There's also a build that runs only on the main branch that will calculate the mutation score and report it to the
+Stryker Dashboard.
 
 ## Conventions and standards
 
