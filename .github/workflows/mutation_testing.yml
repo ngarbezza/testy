@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
@@ -15,8 +15,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
+    - name: Install Stryker
+      run: npm install -g @stryker-mutator/core
     - name: Run Stryker (and report results)
-      run: npx stryker run --reporters json,dashboard
+      run: stryker run --reporters json,dashboard
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
