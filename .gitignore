@@ -2,3 +2,7 @@ node_modules/
 .idea/
 coverage/
 .nyc_output/
+
+# Mutation testing report files
+.stryker-tmp
+reports/mutation/
