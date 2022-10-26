@@ -12,7 +12,7 @@ const testRunner = new TestRunner(ui.testRunnerCallbacks());
 
 /**
  * Object used for writing assertions. Assertions are created with method calls to this object.
- * Please refer to the comment of each assertion for more information.
+ * Please refer to the comment of each assertion for more information ({@link Assertion}).
  *
  * @example
  * assert.isFalse(3 > 4)
@@ -45,15 +45,19 @@ const fail = new FailureGenerator(testRunner);
 const pending = new PendingMarker(testRunner);
 
 /**
- * Defines a new test.
+ * Defines a new test. Each test belongs to a test suite and defines assertions in the body.
+ *
+ * For info about assertions, take a look at the {@link assert} object.
+ *
+ * Tests are represented internally as instances of {@link Test}.
  *
  * @example
  * test('arithmetic works', () => {
  *   assert.areEqual(3 + 4, 7);
  * });
  *
- * @param {String} name - How you would like to call the test. Non-empty string.
- * @param {Function} testBody - The test definition, written as a zero-argument function.
+ * @param {String} name How you would like to call the test. Non-empty string.
+ * @param {Function} testBody The test definition, written as a zero-argument function.
  * @returns {void}
  */
 function test(name, testBody) {
@@ -71,8 +75,8 @@ function test(name, testBody) {
  *   });
  * });
  *
- * @param {String} name - How you would like to call the suite. Non-empty string.
- * @param {Function} suiteBody - The suite definition, written as a zero-argument function.
+ * @param {String} name How you would like to call the suite. Non-empty string.
+ * @param {Function} suiteBody The suite definition, written as a zero-argument function.
  * @returns {void}
  */
 function suite(name, suiteBody) {
