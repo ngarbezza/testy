@@ -1,4 +1,4 @@
-# 10. Use Mutation Testing and define quality thresholds
+# 11. Use Mutation Testing and define quality thresholds
 
 Date: 2022-10-24
 
