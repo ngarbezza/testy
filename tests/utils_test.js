@@ -2,6 +2,7 @@
 
 const { suite, test, assert } = require('../testy');
 const Utils = require('../lib/utils');
+const { sourceCodeLocationRegex } = require('./support/assertion_helpers');
 
 suite('utility functions', () => {
   test('isCyclic is true if the object has a cyclic reference', () => {
@@ -143,5 +144,19 @@ suite('utility functions', () => {
   test('errorDetailOf() returns the string representation if the thrown object is not a string', () => {
     const thrownObject = [1, 2, 3];
     assert.areEqual(Utils.errorDetailOf(thrownObject), '1,2,3');
+  });
+
+  test('isEmpty() returns true on empty string and array', () => {
+    assert.isTrue(Utils.isEmpty(''));
+    assert.isTrue(Utils.isEmpty([]));
+  });
+
+  test('isEmpty() returns false on strings and arrays with content', () => {
+    assert.isFalse(Utils.isEmpty('   something   '));
+    assert.isFalse(Utils.isEmpty(['some', 'thing']));
+  });
+
+  test('detectUserCallingLocation() reports a valid location', () => {
+    assert.that(Utils.detectUserCallingLocation()).matches(sourceCodeLocationRegex);
   });
 });
