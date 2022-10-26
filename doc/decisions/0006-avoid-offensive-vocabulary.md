@@ -8,11 +8,14 @@ Accepted
 
 ## Context
 
-There is an initiative about questioning the technical vocabulary we use, and avoiding some words that are widely used and may offend people. This is a project that adheres to this initiative, therefore... 
+There is an initiative about questioning the technical vocabulary we use, and avoiding some words that are widely used
+and may offend people. This is a project that adheres to this initiative, therefore... 
 
 ## Decision
 
-Remove all existing technical vocabulary that might be offensive, and prevent those terms to be added in the future. For instance, the use of "master/slave" replaced by "main/replica" (or similar), or "whitelist/blacklist" by "safelist/blocklist" (or similar).
+Remove all existing technical vocabulary that might be offensive, and prevent those terms to be added in the future.
+For instance, the use of "master/slave" replaced by "main/replica" (or similar), or "whitelist/blacklist" by
+"safelist/blocklist" (or similar).
 
 ## Consequences
 
