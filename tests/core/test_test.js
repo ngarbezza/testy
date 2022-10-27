@@ -18,7 +18,7 @@ suite('tests behavior', () => {
       const testToRun = aTestWithNoAssertions();
       const result = await runSingleTest(runner, testToRun);
 
-      expectErrorOn(result, 'This test does not have any assertions');
+      expectErrorOn(result, 'This test does not have any assertions', '');
     });
   });
 
@@ -68,7 +68,7 @@ suite('tests behavior', () => {
 
       const result = await resultOfASuiteWith(runner, test, before, noop);
 
-      expectErrorOn(result, 'oops I did it again');
+      expectErrorOn(result, 'oops I did it again', '');
     });
   });
 
@@ -81,7 +81,7 @@ suite('tests behavior', () => {
 
       const result = await resultOfASuiteWith(runner, test, noop, after);
 
-      expectErrorOn(result, 'oops I did it again');
+      expectErrorOn(result, 'oops I did it again', '');
     });
   });
 });

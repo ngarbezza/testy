@@ -7,6 +7,7 @@ const { aTestWithBody, aPendingTest } = require('../support/tests_factory');
 const Formatter = require('../../lib/formatter');
 const { I18n } = require('../../lib/i18n');
 const FakeConsole = require('./fake_console');
+const { sourceCodeLocationRegex } = require('../support/assertion_helpers');
 
 suite('formatter', () => {
   let formatter, fakeConsole, i18n;
@@ -39,10 +40,10 @@ suite('formatter', () => {
     await withRunner(async(runner, _assert, _fail, pending) => {
       const pendingTest = aTestWithBody(() => pending.dueTo());
       await runSingleTest(runner, pendingTest);
-      formatter.displayErrorResult(pendingTest);
+      formatter.displayFailureResult(pendingTest, 'error');
       const testResultMessage = '[\u001b[31m\u001b[1mERROR\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const pendingReasonMessage = '  => In order to mark a test as pending, you need to specify a reason.';
-      assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, pendingReasonMessage]);
+      expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, pendingReasonMessage);
     });
   });
 
@@ -50,10 +51,10 @@ suite('formatter', () => {
     await withRunner(async(runner, _assert, fail) => {
       const failedTest = aTestWithBody(() => fail.with('I wanted to fail'));
       await runSingleTest(runner, failedTest);
-      formatter.displayFailureResult(failedTest);
+      formatter.displayFailureResult(failedTest, 'fail');
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const failureDetailMessage = '  => I wanted to fail';
-      assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, failureDetailMessage]);
+      expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, failureDetailMessage);
     });
   });
 
@@ -61,10 +62,10 @@ suite('formatter', () => {
     await withRunner(async(runner, _assert, fail) => {
       const failedTest = aTestWithBody(() => fail.with());
       await runSingleTest(runner, failedTest);
-      formatter.displayFailureResult(failedTest);
+      formatter.displayFailureResult(failedTest, 'fail');
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const failureDetailMessage = '  => Explicitly failed';
-      assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, failureDetailMessage]);
+      expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, failureDetailMessage);
     });
   });
 
@@ -77,4 +78,9 @@ suite('formatter', () => {
       assert.that(fakeConsole.messages()).includesExactly(testResultMessage);
     });
   });
+
+  const expectFailureMessagesIncludingSourceCodeLocation = (testResultMessage, failureDetailMessage) => {
+    assert.that(fakeConsole.messages().slice(0, 2)).isEqualTo([testResultMessage, failureDetailMessage]);
+    assert.that(fakeConsole.messages()[2]).matches(sourceCodeLocationRegex);
+  };
 });
