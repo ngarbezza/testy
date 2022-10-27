@@ -13,13 +13,15 @@
   "engines": {
     "node": ">= 12.*"
   },
-  "main": "testy.js",
+  "main": "lib/testy.js",
   "scripts": {
-    "lint": "npx eslint@latest .",
-    "lint:fix": "npx eslint@latest . --fix",
+    "jsdoc": "npx jsdoc lib/ --destination doc/jsdoc",
+    "see:jsdoc": "open doc/jsdoc/index.html",
+    "lint": "npx eslint@latest lib/ tests/ bin/",
+    "lint:fix": "npx eslint@latest lib/ tests/ bin/ --fix",
     "test": "bin/testy_cli.js",
-    "test:coverage": "npx nyc@latest --reporter=lcov --reporter=text npm test",
-    "see:coverage": "open coverage/lcov-report/index.html",
+    "test:coverage": "npx nyc@latest npm test",
+    "see:coverage": "open reports/coverage/lcov-report/index.html",
     "test:mutation": "npx stryker run",
     "see:mutation": "open reports/mutation/mutation.html",
     "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/"
@@ -27,8 +29,7 @@
   "bin": "bin/testy_cli.js",
   "files": [
     "bin",
-    "lib",
-    "testy.js"
+    "lib"
   ],
   "directories": {
     "lib": "./lib"

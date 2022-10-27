@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, assert } = require('../testy');
+const { suite, test, assert } = require('../lib/testy');
 const Utils = require('../lib/utils');
 const { sourceCodeLocationRegex } = require('./support/assertion_helpers');
 

@@ -26,6 +26,7 @@ jobs:
       uses: paambaati/codeclimate-action@v3.2.0
       with:
         coverageCommand: npm run test:coverage
+        coverageLocations: ${{github.workspace}}/reports/coverage/lcov.info:lcov
         debug: true
       env:
         CC_TEST_REPORTER_ID: 6ace5bc20f45a4d3b1d1bd56b37e2ed97c92776e402f4f687bb5ee50853cb51c
@@ -37,7 +38,7 @@ jobs:
           -Dsonar.organization=ngarbezza
           -Dsonar.projectName=Testy
           -Dsonar.projectVersion=6.1.0
-          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          -Dsonar.javascript.lcov.reportPaths=reports/coverage/lcov.info
           -Dsonar.coverage.exclusions=tests/**
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

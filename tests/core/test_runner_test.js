@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, assert } = require('../../testy');
+const { suite, test, assert } = require('../../lib/testy');
 const TestRunner = require('../../lib/test_runner');
 const { withRunner } = require('../support/runner_helpers');
 const { suiteNamed, emptySuiteBody, emptySuiteCallbacks } = require('../support/suites_factory');
@@ -46,7 +46,7 @@ suite('test runner', () => {
     const runner = new TestRunner(callbacks);
     runner.registerSuite('failing suite', emptySuiteBody, emptySuiteCallbacks);
     runner.registerTest('failing test', () => {
-      throw new Error('oops'); 
+      throw new Error('oops');
     }, emptyTestCallbacks);
 
     await runner.run();
@@ -156,7 +156,7 @@ suite('test runner', () => {
     await withRunner(async(runner, asserter) => {
       runner.registerSuite('my new suite', emptySuiteBody, emptySuiteCallbacks);
       const testBody = () => {
-        asserter.that(3 + 4).isEqualTo(7); 
+        asserter.that(3 + 4).isEqualTo(7);
       };
       runner.registerTest('3 plus 4 is 7', testBody, emptyTestCallbacks);
       await runner.run();

@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Everything is released :tada:
+[//]: # (Everything is released :tada:)
+
+### Added
+
+* [[docs] API docs using JSDoc](https://github.com/ngarbezza/testy/issues/231): all public methods and some internal
+ones are now documented, most of them with simple and easy to understand examples. This conforms a documentation
+more extensive than the README.
+
+* [[feature] report source code location on failed/errored tests](https://github.com/ngarbezza/testy/issues/52): if your
+test fails or raises an unexpected error, you'll now see a reference with the failed assertion so it's easier to debug
+tests with multiple assertions. The line is displayed next to the test name and failure message.
+
+### Other changes
+
+* The tool now has incorporated mutation testing to the development workflow. We expect to keep increasing code quality!
+* Internal file reorganization to facilitate development tasks and have less directories.
+* Added [MendRenovate](https://www.mend.io/free-developer-tools/renovate/) to keep our CI dependencies up to date.
 
 ## [6.1.0] - 2022-07-13
 

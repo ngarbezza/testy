@@ -1,0 +1,29 @@
+name: GitHub pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build JSDoc + Readme
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: ./lib
+          output_dir: ./doc/jsdoc
+          template: minami
+          recurse: true
+          front_page: README.md
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./doc/jsdoc

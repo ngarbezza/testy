@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert } = require('../../testy');
+const { assert } = require('../../lib/testy');
 
 const sourceCodeLocationRegex = /.* at .*:\d+:\d+/;
 
