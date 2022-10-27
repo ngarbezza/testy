@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../testy');
+const { suite, test, before, assert } = require('../../lib/testy');
 
 const ConsoleUI = require('../../lib/console_ui');
 const FakeConsole = require('./fake_console');

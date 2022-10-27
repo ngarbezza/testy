@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert, suite, test } = require('../../../testy');
+const { assert, suite, test } = require('../../../lib/testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 

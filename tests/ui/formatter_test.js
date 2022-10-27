@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../testy');
+const { suite, test, before, assert } = require('../../lib/testy');
 const { withRunner, runSingleTest } = require('../support/runner_helpers');
 const { aTestWithBody, aPendingTest } = require('../support/tests_factory');
 

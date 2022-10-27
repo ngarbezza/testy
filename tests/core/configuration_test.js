@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, assert } = require('../../testy');
+const { suite, test, assert } = require('../../lib/testy');
 const Configuration = require('../../lib/configuration');
 const FailFast = require('../../lib/fail_fast');
 
