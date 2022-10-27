@@ -40,7 +40,7 @@ suite('formatter', () => {
     await withRunner(async(runner, _assert, _fail, pending) => {
       const pendingTest = aTestWithBody(() => pending.dueTo());
       await runSingleTest(runner, pendingTest);
-      formatter.displayErrorResult(pendingTest);
+      formatter.displayFailureResult(pendingTest, 'error');
       const testResultMessage = '[\u001b[31m\u001b[1mERROR\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const pendingReasonMessage = '  => In order to mark a test as pending, you need to specify a reason.';
       expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, pendingReasonMessage);
@@ -51,7 +51,7 @@ suite('formatter', () => {
     await withRunner(async(runner, _assert, fail) => {
       const failedTest = aTestWithBody(() => fail.with('I wanted to fail'));
       await runSingleTest(runner, failedTest);
-      formatter.displayFailureResult(failedTest);
+      formatter.displayFailureResult(failedTest, 'fail');
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const failureDetailMessage = '  => I wanted to fail';
       expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, failureDetailMessage);
@@ -62,7 +62,7 @@ suite('formatter', () => {
     await withRunner(async(runner, _assert, fail) => {
       const failedTest = aTestWithBody(() => fail.with());
       await runSingleTest(runner, failedTest);
-      formatter.displayFailureResult(failedTest);
+      formatter.displayFailureResult(failedTest, 'fail');
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
       const failureDetailMessage = '  => Explicitly failed';
       expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, failureDetailMessage);
