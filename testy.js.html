@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>testy.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Asserter.html">Asserter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#areEqual">areEqual</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isFalse">isFalse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isTrue">isTrue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isUndefined">isUndefined</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#that">that</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Assertion.html">Assertion</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isFalse">isFalse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isTrue">isTrue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isUndefined">isUndefined</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Test.html">Test</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TestRunner.html">TestRunner</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#after">after</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#assert">assert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#before">before</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#fail">fail</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#pending">pending</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#suite">suite</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#test">test</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">testy.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const TestRunner = require('./test_runner');
+const { Asserter, FailureGenerator, PendingMarker } = require('./asserter');
+const ConsoleUI = require('./console_ui');
+const { allFilesMatching, resolvePathFor, errorDetailOf } = require('./utils');
+const { I18nMessage } = require('./i18n');
+
+const ui = new ConsoleUI(process, console);
+const testRunner = new TestRunner(ui.testRunnerCallbacks());
+
+/**
+ * Object used for writing assertions. [Assertions]{@link Assertion} are created with method calls to this object.
+ * Please refer to the comment of each assertion for more information.
+ *
+ * @example
+ * assert.isFalse(3 > 4)
+ * @example
+ * assert.that(['hey']).isNotEmpty()
+ *
+ * @type {Asserter}
+ */
+const assert = new Asserter(testRunner);
+
+/**
+ * Generates an explicit failure.
+ *
+ * @example
+ * fail.with('a descriptive message')
+ *
+ * @type {FailureGenerator}
+ */
+const fail = new FailureGenerator(testRunner);
+
+/**
+ * Marks a test as pending, which is a status that is reported separately, and it's not considered success/failure.
+ * It is useful to mark in-progress work and catch the developers attention in the resulting report.
+ *
+ * @example
+ * pending.dueTo('finish the set-up process')
+ *
+ * @type {PendingMarker}
+ */
+const pending = new PendingMarker(testRunner);
+
+/**
+ * Defines a new test. Each test belongs to a [test suite]{@link suite} and defines assertions in the body.
+ *
+ * For info about assertions, take a look at the {@link assert} object.
+ *
+ * Tests are represented internally as instances of {@link Test}.
+ *
+ * @example
+ * test('arithmetic works', () => {
+ *   assert.areEqual(3 + 4, 7);
+ * });
+ *
+ * @param {!string} name how you would like to call the test. Non-empty string.
+ * @param {!function} testBody the test definition, written as a zero-argument function.
+ * @returns {void}
+ */
+function test(name, testBody) {
+  testRunner.registerTest(name, testBody, ui.testCallbacks());
+}
+
+/**
+ * Defines a new test suite. Suites are expected to define [tests]{@link test} inside it.
+ * There can be more than one suite per file, but it is not possible to nest suites.
+ *
+ * @example
+ * suite('arithmetic operations', () => {
+ *   test('the sum of two number works', () => {
+ *     assert.areEqual(3 + 4, 7);
+ *   });
+ * });
+ *
+ * @param {!string} name how you would like to call the suite. Non-empty string.
+ * @param {!function} suiteBody the suite definition, written as a zero-argument function.
+ * @returns {void}
+ */
+function suite(name, suiteBody) {
+  testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
+}
+
+/**
+ * Specifies a piece of code that should be executed before each {@link test} in a {@link suite}.
+ * Only one before block is allowed per suite. The most common use of this feature is to initialize objects you want
+ * to reference in each test.
+ *
+ * @example
+ * suite('using a before() initializer', () => {
+ *   let number;
+ *
+ *   before(() => {
+ *     number = 42;
+ *   });
+ *
+ *   test('has the initialized value', () => {
+ *     assert.that(number).isEqualTo(42);
+ *   });
+ * });
+ *
+ * @param {!function} initialization a zero argument function containing the code you want to execute before each test.
+ * @returns {void}
+ */
+function before(initialization) {
+  testRunner.registerBefore(initialization);
+}
+
+/**
+ * Specifies a piece of code that should be executed after each {@link test} in a {@link suite}.
+ * Only one after block is allowed per suite. The most common use of this feature is to ensure you are releasing
+ * resources that are used on each test, like files.
+ *
+ * @param {!function} releaseBlock a zero argument function containing the code you want to execute after each test.
+ * @returns {void}
+ */
+function after(releaseBlock) {
+  testRunner.registerAfter(releaseBlock);
+}
+
+class Testy {
+  // instance creation
+
+  static configuredWith(configuration) {
+    return new Testy(configuration);
+  }
+
+  constructor(configuration) {
+    this._initializeConfiguredWith(configuration);
+  }
+
+  // running
+
+  async run(requestedPaths) {
+    this._requestedPaths = requestedPaths;
+    this._loadAllRequestedFiles();
+    await ui.start(this._configuration, this._testFilesPathsToRun(), async() => {
+      try {
+        await testRunner.run();
+      } catch (err) {
+        ui.exitWithError(I18nMessage.of('error_running_suites'), errorDetailOf(err));
+      }
+    });
+  }
+
+  // initialization
+
+  _initializeConfiguredWith(configuration) {
+    this._configuration = configuration;
+    this._configuration.configureUI(ui);
+    this._configuration.configureTestRunner(testRunner);
+  }
+
+  // private
+
+  _requestedPathsToRun() {
+    return this._requestedPaths;
+  }
+
+  _loadAllRequestedFiles() {
+    try {
+      this._resolvedTestFilesPathsToRun().forEach(path =>
+        this._loadAllFilesIn(path),
+      );
+    } catch (err) {
+      ui.exitWithError(I18nMessage.of('error_path_not_found', err.path));
+    }
+  }
+
+  _loadAllFilesIn(path) {
+    allFilesMatching(path, this._testFilesFilter()).forEach(file =>
+      this._loadFileHandlingErrors(file),
+    );
+  }
+
+  _loadFileHandlingErrors(file) {
+    try {
+      require(file);
+    } catch (err) {
+      ui.exitWithError(
+        I18nMessage.of('error_loading_suite', file), errorDetailOf(err),
+        I18nMessage.of('feedback_for_error_loading_suite'),
+      );
+    }
+  }
+
+  _testFilesPathsToRun() {
+    const requestedPaths = this._requestedPathsToRun();
+    return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
+  }
+
+  _resolvedTestFilesPathsToRun() {
+    return this._testFilesPathsToRun().map(path => resolvePathFor(path));
+  }
+
+  _pathForAllTests() {
+    return this._configuration.directory();
+  }
+
+  _testFilesFilter() {
+    return this._configuration.filter();
+  }
+}
+
+module.exports = { Testy, suite, test, before, after, assert, fail, pending };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Oct 27 2022 01:55:03 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

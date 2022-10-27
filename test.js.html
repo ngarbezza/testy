@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>test.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Asserter.html">Asserter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#areEqual">areEqual</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isFalse">isFalse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isTrue">isTrue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isUndefined">isUndefined</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#that">that</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Assertion.html">Assertion</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isFalse">isFalse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isTrue">isTrue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isUndefined">isUndefined</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Test.html">Test</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TestRunner.html">TestRunner</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#after">after</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#assert">assert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#before">before</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#fail">fail</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#pending">pending</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#suite">suite</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#test">test</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">test.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const TestResult = require('./test_result');
+const { isStringWithContent, isFunction, isUndefined } = require('./utils');
+
+/**
+ * I am an executable test, part of a {@link TestSuite} and executed by a {@link TestRunner}.
+ * After the execution, I know the result ({@link TestResult}). Tests must contain at least one assertion.
+ * See {@link Asserter} and {@link Assertion} for more details on how to write those.
+ */
+class Test {
+  constructor(name, body, callbacks) {
+    this._initializeName(name);
+    this._initializeBody(body);
+    this._callbacks = callbacks;
+    this._result = undefined;
+  }
+
+  // Execution
+
+  async run(context) {
+    await TestResult.evaluate(this, context);
+  }
+
+  async evaluate(context) {
+    await this._evaluateHook(context.hooks.before);
+    try {
+      await this.body().call();
+    } catch (error) {
+      this.setResult(TestResult.error(error));
+    } finally {
+      await this._evaluateHook(context.hooks.after);
+    }
+  }
+
+  markPending(pendingResult) {
+    this.setResult(pendingResult);
+    this.finishWithPendingStatus();
+  }
+
+  markSkipped(skippedResult) {
+    this.setResult(skippedResult);
+    this._callbacks.whenSkipped(this);
+  }
+
+  setResult(result) {
+    if (this.hasNoResult() || this.isSuccess()) {
+      this._result = result;
+    }
+  }
+
+  finishWithSuccess() {
+    this._callbacks.whenSuccess(this);
+  }
+
+  finishWithFailure() {
+    this._callbacks.whenFailed(this);
+  }
+
+  finishWithError() {
+    this._callbacks.whenErrored(this);
+  }
+
+  finishWithPendingStatus() {
+    this._callbacks.whenPending(this);
+  }
+
+  // Testing
+
+  hasDefinition() {
+    return !isUndefined(this.body());
+  }
+
+  hasNoResult() {
+    return isUndefined(this.result());
+  }
+
+  isSuccess() {
+    return this.result().isSuccess();
+  }
+
+  isPending() {
+    return this.result().isPending();
+  }
+
+  isExplicitlyMarkedPending() {
+    return this.result().isExplicitlyMarkedPending();
+  }
+
+  isSkipped() {
+    return this.result().isSkipped();
+  }
+
+  isError() {
+    return this.result().isError();
+  }
+
+  isFailure() {
+    return this.result().isFailure();
+  }
+
+  // Accessing
+
+  name() {
+    return this._name;
+  }
+
+  result() {
+    return this._result;
+  }
+
+  body() {
+    return this._body;
+  }
+
+  // Private - Validations
+
+  _initializeBody(body) {
+    this._ensureBodyIsValid(body);
+    this._body = body;
+  }
+
+  _initializeName(name) {
+    this._ensureNameIsValid(name);
+    this._name = name;
+  }
+
+  _ensureNameIsValid(name) {
+    if (!isStringWithContent(name)) {
+      throw new Error('Test does not have a valid name');
+    }
+  }
+
+  _ensureBodyIsValid(body) {
+    if (!isUndefined(body) &amp;&amp; !isFunction(body)) {
+      throw new Error('Test does not have a valid body');
+    }
+  }
+
+  async _evaluateHook(hook) {
+    try {
+      hook &amp;&amp; await hook.call();
+    } catch (error) {
+      this.setResult(TestResult.error(error));
+    }
+  }
+}
+
+module.exports = Test;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Oct 27 2022 01:55:03 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

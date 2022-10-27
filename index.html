@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Asserter.html">Asserter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#areEqual">areEqual</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isFalse">isFalse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isTrue">isTrue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#isUndefined">isUndefined</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Asserter.html#that">that</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Assertion.html">Assertion</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isFalse">isFalse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isTrue">isTrue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assertion.html#isUndefined">isUndefined</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Test.html">Test</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TestRunner.html">TestRunner</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#after">after</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#assert">assert</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#before">before</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#fail">fail</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#pending">pending</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#suite">suite</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#test">test</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>Testy</h1>
+<p><img src="https://img.shields.io/github/workflow/status/ngarbezza/testy/Node%20CI/main?logo=github" alt="ci">
+<br>
+<a href="https://codeclimate.com/github/ngarbezza/testy"><img src="https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate" alt="maintainability"></a>
+<a href="https://codeclimate.com/github/ngarbezza/testy"><img src="https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate" alt="tech-debt"></a>
+<a href="https://codeclimate.com/github/ngarbezza/testy"><img src="https://img.shields.io/codeclimate/coverage/ngarbezza/testy?logo=code-climate" alt="coverage"></a>
+<a href="https://dashboard.stryker-mutator.io/reports/github.com/ngarbezza/testy/main"><img src="https://img.shields.io/endpoint?style=flat&amp;url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fngarbezza%2Ftesty%2Fmain" alt="Mutation testing badge"></a>
+<br>
+<a href="https://sonarcloud.io/summary/new_code?id=ngarbezza_testy"><img src="https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&amp;metric=sqale_rating" alt="Maintainability Rating"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=ngarbezza_testy"><img src="https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&amp;metric=sqale_index" alt="Technical Debt"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=ngarbezza_testy"><img src="https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&amp;metric=reliability_rating" alt="Reliability Rating"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=ngarbezza_testy"><img src="https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&amp;metric=security_rating" alt="Security Rating"></a>
+<br>
+<img src="https://img.shields.io/github/issues-raw/ngarbezza/testy?logo=github" alt="open-issues">
+<img src="https://img.shields.io/github/issues-closed-raw/ngarbezza/testy?logo=github" alt="closed-issues">
+<img src="https://img.shields.io/github/issues-pr-raw/ngarbezza/testy?logo=github" alt="open-prs">
+<br>
+<img src="https://img.shields.io/snyk/vulnerabilities/npm/@pmoo/testy.svg?logo=npm" alt="vulnerabilities">
+<img src="https://img.shields.io/npm/dt/@pmoo/testy.svg?logo=npm" alt="downloads">
+<img src="https://img.shields.io/librariesio/release/npm/@pmoo/testy" alt="dependencies">
+<br>
+<img src="https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm" alt="package-size">
+<img src="https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm" alt="activity">
+<img src="https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm" alt="release-date">
+<br>
+<a href="#Contributors"><img src="https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative" alt="all-contributors"></a></p>
+<p>A very simple JS testing framework, for educational purposes. Live at npm at <a href="https://www.npmjs.com/package/@pmoo/testy">@pmoo/testy</a>.</p>
+<p>:arrow_right: <a href="README_es.md">Documentación en español aquí</a>
+:construction_worker: <a href="CONTRIBUTING.md">Contributing guidelines</a></p>
+<h2>Sponsors</h2>
+<p><a href="https://10pines.com"><img alt="10Pines logo" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a></p>
+<h2>Getting started</h2>
+<p><code>npm install --save-dev @pmoo/testy</code> (if you use <a href="https://www.npmjs.com/">npm</a>) <br>
+<code>yarn add --dev @pmoo/testy</code> (if you use <a href="https://classic.yarnpkg.com/en/">yarn</a>)</p>
+<p><strong>Supported Node versions</strong>: 12.x or higher (versions with active and security support
+listed <a href="https://endoflife.date/nodejs">here</a>)</p>
+<h2>Usage</h2>
+<h3>Writing test suites</h3>
+<p>A test suite is a file ending <code>_test.js</code> that looks like this:</p>
+<pre class="prettyprint source lang-javascript"><code>// my_test.js
+const { suite, test, assert } = require('@pmoo/testy');
+
+suite('a boring test suite', () => {
+  test('42 is 42, not surprising', () => {
+    assert.that(42).isEqualTo(42);
+  });
+});
+</code></pre>
+<p>A test suite represents a grouping of tests, and it is implemented as a function call to <code>suite</code> passing a name and a zero-argument function, which is the suite body.</p>
+<p>A test is implemented as a function call to <code>test()</code>, passing a name and the test body as a zero-argument function.</p>
+<p>Inside the test you can call different assertions that are documented in detail later on.</p>
+<h3>Running Testy</h3>
+<p>You can run an individual test file using:</p>
+<pre class="prettyprint source"><code>$ npx testy my_test.js 
+</code></pre>
+<p>Or, you can run it without arguments to run all the tests (by default it looks on a <code>tests</code> folder located in the project root):</p>
+<pre class="prettyprint source"><code>$ npx testy 
+</code></pre>
+<p>You can also add it as the <code>test</code> script for npm/yarn in your <code>package.json</code>:</p>
+<pre class="prettyprint source"><code>{
+  ...
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;npx testy&quot;
+  },
+  ...
+}
+</code></pre>
+<p>And then run the tests using <code>npm test</code> or <code>yarn test</code>.</p>
+<h3>Configuring Testy</h3>
+<p>Testy will look for a <code>.testyrc.json</code> configuration file in the project root directory. You can use this configuration as a template (values here are the defaults):</p>
+<pre class="prettyprint source"><code>{
+  &quot;directory&quot;: &quot;./tests&quot;,   // directory including your test files
+  &quot;filter&quot;: &quot;.*_test.js$&quot;,  // which convention to use to recognize test files
+  &quot;language&quot;: &quot;en&quot;,         // language of the output messages. &quot;es&quot; and &quot;en&quot; supported for now
+  &quot;failFast&quot;: false,        // enable/disable fail fast mode (stop as soon as a failed test appears)
+  &quot;randomOrder&quot;: false      // enable/disable execution of tests in random order
+}
+</code></pre>
+<p>These are all the configuration parameters you can set. Feel free to change it according to your needs.
+When declaring this configuration, every test suite under the <code>tests</code> directory (matching files ending with <code>*test.js</code>) will be executed.</p>
+<h3>Examples and available assertions</h3>
+<p>There must be at least one assertion on the test to be valid. These are all the supported assertion types:</p>
+<ul>
+<li>Boolean assertions:
+<ul>
+<li><code>assert.that(boolean).isTrue()</code> or <code>assert.isTrue(boolean)</code>. It does a strict comparison against <code>true</code> (<code>object === true</code>)</li>
+<li><code>assert.that(boolean).isFalse()</code> or <code>assert.isFalse(boolean)</code>. It does a strict comparison against <code>false</code> (<code>object === false</code>)</li>
+</ul>
+</li>
+<li>Equality assertions:
+<ul>
+<li><code>assert.that(actual).isEqualTo(expected)</code> or <code>assert.areEqual(actual, expected)</code>.</li>
+<li><code>assert.that(actual).isNotEqualTo(expected)</code> or <code>assert.areNotEqual(actual, expected)</code></li>
+<li>Equality assertions use a deep object comparison (based on Node's <code>assert</code> module) and fail if objects under comparison have circular references.</li>
+<li>Equality criteria on non-primitive objects can be specified:
+<ul>
+<li>Passing an extra two-arg comparator function to <code>isEqualTo(expected, criteria)</code> or <code>areEqual(actual, expected, criteria)</code></li>
+<li>Passing a method name that <code>actual</code> object understands: <code>isEqualTo(expected, 'myEqMessage')</code> or <code>areEqual(actual, expected, 'myEqMessage')</code></li>
+<li>By default, if <code>actual</code> has an <code>equals</code> method it will be used.</li>
+<li>If we compare <code>undefined</code> with <code>undefined</code> using <code>isEqualTo()</code>, it will make the test fail. For explicit check for <code>undefined</code>, use the <code>isUndefined()</code>/<code>isNotUndefined()</code> assertions documented above.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Identity assertions:
+<ul>
+<li><code>assert.that(actual).isIdenticalTo(expected)</code> or <code>assert.areIdentical(actual, expected)</code></li>
+<li><code>assert.that(actual).isNotIdenticalTo(expected)</code> or <code>assert.areNotIdentical(actual, expected)</code></li>
+<li>Identity assertions check if two references point to the same object using the <code>===</code> operator.</li>
+</ul>
+</li>
+<li>Check for <code>undefined</code> presence/absence:
+<ul>
+<li><code>assert.that(aValue).isUndefined()</code> or <code>assert.isUndefined(aValue)</code></li>
+<li><code>assert.that(aValue).isNotUndefined()</code> or <code>assert.isNotUndefined(aValue)</code></li>
+</ul>
+</li>
+<li>Check for <code>null</code> presence/absence:
+<ul>
+<li><code>assert.that(aValue).isNull()</code> or <code>assert.isNull(aValue)</code></li>
+<li><code>assert.that(aValue).isNotNull()</code> or <code>assert.isNotNull(aValue)</code></li>
+</ul>
+</li>
+<li>Exception testing:
+<ul>
+<li><code>assert.that(() =&gt; { ... }).raises(error)</code> or with regex <code>.raises(/part of message/)</code></li>
+<li><code>assert.that(() =&gt; { ... }).doesNotRaise(error)</code></li>
+<li><code>assert.that(() =&gt; { ... }).doesNotRaiseAnyErrors()</code></li>
+</ul>
+</li>
+<li>Numeric assertions:
+<ul>
+<li><code>assert.that(aNumber).isNearTo(anotherNumber)</code>. There's a second optional argument that indicates the number of digits to be used for precision. Default is <code>4</code>.</li>
+</ul>
+</li>
+<li>String assertions:
+<ul>
+<li><code>assert.that(string).matches(regexOrString)</code> or <code>assert.isMatching(string, regexOrString)</code></li>
+</ul>
+</li>
+<li>Array inclusion:
+<ul>
+<li><code>assert.that(collection).includes(object)</code></li>
+<li><code>assert.that(collection).doesNotInclude(object)</code></li>
+<li><code>assert.that(collection).includesExactly(...objects)</code></li>
+</ul>
+</li>
+<li>Emptiness
+<ul>
+<li><code>assert.that(collection).isEmpty()</code> or <code>assert.isEmpty(collection)</code></li>
+<li><code>assert.that(collection).isNotEmpty()</code> or <code>assert.isNotEmpty(collection)</code></li>
+<li>the collection under test can be an <code>Array</code>, a <code>String</code> or a <code>Set</code></li>
+</ul>
+</li>
+</ul>
+<p>Please take a look at the <code>tests</code> folder, you'll find examples of each possible test you can write. Testy is self-tested.</p>
+<h3>Running testy globally</h3>
+<p>If you don't have a NPM project you can install testy globally using <code>npm install -g testy</code> and then run <code>testy &lt;files&gt;</code></p>
+<h3>Other features</h3>
+<ul>
+<li>
+<p><strong>Running code before/after every test</strong>: just like many testing frameworks have, there is a way to execute some code
+before or after each test in a suite using the <code>before()</code> and <code>after()</code> functions, respectively. You can use only one
+definition of <code>before()</code> and <code>after()</code> per suite, and they always receive a function as argument. Example:</p>
+<pre class="prettyprint source lang-javascript"><code>const { suite, test, assert, before, after } = require('@pmoo/testy');
+
+suite('using the before() and after() helpers', () => {
+  let answer;
+
+  before(() => {
+    answer = 42;
+  });
+
+  test('checking the answer', () => {
+    assert.that(answer).isEqualTo(42);
+  });
+
+  after(() => {
+    answer = undefined;
+  });
+});
+</code></pre>
+</li>
+<li>
+<p><strong>Support for pending tests</strong>: if a test has no body, it will be reported as <code>[WIP]</code> and it won't be considered a failure.</p>
+</li>
+<li>
+<p><strong>Support for asynchronous tests</strong>: if the code you are testing has <code>async</code> logic, you can <code>await</code> inside the test
+definition and make assertions later. You can also use it on <code>before()</code> and <code>after()</code> declarations. Example:</p>
+<pre class="prettyprint source lang-javascript"><code>const { suite, test, assert, before } = require('@pmoo/testy');
+
+const promiseOne = async () => Promise.resolve(42);
+const promiseTwo = async () => Promise.resolve(21);
+
+suite('using async & await', () => {
+  let answerOne;
+
+  before(async () => {
+    answerOne = await promiseOne();
+  });
+
+  test('comparing results from promises', async () => {
+    const answerTwo = await promiseTwo();
+    assert.that(answerOne).isEqualTo(42);
+    assert.that(answerTwo).isEqualTo(21);
+  });
+});
+</code></pre>
+</li>
+<li>
+<p><strong>Fail-Fast mode</strong>: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.</p>
+</li>
+<li>
+<p><strong>Run tests and suites in random order</strong>: a good test suite does not depend on a particular order. Enabling this setting is a good way to ensure that.</p>
+</li>
+<li>
+<p><strong>Strict check for assertions</strong>: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a &quot;bad&quot; test.</p>
+</li>
+<li>
+<p><strong>Explicitly failing or marking a test as pending</strong>: there's a possibility of marking a test as failed or pending, for example:</p>
+<pre class="prettyprint source lang-javascript"><code>const { suite, test, fail, pending } = require('@pmoo/testy');
+
+suite('marking tests as failed and pending', () => {
+  test('marking as failed', () =>
+    fail.with('should not be here'));
+  
+  test('marking as pending', () =>
+    pending.dueTo('did not have time to finish'));
+});
+</code></pre>
+<p>The output includes the messages provided:</p>
+<pre class="prettyprint source"><code>[FAIL] marking as failed
+  => should not be here
+[WIP] marking as pending
+  => did not have time to finish
+</code></pre>
+</li>
+</ul>
+<h2>Why?</h2>
+<p>Why another testing tool? The main reason is that we want to keep simplicity, something it's hard to see in the main testing tools out there.</p>
+<ul>
+<li><strong>Zero dependencies:</strong> right now, this project does not depend on any npm package, making the tool easy to install, and fast: essential to have immediate feedback while doing TDD. This is also good for installing on places where the internet connection is not good and we don't want to download hundreds of libraries.</li>
+<li><strong>Understandable object-oriented code:</strong> we want to use this tool for teaching, so eventually we'll look at the code during lessons, and students should be able to see what is going on, and even contributing at it, with no dark magic involved. Also, we try to follow good OO practices.</li>
+<li><strong>Unique set of features:</strong> we are not following any specification nor trying to copy behavior from other approaches (like the &quot;xUnit&quot; or &quot;xSpec&quot; way).</li>
+</ul>
+<p><a href="https://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html">&quot;Design Principles Behind Smalltalk&quot;</a> is a source of inspiration for this work. We try to follow the same principles here.</p>
+<h2>Contributing</h2>
+<p>Please take a look at the <a href="CONTRIBUTING.md">Contributing section</a>.</p>
+<h2>Contributors ✨</h2>
+<p>Thanks goes to these wonderful people (<a href="https://allcontributors.org/docs/en/emoji-key">emoji key</a>):</p>
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/JavierGelatti"><img src="https://avatars2.githubusercontent.com/u/993337?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Facundo Javier Gelatti</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=JavierGelatti" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=JavierGelatti" title="Code">💻</a></td>
+    <td align="center"><a href="https://codepen.io/TomerBenRachel/"><img src="https://avatars2.githubusercontent.com/u/23402988?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tomer Ben-Rachel</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=TomerPacific" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=TomerPacific" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/abraaoduarte"><img src="https://avatars2.githubusercontent.com/u/6676804?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abraão Duarte</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=abraaoduarte" title="Code">💻</a></td>
+    <td align="center"><a href="http://adico.tech"><img src="https://avatars0.githubusercontent.com/u/5412270?v=4?s=100" width="100px;" alt=""/><br /><sub><b>adico</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=adico1" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=adico1" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/ask-imran"><img src="https://avatars0.githubusercontent.com/u/20487103?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Askar Imran</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=ask-imran" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=ask-imran" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.nigelyong.com/"><img src="https://avatars2.githubusercontent.com/u/23243585?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nigel Yong</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=niyonx" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/chelsieng"><img src="https://avatars1.githubusercontent.com/u/60008262?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chelsie Ng</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=chelsieng" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/trochepablo"><img src="https://avatars2.githubusercontent.com/u/18213369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pablo T</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=trochepablo" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=trochepablo" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/franciscojaimesfreyre"><img src="https://avatars.githubusercontent.com/u/10203729?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Francisco Jaimes Freyre</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=franciscojaimesfreyre" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=franciscojaimesfreyre" title="Tests">⚠️</a> <a href="https://github.com/ngarbezza/testy/commits?author=franciscojaimesfreyre" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://rpt.altervista.org"><img src="https://avatars.githubusercontent.com/u/1763919?v=4?s=100" width="100px;" alt=""/><br /><sub><b>giovannipessiva</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=giovannipessiva" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://abhikhatri67.github.io/"><img src="https://avatars.githubusercontent.com/u/15958423?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhishek Khatri</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=abhikhatri67" title="Code">💻</a></td>
+  </tr>
+</table>
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+<p>This project follows the <a href="https://github.com/all-contributors/all-contributors">all-contributors</a> specification. Contributions of any kind welcome!</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Thu Oct 27 2022 01:55:03 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
