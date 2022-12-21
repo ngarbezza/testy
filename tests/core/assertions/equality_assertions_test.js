@@ -170,7 +170,7 @@ suite('equality assertions', () => {
   });
 
   test('isNotEqualTo fails and displays an error message properly formatted', async() => {
-    const result = await resultOfATestWith(asserter => asserter.that({ abc: '123' }).isNotEqualTo({ abc: '123' }));
+    const result = await resultOfATestWith(asserter => asserter.areNotEqual({ abc: '123' }, { abc: '123' }));
     const actualFailureMessageInEnglish = result.failureMessage().expressedIn(I18n.default());
     assert.that(result.isFailure()).isTrue();
     assert.that(actualFailureMessageInEnglish).isEqualTo('Expected { abc: \'123\' } to be not equal to { abc: \'123\' }');
