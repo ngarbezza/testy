@@ -169,9 +169,17 @@ suite('equality assertions', () => {
     expectFailureOn(result, I18nMessage.of('equality_assertion_failed_due_to_undetermination'));
   });
 
+  test('isNotEqualTo fails and displays an error message properly formatted', async() => {
+    const result = await resultOfATestWith(asserter => asserter.areNotEqual({ abc: '123' }, { abc: '123' }));
+    const actualFailureMessageInEnglish = result.failureMessage().expressedIn(I18n.default());
+    assert.that(result.isFailure()).isTrue();
+    assert.that(actualFailureMessageInEnglish).isEqualTo('Expected { abc: \'123\' } to be not equal to { abc: \'123\' }');
+  });
+
   test('displays equality failure messages with all depth', async() => {
     const result = await resultOfATestWith(asserter => asserter.that({ a1: { a2: { a3: { a4: true } } } }).isEqualTo({ a1: { a2: { a3: { a4: false } } } }));
     const actualFailureMessageInEnglish = result.failureMessage().expressedIn(I18n.default());
+    assert.that(result.isFailure()).isTrue();
     assert.that(actualFailureMessageInEnglish).isEqualTo('Expected { a1: { a2: { a3: { a4: true } } } } to be equal to { a1: { a2: { a3: { a4: false } } } }');
   });
 });

@@ -12,6 +12,14 @@ class FakeConsole {
   messages() {
     return Array.from(this._messages);
   }
+
+  time() {
+    this.log('timer started');
+  }
+
+  timeEnd() {
+    this.log('timer ended');
+  }
 }
 
 module.exports = FakeConsole;
