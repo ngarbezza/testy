@@ -31,7 +31,7 @@ suite('Console UI', () => {
     assert.areEqual(ConsoleUI.failedExitCode(), 1);
   });
 
-  test('prints start and end messages', async () => {
+  test('prints start and end messages', async() => {
     const console = new ConsoleUI(fakeProcess, fakeConsole);
     const config = Configuration.current();
     await console.start(config, [], () => {});
