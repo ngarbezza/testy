@@ -169,6 +169,14 @@ suite('equality assertions', () => {
     expectFailureOn(result, I18nMessage.of('equality_assertion_failed_due_to_undetermination'));
   });
 
+  test('isNotEqualTo passes when custom criteria evaluates to not equal', async() => {
+    const criteria = (_a, _b) => false;
+    const result = await resultOfATestWith(asserter =>
+      asserter.areNotEqual({ abc: 123, def: 456 }, { abc: 123, def: 456 }, criteria),
+    );
+    expectSuccess(result);
+  });
+
   test('isNotEqualTo fails and displays an error message properly formatted', async() => {
     const result = await resultOfATestWith(asserter => asserter.areNotEqual({ abc: '123' }, { abc: '123' }));
     const actualFailureMessageInEnglish = result.failureMessage().expressedIn(I18n.default());
