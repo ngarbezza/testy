@@ -37,6 +37,13 @@ suite('testing testy - basic assertions', () => {
     assert.that([1, 2, 3]).includesExactly(2, 3, 1);
   });
 
+  test('collection is empty', () => {
+    assert.isEmpty('');
+    assert.isEmpty([]);
+    assert.isEmpty(new Set());
+    assert.isEmpty(new Map());
+  });
+
   test('error checking', () => assert.that(() => {
     throw 'hey!';
   }).raises('hey!'));
