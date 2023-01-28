@@ -1,8 +1,8 @@
 'use strict';
 
 const { suite, test, assert } = require('../../lib/testy');
-const Configuration = require('../../lib/config/configuration');
-const FailFast = require('../../lib/config/fail_fast');
+const { Configuration } = require('../../lib/config/configuration');
+const { FailFast } = require('../../lib/config/fail_fast');
 
 suite('Configuration parameters', () => {
   const emptyOptions = {};
@@ -15,7 +15,7 @@ suite('Configuration parameters', () => {
   };
   const configuration = new Configuration(emptyOptions, defaultConfiguration);
 
-  test.only('there is a default directory', () => {
+  test('there is a default directory', () => {
     assert.areEqual(configuration.directory(), 'some_dir');
   });
 

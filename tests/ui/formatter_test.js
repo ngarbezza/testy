@@ -4,9 +4,9 @@ const { suite, test, before, assert } = require('../../lib/testy');
 const { withRunner, runSingleTest } = require('../support/runner_helpers');
 const { aTestWithBody, aPendingTest } = require('../support/tests_factory');
 
-const Formatter = require('../../lib/ui/formatter');
+const { Formatter } = require('../../lib/ui/formatter');
 const { I18n } = require('../../lib/i18n/i18n');
-const FakeConsole = require('./fake_console');
+const { FakeConsole } = require('./fake_console');
 const { sourceCodeLocationRegex } = require('../support/assertion_helpers');
 
 suite('formatter', () => {

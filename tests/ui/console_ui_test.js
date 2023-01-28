@@ -2,10 +2,10 @@
 
 const { suite, test, before, assert } = require('../../lib/testy');
 
-const ConsoleUI = require('../../lib/ui/console_ui');
-const FakeConsole = require('./fake_console');
-const FakeProcess = require('./fake_process');
-const Configuration = require('../../lib/config/configuration');
+const { ConsoleUI } = require('../../lib/ui/console_ui');
+const { FakeConsole } = require('./fake_console');
+const { FakeProcess } = require('./fake_process');
+const { Configuration } = require('../../lib/config/configuration');
 
 suite('Console UI', () => {
   let fakeProcess, fakeConsole;

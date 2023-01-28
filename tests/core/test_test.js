@@ -5,7 +5,7 @@ const { aTestWithNoAssertions, aTestWithBody } = require('../support/tests_facto
 const { withRunner, runSingleTest, resultOfASuiteWith } = require('../support/runner_helpers');
 const { expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
 
-const Test = require('../../lib/core/test');
+const { Test } = require('../../lib/core/test');
 const { I18nMessage } = require('../../lib/i18n/i18n');
 
 suite('tests behavior', () => {

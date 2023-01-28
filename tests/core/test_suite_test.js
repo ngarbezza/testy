@@ -1,8 +1,8 @@
 'use strict';
 
 const { suite, test, before, assert } = require('../../lib/testy');
-const TestSuite = require('../../lib/core/test_suite');
-const FailFast = require('../../lib/config/fail_fast');
+const { TestSuite } = require('../../lib/core/test_suite');
+const { FailFast } = require('../../lib/config/fail_fast');
 const { withRunner } = require('../support/runner_helpers');
 const { newEmptySuite } = require('../support/suites_factory');
 const { aPassingTest, aFailingTest, anErroredTest, aPendingTest } = require('../support/tests_factory');

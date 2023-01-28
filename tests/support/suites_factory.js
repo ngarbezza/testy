@@ -1,6 +1,6 @@
 'use strict';
 
-const TestSuite = require('../../lib/core/test_suite');
+const { TestSuite } = require('../../lib/core/test_suite');
 
 const noop = () => {
   // intentionally empty function

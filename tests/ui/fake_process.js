@@ -14,4 +14,4 @@ class FakeProcess {
   }
 }
 
-module.exports = FakeProcess;
+module.exports = { FakeProcess };

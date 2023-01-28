@@ -1,7 +1,7 @@
 'use strict';
 
 const { suite, test, assert } = require('../../lib/testy');
-const TestRunner = require('../../lib/core/test_runner');
+const { TestRunner } = require('../../lib/core/test_runner');
 const { withRunner } = require('../support/runner_helpers');
 const { suiteNamed, emptySuiteBody, emptySuiteCallbacks } = require('../support/suites_factory');
 const { aFailingTest, anErroredTest, aPassingTest, emptyTestCallbacks } = require('../support/tests_factory');

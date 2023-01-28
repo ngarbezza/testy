@@ -22,4 +22,4 @@ class FakeConsole {
   }
 }
 
-module.exports = FakeConsole;
+module.exports = { FakeConsole };
