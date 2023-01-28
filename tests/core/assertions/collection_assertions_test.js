@@ -5,7 +5,7 @@ const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
 const Utils = require('../../../lib/utils');
-const { I18nMessage } = require('../../../lib/i18n');
+const { I18nMessage } = require('../../../lib/i18n/i18n');
 
 suite('collection assertions', () => {
   const nonEmptySet = new Set([1]);

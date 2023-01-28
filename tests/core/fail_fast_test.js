@@ -1,7 +1,7 @@
 'use strict';
 
 const { suite, test, assert } = require('../../lib/testy');
-const FailFast = require('../../lib/fail_fast');
+const FailFast = require('../../lib/config/fail_fast');
 
 suite('fail fast behavior', () => {
   test('when enabled, initially has not failed', () => {

@@ -1,8 +1,8 @@
 'use strict';
 
-const TestRunner = require('../../lib/test_runner');
-const TestSuite = require('../../lib/test_suite');
-const { Asserter, FailureGenerator, PendingMarker } = require('../../lib/asserter');
+const TestRunner = require('../../lib/core/test_runner');
+const TestSuite = require('../../lib/core/test_suite');
+const { Asserter, FailureGenerator, PendingMarker } = require('../../lib/core/asserter');
 const { aTestWithBody } = require('./tests_factory');
 
 const noop = () => {

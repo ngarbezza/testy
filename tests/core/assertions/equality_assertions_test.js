@@ -4,7 +4,7 @@ const { assert, suite, test } = require('../../../lib/testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
-const { I18nMessage, I18n } = require('../../../lib/i18n');
+const { I18nMessage, I18n } = require('../../../lib/i18n/i18n');
 
 suite('equality assertions', () => {
   test('isEqualTo pass with equal primitive objects', async() => {

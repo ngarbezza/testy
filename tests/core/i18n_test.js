@@ -1,7 +1,7 @@
 'use strict';
 
 const { suite, test, assert } = require('../../lib/testy');
-const { I18n } = require('../../lib/i18n');
+const { I18n } = require('../../lib/i18n/i18n');
 
 suite('i18n', () => {
   test('default language is en', () => {

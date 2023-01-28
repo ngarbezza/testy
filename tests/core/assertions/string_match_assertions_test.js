@@ -4,7 +4,7 @@ const { suite, test } = require('../../../lib/testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
 
-const { I18nMessage } = require('../../../lib/i18n');
+const { I18nMessage } = require('../../../lib/i18n/i18n');
 
 suite('assertions about strings match', () => {
   test('matches() passes when the regex match the actual string', async() => {

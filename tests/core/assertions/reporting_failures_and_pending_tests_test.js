@@ -4,7 +4,7 @@ const { suite, test } = require('../../../lib/testy');
 const { resultOfATestWith } = require('../../support/runner_helpers');
 const { expectErrorOn, expectFailureOn, expectPendingResultOn } = require('../../support/assertion_helpers');
 
-const { I18nMessage } = require('../../../lib/i18n');
+const { I18nMessage } = require('../../../lib/i18n/i18n');
 
 suite('reporting failures and pending tests', () => {
   test('marking a test as explicitly failed with no message', async() => {
