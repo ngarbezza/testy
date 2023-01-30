@@ -105,6 +105,7 @@ Testy will look for a `.testyrc.json` configuration file in the project root dir
   "language": "en",         // language of the output messages. "es" and "en" supported for now
   "failFast": false,        // enable/disable fail fast mode (stop as soon as a failed test appears)
   "randomOrder": false      // enable/disable execution of tests in random order
+  "timeoutMs": 1000         // sets the per-test timeout in milliseconds
 }
 ```
 

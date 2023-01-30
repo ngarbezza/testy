@@ -104,6 +104,7 @@ Testy se puede configurar a través de un archivo llamado `.testyrc.json` que de
   "language": "en",         // idioma de los mensajes de salida ("en" y "es" soportados por el momento)
   "failFast": false,        // habilita/deshabilita el modo "fail fast" (detener la ejecución en el primer fallo)
   "randomOrder": false      // habilita/deshabilita la ejecución de tests en orden aleatorio.
+  "timeoutMs": 1000         // asigna el tiempo límite de ejecución por cada test (en milisegundos)
 }
 ```
 
