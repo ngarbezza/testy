@@ -1,11 +1,11 @@
 'use strict';
 
-const { suite, test } = require('../../../lib/testy');
-const { resultOfATestWith } = require('../../support/runner_helpers');
-const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
+import { suite, test } from '../../../lib/testy.js';
+import { resultOfATestWith } from '../../support/runner_helpers.js';
+import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
-const Utils = require('../../../lib/utils');
-const { I18nMessage } = require('../../../lib/i18n');
+import { prettyPrint } from '../../../lib/utils.js';
+import { I18nMessage } from '../../../lib/i18n/i18n.js';
 
 suite('collection assertions', () => {
   const nonEmptySet = new Set([1]);
@@ -166,7 +166,7 @@ suite('collection assertions', () => {
   test('isEmpty does not pass on a set with elements', async() => {
     const result = await resultOfATestWith(assert => assert.that(nonEmptySet).isEmpty());
 
-    expectFailureOn(result, I18nMessage.of('expectation_be_empty', Utils.prettyPrint(nonEmptySet)));
+    expectFailureOn(result, I18nMessage.of('expectation_be_empty', prettyPrint(nonEmptySet)));
   });
 
   test('isEmpty fails when the object is undefined', async() => {
@@ -204,7 +204,7 @@ suite('collection assertions', () => {
   test('isNotEmpty does not pass on an empty set', async() => {
     const result = await resultOfATestWith(assert => assert.that(emptySet).isNotEmpty());
 
-    expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', Utils.prettyPrint(emptySet)));
+    expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', prettyPrint(emptySet)));
   });
 
   test('isNotEmpty passes on a set with elements', async() => {

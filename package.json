@@ -13,6 +13,7 @@
   "engines": {
     "node": ">= 12.*"
   },
+  "type": "module",
   "main": "lib/testy.js",
   "scripts": {
     "jsdoc": "npx jsdoc lib/ --destination doc/jsdoc",
@@ -20,7 +21,7 @@
     "lint": "npx eslint@latest lib/ tests/ bin/",
     "lint:fix": "npx eslint@latest lib/ tests/ bin/ --fix",
     "test": "bin/testy_cli.js",
-    "test:coverage": "npx nyc@latest npm test",
+    "test:coverage": "npx c8@latest npm test",
     "see:coverage": "open reports/coverage/lcov-report/index.html",
     "test:mutation": "npx stryker run",
     "see:mutation": "open reports/mutation/mutation.html",

@@ -1,13 +1,13 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../lib/testy');
-const { withRunner, runSingleTest } = require('../support/runner_helpers');
-const { aTestWithBody, aPendingTest } = require('../support/tests_factory');
+import { assert, before, suite, test } from '../../lib/testy.js';
+import { runSingleTest, withRunner } from '../support/runner_helpers.js';
+import { aPendingTest, aTestWithBody } from '../support/tests_factory.js';
 
-const Formatter = require('../../lib/formatter');
-const { I18n } = require('../../lib/i18n');
-const FakeConsole = require('./fake_console');
-const { sourceCodeLocationRegex } = require('../support/assertion_helpers');
+import { Formatter } from '../../lib/ui/formatter.js';
+import { I18n } from '../../lib/i18n/i18n.js';
+import { FakeConsole } from './fake_console.js';
+import { sourceCodeLocationRegex } from '../support/assertion_helpers.js';
 
 suite('formatter', () => {
   let formatter, fakeConsole, i18n;

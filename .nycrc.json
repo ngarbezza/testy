@@ -1,5 +1,0 @@
-{
-  "report-dir": "./reports/coverage",
-  "temp-dir": "./reports/.nyc_output",
-  "reporter": ["lcov", "text"]
-}

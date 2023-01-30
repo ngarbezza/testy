@@ -1,12 +1,12 @@
 'use strict';
 
-const { suite, test, assert } = require('../../lib/testy');
-const { aTestWithNoAssertions, aTestWithBody } = require('../support/tests_factory');
-const { withRunner, runSingleTest, resultOfASuiteWith } = require('../support/runner_helpers');
-const { expectErrorOn, expectFailureOn } = require('../support/assertion_helpers');
+import { assert, suite, test } from '../../lib/testy.js';
+import { aTestWithBody, aTestWithNoAssertions } from '../support/tests_factory.js';
+import { resultOfASuiteWith, runSingleTest, withRunner } from '../support/runner_helpers.js';
+import { expectErrorOn, expectFailureOn } from '../support/assertion_helpers.js';
 
-const Test = require('../../lib/test');
-const { I18nMessage } = require('../../lib/i18n');
+import { Test } from '../../lib/core/test.js';
+import { I18nMessage } from '../../lib/i18n/i18n.js';
 
 suite('tests behavior', () => {
   const noop = () => {

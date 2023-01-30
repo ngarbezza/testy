@@ -1,10 +1,11 @@
 'use strict';
 
-const { suite, test, assert } = require('../../lib/testy');
-const TestRunner = require('../../lib/test_runner');
-const { withRunner } = require('../support/runner_helpers');
-const { suiteNamed, emptySuiteBody, emptySuiteCallbacks } = require('../support/suites_factory');
-const { aFailingTest, anErroredTest, aPassingTest, emptyTestCallbacks } = require('../support/tests_factory');
+import { assert, suite, test } from '../../lib/testy.js';
+import { withRunner } from '../support/runner_helpers.js';
+import { emptySuiteBody, emptySuiteCallbacks, suiteNamed } from '../support/suites_factory.js';
+import { aFailingTest, anErroredTest, aPassingTest, emptyTestCallbacks } from '../support/tests_factory.js';
+
+import { TestRunner } from '../../lib/core/test_runner.js';
 
 suite('test runner', () => {
   test('with no tests, it finishes with success', async() => {

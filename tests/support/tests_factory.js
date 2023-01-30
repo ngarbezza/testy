@@ -1,10 +1,11 @@
 'use strict';
 
-const Test = require('../../lib/test');
+import { Test } from '../../lib/core/test.js';
 
 const noop = () => {
   // intentional empty function
 };
+
 const emptyTestCallbacks = {
   whenErrored: noop,
   whenFailed: noop,
@@ -33,7 +34,7 @@ const aTestWithNoAssertions = () =>
 const aTestWithBody = body =>
   new Test('just a test', body, emptyTestCallbacks);
 
-module.exports = {
+export {
   aTestWithBody,
   aPassingTest,
   aFailingTest,

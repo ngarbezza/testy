@@ -1,10 +1,10 @@
 'use strict';
 
-const { suite, test } = require('../../../lib/testy');
-const { resultOfATestWith } = require('../../support/runner_helpers');
-const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
+import { suite, test } from '../../../lib/testy.js';
+import { resultOfATestWith } from '../../support/runner_helpers.js';
+import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
-const { I18nMessage } = require('../../../lib/i18n');
+import { I18nMessage } from '../../../lib/i18n/i18n.js';
 
 suite('exception assertions', () => {
   test('raises() can receive a string and it passes when the exact string is expected', async() => {

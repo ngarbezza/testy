@@ -51,7 +51,7 @@ A test suite is a file ending `_test.js` that looks like this:
 
 ```javascript
 // my_test.js
-const { suite, test, assert } = require('@pmoo/testy');
+import { suite, test, assert } from '@pmoo/testy';
 
 suite('a boring test suite', () => {
   test('42 is 42, not surprising', () => {
@@ -167,7 +167,7 @@ before or after each test in a suite using the `before()` and `after()` function
 definition of `before()` and `after()` per suite, and they always receive a function as argument. Example:
 
     ```javascript
-    const { suite, test, assert, before, after } = require('@pmoo/testy');
+    import { suite, test, assert, before, after } from '@pmoo/testy';
     
     suite('using the before() and after() helpers', () => {
       let answer;
@@ -190,7 +190,7 @@ definition of `before()` and `after()` per suite, and they always receive a func
 definition and make assertions later. You can also use it on `before()` and `after()` declarations. Example:
 
     ```javascript
-    const { suite, test, assert, before } = require('@pmoo/testy');
+    import { suite, test, assert, before } from '@pmoo/testy';
     
     const promiseOne = async () => Promise.resolve(42);
     const promiseTwo = async () => Promise.resolve(21);
@@ -215,7 +215,7 @@ definition and make assertions later. You can also use it on `before()` and `aft
 * **Explicitly failing or marking a test as pending**: there's a possibility of marking a test as failed or pending, for example:
 
     ```javascript
-    const { suite, test, fail, pending } = require('@pmoo/testy');
+    import { suite, test, fail, pending } from '@pmoo/testy';
     
     suite('marking tests as failed and pending', () => {
       test('marking as failed', () =>
@@ -248,7 +248,7 @@ Why another testing tool? The main reason is that we want to keep simplicity, so
 
 Please take a look at the [Contributing section](CONTRIBUTING.md).
 
-## Contributors ✨
+## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 

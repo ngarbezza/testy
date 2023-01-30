@@ -1,8 +1,9 @@
 'use strict';
 
-const { suite, test, assert } = require('../../lib/testy');
-const Configuration = require('../../lib/configuration');
-const FailFast = require('../../lib/fail_fast');
+import { assert, suite, test } from '../../lib/testy.js';
+
+import { Configuration } from '../../lib/config/configuration.js';
+import { FailFast } from '../../lib/config/fail_fast.js';
 
 suite('Configuration parameters', () => {
   const emptyOptions = {};

@@ -1,9 +1,9 @@
 'use strict';
 
-const TestRunner = require('../../lib/test_runner');
-const TestSuite = require('../../lib/test_suite');
-const { Asserter, FailureGenerator, PendingMarker } = require('../../lib/asserter');
-const { aTestWithBody } = require('./tests_factory');
+import { TestRunner } from '../../lib/core/test_runner.js';
+import { TestSuite } from '../../lib/core/test_suite.js';
+import { Asserter, FailureGenerator, PendingMarker } from '../../lib/core/asserter.js';
+import { aTestWithBody } from './tests_factory.js';
 
 const noop = () => {
   // intentionally empty function
@@ -45,7 +45,7 @@ const resultOfASuiteWith = async(runner, test, before, after) => {
   return test.result();
 };
 
-module.exports = {
+export {
   withRunner,
   runSingleTest,
   resultOfATestWith,

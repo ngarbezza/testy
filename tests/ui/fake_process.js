@@ -1,6 +1,6 @@
 'use strict';
 
-class FakeProcess {
+export class FakeProcess {
   constructor() {
     this._lastExitCode = null;
   }
@@ -13,5 +13,3 @@ class FakeProcess {
     return this._lastExitCode;
   }
 }
-
-module.exports = FakeProcess;
