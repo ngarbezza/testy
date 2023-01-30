@@ -1,0 +1,7 @@
+{
+  "all": true,
+  "include": ["bin", "lib"],
+  "report-dir": "./reports/coverage",
+  "temp-directory": "./reports/.nyc_output",
+  "reporter": ["lcov", "text"]
+}
