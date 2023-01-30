@@ -1,11 +1,11 @@
 'use strict';
 
-const { suite, test } = require('../../../lib/testy');
-const { resultOfATestWith } = require('../../support/runner_helpers');
-const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
+import { suite, test } from '../../../lib/testy.js';
+import { resultOfATestWith } from '../../support/runner_helpers.js';
+import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
-const { prettyPrint } = require('../../../lib/utils');
-const { I18nMessage } = require('../../../lib/i18n/i18n');
+import { prettyPrint } from '../../../lib/utils.js';
+import { I18nMessage } from '../../../lib/i18n/i18n.js';
 
 suite('collection assertions', () => {
   const nonEmptySet = new Set([1]);

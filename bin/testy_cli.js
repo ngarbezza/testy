@@ -2,7 +2,7 @@
 
 'use strict';
 
-const { ScriptAction } = require('../lib/script_action');
+import { ScriptAction } from '../lib/script_action.js';
 
 const params = process.argv.slice(2);
 const requestedAction = ScriptAction.for(params);

@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, before, after, assert } = require('../../lib/testy');
+import { after, assert, before, suite, test } from '../../lib/testy.js';
 
 suite('testing testy - basic features', () => {
   const circular = {}; circular.yourself = circular;

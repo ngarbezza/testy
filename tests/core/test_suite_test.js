@@ -1,11 +1,12 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../lib/testy');
-const { TestSuite } = require('../../lib/core/test_suite');
-const { FailFast } = require('../../lib/config/fail_fast');
-const { withRunner } = require('../support/runner_helpers');
-const { newEmptySuite } = require('../support/suites_factory');
-const { aPassingTest, aFailingTest, anErroredTest, aPendingTest } = require('../support/tests_factory');
+import { assert, before, suite, test } from '../../lib/testy.js';
+import { withRunner } from '../support/runner_helpers.js';
+import { newEmptySuite } from '../support/suites_factory.js';
+import { aFailingTest, anErroredTest, aPassingTest, aPendingTest } from '../support/tests_factory.js';
+
+import { TestSuite } from '../../lib/core/test_suite.js';
+import { FailFast } from '../../lib/config/fail_fast.js';
 
 suite('test suite behavior', () => {
   let runner, mySuite;

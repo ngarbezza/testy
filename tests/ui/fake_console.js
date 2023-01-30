@@ -1,6 +1,6 @@
 'use strict';
 
-class FakeConsole {
+export class FakeConsole {
   constructor() {
     this._messages = [];
   }
@@ -21,5 +21,3 @@ class FakeConsole {
     this.log('timer ended');
   }
 }
-
-module.exports = { FakeConsole };

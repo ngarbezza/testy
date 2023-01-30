@@ -50,7 +50,7 @@ o de seguridad listadas [aquí](https://endoflife.date/nodejs))
 Una suite de test no es más que un archivo cuyo nombre finaliza con `_test.js` y tiene la siguiente forma:
 
 ```javascript
-const { suite, test, assert } = require('@pmoo/testy');
+import { suite, test, assert } from '@pmoo/testy';
 
 suite('una suite de tests aburrida', () => {
   test('42 es 42, no nos sorprende', () => {
@@ -160,7 +160,7 @@ ejecutar código antes y después de cada test haciendo uso de `before()` y `aft
 _suite_. `before()` y `after()` reciben una función como parámetro y pueden utilizarse una sola vez por _suite_. Ejemplo:
 
     ```javascript
-    const { suite, test, assert, before, after } = require('@pmoo/testy');
+    import { suite, test, assert, before, after } from '@pmoo/testy';
     
     suite('usando las funciones before() y after()', () => {
       let answer;
@@ -184,7 +184,7 @@ dentro de la definicion del test y luego escribir las aserciones. También es po
 `before()` y `after()`. Ejemplo:
 
     ```javascript
-    const { suite, test, assert, before } = require('@pmoo/testy');
+    import { suite, test, assert, before } from '@pmoo/testy';
     
     const promesaUno = async () => Promise.resolve(42);
     const promesaDos = async () => Promise.resolve(21);
@@ -209,7 +209,7 @@ dentro de la definicion del test y luego escribir las aserciones. También es po
 * **Explícitamente marcar un test como fallido o pendiente**: Ejemplos:
 
     ```javascript
-    const { suite, test, fail, pending } = require('@pmoo/testy');
+    import { suite, test, fail, pending } from '@pmoo/testy';
     
     suite('marcando tests explícitamente como fallidos o pendientes', () => {
       test('marcando como fallido', () =>
@@ -242,7 +242,7 @@ dentro de la definicion del test y luego escribir las aserciones. También es po
 
 Por favor revisar la [guía para contribuciones](CONTRIBUTING_es.md).
 
-## Contribuyentes ✨
+## Contribuyentes
 
 Muchas gracias a estas maravillosas personas ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 

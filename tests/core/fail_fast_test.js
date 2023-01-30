@@ -1,7 +1,8 @@
 'use strict';
 
-const { suite, test, assert } = require('../../lib/testy');
-const { FailFast } = require('../../lib/config/fail_fast');
+import { assert, suite, test } from '../../lib/testy.js';
+
+import { FailFast } from '../../lib/config/fail_fast.js';
 
 suite('fail fast behavior', () => {
   test('when enabled, initially has not failed', () => {

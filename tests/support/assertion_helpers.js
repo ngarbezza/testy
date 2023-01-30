@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert } = require('../../lib/testy');
+import { assert } from '../../lib/testy.js';
 
 const sourceCodeLocationRegex = /.* at .*:\d+:\d+/;
 
@@ -28,7 +28,7 @@ const expectErrorOn = (result, errorMessage, locationRegex = sourceCodeLocationR
   assert.that(result.location()).matches(locationRegex);
 };
 
-module.exports = {
+export {
   expectSuccess,
   expectFailureOn,
   expectErrorOn,

@@ -1,10 +1,10 @@
 'use strict';
 
-const { suite, test } = require('../../../lib/testy');
-const { resultOfATestWith } = require('../../support/runner_helpers');
-const { expectErrorOn, expectFailureOn, expectPendingResultOn } = require('../../support/assertion_helpers');
+import { suite, test } from '../../../lib/testy.js';
+import { resultOfATestWith } from '../../support/runner_helpers.js';
+import { expectErrorOn, expectFailureOn, expectPendingResultOn } from '../../support/assertion_helpers.js';
 
-const { I18nMessage } = require('../../../lib/i18n/i18n');
+import { I18nMessage } from '../../../lib/i18n/i18n.js';
 
 suite('reporting failures and pending tests', () => {
   test('marking a test as explicitly failed with no message', async() => {

@@ -1,11 +1,11 @@
 'use strict';
 
-const { suite, test, before, assert } = require('../../lib/testy');
+import { assert, before, suite, test } from '../../lib/testy.js';
 
-const { ConsoleUI } = require('../../lib/ui/console_ui');
-const { FakeConsole } = require('./fake_console');
-const { FakeProcess } = require('./fake_process');
-const { Configuration } = require('../../lib/config/configuration');
+import { ConsoleUI } from '../../lib/ui/console_ui.js';
+import { FakeConsole } from './fake_console.js';
+import { FakeProcess } from './fake_process.js';
+import { Configuration } from '../../lib/config/configuration.js';
 
 suite('Console UI', () => {
   let fakeProcess, fakeConsole;

@@ -1,10 +1,10 @@
 'use strict';
 
-const { assert, suite, test } = require('../../../lib/testy');
-const { resultOfATestWith } = require('../../support/runner_helpers');
-const { expectSuccess, expectFailureOn } = require('../../support/assertion_helpers');
+import { assert, suite, test } from '../../../lib/testy.js';
+import { resultOfATestWith } from '../../support/runner_helpers.js';
+import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
-const { I18nMessage, I18n } = require('../../../lib/i18n/i18n');
+import { I18n, I18nMessage } from '../../../lib/i18n/i18n.js';
 
 suite('equality assertions', () => {
   test('isEqualTo pass with equal primitive objects', async() => {

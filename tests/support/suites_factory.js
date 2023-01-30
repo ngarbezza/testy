@@ -1,10 +1,11 @@
 'use strict';
 
-const { TestSuite } = require('../../lib/core/test_suite');
+import { TestSuite } from '../../lib/core/test_suite.js';
 
 const noop = () => {
   // intentionally empty function
 };
+
 const emptySuiteCallbacks = {
   onStart: noop,
   onFinish: noop,
@@ -18,7 +19,7 @@ const emptySuiteBody = noop;
 const suiteNamed = suiteName =>
   new TestSuite(suiteName, noop, emptySuiteCallbacks);
 
-module.exports = {
+export {
   newEmptySuite,
   suiteNamed,
   emptySuiteBody,

@@ -1,6 +1,6 @@
 'use strict';
 
-const { suite, test, assert } = require('../../lib/testy');
+import { assert, suite, test } from '../../lib/testy.js';
 
 const emptyFunction = () => { };
 
