@@ -3,5 +3,6 @@
   "filter": ".*_test.js$",
   "language": "en",
   "failFast": false,
-  "randomOrder": false
+  "randomOrder": false,
+  "timeoutMs": 1000
 }

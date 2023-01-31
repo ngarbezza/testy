@@ -19,6 +19,15 @@ more extensive than the README.
 test fails or raises an unexpected error, you'll now see a reference with the failed assertion so it's easier to debug
 tests with multiple assertions. The line is displayed next to the test name and failure message.
 
+* [[feature] configurable per test timeout](https://github.com/ngarbezza/testy/issues/255): We have a new configuration
+value, `timeoutMs` and it makes tests to end with error state if they are not executed within that timeout.
+
+### Fixed
+
+* [[bug] exit code 0 and no tests run when a promise is not settled](https://github.com/ngarbezza/testy/issues/253): bug
+that motivated the addition of the timeout feature. Now if you have tests that for some reason do not resolve or reject
+their promises, the tool will give you feedback about that.
+
 ### Other changes
 
 * The tool now has incorporated mutation testing to the development workflow. We expect to keep increasing code quality!

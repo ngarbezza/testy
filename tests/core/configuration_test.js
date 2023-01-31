@@ -13,6 +13,7 @@ suite('Configuration parameters', () => {
     language: 'de',
     failFast: false,
     randomOrder: true,
+    timeoutMs: 1000,
   };
   const configuration = new Configuration(emptyOptions, defaultConfiguration);
 
@@ -34,6 +35,10 @@ suite('Configuration parameters', () => {
 
   test('there is a default random order setting', () => {
     assert.areEqual(configuration.randomOrder(), true);
+  });
+
+  test('there is a default timeout in milliseconds setting', () => {
+    assert.areEqual(configuration.timeoutMs(), 1000);
   });
 
   test('user preference has higher precedence than defaults', () => {
