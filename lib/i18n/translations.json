@@ -52,7 +52,8 @@
     "error_path_not_found": "Error: path %s does not exist.",
     "error_loading_suite": "Error loading suite %s!",
     "feedback_for_error_loading_suite": "Please check your file contains a valid suite declaration and try again.",
-    "error_running_suites": "Error executing the test suites"
+    "error_running_suites": "Error executing the test suites",
+    "reached_timeout_error": "Timeout of 50ms reached. Your test could not finish its execution."
   },
   "es": {
     "yes": "sí",
@@ -107,7 +108,8 @@
     "error_path_not_found": "Error: la ruta %s no existe.",
     "error_loading_suite": "Error cargando el archivo %s!",
     "feedback_for_error_loading_suite": "Por favor, revisa que tu archivo contenga una declaración de suite válida, e intenta nuevamente.",
-    "error_running_suites": "Error ejecutando las suites de test"
+    "error_running_suites": "Error ejecutando las suites de test",
+    "reached_timeout_error": "Se alcanzó el tiempo límite de %sms. El test no se terminó de ejecutar."
   },
   "it": {
     "yes": "sì",
