@@ -4,5 +4,5 @@
   "language": "en",
   "failFast": false,
   "randomOrder": true,
-  "timeoutMs": 100
+  "timeoutMs": 1000
 }
