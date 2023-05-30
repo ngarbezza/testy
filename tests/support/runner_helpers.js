@@ -6,7 +6,7 @@ import { Asserter, FailureGenerator, PendingMarker } from '../../lib/core/assert
 import { aTestWithBody } from './tests_factory.js';
 import { FailFast } from '../../lib/config/fail_fast.js';
 
-const noop = () => {
+const noop = async() => {
   // intentionally empty function
 };
 

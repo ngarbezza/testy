@@ -9,7 +9,7 @@ import { Test } from '../../lib/core/test.js';
 import { I18nMessage } from '../../lib/i18n/i18n.js';
 
 suite('tests behavior', () => {
-  const noop = () => {
+  const noop = async() => {
     // intentionally empty function
   };
 
