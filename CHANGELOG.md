@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [//]: # (Everything is released :tada:)
 
+### Breaking changes
+
+* :boom: We migrated from CommonJS to ES Modules. This was a heavy change, and it will affect all the users, but we
+think it is the right step to go to support modern Node versions. ADR `#0013` was added with more info about this
+decision.
+
+* :boom: Node 18.x or higher is required. Support for Node 12.x, 14.x and 16.x has dropped. Support for Node 20.x is
+added. [Commit](https://github.com/ngarbezza/testy/commit/b8e62c11321b92bd4bc136293db815de7a554668)
+
 ### Added
 
 * [[docs] API docs using JSDoc](https://github.com/ngarbezza/testy/issues/231): all public methods and some internal
