@@ -23,7 +23,7 @@
     "test": "bin/testy_cli.js",
     "test:coverage": "npx c8@latest npm test",
     "see:coverage": "open reports/coverage/lcov-report/index.html",
-    "test:mutation": "npx stryker run",
+    "test:mutation": "npx stryker run --inPlace",
     "see:mutation": "open reports/mutation/mutation.html",
     "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/"
   },
