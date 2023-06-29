@@ -40,7 +40,7 @@ Una simple herramienta de testeo en Javascript, para propósitos educativos. Dis
 `npm install --save-dev @pmoo/testy` (si utilizas [npm](https://www.npmjs.com/)) \
 `yarn add --dev @pmoo/testy` (si utilizas [yarn](https://classic.yarnpkg.com/en/))
 
-**Versiones de Node soportadas**: 12.x o mayor (todas las versiones con soporte activo
+**Versiones de Node soportadas**: 18.x o mayor (todas las versiones con soporte activo
 o de seguridad listadas [aquí](https://endoflife.date/nodejs))
 
 ## Uso
