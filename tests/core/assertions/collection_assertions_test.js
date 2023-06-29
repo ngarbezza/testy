@@ -144,6 +144,12 @@ suite('collection assertions', () => {
     expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey' ]", "[ 'ho' ]"));
   });
 
+  test('includesExactly fails if some of the objects are included but others do not', async() => {
+    const result = await resultOfATestWith(assert => assert.that(['hey', 'ho']).includesExactly('ho', 'go'));
+
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey', 'ho' ]", "[ 'ho', 'go' ]"));
+  });
+
   test('includesExactly passes with many items no matter the order', async() => {
     const result = await resultOfATestWith(assert => assert.that(['hey', 'ho']).includesExactly('ho', 'hey'));
 
