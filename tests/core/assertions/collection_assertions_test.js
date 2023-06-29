@@ -31,6 +31,12 @@ suite('collection assertions', () => {
     expectSuccess(result);
   });
 
+  test('includes fails if objects are not strictly equal', async() => {
+    const result = await resultOfATestWith(assert => assert.that([{ asd: '1' }]).includes({ asd: '2' }));
+
+    expectFailureOn(result, I18nMessage.of('expectation_include', "[ { asd: '1' } ]", "{ asd: '2' }"));
+  });
+
   test('includes works with Sets', async() => {
     const result = await resultOfATestWith(assert => assert.that(new Set([42])).includes(42));
 
@@ -47,6 +53,25 @@ suite('collection assertions', () => {
     const result = await resultOfATestWith(assert => assert.that('42').includes('4'));
 
     expectSuccess(result);
+  });
+
+  test('includes using the equality criteria for a positive case', async() => {
+    const result = await resultOfATestWith(assert => {
+      assert.that([{ hello: 'world' }]).includes(
+        { hello: 'mars' },
+        (objectOne, objectTwo) => !!objectOne.hello && !!objectTwo.hello,
+      );
+    });
+
+    expectSuccess(result);
+  });
+
+  test('includes using the equality criteria for a negative case', async() => {
+    const result = await resultOfATestWith(assert => {
+      assert.that([42]).includes(42, (objectOne, objectTwo) => false);
+    });
+
+    expectFailureOn(result, I18nMessage.of('expectation_include', '[ 42 ]', '42'));
   });
 
   // doesNotInclude() assertion tests
