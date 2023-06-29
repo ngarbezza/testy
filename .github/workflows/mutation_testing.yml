@@ -18,6 +18,6 @@ jobs:
     - name: Install Stryker
       run: npm install -g @stryker-mutator/core
     - name: Run Stryker (and report results)
-      run: stryker run --reporters json,dashboard
+      run: npm run test:mutation:ci
       env:
         STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}

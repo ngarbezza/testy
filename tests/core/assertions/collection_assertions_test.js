@@ -68,7 +68,7 @@ suite('collection assertions', () => {
 
   test('includes using the equality criteria for a negative case', async() => {
     const result = await resultOfATestWith(assert => {
-      assert.that([42]).includes(42, (objectOne, objectTwo) => false);
+      assert.that([42]).includes(42, (_objectOne, _objectTwo) => false);
     });
 
     expectFailureOn(result, I18nMessage.of('expectation_include', '[ 42 ]', '42'));
