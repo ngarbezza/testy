@@ -16,7 +16,7 @@
   "type": "module",
   "main": "lib/testy.js",
   "scripts": {
-    "jsdoc": "npx jsdoc -r lib/ --destination doc/jsdoc",
+    "jsdoc": "npx jsdoc --recurse lib/ --destination doc/jsdoc --configure config/jsdoc.json",
     "see:jsdoc": "open doc/jsdoc/index.html",
     "lint": "npx eslint@latest lib/ tests/ bin/",
     "lint:fix": "npx eslint@latest lib/ tests/ bin/ --fix",
