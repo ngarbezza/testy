@@ -28,7 +28,9 @@
     "see:mutation": "open reports/mutation/mutation.html",
     "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/"
   },
-  "bin": "bin/testy_cli.js",
+  "bin": {
+    "testy": "bin/testy_cli.js"
+  },
   "files": [
     "bin",
     "lib"
