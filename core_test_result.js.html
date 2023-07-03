@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>testy.js - Documentation</title>
+    <title>core/test_result.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">testy.js</h1>
+    <h1 class="page-title">core/test_result.js</h1>
     
 
     
@@ -41,212 +41,242 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-import { TestRunner } from './core/test_runner.js';
-import { Asserter, FailureGenerator, PendingMarker } from './core/asserter.js';
-import { ConsoleUI } from './ui/console_ui.js';
-import { allFilesMatching, errorDetailOf, resolvePathFor } from './utils.js';
-import { I18nMessage } from './i18n/i18n.js';
-
-const ui = new ConsoleUI(process, console);
-const testRunner = new TestRunner(ui.testRunnerCallbacks());
+import { detectUserCallingLocation } from '../utils.js';
 
 /**
- * Object used for writing assertions. [Assertions]{@link Assertion} are created with method calls to this object.
- * Please refer to the comment of each assertion for more information.
- *
- * @example
- * assert.isFalse(3 > 4)
- * @example
- * assert.that(['hey']).isNotEmpty()
- *
- * @type {Asserter}
+ * I represent all the possible results for a test, that can be:
+ * - **success**: means that all the assertions on a test were successful
+ * - **failure**: one of the test assertions failed, or the user triggered an explicit failure
+ * - **error**: an unexpected exception occurred during the execution of the test
+ * - **pending**: the user marked the test as such
+ * - **skipped**: the test was not executed in the current run
  */
-const assert = new Asserter(testRunner);
+export class TestResult {
+  // instance creation messages
 
-/**
- * Generates an explicit failure.
- *
- * @example
- * fail.with('a descriptive message')
- *
- * @type {FailureGenerator}
- */
-const fail = new FailureGenerator(testRunner);
-
-/**
- * Marks a test as pending, which is a status that is reported separately, and it's not considered success/failure.
- * It is useful to mark in-progress work and catch the developers attention in the resulting report.
- *
- * @example
- * pending.dueTo('finish the set-up process')
- *
- * @type {PendingMarker}
- */
-const pending = new PendingMarker(testRunner);
-
-/**
- * Defines a new test. Each test belongs to a [test suite]{@link suite} and defines assertions in the body.
- *
- * For info about assertions, take a look at the {@link assert} object.
- *
- * Tests are represented internally as instances of {@link Test}.
- *
- * @example
- * test('arithmetic works', () => {
- *   assert.areEqual(3 + 4, 7);
- * });
- *
- * @param {!string} name how you would like to call the test. Non-empty string.
- * @param {!function} testBody the test definition, written as a zero-argument function.
- * @returns {void}
- */
-function test(name, testBody) {
-  testRunner.registerTest(name, testBody, ui.testCallbacks());
-}
-
-/**
- * Defines a new test suite. Suites are expected to define [tests]{@link test} inside it.
- * There can be more than one suite per file, but it is not possible to nest suites.
- *
- * @example
- * suite('arithmetic operations', () => {
- *   test('the sum of two number works', () => {
- *     assert.areEqual(3 + 4, 7);
- *   });
- * });
- *
- * @param {!string} name how you would like to call the suite. Non-empty string.
- * @param {!function} suiteBody the suite definition, written as a zero-argument function.
- * @returns {void}
- */
-function suite(name, suiteBody) {
-  testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
-}
-
-/**
- * Specifies a piece of code that should be executed before each {@link test} in a {@link suite}.
- * Only one before block is allowed per suite. The most common use of this feature is to initialize objects you want
- * to reference in each test.
- *
- * @example
- * suite('using a before() initializer', () => {
- *   let number;
- *
- *   before(() => {
- *     number = 42;
- *   });
- *
- *   test('has the initialized value', () => {
- *     assert.that(number).isEqualTo(42);
- *   });
- * });
- *
- * @param {!function} initialization a zero argument function containing the code you want to execute before each test.
- * @returns {void}
- */
-function before(initialization) {
-  testRunner.registerBefore(initialization);
-}
-
-/**
- * Specifies a piece of code that should be executed after each {@link test} in a {@link suite}.
- * Only one after block is allowed per suite. The most common use of this feature is to ensure you are releasing
- * resources that are used on each test, like files.
- *
- * @param {!function} releaseBlock a zero argument function containing the code you want to execute after each test.
- * @returns {void}
- */
-function after(releaseBlock) {
-  testRunner.registerAfter(releaseBlock);
-}
-
-class Testy {
-  // instance creation
-
-  static configuredWith(configuration) {
-    return new Testy(configuration);
+  static success() {
+    return new TestSucceeded();
   }
 
-  constructor(configuration) {
-    this._initializeConfiguredWith(configuration);
+  static failure(description) {
+    return new TestFailed(description);
   }
 
-  // running
-
-  async run(requestedPaths) {
-    this._requestedPaths = requestedPaths;
-    await this._loadAllRequestedFiles();
-    await ui.start(this._configuration, this._testFilesPathsToRun(), async() => {
-      try {
-        await testRunner.run();
-      } catch (err) {
-        ui.exitWithError(I18nMessage.of('error_running_suites'), errorDetailOf(err));
-      }
-    });
+  static error(errorCause) {
+    return new TestErrored(errorCause);
   }
 
-  // initialization
-
-  _initializeConfiguredWith(configuration) {
-    this._configuration = configuration;
-    this._configuration.configureUI(ui);
-    this._configuration.configureTestRunner(testRunner);
+  static explicitlyMarkedAsPending(reason) {
+    return new TestExplicitlyMarkedPending(reason);
   }
 
-  // private
+  // checking for test status
 
-  _requestedPathsToRun() {
-    return this._requestedPaths;
+  static async evaluate(test, context) {
+    return [SkippedTest, TestWithoutDefinition, TestWithDefinition]
+      .find(result => result.canHandle(test, context))
+      .handle(test, context);
   }
 
-  async _loadAllRequestedFiles() {
-    try {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const path of this._resolvedTestFilesPathsToRun()) {
-        await this._loadAllFilesIn(path);
-      }
-    } catch (err) {
-      ui.exitWithError(I18nMessage.of('error_path_not_found', err.path));
-    }
+  // statuses
+
+  isSuccess() {
+    return false;
   }
 
-  async _loadAllFilesIn(path) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const file of allFilesMatching(path, this._testFilesFilter())) {
-      await this._loadFileHandlingErrors(file);
-    }
+  isPending() {
+    return false;
   }
 
-  async _loadFileHandlingErrors(file) {
-    try {
-      await import(file);
-    } catch (err) {
-      ui.exitWithError(
-        I18nMessage.of('error_loading_suite', file), errorDetailOf(err),
-        I18nMessage.of('feedback_for_error_loading_suite'),
-      );
-    }
+  isExplicitlyMarkedPending() {
+    return false;
   }
 
-  _testFilesPathsToRun() {
-    const requestedPaths = this._requestedPathsToRun();
-    return requestedPaths.length > 0 ? requestedPaths : [this._pathForAllTests()];
+  isError() {
+    return false;
   }
 
-  _resolvedTestFilesPathsToRun() {
-    return this._testFilesPathsToRun().map(path => resolvePathFor(path));
+  isFailure() {
+    return false;
   }
 
-  _pathForAllTests() {
-    return this._configuration.directory();
-  }
-
-  _testFilesFilter() {
-    return this._configuration.filter();
+  isSkipped() {
+    return false;
   }
 }
 
-export { Testy, suite, test, assert, fail, pending, before, after };
+class SkippedTest extends TestResult {
+  static canHandle(_test, context) {
+    return context.failFastMode.hasFailed();
+  }
+
+  static async handle(test) {
+    test.markSkipped(new this());
+  }
+
+  isSkipped() {
+    return true;
+  }
+}
+
+class TestWithoutDefinition extends TestResult {
+  static canHandle(test) {
+    return !test.hasDefinition();
+  }
+
+  static async handle(test) {
+    test.markPending(new this());
+  }
+
+  isPending() {
+    return true;
+  }
+}
+
+class TestWithDefinition extends TestResult {
+  static canHandle(test) {
+    return test.hasDefinition();
+  }
+
+  static async handle(test, context) {
+    await test.evaluate(context);
+    const possibleResults = [TestWithoutAssertion, TestErrored, TestExplicitlyMarkedPending, TestSucceeded, TestFailed];
+    // All results evaluate synchronously at this point, so we don't need to async/await this part of the code.
+    possibleResults
+      .find(result => result.canHandle(test))
+      .handle(test, context);
+  }
+
+  constructor() {
+    super();
+    this._location = detectUserCallingLocation();
+  }
+
+  location() {
+    return this._location;
+  }
+}
+
+class TestExplicitlyMarkedPending extends TestWithDefinition {
+  static canHandle(test) {
+    return test.isPending();
+  }
+
+  static handle(test) {
+    test.finishWithPendingStatus();
+  }
+
+  constructor(reason) {
+    super();
+    this._reason = reason;
+  }
+
+  reason() {
+    return this._reason;
+  }
+
+  isPending() {
+    return true;
+  }
+
+  isExplicitlyMarkedPending() {
+    return true;
+  }
+}
+
+class TestErrored extends TestWithDefinition {
+  static canHandle(test) {
+    return test.isError();
+  }
+
+  static handle(test, context) {
+    context.failFastMode.registerFailure();
+    test.finishWithError();
+  }
+
+  constructor(errorCause) {
+    super();
+    this._errorCause = errorCause;
+  }
+
+  isError() {
+    return true;
+  }
+
+  failureMessage() {
+    return this._errorStackTrace() || this._errorCause;
+  }
+
+  location() {
+    // stack already includes failed line
+    return this._errorStackTrace() ? '' : super.location();
+  }
+
+  _errorStackTrace() {
+    return this._errorCause.stack;
+  }
+}
+
+class TestWithoutAssertion extends TestErrored {
+  static canHandle(test) {
+    return test.hasNoResult();
+  }
+
+  static handle(test, context) {
+    test.setResult(new this());
+    super.handle(test, context);
+  }
+
+  constructor() {
+    super('This test does not have any assertions');
+  }
+
+  location() {
+    return '';
+  }
+}
+
+class TestSucceeded extends TestWithDefinition {
+  static canHandle(test) {
+    return test.isSuccess();
+  }
+
+  static handle(test) {
+    test.finishWithSuccess();
+  }
+
+  isSuccess() {
+    return true;
+  }
+
+  location() {
+    return '';
+  }
+}
+
+class TestFailed extends TestWithDefinition {
+  static canHandle() {
+    return true;
+  }
+
+  static handle(test, context) {
+    context.failFastMode.registerFailure();
+    test.finishWithFailure();
+  }
+
+  constructor(failureMessage) {
+    super();
+    this._failureMessage = failureMessage;
+  }
+
+  isFailure() {
+    return true;
+  }
+
+  failureMessage() {
+    return this._failureMessage;
+  }
+}
 </code></pre>
         </article>
     </section>
