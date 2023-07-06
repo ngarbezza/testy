@@ -25,7 +25,7 @@ jobs:
       env:
         CI: true
     - name: Code Climate Coverage Action
-      uses: paambaati/codeclimate-action@v4.0.0
+      uses: paambaati/codeclimate-action@v5.0.0
       with:
         coverageCommand: npm run test:coverage
         coverageLocations: ${{github.workspace}}/reports/coverage/lcov.info:lcov
