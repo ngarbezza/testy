@@ -51,6 +51,6 @@ suite('Configuration parameters', () => {
     const userOptions = { failFast: 'I AM AN INVALID VALUE' };
     const userCustomizedConfiguration = new Configuration(userOptions, defaultConfiguration);
     assert.that(() => userCustomizedConfiguration.failFastMode())
-    .raises(new Error(FailFast.invalidEnableTypeErrorMessage()));
+      .raises(new Error(FailFast.invalidEnableTypeErrorMessage()));
   });
 });

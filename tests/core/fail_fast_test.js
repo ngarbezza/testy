@@ -28,10 +28,9 @@ suite('fail fast behavior', () => {
   });
 
   test('when created, throws an error if failFastMode is not of boolean type', () => {
-    const failFastMode = 'I AM AN INVALID VALUE'
+    const failFastMode = 'I AM AN INVALID VALUE';
 
-    assert.that(() => new FailFast(failFastMode)).raises(
-      new Error(FailFast.invalidEnableTypeErrorMessage())
-    );
-  })
+    assert.that(() => new FailFast(failFastMode))
+      .raises(new Error(FailFast.invalidEnableTypeErrorMessage()));
+  });
 });
