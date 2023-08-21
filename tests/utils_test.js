@@ -5,6 +5,7 @@ import { assert, suite, test } from '../lib/testy.js';
 import {
   detectUserCallingLocation,
   errorDetailOf,
+  isBoolean,
   isCyclic, isEmpty,
   isRegex, isStringWithContent,
   isUndefined,
@@ -169,5 +170,16 @@ suite('utility functions', () => {
 
   test('detectUserCallingLocation() reports a valid location', () => {
     assert.that(detectUserCallingLocation()).matches(sourceCodeLocationRegex);
+  });
+
+  test('isBoolean() returns true on true and false booleans', () => {
+    assert.isTrue(isBoolean(true));
+    assert.isTrue(isBoolean(false));
+  });
+
+  test('isBoolean() returns false on non boolean types', () => {
+    assert.isFalse(isBoolean(3));
+    assert.isFalse(isBoolean(undefined));
+    assert.isFalse(isBoolean('I AM AN INVALID VALUE'));
   });
 });

@@ -46,4 +46,11 @@ suite('Configuration parameters', () => {
     const userCustomizedConfiguration = new Configuration(userOptions, defaultConfiguration);
     assert.areEqual(userCustomizedConfiguration.directory(), 'test_files_here');
   });
+
+  test('there is an error when failFast option is not a boolean', () => {
+    const userOptions = { failFast: 'I AM AN INVALID VALUE' };
+    const userCustomizedConfiguration = new Configuration(userOptions, defaultConfiguration);
+    assert.that(() => userCustomizedConfiguration.failFastMode())
+      .raises(new Error(FailFast.invalidEnableTypeErrorMessage()));
+  });
 });
