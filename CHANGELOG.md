@@ -37,6 +37,9 @@ value, `timeoutMs` and it makes tests to end with error state if they are not ex
 that motivated the addition of the timeout feature. Now if you have tests that for some reason do not resolve or reject
 their promises, the tool will give you feedback about that.
 
+* [[bug] failFast configuration parameter should fail if an invalid value is provided](https://github.com/ngarbezza/testy/issues/203),
+thank you [@ignacio-r](https://github.com/ignacio-r) for your first contribution! :tada:
+
 ### Other changes
 
 * The tool now has incorporated mutation testing to the development workflow. We expect to keep increasing code quality!
