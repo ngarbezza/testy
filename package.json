@@ -21,7 +21,7 @@
     "lint": "npx eslint@latest --config config/eslintrc.json lib/ tests/ bin/",
     "lint:fix": "npx eslint@latest --config config/eslintrc.json lib/ tests/ bin/ --fix",
     "test": "bin/testy_cli.js",
-    "test:coverage": "npx c8@latest npm test",
+    "test:coverage": "npx c8@latest --config config/c8rc.json npm test",
     "see:coverage": "open reports/coverage/lcov-report/index.html",
     "test:mutation": "npx stryker run config/stryker.conf.json",
     "test:mutation:ci": "stryker run --reporters json,dashboard --inPlace config/stryker.conf.json",
