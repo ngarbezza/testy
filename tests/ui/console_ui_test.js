@@ -20,7 +20,7 @@ suite('Console UI', () => {
     console.exitWithError('a message');
     assert.that(fakeProcess.lastExitCode()).isEqualTo(ConsoleUI.failedExitCode());
     assert.that(fakeConsole.messages().length).isEqualTo(1);
-    assert.that(fakeConsole.messages()[0]).matches(/a message/);
+    assert.that(fakeConsole.messages().at(0)).matches(/a message/);
   });
 
   test('successful exit code is zero', () => {
@@ -36,11 +36,11 @@ suite('Console UI', () => {
     const config = Configuration.current();
     await console.start(config, [], () => {});
     assert.that(fakeConsole.messages().length).isEqualTo(8);
-    assert.that(fakeConsole.messages()[0]).matches(/timer started/);
-    assert.that(fakeConsole.messages()[2]).matches(/Starting Testy!/);
-    assert.that(fakeConsole.messages()[3]).matches(/Running tests in/);
-    assert.that(fakeConsole.messages()[4]).matches(/Fail fast/);
-    assert.that(fakeConsole.messages()[5]).matches(/Random order/);
-    assert.that(fakeConsole.messages()[7]).matches(/timer ended/);
+    assert.that(fakeConsole.messages().at(0)).matches(/timer started/);
+    assert.that(fakeConsole.messages().at(2)).matches(/Starting Testy!/);
+    assert.that(fakeConsole.messages().at(3)).matches(/Running tests in/);
+    assert.that(fakeConsole.messages().at(4)).matches(/Fail fast/);
+    assert.that(fakeConsole.messages().at(5)).matches(/Random order/);
+    assert.that(fakeConsole.messages().at(7)).matches(/timer ended/);
   });
 });

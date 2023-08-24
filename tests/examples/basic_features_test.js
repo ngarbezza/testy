@@ -18,7 +18,9 @@ suite('testing testy - basic features', () => {
 
   test('many assertions', () => {
     assert.areEqual(2, 1 + 1);
+    /* eslint-disable no-constant-binary-expression */
     assert.isTrue(true || false);
+    /* eslint-enable no-constant-binary-expression */
   });
 
   // commented so CI can pass - uncomment to see the failure
