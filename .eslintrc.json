@@ -1,12 +1,11 @@
 {
   "parserOptions": {
-    "ecmaVersion": 13,
     "sourceType": "module"
   },
   "extends": "eslint:recommended",
   "env": {
     "browser": false,
-    "es6": true,
+    "es2022": true,
     "node": true
   },
   "rules": {
@@ -29,7 +28,9 @@
     "dot-notation": "error",
     "eqeqeq": "error",
     "eol-last": "error",
+    "for-direction": "error",
     "func-call-spacing": "error",
+    "getter-return": "error",
     "id-length": "error",
     "implicit-arrow-linebreak": "off",
     "indent": ["error", 2],
@@ -37,8 +38,13 @@
     "new-cap": "error",
     "new-parens": "error",
     "no-array-constructor": "error",
+    "no-async-promise-executor": "error",
+    "no-class-assign": "error",
+    "no-compare-neg-zero": "error",
     "no-cond-assign": "error",
     "no-confusing-arrow": "off",
+    "no-const-assign": "error",
+    "no-constant-binary-expression": "error",
     "no-dupe-class-members": "error",
     "no-duplicate-imports": "error",
     "no-eval": "error",
