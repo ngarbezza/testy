@@ -9,6 +9,8 @@ plugins:
   eslint:
     enabled: true
     channel: "eslint-8"
+    config:
+      config: config/eslintrc.json
   fixme:
     enabled: true
   markdownlint:

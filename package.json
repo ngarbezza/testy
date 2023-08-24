@@ -18,8 +18,8 @@
   "scripts": {
     "jsdoc": "npx jsdoc --package package.json --recurse lib/ --destination doc/jsdoc --configure config/jsdoc.json",
     "see:jsdoc": "open doc/jsdoc/index.html",
-    "lint": "npx eslint@latest lib/ tests/ bin/",
-    "lint:fix": "npx eslint@latest lib/ tests/ bin/ --fix",
+    "lint": "npx eslint@latest --config config/eslintrc.json lib/ tests/ bin/",
+    "lint:fix": "npx eslint@latest --config config/eslintrc.json lib/ tests/ bin/ --fix",
     "test": "bin/testy_cli.js",
     "test:coverage": "npx c8@latest npm test",
     "see:coverage": "open reports/coverage/lcov-report/index.html",
