@@ -13,6 +13,7 @@ import {
   numberOfElements,
   prettyPrint,
   respondsTo,
+  subclassResponsibility,
 } from '../lib/utils.js';
 import { sourceCodeLocationRegex } from './support/assertion_helpers.js';
 
@@ -181,5 +182,9 @@ suite('utility functions', () => {
     assert.isFalse(isBoolean(3));
     assert.isFalse(isBoolean(undefined));
     assert.isFalse(isBoolean('I AM AN INVALID VALUE'));
+  });
+
+  test('subclassResponsibility() always raises an error with that message', () => {
+    assert.that(() => subclassResponsibility()).raises(/subclass responsibility/);
   });
 });
