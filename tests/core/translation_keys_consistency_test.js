@@ -1,18 +1,13 @@
 'use strict';
 
 import { suite, test, assert } from '../../lib/testy.js';
-
-// Change to import assertions when reaching Node 18
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const TRANSLATIONS = require('../../lib/i18n/translations');
+import { I18n } from '../../lib/i18n/i18n.js';
 
 suite('translation keys consistency', () => {
-  const baseLanguage = 'en';
-  const baseLanguageTranslations = Object.keys(TRANSLATIONS[baseLanguage]);
+  const baseLanguageTranslations = I18n.allKeysForLanguage(I18n.defaultLanguage());
 
-  Object.keys(TRANSLATIONS).forEach(language => {
-    const languageKeys = Object.keys(TRANSLATIONS[language]);
+  I18n.supportedLanguages().forEach(language => {
+    const languageKeys = I18n.allKeysForLanguage(language);
     const missingKeys = baseLanguageTranslations.filter(key => !languageKeys.includes(key));
     const extraKeys = languageKeys.filter(key => !baseLanguageTranslations.includes(key));
 

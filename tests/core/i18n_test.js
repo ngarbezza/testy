@@ -29,7 +29,7 @@ suite('i18n', () => {
 
     assert
       .that(() => i18n.translate('other_key'))
-      .raises(/other_key not found in translations \(language: en\)!/);
+      .raises(/Translation key 'other_key' not found in translations for language: en!/);
   });
 
   test('falls back to default language if the key is not found in the given language', () => {
@@ -71,5 +71,44 @@ suite('i18n', () => {
     const translations = { en: { key: 'something' }, es: { key: 'algo' } };
 
     assert.that(() => new I18n('xxxx', translations)).raises(/Language 'xxxx' is not supported. Allowed values: en, es/);
+  });
+
+  test('supported languages list is empty when the translations do not include any language', () => {
+    const noTranslations = {};
+    assert.that(I18n.supportedLanguages(noTranslations)).isEmpty();
+  });
+
+  test('supported languages list contains all the top-level keys in the translations input', () => {
+    const translations = { fr: {}, br: {}, jp: {} };
+    assert.that(I18n.supportedLanguages(translations)).includesExactly('fr', 'br', 'jp');
+  });
+
+  test('all keys for language for non-supported language returns an empty list', () => {
+    const noTranslations = {};
+    assert.that(I18n.allKeysForLanguage('es', noTranslations)).isEmpty();
+  });
+
+  test('all keys for language for a language with no keys returns an empty list', () => {
+    const translations = { es: {} };
+    assert.that(I18n.allKeysForLanguage('es', translations)).isEmpty();
+  });
+
+  test('all keys for language returns only keys from that language', () => {
+    const translations = { es: { key1: 'value1', key2: 'value2' }, jp: { key3: 'value3' } };
+    assert.that(I18n.allKeysForLanguage('es', translations)).includesExactly('key1', 'key2');
+  });
+
+  test('fails when a key is not present on all languages', () => {
+    const translations = { es: { key1: 'value1', key2: 'value2' }, jp: { key1: 'value3' } };
+    assert
+      .that(() => I18n.ensureKeyIsPresentOnAllLanguages('key2', translations))
+      .raises(/Translation key 'key2' not found in translations for language: jp!/);
+  });
+
+  test('does not fail when a key is present on all languages', () => {
+    const translations = { es: { key1: 'value1', key2: 'value2' }, jp: { key1: 'value3' } };
+    assert
+      .that(() => I18n.ensureKeyIsPresentOnAllLanguages('key1', translations))
+      .doesNotRaiseAnyErrors();
   });
 });
