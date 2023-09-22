@@ -1,6 +1,8 @@
 'use strict';
 
 import { assert } from '../../lib/testy.js';
+import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
+import { I18n } from '../../lib/i18n/i18n.js';
 
 const sourceCodeLocationRegex = /.* at .*:\d+:\d+/;
 
@@ -26,6 +28,12 @@ const expectErrorOn = (result, errorMessage, locationRegex = sourceCodeLocationR
   assert.isTrue(result.isError());
   assert.areEqual(result.failureMessage(), errorMessage);
   assert.that(result.location()).matches(locationRegex);
+
+  if (errorMessage instanceof I18nMessage) {
+    assert
+      .that(() => errorMessage.associatedKeys().forEach(key => I18n.ensureKeyIsPresentOnAllLanguages(key)))
+      .doesNotRaiseAnyErrors();
+  }
 };
 
 export {

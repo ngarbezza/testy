@@ -2,7 +2,7 @@
 
 import { suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
-import { expectSuccess, expectFailureOn } from '../../support/assertion_helpers.js';
+import { expectSuccess, expectFailureOn, expectErrorOn } from '../../support/assertion_helpers.js';
 
 import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
@@ -63,6 +63,12 @@ suite('exception assertions', () => {
     expectFailureOn(result, I18nMessage.of('expectation_error', "'a weird error'"));
   });
 
+  test('raises() returns an assertion invalid error if the actual object is not a function', async() => {
+    const result = await resultOfATestWith(assert => assert.that('hello').raises('a weird error'));
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"));
+  });
+
   test('doesNotRaise() passes when no errors happen at all', async() => {
     const result = await resultOfATestWith(assert => assert.that(() => 1 + 2).doesNotRaise('a problem'));
 
@@ -89,6 +95,12 @@ suite('exception assertions', () => {
     expectFailureOn(result, I18nMessage.of('expectation_no_error', "'this problem'"));
   });
 
+  test('doesNotRaise() returns an assertion invalid error if the actual object is not a function', async() => {
+    const result = await resultOfATestWith(assert => assert.that('hello').doesNotRaise('a weird error'));
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"));
+  });
+
   test('doesNoRaiseAnyErrors() passes when no errors occur in the given function', async() => {
     const result = await resultOfATestWith(assert => assert.that(() => 1 + 2).doesNotRaiseAnyErrors());
 
@@ -103,5 +115,11 @@ suite('exception assertions', () => {
     );
 
     expectFailureOn(result, I18nMessage.of('expectation_no_errors', "'an unexpected error'"));
+  });
+
+  test('doesNoRaiseAnyErrors() returns an assertion invalid error if the actual object is not a function', async() => {
+    const result = await resultOfATestWith(assert => assert.that('hello').doesNotRaiseAnyErrors());
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"));
   });
 });
