@@ -6,7 +6,7 @@ import { resultOfASuiteWith, resultOfATestWith, withRunner } from '../support/ru
 import { expectErrorOn, expectFailureOn } from '../support/assertion_helpers.js';
 
 import { Test } from '../../lib/core/test.js';
-import { I18nMessage } from '../../lib/i18n/i18n.js';
+import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
 
 suite('tests behavior', () => {
   const noop = async() => {

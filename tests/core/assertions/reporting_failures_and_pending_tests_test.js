@@ -4,7 +4,7 @@ import { suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
 import { expectErrorOn, expectFailureOn, expectPendingResultOn } from '../../support/assertion_helpers.js';
 
-import { I18nMessage } from '../../../lib/i18n/i18n.js';
+import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
 suite('reporting failures and pending tests', () => {
   test('marking a test as explicitly failed with no message', async() => {

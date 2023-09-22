@@ -2,9 +2,9 @@
 
 import { suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
-import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
+import { expectSuccess, expectFailureOn } from '../../support/assertion_helpers.js';
 
-import { I18nMessage } from '../../../lib/i18n/i18n.js';
+import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
 suite('exception assertions', () => {
   test('raises() can receive a string and it passes when the exact string is expected', async() => {

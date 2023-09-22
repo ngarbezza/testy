@@ -4,7 +4,8 @@ import { assert, suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
 import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
-import { I18n, I18nMessage } from '../../../lib/i18n/i18n.js';
+import { I18n } from '../../../lib/i18n/i18n.js';
+import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
 suite('equality assertions', () => {
   test('isEqualTo pass with equal primitive objects', async() => {

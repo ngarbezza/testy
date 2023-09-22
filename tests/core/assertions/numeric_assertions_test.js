@@ -4,7 +4,7 @@ import { suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
 import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
-import { I18nMessage } from '../../../lib/i18n/i18n.js';
+import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
 suite('numeric assertions', () => {
   test('isNearTo passes if an exact integer matches', async() => {

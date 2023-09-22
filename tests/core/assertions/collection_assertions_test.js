@@ -5,7 +5,7 @@ import { resultOfATestWith } from '../../support/runner_helpers.js';
 import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
 import { prettyPrint } from '../../../lib/utils.js';
-import { I18nMessage } from '../../../lib/i18n/i18n.js';
+import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
 suite('collection assertions', () => {
   const nonEmptySet = new Set([1]);
