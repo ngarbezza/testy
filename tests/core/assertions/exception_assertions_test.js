@@ -66,7 +66,7 @@ suite('exception assertions', () => {
   test('raises() returns an assertion invalid error if the actual object is not a function', async() => {
     const result = await resultOfATestWith(assert => assert.that('hello').raises('a weird error'));
 
-    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"));
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"), '');
   });
 
   test('doesNotRaise() passes when no errors happen at all', async() => {
@@ -98,7 +98,7 @@ suite('exception assertions', () => {
   test('doesNotRaise() returns an assertion invalid error if the actual object is not a function', async() => {
     const result = await resultOfATestWith(assert => assert.that('hello').doesNotRaise('a weird error'));
 
-    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"));
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"), '');
   });
 
   test('doesNoRaiseAnyErrors() passes when no errors occur in the given function', async() => {
@@ -120,6 +120,6 @@ suite('exception assertions', () => {
   test('doesNoRaiseAnyErrors() returns an assertion invalid error if the actual object is not a function', async() => {
     const result = await resultOfATestWith(assert => assert.that('hello').doesNotRaiseAnyErrors());
 
-    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"));
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"), '');
   });
 });
