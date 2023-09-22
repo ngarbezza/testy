@@ -28,8 +28,12 @@ more extensive than the README.
 test fails or raises an unexpected error, you'll now see a reference with the failed assertion so it's easier to debug
 tests with multiple assertions. The line is displayed next to the test name and failure message.
 
-* [[feature] configurable per test timeout](https://github.com/ngarbezza/testy/issues/255): We have a new configuration
+* [[feature] configurable per test timeout](https://github.com/ngarbezza/testy/issues/255): we have a new configuration
 value, `timeoutMs` and it makes tests to end with error state if they are not executed within that timeout.
+
+* [[feature] Improve feedback for wrong usage of raises()](https://github.com/ngarbezza/testy/issues/264): if any of
+the exception assertions is called with an actual object that is not a function, it will return a translated message
+with better feedback explaining it is invalid. The test is considered error instead of failure.
 
 ### Fixed
 
