@@ -26,7 +26,8 @@
     "test:mutation": "npx stryker run config/stryker.conf.json",
     "test:mutation:ci": "stryker run --reporters json,dashboard --inPlace config/stryker.conf.json",
     "see:mutation": "open reports/mutation/mutation.html",
-    "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/"
+    "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/",
+    "see:complexity": "npx code-complexity . --filter='lib/**' --sort=score"
   },
   "bin": {
     "testy": "bin/testy_cli.js"
