@@ -21,6 +21,7 @@
     "comma-dangle": ["error", "always-multiline"],
     "comma-spacing": "error",
     "comma-style": "error",
+    "complexity": ["error", 5],
     "constructor-super": "error",
     "curly": "error",
     "default-param-last": "error",
