@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[//]: # (Everything is released :tada:)
+Everything is released :tada:
+
+## [7.0.1] - 2024-02-12
 
 ### Fixed
 
@@ -363,7 +365,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 
 * Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v7.0.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v7.0.1...HEAD
+[7.0.1]: https://github.com/ngarbezza/testy/compare/v7.0.0...v7.0.1
 [7.0.0]: https://github.com/ngarbezza/testy/compare/v6.1.0...v7.0.0
 [6.1.0]: https://github.com/ngarbezza/testy/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/ngarbezza/testy/compare/v5.1.0...v6.0.0
