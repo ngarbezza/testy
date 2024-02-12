@@ -24,7 +24,8 @@ jobs:
         npm run test
       env:
         CI: true
-    - name: Code Climate Coverage Action
+    - if: matrix.node-version == '20.x'
+      name: Code Climate Coverage Action
       uses: paambaati/codeclimate-action@v5.0.0
       with:
         coverageCommand: npm run test:coverage
@@ -32,7 +33,8 @@ jobs:
         debug: true
       env:
         CC_TEST_REPORTER_ID: 6ace5bc20f45a4d3b1d1bd56b37e2ed97c92776e402f4f687bb5ee50853cb51c
-    - name: SonarCloud Scan
+    - if: matrix.node-version == '20.x'
+      name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       with:
         args: >
