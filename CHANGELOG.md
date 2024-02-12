@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Everything is released :tada:
+[//]: # (Everything is released :tada:)
+
+### Fixed
+
+* [[bug] timer is gone](https://github.com/ngarbezza/testy/issues/272): We restored the timer at the end of the test
+report. 
 
 ## [7.0.0] - 2024-02-05
 

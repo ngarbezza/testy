@@ -13,7 +13,8 @@ is high for a single person.
 
 ## Decision
 
-New major versions might not be backwards compatible, and we will always maintain only the latest major version. We will keep documenting 
+New major versions might not be backwards compatible, and we will always maintain only the latest major version. We
+will keep documenting changes and migration notes, but not solving bugs of previous versions. 
 
 ## Consequences
 

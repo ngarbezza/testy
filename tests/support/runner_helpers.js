@@ -10,9 +10,12 @@ const noop = async() => {
   // intentionally empty function
 };
 
-const withRunner = async testBlock => {
-  const emptyRunnerCallbacks = { onFailure: noop, onSuccess: noop, onFinish: noop };
-  const runner = new TestRunner(emptyRunnerCallbacks);
+const emptyRunnerCallbacks = { onFailure: noop, onSuccess: noop, onFinish: noop };
+
+const withRunner = async testBlock => withRunnerAndCallbacks(emptyRunnerCallbacks, testBlock);
+
+const withRunnerAndCallbacks = async(callbacks, testBlock) => {
+  const runner = new TestRunner(callbacks);
   const asserter = new Asserter(runner);
   const failGenerator = new FailureGenerator(runner);
   const pendingMarker = new PendingMarker(runner);
@@ -41,6 +44,8 @@ const resultOfASuiteWith = async(runner, test, before = noop, after = noop) => {
 
 export {
   withRunner,
+  withRunnerAndCallbacks,
   resultOfATestWith,
   resultOfASuiteWith,
+  emptyRunnerCallbacks,
 };

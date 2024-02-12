@@ -13,11 +13,11 @@ export class FakeConsole {
     return Array.from(this._messages);
   }
 
-  time() {
-    this.log('timer started');
+  time(timerName) {
+    this.log(`timer "${timerName}" started`);
   }
 
-  timeEnd() {
-    this.log('timer ended');
+  timeEnd(timerName) {
+    this.log(`timer "${timerName}" ended`);
   }
 }
