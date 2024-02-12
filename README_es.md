@@ -5,20 +5,20 @@
 [![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 [![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 [![coverage](https://img.shields.io/codeclimate/coverage/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fngarbezza%2Ftesty%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ngarbezza/testy/main)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&logo=stryker&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fngarbezza%2Ftesty%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ngarbezza/testy/main)
 \
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
 \
+![GitHub Repo stars](https://img.shields.io/github/stars/ngarbezza/testy?style=flat&logo=github)
 ![open-issues](https://img.shields.io/github/issues-raw/ngarbezza/testy?logo=github)
 ![closed-issues](https://img.shields.io/github/issues-closed-raw/ngarbezza/testy?logo=github)
 ![open-prs](https://img.shields.io/github/issues-pr-raw/ngarbezza/testy?logo=github)
  \
-![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@pmoo/testy.svg?logo=npm)
 ![downloads](https://img.shields.io/npm/dt/@pmoo/testy.svg?logo=npm)
-![dependencies](https://img.shields.io/librariesio/release/npm/@pmoo/testy)
+![dependencies](https://img.shields.io/librariesio/release/npm/@pmoo/testy?logo=npm)
 \
 ![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm)
 ![activity](https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm)
