@@ -30,7 +30,6 @@ jobs:
       with:
         coverageCommand: npm run test:coverage
         coverageLocations: ${{github.workspace}}/reports/coverage/lcov.info:lcov
-        debug: true
       env:
         CC_TEST_REPORTER_ID: 6ace5bc20f45a4d3b1d1bd56b37e2ed97c92776e402f4f687bb5ee50853cb51c
     - if: matrix.node-version == '20.x'
