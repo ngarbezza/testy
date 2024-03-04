@@ -32,8 +32,8 @@ const aTestWithNoAssertions = () =>
   aTestWithBody(() => 1 + 2);
 
 const aTestRunningFor = (millis, asserter) =>
-  new Test('sleepFor', async () => {
-    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+  new Test('sleepFor', async() => {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
     await sleep(millis);
     asserter.isTrue(true);
   }, emptyTestCallbacks);

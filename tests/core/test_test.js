@@ -3,7 +3,7 @@
 import { assert, suite, test } from '../../lib/testy.js';
 import { aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor } from '../support/tests_factory.js';
 import { resultOfASuiteWith, resultOfATestWith, withRunner } from '../support/runner_helpers.js';
-import {expectErrorOn, expectFailureOn, expectSuccess} from '../support/assertion_helpers.js';
+import { expectErrorOn, expectFailureOn, expectSuccess } from '../support/assertion_helpers.js';
 
 import { Test } from '../../lib/core/test.js';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
@@ -96,7 +96,7 @@ suite('tests behavior', () => {
   });
 
   test('a test does not fail by timeout when previous timeout promise resolves', async() => {
-    await withRunner(async (runner, asserter) => {
+    await withRunner(async(runner, asserter) => {
       const test = aTestRunningFor(40, asserter);
       let result = await resultOfASuiteWith(runner, test);
       expectSuccess(result);
