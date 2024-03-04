@@ -1,9 +1,9 @@
 'use strict';
 
 import { assert, suite, test } from '../../lib/testy.js';
-import { aPassingTest, aTestWithBody, aTestWithNoAssertions } from '../support/tests_factory.js';
+import { aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor } from '../support/tests_factory.js';
 import { resultOfASuiteWith, resultOfATestWith, withRunner } from '../support/runner_helpers.js';
-import { expectErrorOn, expectFailureOn } from '../support/assertion_helpers.js';
+import {expectErrorOn, expectFailureOn, expectSuccess} from '../support/assertion_helpers.js';
 
 import { Test } from '../../lib/core/test.js';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
@@ -93,6 +93,16 @@ suite('tests behavior', () => {
     });
 
     expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50), '');
+  });
+
+  test('a test does not fail by timeout when previous timeout promise resolves', async() => {
+    await withRunner(async (runner, asserter) => {
+      const test = aTestRunningFor(40, asserter);
+      let result = await resultOfASuiteWith(runner, test);
+      expectSuccess(result);
+      result = await resultOfASuiteWith(runner, test);
+      expectSuccess(result);
+    });
   });
 
   test('a test fails by timeout if the before() block fails by timeout', async() => {
