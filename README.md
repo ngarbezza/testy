@@ -272,6 +272,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://rpt.altervista.org"><img src="https://avatars.githubusercontent.com/u/1763919?v=4?s=100" width="100px;" alt=""/><br /><sub><b>giovannipessiva</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=giovannipessiva" title="Translation">🌍</a></td>
     <td align="center"><a href="https://abhikhatri67.github.io/"><img src="https://avatars.githubusercontent.com/u/15958423?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhishek Khatri</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=abhikhatri67" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ignacio-r"><img src="https://avatars.githubusercontent.com/u/42122391?v=4" width="100px;" alt=""/><br /><sub><b>Ignacio Robledo</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=ignacio-r" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=ignacio-r" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/mellster2012"><img src="https://avatars.githubusercontent.com/u/2126256?v=4" width="100px;" alt=""/><br /><sub><b>Marco Ellwanger</b></sub></a><br /><a href="https://github.com/ngarbezza/testy/commits?author=mellster2012" title="Code">💻</a> <a href="https://github.com/ngarbezza/testy/commits?author=mellster2012" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
