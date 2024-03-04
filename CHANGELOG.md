@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released :tada:
 
+## [7.0.2] - 2024-03-04
+
+### Fixed
+
+* [[bug] async test results mixup](https://github.com/ngarbezza/testy/issues/275). Thank
+you, [@mellster2012](https://github.com/mellster2012), for your first contribution! :tada:
+
 ## [7.0.1] - 2024-02-12
 
 ### Fixed
@@ -365,7 +372,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 
 * Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v7.0.1...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v7.0.2...HEAD
+[7.0.2]: https://github.com/ngarbezza/testy/compare/v7.0.1...v7.0.2
 [7.0.1]: https://github.com/ngarbezza/testy/compare/v7.0.0...v7.0.1
 [7.0.0]: https://github.com/ngarbezza/testy/compare/v6.1.0...v7.0.0
 [6.1.0]: https://github.com/ngarbezza/testy/compare/v6.0.0...v6.1.0
