@@ -31,6 +31,13 @@ const aPendingTest = () =>
 const aTestWithNoAssertions = () =>
   aTestWithBody(() => 1 + 2);
 
+const aTestRunningFor = (millis, asserter) =>
+  new Test('sleepFor', async () => {
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+    await sleep(millis);
+    asserter.isTrue(true);
+  }, emptyTestCallbacks);
+
 const aTestWithBody = body =>
   new Test('just a test', body, emptyTestCallbacks);
 
@@ -41,5 +48,6 @@ export {
   anErroredTest,
   aPendingTest,
   aTestWithNoAssertions,
+  aTestRunningFor,
   emptyTestCallbacks,
 };
