@@ -23,8 +23,8 @@
     "test": "bin/testy_cli.js",
     "test:coverage": "npx c8@9.1.0 --reporter lcov --reporter text --report-dir reports/coverage npm test",
     "see:coverage": "open reports/coverage/lcov-report/index.html",
-    "test:mutation": "npx stryker@8.2.6 run config/stryker.conf.json",
-    "test:mutation:ci": "npx stryker@8.2.6 run --reporters json,dashboard --inPlace config/stryker.conf.json",
+    "test:mutation": "npx @stryker-mutator/core@8.2.6 run config/stryker.conf.json",
+    "test:mutation:ci": "npx @stryker-mutator/core@8.2.6 run --reporters json,dashboard --inPlace config/stryker.conf.json",
     "see:mutation": "open reports/mutation/mutation.html",
     "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/",
     "see:complexity": "npx code-complexity . --filter='lib/**' --sort=score"
