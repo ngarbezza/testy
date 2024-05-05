@@ -78,4 +78,40 @@ suite('numeric assertions', () => {
 
     expectFailureOn(result, I18nMessage.of('expectation_be_less_than', '2', '1'));
   })
+
+  test('isGreaterThanOrEqualTo passes if the number is strictly smaller', async () => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThanOrEqualTo(1));
+
+    expectSuccess(result);
+  })
+
+  test('isGreaterThanOrEqualTo passes if the numbers are equal', async () => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThanOrEqualTo(2));
+
+    expectSuccess(result);
+  })
+
+  test('isGreaterThanOrEqualTo fails if the number is bigger', async () => {
+    const result = await resultOfATestWith(assert => assert.that(1).isGreaterThanOrEqualTo(2));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_greater_than_or_equal', '1', '2'));
+  })
+
+  test('isLessThanOrEqualTo passes if the number is strictly bigger', async () => {
+    const result = await resultOfATestWith(assert => assert.that(1).isLessThanOrEqualTo(2));
+
+    expectSuccess(result);
+  })
+
+  test('isLessThanOrEqualTo passes if the numbers are equal', async () => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThanOrEqualTo(2));
+
+    expectSuccess(result);
+  })
+
+  test('isLessThanOrEqualTo fails if the number is smaller', async () => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThanOrEqualTo(1));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_less_than_or_equal', '2', '1'));
+  })
 });

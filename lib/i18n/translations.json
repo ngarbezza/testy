@@ -24,6 +24,8 @@
     "expectation_be_not_null": "Expected %s to be not null",
     "expectation_be_near_to": "Expected %s to be near to %s (using %s precision digits)",
     "expectation_be_greater_than": "Expected %s to be strictly greater than %s",
+    "expectation_be_greater_than_or_equal": "Expected %s to be greater or equal than %s",
+    "expectation_be_less_than_or_equal": "Expected %s to be less or equal than %s",
     "expectation_be_less_than": "Expected %s to be strictly smaller than %s",
     "expectation_match_regex": "Expected %s to match %s",
     "expectation_include": "Expected %s to include %s",
