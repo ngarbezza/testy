@@ -11,3 +11,6 @@ reports/
 
 # JSDoc
 doc/jsdoc/
+
+# Playground file
+tests/playground_test.js

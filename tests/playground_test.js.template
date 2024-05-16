@@ -1,0 +1,9 @@
+'use strict';
+
+import { assert, suite, test } from '../lib/testy.js';
+
+suite('testy playground', () => {
+  test('example', () => {
+    assert.that(1 === 1).isFalse();
+  });
+});
