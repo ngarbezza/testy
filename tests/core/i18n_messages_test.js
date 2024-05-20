@@ -9,7 +9,7 @@ suite('i18n messages', () => {
   const translations = { en: { key1: 'value 1', key2: 'value 2', key3: 'value 3' } };
   const locale = I18n.default(translations);
   const anEmptyMessage = () => I18nMessage.empty();
-  const aSingleMessageWithKey = key => I18nMessage.of(key);
+  const aSingleMessageWithKey = (key, ...params) => I18nMessage.of(key, ...params);
   const aJoinedMessageOf = (...messages) => I18nMessage.joined(messages, ',');
 
   test('empty messages return an empty string and have no associated keys', () => {
@@ -76,5 +76,23 @@ suite('i18n messages', () => {
         aSingleMessageWithKey('key3')));
 
     assert.that(message.associatedKeys()).includesExactly('key1', 'key2', 'key3');
+  });
+
+  test('equality between simple messages do not pass if the arguments are not in exact order', () => {
+    const messageOne = aSingleMessageWithKey('key1', 'param 1', 'param 2');
+    const messageTwo = aSingleMessageWithKey('key1', 'param 2', 'param 1');
+
+    assert.areNotEqual(messageOne, messageTwo);
+  });
+
+  test('simple messages if key and arguments in exact order match', () => {
+    const messageOne = aSingleMessageWithKey('key1', 'param 1', 'param 2');
+    const messageTwo = aSingleMessageWithKey('key1', 'param 1', 'param 2');
+
+    assert.areEqual(messageOne, messageTwo);
+  });
+
+  test('empty messages are equal', () => {
+    assert.areEqual(anEmptyMessage(), anEmptyMessage());
   });
 });

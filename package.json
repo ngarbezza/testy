@@ -23,6 +23,7 @@
     "test": "bin/testy_cli.js",
     "playground:run": "npm t tests/playground_test.js",
     "playground:reset": "cp tests/playground_test.js.template tests/playground_test.js",
+    "playground:clear": "rm tests/playground_test.js",
     "test:coverage": "npx c8@9.1.0 --reporter lcov --reporter text --report-dir reports/coverage npm test",
     "see:coverage": "open reports/coverage/lcov-report/index.html",
     "test:mutation": "npx @stryker-mutator/core@8.2.6 run config/stryker.conf.json",
