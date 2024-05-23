@@ -145,7 +145,13 @@ There must be at least one assertion on the test to be valid. These are all the 
   * `assert.that(() => { ... }).doesNotRaise(error)`
   * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Numeric assertions:
-  * `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
+  * Comparators:
+    * `assert.that(aNumber).isGreaterThan(anotherNumber)`
+    * `assert.that(aNumber).isLessThan(anotherNumber)`
+    * `assert.that(aNumber).isGreaterThanOrEqualTo(anotherNumber)`
+    * `assert.that(aNumber).isLessThanOrEqualTo(anotherNumber)`
+  * Rounding:
+    * `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
 * String assertions:
   * `assert.that(string).matches(regexOrString)` or `assert.isMatching(string, regexOrString)`
 * Array inclusion:

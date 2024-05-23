@@ -142,7 +142,13 @@ Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite 
   * `assert.that(() => { ... }).doesNotRaise(error)`
   * `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 * Aserciones numéricas:
-  * `assert.that(aNumber).isNearTo(anotherNumber)`. Se puede pasar un segundo parámetro adicional que indica el número de dígitos de precisión que se van a considerar. Por defecto, son `4`.
+  * Comparación:
+    * `assert.that(aNumber).isGreaterThan(anotherNumber)`
+    * `assert.that(aNumber).isLessThan(anotherNumber)`
+    * `assert.that(aNumber).isGreaterThanOrEqualTo(anotherNumber)`
+    * `assert.that(aNumber).isLessThanOrEqualTo(anotherNumber)`
+  * Redondeo
+    * `assert.that(aNumber).isNearTo(anotherNumber)`. Se puede pasar un segundo parámetro adicional que indica el número de dígitos de precisión que se van a considerar. Por defecto, son `4`.
 * Aserciones sobre strings:
   * `assert.that(string).matches(regexOrString)` o `assert.isMatching(string, regexOrString)`
 * Inclusión de objetos en colecciones (`Array` y `Set`):
