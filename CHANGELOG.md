@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released :tada:
 
+## [7.1.0] - 2024-05-23
+
+Some achievements to celebrate this release: 100 closed issues and 14 contributors (1 new!)
+
+### Added
+
+* [[feature] Add numeric assertions for numerical comparisons](https://github.com/ngarbezza/testy/issues/286): now we
+  have more semantic assertions to compare numbers, check out the readme/jsdoc for more info. Thank you,
+  [@beluamat29](https://github.com/beluamat29), for your first contribution! :tada:
+
+### Fixed
+
+* [[bug] passing tests even if the objects under comparison are not equal](https://github.com/ngarbezza/testy/issues/285):
+  this was a regression from a refactoring to add private methods in v7, it's not user-facing error. 
+
 ## [7.0.2] - 2024-03-04
 
 ### Fixed
@@ -372,7 +387,8 @@ readable and extensible. It also includes a huge internal refactor to make the t
 
 * Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v7.0.2...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v7.1.0...HEAD
+[7.1.0]: https://github.com/ngarbezza/testy/compare/v7.0.2...v7.1.0
 [7.0.2]: https://github.com/ngarbezza/testy/compare/v7.0.1...v7.0.2
 [7.0.1]: https://github.com/ngarbezza/testy/compare/v7.0.0...v7.0.1
 [7.0.0]: https://github.com/ngarbezza/testy/compare/v6.1.0...v7.0.0
