@@ -30,7 +30,9 @@
     "test:mutation:ci": "npx @stryker-mutator/core@8.2.6 run --reporters json,dashboard --inPlace config/stryker.conf.json",
     "see:mutation": "open reports/mutation/mutation.html",
     "see:dependencies": "npx madge -i testy-dependencies.png lib/ bin/",
-    "see:complexity": "npx code-complexity . --filter='lib/**' --sort=score"
+    "see:complexity": "npx code-complexity . --filter='lib/**' --sort=score",
+    "contributors:add": "npx all-contributors@latest add",
+    "contributors:generate": "npx all-contributors@latest generate"
   },
   "bin": {
     "testy": "bin/testy_cli.js"

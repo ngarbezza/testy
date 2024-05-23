@@ -24,7 +24,9 @@
 ![activity](https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm)
 ![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
 \
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![all-contributors](https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative)](#Contribuyentes)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Una simple herramienta de testeo en Javascript, para propósitos educativos. Disponible en npm: [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
 
