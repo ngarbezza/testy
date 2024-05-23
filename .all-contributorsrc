@@ -123,6 +123,18 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "beluamat29",
+      "name": "María Belén Amat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9338235?v=4",
+      "profile": "https://github.com/beluamat29",
+      "contributions": [
+        "code",
+        "test",
+        "doc",
+        "translation"
+      ]
     }
   ]
 }
