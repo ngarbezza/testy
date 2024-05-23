@@ -2,7 +2,8 @@
 
 import { suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
-import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
+
+import { expectFailureOn, expectSuccess, expectErrorOn } from '../../support/assertion_helpers.js';
 
 import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
@@ -41,5 +42,125 @@ suite('numeric assertions', () => {
     const result = await resultOfATestWith(assert => assert.that(0.1 + 0.2).isNearTo(0.3));
 
     expectSuccess(result);
+  });
+
+  test('isGreaterThan passes if the number is strictly smaller', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThan(1));
+
+    expectSuccess(result);
+  });
+
+  test('isGreaterThan fails if the numbers are equal', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThan(2));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_greater_than', '2', '2'));
+  });
+
+  test('isGreaterThan fails if the number is bigger', async() => {
+    const result = await resultOfATestWith(assert => assert.that(1).isGreaterThan(2));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_greater_than', '1', '2'));
+  });
+
+  test('isGreaterThan fails when actual is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that('2').isGreaterThan(3));
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_numerical_comparison', "'2'", 'string'), '');
+  });
+
+  test('isGreaterThan fails when comparing something that is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThan(false));
+
+    expectErrorOn(result, I18nMessage.of('invalid_object_in_numerical_comparison', '2', 'boolean'), ''); 
+  });
+
+  test('isLessThan passes if the number is strictly bigger', async() => {
+    const result = await resultOfATestWith(assert => assert.that(1).isLessThan(2));
+
+    expectSuccess(result);
+  });
+
+  test('isLessThan fails if the numbers are equal', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThan(2));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_less_than', '2', '2'));
+  });
+
+  test('isLessThan fails if the number is smaller', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThan(1));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_less_than', '2', '1'));
+  });
+
+  test('isLessThan fails when actual is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that('2').isLessThan(3));
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_numerical_comparison', "'2'", 'string'), '');
+  });
+
+  test('isLessThan fails when comparing something that is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThan(false));
+
+    expectErrorOn(result, I18nMessage.of('invalid_object_in_numerical_comparison', '2', 'boolean'), ''); 
+  });
+
+  test('isGreaterThanOrEqualTo passes if the number is strictly smaller', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThanOrEqualTo(1));
+
+    expectSuccess(result);
+  });
+
+  test('isGreaterThanOrEqualTo passes if the numbers are equal', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThanOrEqualTo(2));
+
+    expectSuccess(result);
+  });
+
+  test('isGreaterThanOrEqualTo fails if the number is bigger', async() => {
+    const result = await resultOfATestWith(assert => assert.that(1).isGreaterThanOrEqualTo(2));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_greater_than_or_equal', '1', '2'));
+  });
+
+  test('isGreaterThanOrEqualTo fails when actual is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that('2').isGreaterThanOrEqualTo(3));
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_numerical_comparison', "'2'", 'string'), '');
+  });
+
+  test('isGreaterThanOrEqualTo fails when comparing something that is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isGreaterThanOrEqualTo(false));
+
+    expectErrorOn(result, I18nMessage.of('invalid_object_in_numerical_comparison', '2', 'boolean'), ''); 
+  });
+
+  test('isLessThanOrEqualTo passes if the number is strictly bigger', async() => {
+    const result = await resultOfATestWith(assert => assert.that(1).isLessThanOrEqualTo(2));
+
+    expectSuccess(result);
+  });
+
+  test('isLessThanOrEqualTo passes if the numbers are equal', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThanOrEqualTo(2));
+
+    expectSuccess(result);
+  });
+
+  test('isLessThanOrEqualTo fails if the number is smaller', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThanOrEqualTo(1));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_less_than_or_equal', '2', '1'));
+  });
+
+  test('isLessThanOrEqualTo fails when actual is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that('2').isLessThanOrEqualTo(3));
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_numerical_comparison', "'2'", 'string'), '');
+  });
+
+  test('isLessThanOrEqualTo fails when comparing something that is not a number', async() => {
+    const result = await resultOfATestWith(assert => assert.that(2).isLessThanOrEqualTo(false));
+
+    expectErrorOn(result, I18nMessage.of('invalid_object_in_numerical_comparison', '2', 'boolean'), ''); 
   });
 });

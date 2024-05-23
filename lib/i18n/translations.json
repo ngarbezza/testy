@@ -23,6 +23,10 @@
     "expectation_be_null": "Expected %s to be null",
     "expectation_be_not_null": "Expected %s to be not null",
     "expectation_be_near_to": "Expected %s to be near to %s (using %s precision digits)",
+    "expectation_be_greater_than": "Expected %s to be strictly greater than %s",
+    "expectation_be_greater_than_or_equal": "Expected %s to be greater or equal than %s",
+    "expectation_be_less_than_or_equal": "Expected %s to be less or equal than %s",
+    "expectation_be_less_than": "Expected %s to be strictly smaller than %s",
     "expectation_match_regex": "Expected %s to match %s",
     "expectation_include": "Expected %s to include %s",
     "expectation_not_include": "Expected %s to not include %s",
@@ -54,7 +58,9 @@
     "feedback_for_error_loading_suite": "Please check your file contains a valid suite declaration and try again.",
     "error_running_suites": "Error executing the test suites",
     "reached_timeout_error": "Timeout of 50ms reached. Your test could not finish its execution.",
-    "invalid_actual_object_in_exception_assertion": "Actual value for this assertion must be a function, got %s"
+    "invalid_actual_object_in_exception_assertion": "Actual value for this assertion must be a function, got %s",
+    "invalid_actual_object_in_numerical_comparison": "Actual value for this assertion must be a number, got %s",
+    "invalid_object_in_numerical_comparison": "Value for this assertion must be a number, got %s"
   },
   "es": {
     "yes": "sí",
@@ -80,6 +86,10 @@
     "expectation_be_null": "Se esperaba que %s sea null",
     "expectation_be_not_null": "Se esperaba que %s no sea null",
     "expectation_be_near_to": "Se esperaba que %s esté cercano a %s (usando %s dígitos de precisión)",
+    "expectation_be_greater_than": "Se esperaba que %s sea estrictamente mayor que %s",
+    "expectation_be_greater_than_or_equal": "Se esperaba que %s sea mayor o igual que %s",
+    "expectation_be_less_than_or_equal": "Se esperaba que %s sea menor o igual que %s",
+    "expectation_be_less_than": "Se esperaba que %s se estrictamente menor que %s",
     "expectation_match_regex": "Se esperaba que %s sea cubierto por la expresión regular %s",
     "expectation_include": "Se esperaba que %s incluya a %s",
     "expectation_not_include": "Se esperaba que %s incluya a %s",
@@ -111,7 +121,9 @@
     "feedback_for_error_loading_suite": "Por favor, revisa que tu archivo contenga una declaración de suite válida, e intenta nuevamente.",
     "error_running_suites": "Error ejecutando las suites de test",
     "reached_timeout_error": "Se alcanzó el tiempo límite de %sms. El test no se terminó de ejecutar.",
-    "invalid_actual_object_in_exception_assertion": "Es necesario proveer una función para este tipo de aserción, se obtuvo %s"
+    "invalid_actual_object_in_exception_assertion": "Es necesario proveer una función para este tipo de aserción, se obtuvo %s",
+    "invalid_actual_object_in_numerical_comparison": "Es necesario proveer un número para este tipo de aserción, se obtuvo %s",
+    "invalid_object_in_numerical_comparison": "Es necesario proveer un número como argumento para este tipo de aserción, se obtuvo %s"
   },
   "it": {
     "yes": "sì",
@@ -137,6 +149,10 @@
     "expectation_be_null": "Atteso che %s fosse null",
     "expectation_be_not_null": "Atteso che %s non fosse null",
     "expectation_be_near_to": "Atteso che %s fosse circa %s (usando %s decimali di precisione)",
+    "expectation_be_greater_than": "Ci si aspettava che %s fosse strettamente maggiore di %s",
+    "expectation_be_greater_than_or_equal": "Ci si aspettava che %s fosse maggiore o uguale a %s",
+    "expectation_be_less_than_or_equal": "Ci si aspettava che %s fosse inferiore o uguale a %s",
+    "expectation_be_less_than": "Ci si aspettava che %s fosse inferiore a %s",
     "expectation_match_regex": "Atteso che %s coincidesse con %s",
     "expectation_include": "Atteso che %s includesse %s",
     "expectation_not_include": "Atteso che %s non includesse %s",
@@ -168,6 +184,8 @@
     "feedback_for_error_loading_suite": "Verifica che il tuo file contenga una dichiarazione di suite valida e riprova.",
     "error_running_suites": "Errore durante l'esecuzione delle suite di test",
     "reached_timeout_error": "Timeout %sms raggiunto. Il test non è terminato.",
-    "invalid_actual_object_in_exception_assertion": "È necessario fornire una funzione per questo tipo di asserzione. É stato ottenuto %s"
+    "invalid_actual_object_in_exception_assertion": "È necessario fornire una funzione per questo tipo di asserzione. É stato ottenuto %s",
+    "invalid_actual_object_in_numerical_comparison": "È necessario fornire un numero per questo tipo di asserzione. É stato ottenuto %s",
+    "invalid_object_in_numerical_comparison": "È necessario fornire un numero come argomento per questo tipo di affermazione. É stato ottenuto %s"
   }
 }
