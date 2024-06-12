@@ -26,7 +26,7 @@ jobs:
         CI: true
     - if: matrix.node-version == '20.x'
       name: Code Climate Coverage Action
-      uses: paambaati/codeclimate-action@v6.0.0
+      uses: paambaati/codeclimate-action@v7.0.0
       with:
         coverageCommand: npm run test:coverage
         coverageLocations: ${{github.workspace}}/reports/coverage/lcov.info:lcov
