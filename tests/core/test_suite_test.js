@@ -24,18 +24,24 @@ suite('test suite behavior', () => {
     });
   });
 
+  test('it is possible to retrieve the suite name', () => {
+    const suite = new TestSuite('my cool behavior', () => {});
+
+    assert.that(suite.name()).isEqualTo('my cool behavior');
+  });
+
   test('more than one before block is not allowed', () => {
     mySuite.before(() => 3 + 4);
 
     assert
       .that(() => mySuite.before(() => 5 + 6))
-      .raises(new Error(TestSuite.alreadyDefinedHookErrorMessage(TestSuite.BEFORE_HOOK_NAME)));
+      .raises(new Error('There is already a before() block. Please leave just one before() block and run again the tests.'));
   });
 
   test('a before() hook with no function is considered invalid', () => {
     assert
       .that(() => mySuite.before())
-      .raises(new Error(TestSuite.hookWasNotInitializedWithAFunctionErrorMessage(TestSuite.BEFORE_HOOK_NAME)));
+      .raises(new Error('The before() hook must include a function. Please provide a function or remove the before() and run again the tests.'));
   });
 
   test('more than one after block is not allowed', () => {
@@ -43,13 +49,13 @@ suite('test suite behavior', () => {
 
     assert
       .that(() => mySuite.after(() => 5 + 6))
-      .raises(new Error(TestSuite.alreadyDefinedHookErrorMessage(TestSuite.AFTER_HOOK_NAME)));
+      .raises(new Error('There is already a after() block. Please leave just one after() block and run again the tests.'));
   });
 
   test('a after() hook with no function is considered invalid', () => {
     assert
       .that(() => mySuite.after())
-      .raises(new Error(TestSuite.hookWasNotInitializedWithAFunctionErrorMessage(TestSuite.AFTER_HOOK_NAME)));
+      .raises(new Error('The after() hook must include a function. Please provide a function or remove the after() and run again the tests.'));
   });
 
   test('before() and after() hooks are executed in the right order', async() => {
@@ -120,26 +126,40 @@ suite('test suite behavior', () => {
 
     assert.that(mySuite.totalCount()).isEqualTo(1);
     assert.that(mySuite.pendingCount()).isEqualTo(1);
+    assert.that(mySuite.successCount()).isEqualTo(0);
+    assert.that(mySuite.failuresCount()).isEqualTo(0);
+    assert.that(mySuite.errorsCount()).isEqualTo(0);
+    assert.that(mySuite.skippedCount()).isEqualTo(0);
   });
 
   test('a suite cannot be created without a name', () => {
-    assert.that(() => new TestSuite()).raises(new Error(TestSuite.invalidSuiteNameErrorMessage()));
+    assert
+      .that(() => new TestSuite())
+      .raises(new Error('Suite does not have a valid name. Please enter a non-empty string to name this suite.'));
   });
 
   test('a suite cannot be created with an empty name', () => {
-    assert.that(() => new TestSuite('  ')).raises(new Error(TestSuite.invalidSuiteNameErrorMessage()));
+    assert
+      .that(() => new TestSuite('  '))
+      .raises(new Error('Suite does not have a valid name. Please enter a non-empty string to name this suite.'));
   });
 
   test('a suite cannot be created with a name that is not a string', () => {
-    assert.that(() => new TestSuite(new Date())).raises(new Error(TestSuite.invalidSuiteNameErrorMessage()));
+    assert
+      .that(() => new TestSuite(new Date()))
+      .raises(new Error('Suite does not have a valid name. Please enter a non-empty string to name this suite.'));
   });
 
   test('a suite cannot be created without a body', () => {
-    assert.that(() => new TestSuite('hey')).raises(new Error(TestSuite.invalidSuiteDefinitionBodyErrorMessage()));
+    assert
+      .that(() => new TestSuite('hey'))
+      .raises(new Error('Suite does not have a valid body. Please provide a function to declare the suite body.'));
   });
 
   test('a suite cannot be created with a body that is not a function', () => {
-    assert.that(() => new TestSuite('hey', 'ho')).raises(new Error(TestSuite.invalidSuiteDefinitionBodyErrorMessage()));
+    assert
+      .that(() => new TestSuite('hey', 'ho'))
+      .raises(new Error('Suite does not have a valid body. Please provide a function to declare the suite body.'));
   });
 
   test('running with fail fast enabled stops at the first failure', async() => {
@@ -155,6 +175,8 @@ suite('test suite behavior', () => {
     assert.isTrue(failingTest.isFailure());
     assert.isTrue(erroredTest.isSkipped());
     assert.isTrue(pendingTest.isSkipped());
+
+    assert.areEqual(mySuite.skippedCount(), 2);
   });
 
   test('tests can be randomized based on a setting', async() => {

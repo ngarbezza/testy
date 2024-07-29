@@ -9,6 +9,7 @@ suite('fail fast behavior', () => {
     const failFast = FailFast.enabled();
 
     assert.isFalse(failFast.hasFailed());
+    assert.isTrue(failFast.enabled());
   });
 
   test('when enabled, after registering a failure becomes failed', () => {
@@ -17,6 +18,12 @@ suite('fail fast behavior', () => {
     failFast.registerFailure();
 
     assert.isTrue(failFast.hasFailed());
+  });
+
+  test('when disabled, its enabled condition is false', () => {
+    const failFast = FailFast.disabled();
+
+    assert.isFalse(failFast.enabled());
   });
 
   test('when disabled, after registering a failure does not become failed', () => {
@@ -31,6 +38,6 @@ suite('fail fast behavior', () => {
     const failFastMode = 'I AM AN INVALID VALUE';
 
     assert.that(() => new FailFast(failFastMode))
-      .raises(new Error(FailFast.invalidEnableTypeErrorMessage()));
+      .raises(new Error('Expected a boolean value for failFast configuration'));
   });
 });
