@@ -1,6 +1,6 @@
 'use strict';
 
-import { assert, before, suite, test } from '../../lib/testy.js';
+import { assert, before, suite, test } from '@pmoo/testy';
 
 import { ConsoleUI } from '../../lib/ui/console_ui.js';
 import { FakeConsole } from './fake_console.js';

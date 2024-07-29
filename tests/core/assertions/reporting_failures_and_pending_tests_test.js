@@ -1,6 +1,6 @@
 'use strict';
 
-import { suite, test } from '../../../lib/testy.js';
+import { suite, test } from '@pmoo/testy';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
 import { expectErrorOn, expectFailureOn, expectPendingResultOn } from '../../support/assertion_helpers.js';
 

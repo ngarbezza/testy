@@ -1,6 +1,6 @@
 'use strict';
 
-import { suite, test, assert } from '../../lib/testy.js';
+import { suite, test, assert } from '@pmoo/testy';
 import { I18n } from '../../lib/i18n/i18n.js';
 
 suite('translation keys consistency', () => {

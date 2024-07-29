@@ -1,6 +1,6 @@
 'use strict';
 
-import { assert } from '../../lib/testy.js';
+import { assert } from '@pmoo/testy';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
 import { I18n } from '../../lib/i18n/i18n.js';
 

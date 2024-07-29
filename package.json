@@ -20,7 +20,7 @@
     "see:jsdoc": "open doc/jsdoc/index.html",
     "lint": "npx eslint@8.57.0 --config config/eslintrc.json lib/ tests/ bin/",
     "lint:fix": "npx eslint@8.57.0 --config config/eslintrc.json lib/ tests/ bin/ --fix",
-    "test": "bin/testy_cli.js",
+    "test": "testy",
     "playground:run": "npm t tests/playground_test.js",
     "playground:reset": "cp tests/playground_test.js.template tests/playground_test.js",
     "playground:clear": "rm tests/playground_test.js",
@@ -55,5 +55,8 @@
   ],
   "author": "Nahuel Garbezza <n.garbezza@gmail.com>",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@pmoo/testy": "7.1.0"
+  }
 }

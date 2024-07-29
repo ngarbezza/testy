@@ -1,6 +1,6 @@
 'use strict';
 
-import { after, assert, before, suite, test } from '../../lib/testy.js';
+import { after, assert, before, suite, test } from '@pmoo/testy';
 
 suite('testing testy - basic features', () => {
   const circular = {}; circular.yourself = circular;

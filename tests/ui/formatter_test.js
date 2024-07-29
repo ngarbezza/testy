@@ -1,6 +1,6 @@
 'use strict';
 
-import { assert, before, suite, test } from '../../lib/testy.js';
+import { assert, before, suite, test } from '@pmoo/testy';
 import { resultOfASuiteWith, withRunner } from '../support/runner_helpers.js';
 import { aPendingTest, aTestWithBody } from '../support/tests_factory.js';
 

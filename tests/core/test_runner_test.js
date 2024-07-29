@@ -1,6 +1,6 @@
 'use strict';
 
-import { assert, suite, test } from '../../lib/testy.js';
+import { assert, suite, test } from '@pmoo/testy';
 import { withRunner } from '../support/runner_helpers.js';
 import { emptySuiteBody, emptySuiteCallbacks, suiteNamed } from '../support/suites_factory.js';
 import { aFailingTest, anErroredTest, aPassingTest, emptyTestCallbacks } from '../support/tests_factory.js';

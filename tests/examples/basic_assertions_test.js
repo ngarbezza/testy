@@ -1,6 +1,6 @@
 'use strict';
 
-import { assert, suite, test } from '../../lib/testy.js';
+import { assert, suite, test } from '@pmoo/testy';
 
 const emptyFunction = () => { };
 
