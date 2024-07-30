@@ -15,6 +15,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20.x
+    - name: Install Deps
+      run: npm install
     - name: Install Stryker
       run: npm install -g @stryker-mutator/core
     - name: Run Stryker (and report results)

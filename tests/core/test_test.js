@@ -20,7 +20,7 @@ suite('tests behavior', () => {
       const testToRun = aTestWithNoAssertions();
       const result = await resultOfASuiteWith(runner, testToRun);
 
-      expectErrorOn(result, 'This test does not have any assertions', '');
+      expectErrorOn(result, 'This test does not have any assertions', /^$/);
     });
   });
 
@@ -92,7 +92,7 @@ suite('tests behavior', () => {
       await promiseThatNeverEnds();
     });
 
-    expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50), '');
+    expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50));
   });
 
   test('a test does not fail by timeout when previous timeout promise resolves', async() => {
@@ -114,7 +114,7 @@ suite('tests behavior', () => {
 
       const result = await resultOfASuiteWith(runner, test, before, noop);
 
-      expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50), '');
+      expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50));
     });
   });
 
@@ -127,7 +127,7 @@ suite('tests behavior', () => {
 
       const result = await resultOfASuiteWith(runner, test, noop, after);
 
-      expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50), '');
+      expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50));
     });
   });
 });
