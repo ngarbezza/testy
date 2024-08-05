@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-'use strict';
-
+import process from 'node:process';
 import { ScriptAction } from '../lib/script_action.js';
 
 const params = process.argv.slice(2);

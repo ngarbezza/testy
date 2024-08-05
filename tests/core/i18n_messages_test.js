@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '../../lib/testy.js';
 
 import { I18n } from '../../lib/i18n/i18n.js';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '../../lib/testy.js';
 import { withRunner } from '../support/runner_helpers.js';
 import { emptySuiteBody, emptySuiteCallbacks, suiteNamed } from '../support/suites_factory.js';
@@ -130,7 +128,7 @@ suite('test runner', () => {
     await withRunner(async(runner, asserter) => {
 
       const suiteWithAnExplicitlySkippedTest = suiteNamed('with one explicitly skipped test');
-     
+
       const explicitlySkippedTest = anExplicitlySkippedTest(asserter);
       suiteWithAnExplicitlySkippedTest.addTest(explicitlySkippedTest);
       runner.addSuite(suiteWithAnExplicitlySkippedTest);

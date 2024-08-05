@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '../../lib/testy.js';
 
 import { FailFast } from '../../lib/config/fail_fast.js';

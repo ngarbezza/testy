@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, before, suite, test } from '../../lib/testy.js';
 import { resultOfASuiteWith, withRunner } from '../support/runner_helpers.js';
 import { aPendingTest, aTestWithBody, anExplicitlySkippedTest } from '../support/tests_factory.js';

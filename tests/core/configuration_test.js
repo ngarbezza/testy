@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '../../lib/testy.js';
 
 import { Configuration } from '../../lib/config/configuration.js';
