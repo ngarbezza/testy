@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '@pmoo/testy.js';
 
 suite('testy playground', () => {

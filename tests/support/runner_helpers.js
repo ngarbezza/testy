@@ -1,5 +1,3 @@
-'use strict';
-
 import { TestRunner } from '../../lib/core/test_runner.js';
 import { TestSuite } from '../../lib/core/test_suite.js';
 import { Asserter, FailureGenerator, PendingMarker } from '../../lib/core/asserter.js';

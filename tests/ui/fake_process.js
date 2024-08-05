@@ -1,5 +1,3 @@
-'use strict';
-
 export class FakeProcess {
   constructor() {
     this._lastExitCode = null;

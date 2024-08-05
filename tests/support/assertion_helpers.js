@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert } from '@pmoo/testy';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
 import { I18n } from '../../lib/i18n/i18n.js';
@@ -12,10 +10,10 @@ const expectSuccess = result => {
   assert.isEmpty(result.location());
 
   // other statuses
-  assert.isFalse(result.isFailure())
-  assert.isFalse(result.isError())
-  assert.isFalse(result.isPending())
-  assert.isFalse(result.isSkipped())
+  assert.isFalse(result.isFailure());
+  assert.isFalse(result.isError());
+  assert.isFalse(result.isPending());
+  assert.isFalse(result.isSkipped());
 };
 
 const expectPendingResultOn = (result, reason) => {

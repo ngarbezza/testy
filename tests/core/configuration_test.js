@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '@pmoo/testy';
 
 import { Configuration } from '../../lib/config/configuration.js';

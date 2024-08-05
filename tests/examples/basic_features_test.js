@@ -1,5 +1,3 @@
-'use strict';
-
 import { after, assert, before, suite, test } from '@pmoo/testy';
 
 suite('testing testy - basic features', () => {

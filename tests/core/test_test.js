@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '@pmoo/testy';
 import { aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor } from '../support/tests_factory.js';
 import { resultOfASuiteWith, resultOfATestWith, withRunner } from '../support/runner_helpers.js';

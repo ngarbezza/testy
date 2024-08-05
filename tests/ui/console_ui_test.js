@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, before, suite, test } from '@pmoo/testy';
 
 import { ConsoleUI } from '../../lib/ui/console_ui.js';

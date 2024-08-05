@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '@pmoo/testy';
 
 import { FailFast } from '../../lib/config/fail_fast.js';
