@@ -57,7 +57,7 @@ suite('collection assertions', () => {
     const result = await resultOfATestWith(assert => {
       assert.that([{ hello: 'world' }]).includes(
         { hello: 'mars' },
-        (objectOne, objectTwo) => !!objectOne.hello && !!objectTwo.hello,
+        (objectOne, objectTwo) => Boolean(objectOne.hello) && Boolean(objectTwo.hello),
       );
     });
 
