@@ -39,8 +39,10 @@ const aTestWithNoAssertions = () =>
 
 const aTestRunningFor = (millis, asserter) =>
   new Test('sleepFor', async() => {
-    // eslint-disable-next-line no-undef
-    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+     
+    const sleep = ms => new Promise(resolve => {
+      setTimeout(resolve, ms); 
+    });
     await sleep(millis);
     asserter.isTrue(true);
   }, emptyTestCallbacks);
