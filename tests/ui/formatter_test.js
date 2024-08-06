@@ -2,7 +2,7 @@
 
 import { assert, before, suite, test } from '@pmoo/testy';
 import { resultOfASuiteWith, withRunner } from '../support/runner_helpers.js';
-import { aPendingTest, aTestWithBody } from '../support/tests_factory.js';
+import { aPendingTest, aTestWithBody, anExplicitlySkippedTest } from '../support/tests_factory.js';
 
 import { Formatter } from '../../lib/ui/formatter.js';
 import { I18n } from '../../lib/i18n/i18n.js';
@@ -33,6 +33,16 @@ suite('formatter', () => {
       const testResultMessage = '[\u001b[33m\u001b[1mWIP\u001b[0m] \u001b[33mjust a test\u001b[0m';
       const pendingReasonMessage = '  => in a rush';
       assert.that(fakeConsole.messages()).isEqualTo([testResultMessage, pendingReasonMessage]);
+    });
+  });
+
+  test('display skipped status in grey when explicitly skipping a test', async() => {
+    await withRunner(async(runner, _assert, _fail, pending) => {
+      const skippedTest = anExplicitlySkippedTest();
+      await resultOfASuiteWith(runner, skippedTest);
+      formatter.displaySkippedResult(skippedTest);
+      const testResultMessage = '[\x1B[30m\x1B[1mSKIP\x1B[0m] \x1B[30ma test that is skipped\x1B[0m';
+      assert.that(fakeConsole.messages()).includesExactly(testResultMessage);
     });
   });
 
@@ -83,4 +93,6 @@ suite('formatter', () => {
     assert.that(fakeConsole.messages().slice(0, 2)).isEqualTo([testResultMessage, failureDetailMessage]);
     assert.that(fakeConsole.messages()[2]).matches(sourceCodeLocationRegex);
   };
+
+  // TODO: agregar uno para explicitly skip
 });

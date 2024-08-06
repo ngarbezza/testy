@@ -3,7 +3,7 @@
 import { assert, suite, test } from '@pmoo/testy';
 import { withRunner } from '../support/runner_helpers.js';
 import { emptySuiteBody, emptySuiteCallbacks, suiteNamed } from '../support/suites_factory.js';
-import { aFailingTest, anErroredTest, aPassingTest, emptyTestCallbacks } from '../support/tests_factory.js';
+import { aFailingTest, anErroredTest, aPassingTest, anExplicitlySkippedTest, emptyTestCallbacks } from '../support/tests_factory.js';
 
 import { TestRunner } from '../../lib/core/test_runner.js';
 
@@ -126,28 +126,51 @@ suite('test runner', () => {
     });
   });
 
-  test('counting several errors and failures', async() => {
+  test('explicitly skipped count is one with an explicitly skipped test', async () => {
     await withRunner(async(runner, asserter) => {
-      const suiteWithAErrorsAndFailures = suiteNamed('with errors and failures');
+
+      const suiteWithAnExplicitlySkippedTest = suiteNamed('with one explicitly skipped test');
+     
+      const explicitlySkippedTest = anExplicitlySkippedTest(asserter);
+      suiteWithAnExplicitlySkippedTest.addTest(explicitlySkippedTest);
+      runner.addSuite(suiteWithAnExplicitlySkippedTest);
+      await runner.run();
+
+      assert.that(runner.totalCount()).isEqualTo(1);
+      assert.that(runner.errorsCount()).isEqualTo(0);
+      assert.that(runner.failuresCount()).isEqualTo(0);
+      assert.that(runner.successCount()).isEqualTo(0);
+      assert.that(runner.pendingCount()).isEqualTo(0);
+      assert.that(runner.skippedCount()).isEqualTo(0);
+      assert.that(runner.explicitlySkippedCount()).isEqualTo(1);
+    });
+  });
+
+  test('counting several errors, failures and explicitly skipped test', async() => {
+    await withRunner(async(runner, asserter) => {
+      const suiteWithAErrorsAndFailuresAndSkipped = suiteNamed('with errors, failures and skipped');
       const errorOne = anErroredTest(asserter);
       const errorTwo = anErroredTest(asserter);
       const errorThree = anErroredTest(asserter);
       const failureOne = aFailingTest(asserter);
       const failureTwo = aFailingTest(asserter);
-      suiteWithAErrorsAndFailures.addTest(errorOne);
-      suiteWithAErrorsAndFailures.addTest(failureOne);
-      suiteWithAErrorsAndFailures.addTest(errorTwo);
-      suiteWithAErrorsAndFailures.addTest(errorThree);
-      suiteWithAErrorsAndFailures.addTest(failureTwo);
-      runner.addSuite(suiteWithAErrorsAndFailures);
+      const explicitlySkippedTest = anExplicitlySkippedTest(asserter);
+      suiteWithAErrorsAndFailuresAndSkipped.addTest(explicitlySkippedTest);
+      suiteWithAErrorsAndFailuresAndSkipped.addTest(errorOne);
+      suiteWithAErrorsAndFailuresAndSkipped.addTest(failureOne);
+      suiteWithAErrorsAndFailuresAndSkipped.addTest(errorTwo);
+      suiteWithAErrorsAndFailuresAndSkipped.addTest(errorThree);
+      suiteWithAErrorsAndFailuresAndSkipped.addTest(failureTwo);
+      runner.addSuite(suiteWithAErrorsAndFailuresAndSkipped);
       await runner.run();
 
-      assert.that(runner.totalCount()).isEqualTo(5);
+      assert.that(runner.totalCount()).isEqualTo(6);
       assert.that(runner.failuresCount()).isEqualTo(2);
       assert.that(runner.errorsCount()).isEqualTo(3);
       assert.that(runner.successCount()).isEqualTo(0);
       assert.that(runner.pendingCount()).isEqualTo(0);
       assert.that(runner.skippedCount()).isEqualTo(0);
+      assert.that(runner.explicitlySkippedCount()).isEqualTo(1);
       assert.isTrue(runner.hasErrorsOrFailures());
       assert.that(runner.allFailuresAndErrors()).includesExactly(errorOne, errorTwo, errorThree, failureOne, failureTwo);
     });

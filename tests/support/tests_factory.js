@@ -28,6 +28,14 @@ const anErroredTest = () =>
 const aPendingTest = () =>
   new Test('a work in progress', undefined, emptyTestCallbacks);
 
+const anExplicitlySkippedTest = asserter => {
+  const aTest = new Test('a test that is skipped', () => {
+    asserter.isTrue(false)
+  }, emptyTestCallbacks);
+  aTest.skip();
+  return aTest;
+};
+
 const aTestWithNoAssertions = () =>
   aTestWithBody(() => 1 + 2);
 
@@ -46,6 +54,7 @@ export {
   aPassingTest,
   aFailingTest,
   anErroredTest,
+  anExplicitlySkippedTest,
   aPendingTest,
   aTestWithNoAssertions,
   aTestRunningFor,
