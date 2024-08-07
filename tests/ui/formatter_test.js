@@ -37,7 +37,7 @@ suite('formatter', () => {
   });
 
   test('display skipped status in grey when explicitly skipping a test', async() => {
-    await withRunner(async(runner, _assert, _fail, pending) => {
+    await withRunner(async(runner, _assert, _fail) => {
       const skippedTest = anExplicitlySkippedTest();
       await resultOfASuiteWith(runner, skippedTest);
       formatter.displaySkippedResult(skippedTest);

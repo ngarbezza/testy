@@ -30,7 +30,7 @@ const aPendingTest = () =>
 
 const anExplicitlySkippedTest = asserter => {
   const aTest = new Test('a test that is skipped', () => {
-    asserter.isTrue(false)
+    asserter.isTrue(false);
   }, emptyTestCallbacks);
   aTest.skip();
   return aTest;
