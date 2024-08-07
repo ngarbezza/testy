@@ -93,6 +93,4 @@ suite('formatter', () => {
     assert.that(fakeConsole.messages().slice(0, 2)).isEqualTo([testResultMessage, failureDetailMessage]);
     assert.that(fakeConsole.messages()[2]).matches(sourceCodeLocationRegex);
   };
-
-  // TODO: agregar uno para explicitly skip
 });
