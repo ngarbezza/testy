@@ -12,10 +12,10 @@ const expectSuccess = result => {
   assert.isEmpty(result.location());
 
   // other statuses
-  assert.isFalse(result.isFailure())
-  assert.isFalse(result.isError())
-  assert.isFalse(result.isPending())
-  assert.isFalse(result.isSkipped())
+  assert.isFalse(result.isFailure());
+  assert.isFalse(result.isError());
+  assert.isFalse(result.isPending());
+  assert.isFalse(result.isSkipped());
 };
 
 const expectPendingResultOn = (result, reason) => {
