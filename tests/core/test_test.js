@@ -130,4 +130,20 @@ suite('tests behavior', () => {
       expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50));
     });
   });
+
+  test('an explicitly skipped test runs the skipped callback once', async() => {
+    await withRunner(async(runner, asserter) => {
+      let calls = 0
+      const test = aTestWithBody(() => {
+        asserter.isFalse(true)
+      }, {...emptyTestCallbacks, whenSkipped: () => calls += 1 });
+
+      test.skip()
+
+      const result = await resultOfASuiteWith(runner, test);
+
+      assert.isTrue(result.isExplicltySkipped())
+      assert.that(calls).isEqualTo(1)
+    });
+  });
 });
