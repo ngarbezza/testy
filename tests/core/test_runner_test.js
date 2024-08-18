@@ -141,8 +141,7 @@ suite('test runner', () => {
       assert.that(runner.failuresCount()).isEqualTo(0);
       assert.that(runner.successCount()).isEqualTo(0);
       assert.that(runner.pendingCount()).isEqualTo(0);
-      assert.that(runner.skippedCount()).isEqualTo(0);
-      assert.that(runner.explicitlySkippedCount()).isEqualTo(1);
+      assert.that(runner.skippedCount()).isEqualTo(2);
     });
   });
 
@@ -169,8 +168,7 @@ suite('test runner', () => {
       assert.that(runner.errorsCount()).isEqualTo(3);
       assert.that(runner.successCount()).isEqualTo(0);
       assert.that(runner.pendingCount()).isEqualTo(0);
-      assert.that(runner.skippedCount()).isEqualTo(0);
-      assert.that(runner.explicitlySkippedCount()).isEqualTo(1);
+      assert.that(runner.skippedCount()).isEqualTo(1);
       assert.isTrue(runner.hasErrorsOrFailures());
       assert.that(runner.allFailuresAndErrors()).includesExactly(errorOne, errorTwo, errorThree, failureOne, failureTwo);
     });
