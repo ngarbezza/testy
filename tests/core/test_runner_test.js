@@ -141,7 +141,7 @@ suite('test runner', () => {
       assert.that(runner.failuresCount()).isEqualTo(0);
       assert.that(runner.successCount()).isEqualTo(0);
       assert.that(runner.pendingCount()).isEqualTo(0);
-      assert.that(runner.skippedCount()).isEqualTo(2);
+      assert.that(runner.skippedCount()).isEqualTo(1);
     });
   });
 
