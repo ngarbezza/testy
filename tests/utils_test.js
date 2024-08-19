@@ -1,6 +1,6 @@
 'use strict';
 
-import { assert, suite, test } from '@pmoo/testy';
+import { assert, suite, test } from '../lib/testy.js';
 
 import {
   detectUserCallingLocation,
