@@ -17,8 +17,8 @@ const emptyTestCallbacks = {
 const aPassingTest = asserter =>
   new Test('a pure success', () => asserter.isTrue(true), emptyTestCallbacks);
 
-const aFailingTest = asserter =>
-  new Test('a true failure', () => asserter.isFalse(true), emptyTestCallbacks);
+const aFailingTest = (asserter, callbacks) =>
+  new Test('a true failure', () => asserter.isFalse(true), { ...emptyTestCallbacks, ...callbacks });
 
 const anErroredTest = () =>
   new Test('an unexpected error', () => {

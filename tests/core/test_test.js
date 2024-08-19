@@ -1,7 +1,7 @@
 'use strict';
 
 import { assert, suite, test } from '../../lib/testy.js';
-import { aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor, emptyTestCallbacks } from '../support/tests_factory.js';
+import { aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor, aFailingTest } from '../support/tests_factory.js';
 import { resultOfASuiteWith, resultOfATestWith, withRunner } from '../support/runner_helpers.js';
 import { expectErrorOn, expectFailureOn, expectSuccess } from '../support/assertion_helpers.js';
 
@@ -134,9 +134,12 @@ suite('tests behavior', () => {
   test('an explicitly skipped test runs the skipped callback once', async() => {
     await withRunner(async(runner, asserter) => {
       let calls = 0;
-      const test = aTestWithBody(() => {
+      
+      const test = aFailingTest(() => {
         asserter.isFalse(true);
-      }, { ...emptyTestCallbacks, whenSkipped: () => calls += 1 });
+      }, { whenSkipped: () => {
+        calls += 1;
+      } });
 
       test.skip();
 
