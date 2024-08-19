@@ -17,8 +17,8 @@ const emptyTestCallbacks = {
 const aPassingTest = asserter =>
   new Test('a pure success', () => asserter.isTrue(true), emptyTestCallbacks);
 
-const aFailingTest = asserter =>
-  new Test('a true failure', () => asserter.isFalse(true), emptyTestCallbacks);
+const aFailingTest = (asserter, callbacks) =>
+  new Test('a true failure', () => asserter.isFalse(true), { ...emptyTestCallbacks, ...callbacks });
 
 const anErroredTest = () =>
   new Test('an unexpected error', () => {
@@ -27,6 +27,14 @@ const anErroredTest = () =>
 
 const aPendingTest = () =>
   new Test('a work in progress', undefined, emptyTestCallbacks);
+
+const anExplicitlySkippedTest = asserter => {
+  const aTest = new Test('a test that is skipped', () => {
+    asserter.isTrue(false);
+  }, emptyTestCallbacks);
+  aTest.skip();
+  return aTest;
+};
 
 const aTestWithNoAssertions = () =>
   aTestWithBody(() => 1 + 2);
@@ -46,6 +54,7 @@ export {
   aPassingTest,
   aFailingTest,
   anErroredTest,
+  anExplicitlySkippedTest,
   aPendingTest,
   aTestWithNoAssertions,
   aTestRunningFor,
