@@ -90,10 +90,10 @@ listed <a href="https://endoflife.date/nodejs">here</a>)</p>
 <h3>Writing test suites</h3>
 <p>A test suite is a file ending <code>_test.js</code> that looks like this:</p>
 <pre class="prettyprint source lang-javascript"><code>// my_test.js
-import { suite, test, assert } from '@pmoo/testy';
+import { suite, test, assert } from &quot;@pmoo/testy&quot;;
 
-suite('a boring test suite', () => {
-  test('42 is 42, not surprising', () => {
+suite(&quot;a boring test suite&quot;, () => {
+  test(&quot;42 is 42, not surprising&quot;, () => {
     assert.that(42).isEqualTo(42);
   });
 });
@@ -103,10 +103,10 @@ suite('a boring test suite', () => {
 <p>Inside the test you can call different assertions that are documented in detail later on.</p>
 <h3>Running Testy</h3>
 <p>You can run an individual test file using:</p>
-<pre class="prettyprint source"><code>$ npx testy my_test.js 
+<pre class="prettyprint source"><code>$ npx testy my_test.js
 </code></pre>
 <p>Or, you can run it without arguments to run all the tests (by default it looks on a <code>tests</code> folder located in the project root):</p>
-<pre class="prettyprint source"><code>$ npx testy 
+<pre class="prettyprint source"><code>$ npx testy
 </code></pre>
 <p>You can also add it as the <code>test</code> script for npm/yarn in your <code>package.json</code>:</p>
 <pre class="prettyprint source"><code>{
@@ -227,49 +227,68 @@ When declaring this configuration, every test suite under the <code>tests</code>
 <p><strong>Running code before/after every test</strong>: just like many testing frameworks have, there is a way to execute some code
 before or after each test in a suite using the <code>before()</code> and <code>after()</code> functions, respectively. You can use only one
 definition of <code>before()</code> and <code>after()</code> per suite, and they always receive a function as argument. Example:</p>
-<pre class="prettyprint source lang-javascript"><code>import { suite, test, assert, before, after } from '@pmoo/testy';
+<pre><code>```javascript
+import { suite, test, assert, before, after } from '@pmoo/testy';
 
-suite('using the before() and after() helpers', () => {
+suite('using the before() and after() helpers', () =&gt; {
   let answer;
 
-  before(() => {
+  before(() =&gt; {
     answer = 42;
   });
 
-  test('checking the answer', () => {
+  test('checking the answer', () =&gt; {
     assert.that(answer).isEqualTo(42);
   });
 
-  after(() => {
+  after(() =&gt; {
     answer = undefined;
   });
 });
+```
 </code></pre>
 </li>
 <li>
 <p><strong>Support for pending tests</strong>: if a test has no body, it will be reported as <code>[WIP]</code> and it won't be considered a failure.</p>
 </li>
 <li>
+<p><strong>Support for skipped tests</strong>: you can skip a test by adding <code>.skip()</code> after test declaration, it will be reported as <code>[SKIP]</code> and it won't be executed nor considered a failure.</p>
+<pre><code>```javascript
+import { suite, test, assert } from '@pmoo/testy';
+
+suite('I am a suite with a skipped test', () =&gt; {
+
+  test('I am a skipped test', async () =&gt; {
+    assert.that(1).isEqualTo(1);
+  }).skip();
+
+});
+```
+</code></pre>
+</li>
+<li>
 <p><strong>Support for asynchronous tests</strong>: if the code you are testing has <code>async</code> logic, you can <code>await</code> inside the test
 definition and make assertions later. You can also use it on <code>before()</code> and <code>after()</code> declarations. Example:</p>
-<pre class="prettyprint source lang-javascript"><code>import { suite, test, assert, before } from '@pmoo/testy';
+<pre><code>```javascript
+import { suite, test, assert, before } from '@pmoo/testy';
 
-const promiseOne = async () => Promise.resolve(42);
-const promiseTwo = async () => Promise.resolve(21);
+const promiseOne = async () =&gt; Promise.resolve(42);
+const promiseTwo = async () =&gt; Promise.resolve(21);
 
-suite('using async & await', () => {
+suite('using async &amp; await', () =&gt; {
   let answerOne;
 
-  before(async () => {
+  before(async () =&gt; {
     answerOne = await promiseOne();
   });
 
-  test('comparing results from promises', async () => {
+  test('comparing results from promises', async () =&gt; {
     const answerTwo = await promiseTwo();
     assert.that(answerOne).isEqualTo(42);
     assert.that(answerTwo).isEqualTo(21);
   });
 });
+```
 </code></pre>
 </li>
 <li>
@@ -283,14 +302,13 @@ suite('using async & await', () => {
 </li>
 <li>
 <p><strong>Explicitly failing or marking a test as pending</strong>: there's a possibility of marking a test as failed or pending, for example:</p>
-<pre class="prettyprint source lang-javascript"><code>import { suite, test, fail, pending } from '@pmoo/testy';
+<pre class="prettyprint source lang-javascript"><code>import { suite, test, fail, pending } from &quot;@pmoo/testy&quot;;
 
-suite('marking tests as failed and pending', () => {
-  test('marking as failed', () =>
-    fail.with('should not be here'));
-  
-  test('marking as pending', () =>
-    pending.dueTo('did not have time to finish'));
+suite(&quot;marking tests as failed and pending&quot;, () => {
+  test(&quot;marking as failed&quot;, () => fail.with(&quot;should not be here&quot;));
+
+  test(&quot;marking as pending&quot;, () =>
+    pending.dueTo(&quot;did not have time to finish&quot;));
 });
 </code></pre>
 <p>The output includes the messages provided:</p>
@@ -352,7 +370,7 @@ suite('marking tests as failed and pending', () => {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Jul 30 2024 11:45:49 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Aug 19 2024 15:29:08 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
