@@ -6,12 +6,15 @@ checks:
 plugins:
   duplication:
     enabled: true
-  eslint:
-    enabled: true
-    channel: "eslint-8"
-    config:
-      config: config/eslintrc.json
+# ESLint9 not supported yet: https://github.com/codeclimate/codeclimate-eslint/issues/614
+#  eslint:
+#    enabled: true
+#    channel: "eslint-9"
+#    config:
+#      config: config/eslint.config.js
   fixme:
     enabled: true
   markdownlint:
+    enabled: true
+  shellcheck:
     enabled: true
