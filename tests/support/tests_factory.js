@@ -12,10 +12,10 @@ const emptyTestCallbacks = {
   whenSuccess: noop,
 };
 
-const aPassingTest = asserter =>
-  new Test('a pure success', () => asserter.isTrue(true), emptyTestCallbacks);
+const aPassingTest = (asserter, callbacks = {}) =>
+  new Test('a pure success', () => asserter.isTrue(true), { ...emptyTestCallbacks, ...callbacks });
 
-const aFailingTest = (asserter, callbacks) =>
+const aFailingTest = (asserter, callbacks = {}) =>
   new Test('a true failure', () => asserter.isFalse(true), { ...emptyTestCallbacks, ...callbacks });
 
 const anErroredTest = () =>
@@ -39,9 +39,9 @@ const aTestWithNoAssertions = () =>
 
 const aTestRunningFor = (millis, asserter) =>
   new Test('sleepFor', async() => {
-     
+
     const sleep = ms => new Promise(resolve => {
-      setTimeout(resolve, ms); 
+      setTimeout(resolve, ms);
     });
     await sleep(millis);
     asserter.isTrue(true);

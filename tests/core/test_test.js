@@ -133,15 +133,14 @@ suite('tests behavior', () => {
     await withRunner(async(runner, asserter) => {
       let calls = 0;
 
-      const test = aFailingTest(() => {
-        asserter.isFalse(true);
-      }, { whenSkipped: () => {
-        calls += 1;
-      } });
+      const testToBeSkipped = aFailingTest(
+        asserter, { whenSkipped: () => {
+          calls += 1;
+        } });
 
-      test.skip();
+      testToBeSkipped.skip();
 
-      const result = await resultOfASuiteWith(runner, test);
+      const result = await resultOfASuiteWith(runner, testToBeSkipped);
 
       assert.isTrue(result.isExplicitlySkipped());
       assert.that(calls).isEqualTo(1);
