@@ -18,8 +18,8 @@
   "scripts": {
     "jsdoc": "npx jsdoc@4.0.2 --package package.json --recurse lib/ --destination doc/jsdoc --configure config/jsdoc.json",
     "see:jsdoc": "open doc/jsdoc/index.html",
-    "lint": "npx eslint@8.57.0 --config config/eslintrc.json lib/ tests/ bin/",
-    "lint:fix": "npx eslint@8.57.0 --config config/eslintrc.json lib/ tests/ bin/ --fix",
+    "lint": "eslint --config config/eslint.config.js",
+    "lint:fix": "eslint --config config/eslint.config.js --fix",
     "test": "bin/testy_cli.js",
     "playground:run": "npm t tests/playground_test.js",
     "playground:reset": "cp tests/playground_test.js.template tests/playground_test.js",
@@ -55,5 +55,8 @@
   ],
   "author": "Nahuel Garbezza <n.garbezza@gmail.com>",
   "license": "MIT",
-  "dependencies": {}
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "eslint": "^9.8.0"
+  }
 }

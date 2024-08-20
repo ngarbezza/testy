@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, before, suite, test } from '../../lib/testy.js';
 
 import { ConsoleUI } from '../../lib/ui/console_ui.js';

@@ -1,5 +1,3 @@
-'use strict';
-
 export class FakeConsole {
   constructor() {
     this._messages = [];

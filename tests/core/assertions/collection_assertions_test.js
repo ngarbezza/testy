@@ -1,5 +1,3 @@
-'use strict';
-
 import { suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
 import { expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
@@ -59,7 +57,7 @@ suite('collection assertions', () => {
     const result = await resultOfATestWith(assert => {
       assert.that([{ hello: 'world' }]).includes(
         { hello: 'mars' },
-        (objectOne, objectTwo) => !!objectOne.hello && !!objectTwo.hello,
+        (objectOne, objectTwo) => Boolean(objectOne.hello) && Boolean(objectTwo.hello),
       );
     });
 

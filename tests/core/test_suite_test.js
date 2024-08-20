@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, before, suite, test } from '../../lib/testy.js';
 import { withRunner } from '../support/runner_helpers.js';
 import { newEmptySuite } from '../support/suites_factory.js';
@@ -25,9 +23,9 @@ suite('test suite behavior', () => {
   });
 
   test('it is possible to retrieve the suite name', () => {
-    const suite = new TestSuite('my cool behavior', () => {});
+    const testSuite = new TestSuite('my cool behavior', () => {});
 
-    assert.that(suite.name()).isEqualTo('my cool behavior');
+    assert.that(testSuite.name()).isEqualTo('my cool behavior');
   });
 
   test('more than one before block is not allowed', () => {

@@ -1,5 +1,3 @@
-'use strict';
-
 import { TestSuite } from '../../lib/core/test_suite.js';
 
 const noop = () => {

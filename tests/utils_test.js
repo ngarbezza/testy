@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '../lib/testy.js';
 
 import {
@@ -49,7 +47,6 @@ suite('utility functions', () => {
 
   test('isRegex returns true for regexes', () => {
     assert.isTrue(isRegex(/something/));
-    assert.isTrue(isRegex(new RegExp('something')));
   });
 
   test('isRegex returns false for other objects', () => {

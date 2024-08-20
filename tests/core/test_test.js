@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert, suite, test } from '../../lib/testy.js';
 import { aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor, aFailingTest } from '../support/tests_factory.js';
 import { resultOfASuiteWith, resultOfATestWith, withRunner } from '../support/runner_helpers.js';
@@ -50,12 +48,12 @@ suite('tests behavior', () => {
 
   test('a test fails on the first assertion failed', async() => {
     await withRunner(async(runner, asserter) => {
-      const test = aTestWithBody(() => {
+      const failingTest = aTestWithBody(() => {
         asserter.isNotEmpty([]);
         asserter.areEqual(2, 3);
       });
 
-      const result = await resultOfASuiteWith(runner, test);
+      const result = await resultOfASuiteWith(runner, failingTest);
 
       expectFailureOn(result, I18nMessage.of('expectation_be_not_empty', '[]'));
     });
@@ -63,12 +61,12 @@ suite('tests behavior', () => {
 
   test('a before() hook that fails makes the test fail', async() => {
     await withRunner(async(runner, asserter) => {
-      const test = aTestWithBody(() => asserter.isEmpty([]));
+      const aTest = aTestWithBody(() => asserter.isEmpty([]));
       const before = () => {
         throw 'oops I did it again';
       };
 
-      const result = await resultOfASuiteWith(runner, test, before, noop);
+      const result = await resultOfASuiteWith(runner, aTest, before, noop);
 
       expectErrorOn(result, 'oops I did it again', '');
     });
@@ -76,12 +74,12 @@ suite('tests behavior', () => {
 
   test('an after() hook that fails makes the test fail', async() => {
     await withRunner(async(runner, asserter) => {
-      const test = aTestWithBody(() => asserter.isEmpty([]));
+      const aTest = aTestWithBody(() => asserter.isEmpty([]));
       const after = () => {
         throw 'oops I did it again';
       };
 
-      const result = await resultOfASuiteWith(runner, test, noop, after);
+      const result = await resultOfASuiteWith(runner, aTest, noop, after);
 
       expectErrorOn(result, 'oops I did it again', '');
     });
@@ -97,22 +95,22 @@ suite('tests behavior', () => {
 
   test('a test does not fail by timeout when previous timeout promise resolves', async() => {
     await withRunner(async(runner, asserter) => {
-      const test = aTestRunningFor(40, asserter);
-      let result = await resultOfASuiteWith(runner, test);
+      const aTest = aTestRunningFor(40, asserter);
+      let result = await resultOfASuiteWith(runner, aTest);
       expectSuccess(result);
-      result = await resultOfASuiteWith(runner, test);
+      result = await resultOfASuiteWith(runner, aTest);
       expectSuccess(result);
     });
   });
 
   test('a test fails by timeout if the before() block fails by timeout', async() => {
     await withRunner(async(runner, asserter) => {
-      const test = aPassingTest(asserter);
+      const aTest = aPassingTest(asserter);
       const before = async() => {
         await promiseThatNeverEnds();
       };
 
-      const result = await resultOfASuiteWith(runner, test, before, noop);
+      const result = await resultOfASuiteWith(runner, aTest, before, noop);
 
       expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50));
     });
@@ -120,12 +118,12 @@ suite('tests behavior', () => {
 
   test('a test fails by timeout if the after() block fails by timeout', async() => {
     await withRunner(async(runner, asserter) => {
-      const test = aPassingTest(asserter);
+      const aTest = aPassingTest(asserter);
       const after = async() => {
         await promiseThatNeverEnds();
       };
 
-      const result = await resultOfASuiteWith(runner, test, noop, after);
+      const result = await resultOfASuiteWith(runner, aTest, noop, after);
 
       expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50));
     });
@@ -134,16 +132,15 @@ suite('tests behavior', () => {
   test('an explicitly skipped test runs the skipped callback once', async() => {
     await withRunner(async(runner, asserter) => {
       let calls = 0;
-      
-      const test = aFailingTest(() => {
-        asserter.isFalse(true);
-      }, { whenSkipped: () => {
-        calls += 1;
-      } });
 
-      test.skip();
+      const testToBeSkipped = aFailingTest(
+        asserter, { whenSkipped: () => {
+          calls += 1;
+        } });
 
-      const result = await resultOfASuiteWith(runner, test);
+      testToBeSkipped.skip();
+
+      const result = await resultOfASuiteWith(runner, testToBeSkipped);
 
       assert.isTrue(result.isExplicitlySkipped());
       assert.that(calls).isEqualTo(1);
