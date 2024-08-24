@@ -191,4 +191,37 @@ suite('test suite behavior', () => {
     // we cannot test how the random process was done, but at least we ensure we keep the same tests
     assert.areEqual(new Set(testsBefore), new Set(testsAfter));
   });
+
+  test('a skipped suite skips the execution of all its tests', () => {
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+    mySuite.addTest(erroredTest);
+    mySuite.addTest(pendingTest);
+
+    mySuite.skip()
+
+    assert.areEqual(mySuite.skippedCount(), 4);
+    assert.isTrue(passingTest.isExplicitlySkipped());
+    assert.isTrue(failingTest.isExplicitlySkipped());
+    assert.isTrue(erroredTest.isExplicitlySkipped());
+    assert.isTrue(pendingTest.isExplicitlySkipped());
+  });
+
+  test('a skipped suite skips the execution of before hooks', () => {
+    let count = 0;
+    mySuite.before(() => count = count + 1);
+
+    mySuite.skip()
+
+    assert.that(count).isEqualTo(0);
+  });
+
+  test('a skipped suite skips the execution of after hooks', () => {
+    let count = 0;
+    mySuite.after(() => count = count + 1);
+
+    mySuite.skip()
+
+    assert.that(count).isEqualTo(0);
+  })
 });
