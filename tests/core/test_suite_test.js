@@ -198,7 +198,7 @@ suite('test suite behavior', () => {
     mySuite.addTest(erroredTest);
     mySuite.addTest(pendingTest);
 
-    mySuite.skip()
+    mySuite.skip();
 
     assert.areEqual(mySuite.skippedCount(), 4);
     assert.isTrue(passingTest.isExplicitlySkipped());
@@ -209,19 +209,19 @@ suite('test suite behavior', () => {
 
   test('a skipped suite skips the execution of before hooks', () => {
     let count = 0;
-    mySuite.before(() => count = count + 1);
+    mySuite.before(() => count += 1);
 
-    mySuite.skip()
+    mySuite.skip();
 
     assert.that(count).isEqualTo(0);
   });
 
   test('a skipped suite skips the execution of after hooks', () => {
     let count = 0;
-    mySuite.after(() => count = count + 1);
+    mySuite.after(() => count += 1);
 
-    mySuite.skip()
+    mySuite.skip();
 
     assert.that(count).isEqualTo(0);
-  })
+  });
 });
