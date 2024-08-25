@@ -202,7 +202,13 @@ suite('test suite behavior', () => {
 
     await runner.run();
 
-    assert.areEqual(mySuite.skippedCount(), 4);
+    assert.that(mySuite.totalCount()).isEqualTo(4);
+    assert.that(mySuite.pendingCount()).isEqualTo(0);
+    assert.that(mySuite.successCount()).isEqualTo(0);
+    assert.that(mySuite.failuresCount()).isEqualTo(0);
+    assert.that(mySuite.errorsCount()).isEqualTo(0);
+    assert.that(mySuite.skippedCount()).isEqualTo(4);
+    
     assert.isTrue(passingTest.isExplicitlySkipped());
     assert.isTrue(failingTest.isExplicitlySkipped());
     assert.isTrue(erroredTest.isExplicitlySkipped());
