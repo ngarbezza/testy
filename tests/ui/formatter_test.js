@@ -34,12 +34,12 @@ suite('formatter', () => {
     });
   });
 
-  test('display skipped status in grey when explicitly skipping a test', async() => {
+  test('display skipped status in cyan when explicitly skipping a test', async() => {
     await withRunner(async(runner, _assert, _fail) => {
       const skippedTest = anExplicitlySkippedTest();
       await resultOfASuiteWith(runner, skippedTest);
       formatter.displaySkippedResult(skippedTest);
-      const testResultMessage = '[\x1B[30m\x1B[1mSKIP\x1B[0m] \x1B[30ma test that is skipped\x1B[0m';
+      const testResultMessage = '[\x1B[36m\x1B[1mSKIP\x1B[0m] \x1B[36ma test that is skipped\x1B[0m';
       assert.that(fakeConsole.messages()).includesExactly(testResultMessage);
     });
   });
