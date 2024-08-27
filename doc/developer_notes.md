@@ -1,6 +1,11 @@
 # Testy Developer Notes
 
-This article serves as a guide for Testy devs. It contains useful information about local development and testing. 
+This article serves as a guide for Testy devs. It contains useful information about local development and testing.
+
+## Run configuration for Webstorm
+
+The recommended IDE to work with Testy is Webstorm. The project includes a run configuration called
+`[testy] current file` which is convenient to just run the file you're currently on.
 
 ## Working with a playground
 
