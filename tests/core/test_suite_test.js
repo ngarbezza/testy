@@ -191,4 +191,55 @@ suite('test suite behavior', () => {
     // we cannot test how the random process was done, but at least we ensure we keep the same tests
     assert.areEqual(new Set(testsBefore), new Set(testsAfter));
   });
+
+  test('a skipped suite skips the execution of all its tests', async() => {
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+    mySuite.addTest(erroredTest);
+    mySuite.addTest(pendingTest);
+
+    mySuite.skip();
+
+    await runner.run();
+
+    assert.that(mySuite.totalCount()).isEqualTo(4);
+    assert.that(mySuite.pendingCount()).isEqualTo(0);
+    assert.that(mySuite.successCount()).isEqualTo(0);
+    assert.that(mySuite.failuresCount()).isEqualTo(0);
+    assert.that(mySuite.errorsCount()).isEqualTo(0);
+    assert.that(mySuite.skippedCount()).isEqualTo(4);
+    
+    assert.isTrue(passingTest.isExplicitlySkipped());
+    assert.isTrue(failingTest.isExplicitlySkipped());
+    assert.isTrue(erroredTest.isExplicitlySkipped());
+    assert.isTrue(pendingTest.isExplicitlySkipped());
+  });
+
+  test('a skipped suite skips the execution of before hooks', async() => {
+    let count = 0;
+    mySuite.before(() => {
+      count += 1;
+    });
+
+    mySuite.addTest(passingTest);
+    mySuite.skip();
+    await runner.run();
+
+    assert.that(count).isEqualTo(0);
+  });
+
+  test('a skipped suite skips the execution of after hooks', async() => {
+    let count = 0;
+
+    mySuite.after(() => {
+      count += 1;
+    });
+
+    mySuite.addTest(passingTest);
+    mySuite.skip();
+
+    await runner.run();
+
+    assert.that(count).isEqualTo(0);
+  });
 });
