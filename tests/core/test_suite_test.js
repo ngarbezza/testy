@@ -243,7 +243,7 @@ suite('test suite behavior', () => {
     assert.that(count).isEqualTo(0);
   });
 
-  test('a suite that has tests marked as only runs exclusively those tests and skips the rest', async () => {
+  test('a suite that has tests marked as only runs exclusively those tests and skips the rest', async() => {
     mySuite.addTest(passingTest);
     mySuite.addTest(failingTest);
     mySuite.addTest(erroredTest);
@@ -261,9 +261,9 @@ suite('test suite behavior', () => {
     assert.that(mySuite.failuresCount()).isEqualTo(1);
     assert.that(mySuite.errorsCount()).isEqualTo(0);
     assert.that(mySuite.skippedCount()).isEqualTo(1);
-  })
+  });
 
-  test('a suite that has tests marked as only runs before hooks exclusively for those tests', async () => {
+  test('a suite that has tests marked as only runs before hooks exclusively for those tests', async() => {
     let count = 0;
 
     mySuite.before(() => {
@@ -280,7 +280,7 @@ suite('test suite behavior', () => {
     assert.that(count).isEqualTo(1);
   });
 
-  test('a suite that has tests marked as only runs after hooks exclusively for those tests', async () => {
+  test('a suite that has tests marked as only runs after hooks exclusively for those tests', async() => {
     let count = 0;
 
     mySuite.after(() => {

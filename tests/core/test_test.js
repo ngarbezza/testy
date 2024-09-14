@@ -147,7 +147,7 @@ suite('tests behavior', () => {
     });
   });
 
-  test('a successful test marked as only runs normally', async () => {
+  test('a successful test marked as only runs normally', async() => {
     await withRunner(async(runner, asserter) => {
       let calls = 0;
 
@@ -163,9 +163,9 @@ suite('tests behavior', () => {
       assert.isTrue(result.isSuccess());
       assert.that(calls).isEqualTo(1);
     });
-  })
+  });
 
-  test('a failed test marked as only runs normally', async () => {
+  test('a failed test marked as only runs normally', async() => {
     await withRunner(async(runner, asserter) => {
       let calls = 0;
 
@@ -181,5 +181,5 @@ suite('tests behavior', () => {
       assert.isTrue(result.isFailure());
       assert.that(calls).isEqualTo(1);
     });
-  })
+  });
 });
