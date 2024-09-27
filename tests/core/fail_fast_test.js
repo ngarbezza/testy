@@ -1,6 +1,7 @@
 import { assert, suite, test } from '../../lib/testy.js';
 
 import { FailFast } from '../../lib/config/fail_fast.js';
+import { InvalidConfigurationError } from '../../lib/errors.js';
 
 suite('fail fast behavior', () => {
   test('when enabled, initially has not failed', () => {
@@ -36,6 +37,6 @@ suite('fail fast behavior', () => {
     const failFastMode = 'I AM AN INVALID VALUE';
 
     assert.that(() => new FailFast(failFastMode))
-      .raises(new Error('Expected a boolean value for failFast configuration'));
+      .raises(new InvalidConfigurationError('Expected a boolean value for failFast configuration, got: I AM AN INVALID VALUE'));
   });
 });
