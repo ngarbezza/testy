@@ -4,7 +4,7 @@ import { ConsoleUI } from '../../lib/ui/console_ui.js';
 import { FakeConsole } from './fake_console.js';
 import { FakeProcess } from './fake_process.js';
 import { Configuration } from '../../lib/config/configuration.js';
-import { emptyRunnerCallbacks, withRunnerAndCallbacks } from '../support/runner_helpers.js';
+import { withRunnerAndCallbacks } from '../support/runner_helpers.js';
 
 suite('Console UI', () => {
   let fakeProcess, fakeConsole, console;
@@ -32,7 +32,7 @@ suite('Console UI', () => {
 
   test('prints initial configuration on start', async() => {
     const config = Configuration.current();
-    await console.start(config, [], () => {});
+    await console.start(config, []);
     assert.that(fakeConsole.messages().length).isEqualTo(7);
     assert.that(fakeConsole.messages().at(2)).matches(/Starting Testy!/);
     assert.that(fakeConsole.messages().at(3)).matches(/Running tests in/);
@@ -41,15 +41,10 @@ suite('Console UI', () => {
   });
 
   test('has a timer that ends at the end of the runner', async() => {
-    const callbacks = {
-      ...emptyRunnerCallbacks,
-      onFinish: runner => {
-        console.onRunnerFinish(runner);
-      },
-    };
-    await withRunnerAndCallbacks(callbacks, async runner => {
+    await withRunnerAndCallbacks(console.testRunnerCallbacks(), async runner => {
       runner.run();
     });
+
     assert.that(fakeConsole.messages().at(-1)).isEqualTo('timer "Total time" ended');
   });
 });
