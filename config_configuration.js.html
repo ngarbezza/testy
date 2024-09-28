@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Test - Documentation</title>
+    <title>config/configuration.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,142 +29,96 @@
 
 <div id="main">
     
-    <h1 class="page-title">Test</h1>
+    <h1 class="page-title">config/configuration.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Test
-        </h2>
-        
-            <div class="class-description"><p>I am an executable test, part of a <a href="TestSuite.html">test suite</a> and executed by a <a href="TestRunner.html">test runner</a>.
-After the execution, I know the <a href="TestResult.html">result</a>. Tests must contain at least one assertion.
-See <a href="Asserter.html">Asserter</a> and <a href="Assertion.html">Assertion</a> for more details on how to write those.</p></div>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { FailFast } from './fail_fast.js';
+import { resolvePathFor } from '../utils.js';
 
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
+// Change to import assertions when reaching Node 18
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
-    
-    <h2>Constructor</h2>
-    
+const CONFIGURATION_FILE_NAME = '.testyrc.json';
 
-    <h4 class="name" id="Test"><span class="type-signature"></span>new Test<span class="signature">()</span><span class="type-signature"></span></h4>
+/**
+ * I load, parse and expose the user configuration parameters. I merge the user configurations with the tool defaults,
+ * the users choices are prioritary.
+ *
+ * Please refer to `.testyrc.json` file in the root folder to see all the configuration options available.
+ */
+export class Configuration {
+  #userConfigurationOptions;
+  #defaultConfigurationOptions;
+  #configurationOptions;
 
-    
+  // instance creation
 
+  static current() {
+    let userConfiguration = {};
+    const defaultConfiguration = require('./default_configuration.json');
+    try {
+      userConfiguration = require(resolvePathFor(CONFIGURATION_FILE_NAME));
+      // eslint-disable-next-line no-unused-vars
+    } catch (_error) {
+      // returning an empty object as configuration is fine
+    }
 
+    return new this(userConfiguration, defaultConfiguration);
+  }
 
+  constructor(userConfiguration, defaultConfiguration) {
+    this.#userConfigurationOptions = userConfiguration;
+    this.#defaultConfigurationOptions = defaultConfiguration;
+    this.#initializeOptions();
+  }
 
+  // accessing configuration parameters
 
+  directory() {
+    return this.#configurationOptions.directory;
+  }
 
+  filter() {
+    return new RegExp(this.filterRaw());
+  }
 
-<dl class="details">
+  filterRaw() {
+    return this.#configurationOptions.filter;
+  }
 
-    
+  language() {
+    return this.#configurationOptions.language;
+  }
 
-    
+  failFastMode() {
+    return new FailFast(this.#configurationOptions.failFast);
+  }
 
-    
+  randomOrder() {
+    return this.#configurationOptions.randomOrder;
+  }
 
-    
+  timeoutMs() {
+    return this.#configurationOptions.timeoutMs;
+  }
 
-    
+  // initialization
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_test.js.html">core/test.js</a>, <a href="core_test.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Test.html">Test</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  #initializeOptions() {
+    this.#configurationOptions = { ...this.#defaultConfigurationOptions, ...this.#userConfigurationOptions };
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

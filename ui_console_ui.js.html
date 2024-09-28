@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Test - Documentation</title>
+    <title>ui/console_ui.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,142 +29,122 @@
 
 <div id="main">
     
-    <h1 class="page-title">Test</h1>
+    <h1 class="page-title">ui/console_ui.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Test
-        </h2>
-        
-            <div class="class-description"><p>I am an executable test, part of a <a href="TestSuite.html">test suite</a> and executed by a <a href="TestRunner.html">test runner</a>.
-After the execution, I know the <a href="TestResult.html">result</a>. Tests must contain at least one assertion.
-See <a href="Asserter.html">Asserter</a> and <a href="Assertion.html">Assertion</a> for more details on how to write those.</p></div>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { I18n } from '../i18n/i18n.js';
+import { Formatter } from './formatter.js';
 
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
+/**
+ * I am a command-line user interface, connected to Node's `console`.
+ *
+ * I deal with all the relevant events and decide what to display to the user.
+ * For that task, I collaborate with a [formatter]{@link Formatter}.
+ */
+export class ConsoleUI {
+  #process;
+  #console;
+  #formatter;
 
-    
-    <h2>Constructor</h2>
-    
+  static successfulExitCode() {
+    return 0;
+  }
 
-    <h4 class="name" id="Test"><span class="type-signature"></span>new Test<span class="signature">()</span><span class="type-signature"></span></h4>
+  static failedExitCode() {
+    return 1;
+  }
 
-    
+  // instance creation
 
+  constructor(process, console) {
+    this.#process = process;
+    this.#console = console;
+    this.#useLanguage(I18n.defaultLanguage());
+  }
 
+  // configuration
 
+  configureWith(configuration) {
+    this.#useLanguage(configuration.language());
+  }
 
+  // Callbacks for runner/suite/test
 
+  testCallbacks() {
+    return {
+      whenPending: test =>
+        this.#formatter.displayPendingResult(test),
+      whenSkipped: test =>
+        this.#formatter.displaySkippedResult(test),
+      whenSuccess: test =>
+        this.#formatter.displaySuccessResult(test),
+      whenFailed: test =>
+        this.#formatter.displayFailureResult(test, 'fail'),
+      whenErrored: test =>
+        this.#formatter.displayFailureResult(test, 'error'),
+    };
+  }
 
+  suiteCallbacks() {
+    return {
+      onStart: suite =>
+        this.#formatter.displaySuiteStart(suite),
+      onFinish: suite =>
+        this.#formatter.displaySuiteEnd(suite),
+    };
+  }
 
-<dl class="details">
+  testRunnerCallbacks() {
+    return {
+      onFinish: runner =>
+        this.#onRunnerFinish(runner),
+      onSuccess: _runner =>
+        this.#exitWithCode(ConsoleUI.successfulExitCode()),
+      onFailure: _runner =>
+        this.#exitWithCode(ConsoleUI.failedExitCode()),
+    };
+  }
 
-    
+  // application events
 
-    
+  start(configuration, paths) {
+    this.#formatter.startTimer();
+    this.#formatter.displayInitialInformation(configuration, paths);
+  }
 
-    
+  exitWithError(...errorMessages) {
+    errorMessages.forEach(errorMessage =>
+      this.#formatter.displayError(errorMessage),
+    );
+    this.#exitWithCode(ConsoleUI.failedExitCode());
+  }
 
-    
+  // private
 
-    
+  #useLanguage(language) {
+    const i18n = new I18n(language);
+    this.#formatter = new Formatter(this.#console, i18n);
+  }
 
-    
+  #onRunnerFinish(runner) {
+    this.#formatter.displayRunnerEnd(runner);
+    this.#formatter.endTimer();
+  }
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_test.js.html">core/test.js</a>, <a href="core_test.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Test.html">Test</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  #exitWithCode(exitCode) {
+    this.#process.exit(exitCode);
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

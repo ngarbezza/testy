@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Test - Documentation</title>
+    <title>ui/formatter.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,142 +29,192 @@
 
 <div id="main">
     
-    <h1 class="page-title">Test</h1>
+    <h1 class="page-title">ui/formatter.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Test
-        </h2>
-        
-            <div class="class-description"><p>I am an executable test, part of a <a href="TestSuite.html">test suite</a> and executed by a <a href="TestRunner.html">test runner</a>.
-After the execution, I know the <a href="TestResult.html">result</a>. Tests must contain at least one assertion.
-See <a href="Asserter.html">Asserter</a> and <a href="Assertion.html">Assertion</a> for more details on how to write those.</p></div>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isEmpty, isString } from '../utils.js';
 
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
+const
+  off = '\x1b[0m',
+  bold = '\x1b[1m',
+  cyan = '\x1b[36m',
+  red = '\x1b[31m',
+  green = '\x1b[32m',
+  yellow = '\x1b[33m';
 
-    
-    <h2>Constructor</h2>
-    
+const consoleWidth = 80;
 
-    <h4 class="name" id="Test"><span class="type-signature"></span>new Test<span class="signature">()</span><span class="type-signature"></span></h4>
+/**
+ * I present all the events from Testy as formatted text to a [console]{@link ConsoleUI}.
+ */
+export class Formatter {
+  #console;
+  #i18n;
+  #timerName;
+  #filter;
 
-    
+  constructor(console, i18n) {
+    this.#console = console;
+    this.#i18n = i18n;
+    this.#timerName = this.#translated('total_time');
+  }
 
+  startTimer() {
+    this.#console.time(this.#timerName);
+  }
 
+  endTimer() {
+    this.#console.timeEnd(this.#timerName);
+  }
 
+  displayInitialInformation(configuration, paths) {
+    this.#filter = configuration.filterRaw();
+    this.#displaySeparator();
+    this.#displayConfigurationSummary(paths, configuration);
+    this.#displaySeparator();
+  }
 
+  displayRunnerEnd(runner) {
+    this.#displayErrorsAndFailuresSummary(runner);
+    this.#displayGeneralSummary(runner);
+  }
 
+  // displaying suites
 
+  displaySuiteStart(suite) {
+    this.#console.log(`\n${suite.name()}:`);
+    this.#displaySeparator('-');
+  }
 
-<dl class="details">
+  displaySuiteEnd(suite) {
+    this.#displaySeparator('-');
+    this.#console.log(`${this.#translated('summary_of')} ${suite.name()}:`);
+    this.#displayCountFor(suite);
+    this.#displaySeparator();
+  }
 
-    
+  // displaying test results
 
-    
+  displayPendingResult(test) {
+    this.#displayResult(this.#translated('wip'), test, yellow);
+    if (test.isExplicitlyMarkedPending()) {
+      this.#displayResultDetail(test.result().reason());
+    }
+  }
 
-    
+  displaySkippedResult(test) {
+    this.#displayResult(this.#translated('skip'), test, cyan);
+  }
 
-    
+  displaySuccessResult(test) {
+    this.#displayResult(this.#translated('ok'), test, green);
+  }
 
-    
+  displayFailureResult(test, failType) {
+    this.#displayResult(this.#translated(failType), test, red);
+    this.#displayResultDetail(test.result().failureMessage());
+    this.#displayResultDetail(test.result().location());
+  }
 
-    
+  // displaying other messages
 
-    
+  displayError(message) {
+    this.#console.log(`${this.#withColor(this.#potentiallyInternationalized(message), red)}`);
+  }
 
-    
+  #displayConfigurationSummary(paths, configuration) {
+    const testPathsLabel = this.#translated('running_tests_in');
+    const failFastLabel = this.#translated('fail_fast');
+    const randomOrderLabel = this.#translated('random_order');
+    this.#console.log(this.#inBold(this.#translated('starting_testy')));
+    const padding = Math.max(testPathsLabel.length, failFastLabel.length, randomOrderLabel.length);
+    this.#console.log(`${testPathsLabel.padEnd(padding)} : ${paths}`);
+    this.#console.log(`${failFastLabel.padEnd(padding)} : ${this.#humanBoolean(configuration.failFastMode().enabled())}`);
+    this.#console.log(`${randomOrderLabel.padEnd(padding)} : ${this.#humanBoolean(configuration.randomOrder())}`);
+  }
 
-    
+  // private - displaying
 
-    
+  #displayResult(result, test, color) {
+    this.#console.log(`[${color}${this.#inBold(result)}] ${this.#withColor(test.name(), color)}`);
+  }
 
-    
+  #displayResultDetail(detail) {
+    if (!isEmpty(detail)) {
+      this.#console.log(`  => ${this.#potentiallyInternationalized(detail)}`);
+    }
+  }
 
-    
+  #displayErrorsAndFailuresSummary(runner) {
+    if (runner.hasErrorsOrFailures()) {
+      this.#console.log(`\n${this.#translated('failures_summary')}`);
+      runner.allFailuresAndErrors().forEach(test => {
+        const failType = test.isFailure() ? 'fail' : 'error';
+        this.displayFailureResult(test, failType);
+      });
+      this.#displaySeparator();
+    }
+  }
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_test.js.html">core/test.js</a>, <a href="core_test.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
+  #displayGeneralSummary(runner) {
+    this.#console.log(`\n${this.#translated('total')}`);
+    this.#displayCountFor(runner);
+    this.#displaySeparator();
+  }
 
-    
+  #displayCountFor(runner) {
+    const passedCount = this.#displayIfNonZero(runner.successCount(), this.#translated('passed'), green);
+    const failureCount = this.#displayIfNonZero(runner.failuresCount(), this.#translated('failed'), red);
+    const errorCount = this.#displayIfNonZero(runner.errorsCount(), this.#translated('errors'), red);
+    const pendingCount = this.#displayIfNonZero(runner.pendingCount(), this.#translated('pending'), yellow);
+    const skippedCount = this.#displayIfNonZero(runner.skippedCount(), this.#translated('skipped'), yellow);
+    this.#console.log(`${runner.totalCount()} test(s)${passedCount}${failureCount}${errorCount}${pendingCount}${skippedCount}`);
+    if (runner.totalCount() === 0) {
+      this.#console.log(this.#withColor(`\nWarning: Make sure your files matches the ${this.#filter} naming filter.`, yellow));
+    }
+  }
 
-    
+  #displayIfNonZero(quantity, word, color = off) {
+    const pluralizedWord = `${quantity} ${word}`;
+    return quantity > 0 ? `, ${this.#withColor(pluralizedWord, color)}` : '';
+  }
 
-    
-</dl>
+  #displaySeparator(character = '=') {
+    this.#console.log(character.repeat(consoleWidth));
+  }
 
+  // private - formatting and localization
 
+  #inBold(text) {
+    return `${bold}${text}${off}`;
+  }
 
+  #withColor(text, color) {
+    return `${color}${text}${off}`;
+  }
 
+  #humanBoolean(boolean) {
+    return boolean === true ? this.#translated('yes') : this.#translated('no');
+  }
 
+  #translated(key) {
+    return this.#i18n.translate(key);
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Test.html">Test</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  #potentiallyInternationalized(text) {
+    return isString(text) ? text : text.expressedIn(this.#i18n);
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
