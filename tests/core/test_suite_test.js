@@ -241,4 +241,58 @@ suite('test suite behavior', () => {
 
     assert.that(count).isEqualTo(0);
   });
+
+  test('a suite that has tests marked as only runs exclusively those tests and skips the rest', async() => {
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+    mySuite.addTest(erroredTest);
+
+    passingTest.only();
+    failingTest.only();
+
+    await runner.run();
+
+    assert.that(erroredTest.isExplicitlySkipped()).isTrue();
+
+    assert.that(mySuite.totalCount()).isEqualTo(3);
+    assert.that(mySuite.pendingCount()).isEqualTo(0);
+    assert.that(mySuite.successCount()).isEqualTo(1);
+    assert.that(mySuite.failuresCount()).isEqualTo(1);
+    assert.that(mySuite.errorsCount()).isEqualTo(0);
+    assert.that(mySuite.skippedCount()).isEqualTo(1);
+  });
+
+  test('a suite that has tests marked as only runs before hooks exclusively for those tests', async() => {
+    let count = 0;
+
+    mySuite.before(() => {
+      count += 1;
+    });
+
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+
+    passingTest.only();
+
+    await runner.run();
+
+    assert.that(count).isEqualTo(1);
+  });
+
+  test('a suite that has tests marked as only runs after hooks exclusively for those tests', async() => {
+    let count = 0;
+
+    mySuite.after(() => {
+      count += 1;
+    });
+
+    mySuite.addTest(passingTest);
+    mySuite.addTest(failingTest);
+
+    passingTest.only();
+
+    await runner.run();
+
+    assert.that(count).isEqualTo(1);
+  });
 });

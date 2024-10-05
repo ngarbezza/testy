@@ -146,4 +146,40 @@ suite('tests behavior', () => {
       assert.that(calls).isEqualTo(1);
     });
   });
+
+  test('a successful test marked as only runs normally', async() => {
+    await withRunner(async(runner, asserter) => {
+      let calls = 0;
+
+      const testToBeMarkedAsOnly = aPassingTest(
+        asserter, { whenSuccess: () => {
+          calls += 1;
+        } });
+
+      testToBeMarkedAsOnly.only();
+
+      const result = await resultOfASuiteWith(runner, testToBeMarkedAsOnly);
+
+      assert.isTrue(result.isSuccess());
+      assert.that(calls).isEqualTo(1);
+    });
+  });
+
+  test('a failed test marked as only runs normally', async() => {
+    await withRunner(async(runner, asserter) => {
+      let calls = 0;
+
+      const testToBeMarkedAsOnly = aFailingTest(
+        asserter, { whenFailed: () => {
+          calls += 1;
+        } });
+
+      testToBeMarkedAsOnly.only();
+
+      const result = await resultOfASuiteWith(runner, testToBeMarkedAsOnly);
+
+      assert.isTrue(result.isFailure());
+      assert.that(calls).isEqualTo(1);
+    });
+  });
 });

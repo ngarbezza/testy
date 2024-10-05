@@ -208,6 +208,22 @@ If you don't have a NPM project you can install testy globally using `npm instal
       });
       ```
 
+- **Support for exclusive tests**: you can mark a test as exclusive for a run by adding `.only()` after test declaration. If there's at least one test marked as exclusive for run in a suite, only the tests marked as exclusive for run will be executed and the rest will be skipped.
+
+      ```javascript
+      import { suite, test, assert } from '@pmoo/testy';
+
+      suite('I am a suite with an exclusive test', () => {
+
+        test('I am an exclusive for run test', async () => {
+          assert.that(1).isEqualTo(1);
+        }).only();
+
+      });
+      ```
+
+- **Support for skipped suites**: you can skip a test suite by adding `.skip()` after suite declaration. All of the suite's test will be reported as `[SKIP]` and won't be executed nor considered a failure.
+
 - **Support for asynchronous tests**: if the code you are testing has `async` logic, you can `await` inside the test
   definition and make assertions later. You can also use it on `before()` and `after()` declarations. Example:
 
