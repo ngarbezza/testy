@@ -23,12 +23,9 @@
 ![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm)
 ![activity](https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm)
 ![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
-\
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
 [![all-contributors](https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative)](#Contributors)
-
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A very simple JS testing framework, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
@@ -38,7 +35,7 @@ A very simple JS testing framework, for educational purposes. Live at npm at [@p
 
 ## Sponsors
 
-<a href="https://10pines.com"><img alt="10Pines logo" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a>
+<a href="https://10pines.com"><img alt="10Pines" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a>
 
 ## Getting started
 
@@ -205,11 +202,9 @@ If you don't have a NPM project you can install testy globally using `npm instal
       import { suite, test, assert } from '@pmoo/testy';
 
       suite('I am a suite with a skipped test', () => {
-
         test('I am a skipped test', async () => {
           assert.that(1).isEqualTo(1);
         }).skip();
-
       });
       ```
 

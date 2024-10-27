@@ -1,10 +1,9 @@
 import { assert, before, suite, test } from '../../lib/testy.js';
-import { withRunner } from '../support/runner_helpers.js';
+import { configFailFastEnabled, configRandomOrder, withRunner } from '../support/runner_helpers.js';
 import { newEmptySuite } from '../support/suites_factory.js';
 import { aFailingTest, anErroredTest, aPassingTest, aPendingTest } from '../support/tests_factory.js';
 
 import { TestSuite } from '../../lib/core/test_suite.js';
-import { FailFast } from '../../lib/config/fail_fast.js';
 
 suite('test suite behavior', () => {
   let runner, mySuite;
@@ -165,7 +164,7 @@ suite('test suite behavior', () => {
     mySuite.addTest(failingTest);
     mySuite.addTest(erroredTest);
     mySuite.addTest(pendingTest);
-    runner.setFailFastMode(FailFast.enabled());
+    runner.configureWith(configFailFastEnabled);
 
     await runner.run();
 
@@ -182,7 +181,7 @@ suite('test suite behavior', () => {
     mySuite.addTest(failingTest);
     mySuite.addTest(erroredTest);
     mySuite.addTest(pendingTest);
-    runner.setTestRandomness(true);
+    runner.configureWith(configRandomOrder);
 
     const testsBefore = mySuite.tests();
     await runner.run();
@@ -208,7 +207,7 @@ suite('test suite behavior', () => {
     assert.that(mySuite.failuresCount()).isEqualTo(0);
     assert.that(mySuite.errorsCount()).isEqualTo(0);
     assert.that(mySuite.skippedCount()).isEqualTo(4);
-    
+
     assert.isTrue(passingTest.isExplicitlySkipped());
     assert.isTrue(failingTest.isExplicitlySkipped());
     assert.isTrue(erroredTest.isExplicitlySkipped());

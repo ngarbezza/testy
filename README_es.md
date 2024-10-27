@@ -23,7 +23,7 @@
 ![package-size](https://img.shields.io/bundlephobia/min/@pmoo/testy.svg?logo=npm)
 ![activity](https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm)
 ![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
-\
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![all-contributors](https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative)](#Contribuyentes)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -35,7 +35,7 @@ Una simple herramienta de testeo en Javascript, para propósitos educativos. Dis
 
 ## Sponsors
 
-<a href="https://10pines.com"><img alt="10Pines logo" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a>
+<a href="https://10pines.com"><img alt="10Pines" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a>
 
 ## Para comenzar
 
@@ -187,7 +187,19 @@ _suite_. `before()` y `after()` reciben una función como parámetro y pueden ut
       });
     });
     ```
-* **Soporte para tests pendientes**: un test que no tenga cuerpo, será reportado como pendiente (`[WIP]`) y no se considerará una falla.
+* **Soporte para tests pendientes**: un test que no tenga cuerpo, será reportado como pendiente (`[PENDIENTE]`) y no se considerará una falla.
+* **Soporte para tests excluidos**: un test se puede excluir añadiendo `.skip()` al final de su definición, esto lo reportará como `[NO EJECUTADO]`.
+
+      ```javascript
+      import { suite, test, assert } from '@pmoo/testy';
+
+      suite('Ejecutando una suite con test excluido', () => {
+        test('Estoy excluido', async () => {
+          assert.that(1).isEqualTo(1);
+        }).skip();
+      });
+      ```
+
 * **Soporte para tests asíncronos**: si el código que estás testeando requiere de `async`, es posible hacer `await`
 dentro de la definicion del test y luego escribir las aserciones. También es posible hacer llamados asincrónicos en
 `before()` y `after()`. Ejemplo:
@@ -215,7 +227,7 @@ dentro de la definicion del test y luego escribir las aserciones. También es po
 * **Modo "fail-fast"**: cuando está habilitado, se detiene apenas encuentra un test que falle o lance un error. Los tests restantes serán marcados como no ejecutados (_skipped_).
 * **Ejecutar tests en orden aleatorio**: una buena suite de tests no depende de un orden particular de tests para ejecutarse correctamentee. Activando esta configuración es una buena forma de asegurar eso.
 * **Chequeo estricto de presencia de aserciones**: si un test no evalúa ninguna aserción durante su ejecución, el resultado se considera un error. Básicamente, un test que no tiene aserciones es un "mal" test.
-* **Explícitamente marcar un test como fallido o pendiente**: Ejemplos:
+* **Explícitamente, marcar un test como fallido o pendiente**: Ejemplos:
 
     ```javascript
     import { suite, test, fail, pending } from '@pmoo/testy';
@@ -231,9 +243,9 @@ dentro de la definicion del test y luego escribir las aserciones. También es po
     
     Al ejecutar veremos los siguientes mensajes:
     ```
-    [FAIL] marcando como fallido
+    [FALLIDO] marcando como fallido
       => no debería estar aquí
-    [WIP] marcando como pendiente
+    [PENDIENTE] marcando como pendiente
       => no hubo tiempo de finalizarlo
     ```
 

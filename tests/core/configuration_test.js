@@ -2,6 +2,7 @@ import { assert, suite, test } from '../../lib/testy.js';
 
 import { Configuration } from '../../lib/config/configuration.js';
 import { FailFast } from '../../lib/config/fail_fast.js';
+import { InvalidConfigurationError } from '../../lib/errors.js';
 
 suite('Configuration parameters', () => {
   const emptyOptions = {};
@@ -49,6 +50,6 @@ suite('Configuration parameters', () => {
     const userOptions = { failFast: 'I AM AN INVALID VALUE' };
     const userCustomizedConfiguration = new Configuration(userOptions, defaultConfiguration);
     assert.that(() => userCustomizedConfiguration.failFastMode())
-      .raises(new Error('Expected a boolean value for failFast configuration'));
+      .raises(new InvalidConfigurationError('Expected a boolean value for failFast configuration, got: I AM AN INVALID VALUE'));
   });
 });

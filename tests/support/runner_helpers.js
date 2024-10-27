@@ -2,13 +2,23 @@ import { TestRunner } from '../../lib/core/test_runner.js';
 import { TestSuite } from '../../lib/core/test_suite.js';
 import { Asserter, FailureGenerator, PendingMarker } from '../../lib/core/asserter.js';
 import { aTestWithBody } from './tests_factory.js';
-import { FailFast } from '../../lib/config/fail_fast.js';
+import { Configuration } from '../../lib/config/configuration.js';
 
 const noop = async() => {
   // intentionally empty function
 };
 
 const emptyRunnerCallbacks = { onFailure: noop, onSuccess: noop, onFinish: noop };
+
+const defaultConfigParams = {
+  failFast: false,
+  randomOrder: false,
+  timeoutMs: 50,
+};
+
+const configDefault = new Configuration(defaultConfigParams);
+const configRandomOrder = new Configuration({ randomOrder: true }, defaultConfigParams);
+const configFailFastEnabled = new Configuration({ failFast: true }, defaultConfigParams);
 
 const withRunner = async testBlock => withRunnerAndCallbacks(emptyRunnerCallbacks, testBlock);
 
@@ -33,9 +43,7 @@ const resultOfASuiteWith = async(runner, test, before = noop, after = noop) => {
   suite.before(before);
   suite.after(after);
   runner.addSuite(suite);
-  runner.setFailFastMode(FailFast.disabled());
-  runner.setTestRandomness(false);
-  runner.setTestExecutionTimeoutMs(50);
+  runner.configureWith(configDefault);
   await runner.run();
   return test.result();
 };
@@ -46,4 +54,6 @@ export {
   resultOfATestWith,
   resultOfASuiteWith,
   emptyRunnerCallbacks,
+  configRandomOrder,
+  configFailFastEnabled,
 };
