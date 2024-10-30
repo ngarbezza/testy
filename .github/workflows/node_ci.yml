@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 21.x]
+        node-version: [18.x, 20.x, 22.x, 23.x]
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
@@ -40,7 +40,7 @@ jobs:
           -Dsonar.projectKey=ngarbezza_testy
           -Dsonar.organization=ngarbezza
           -Dsonar.projectName=Testy
-          -Dsonar.projectVersion=7.0.0
+          -Dsonar.projectVersion=7.1.0
           -Dsonar.javascript.lcov.reportPaths=reports/coverage/lcov.info
           -Dsonar.coverage.exclusions=tests/**
       env:
