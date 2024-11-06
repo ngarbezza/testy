@@ -9,13 +9,15 @@ const emptySuiteCallbacks = {
   onFinish: noop,
 };
 
+const emptyPathLocation = ''
+
 const newEmptySuite = () =>
   suiteNamed('myTestSuite');
 
 const emptySuiteBody = noop;
 
 const suiteNamed = suiteName =>
-  new TestSuite(suiteName, noop, emptySuiteCallbacks);
+  new TestSuite(suiteName, noop, emptySuiteCallbacks, emptyPathLocation);
 
 export {
   newEmptySuite,

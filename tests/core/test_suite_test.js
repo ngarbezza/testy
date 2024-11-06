@@ -1,6 +1,6 @@
 import { assert, before, suite, test } from '../../lib/testy.js';
 import { configFailFastEnabled, configRandomOrder, withRunner } from '../support/runner_helpers.js';
-import { newEmptySuite } from '../support/suites_factory.js';
+import {emptySuiteCallbacks, newEmptySuite} from '../support/suites_factory.js';
 import { aFailingTest, anErroredTest, aPassingTest, aPendingTest } from '../support/tests_factory.js';
 
 import { TestSuite } from '../../lib/core/test_suite.js';
@@ -25,6 +25,13 @@ suite('test suite behavior', () => {
     const testSuite = new TestSuite('my cool behavior', () => {});
 
     assert.that(testSuite.name()).isEqualTo('my cool behavior');
+  });
+
+  test('it is possible to retrieve the suite location', () => {
+    const fileURL = import.meta.url;
+    const testSuite = new TestSuite('my cool behavior', () => {}, emptySuiteCallbacks, fileURL);
+
+    assert.that(testSuite.locationPath()).isEqualTo(fileURL);
   });
 
   test('more than one before block is not allowed', () => {
