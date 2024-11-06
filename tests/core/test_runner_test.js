@@ -1,6 +1,6 @@
 import { assert, suite, test } from '../../lib/testy.js';
 import { withRunner } from '../support/runner_helpers.js';
-import { emptySuiteBody, emptySuiteCallbacks, suiteNamed } from '../support/suites_factory.js';
+import {emptySuiteBody, emptySuiteCallbacks, fakePathLocation, suiteNamed} from '../support/suites_factory.js';
 import { aFailingTest, anErroredTest, aPassingTest, anExplicitlySkippedTest, emptyTestCallbacks } from '../support/tests_factory.js';
 
 import { TestRunner } from '../../lib/core/test_runner.js';
@@ -43,7 +43,8 @@ suite('test runner', () => {
       },
     };
     const runner = new TestRunner(callbacks);
-    runner.registerSuite('failing suite', emptySuiteBody, emptySuiteCallbacks);
+    runner.loadingFile(fakePathLocation);
+    runner.registerSuite('failing suite', emptySuiteBody, emptySuiteCallbacks, fakePathLocation);
     runner.registerTest('failing test', () => {
       throw new Error('oops');
     }, emptyTestCallbacks);
@@ -174,7 +175,8 @@ suite('test runner', () => {
 
   test('can create suites and tests by itself', async() => {
     await withRunner(async(runner, asserter) => {
-      runner.registerSuite('my new suite', emptySuiteBody, emptySuiteCallbacks);
+      runner.loadingFile(fakePathLocation);
+      runner.registerSuite('my new suite', emptySuiteBody, emptySuiteCallbacks, fakePathLocation);
       const testBody = () => {
         asserter.that(3 + 4).isEqualTo(7);
       };

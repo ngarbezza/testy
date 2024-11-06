@@ -1,6 +1,6 @@
 import { assert, before, suite, test } from '../../lib/testy.js';
 import { configFailFastEnabled, configRandomOrder, withRunner } from '../support/runner_helpers.js';
-import {emptySuiteCallbacks, newEmptySuite} from '../support/suites_factory.js';
+import {emptySuiteCallbacks, fakePathLocation, newEmptySuite} from '../support/suites_factory.js';
 import { aFailingTest, anErroredTest, aPassingTest, aPendingTest } from '../support/tests_factory.js';
 
 import { TestSuite } from '../../lib/core/test_suite.js';
@@ -22,7 +22,7 @@ suite('test suite behavior', () => {
   });
 
   test('it is possible to retrieve the suite name', () => {
-    const testSuite = new TestSuite('my cool behavior', () => {});
+    const testSuite = new TestSuite('my cool behavior', () => {}, emptySuiteCallbacks, fakePathLocation);
 
     assert.that(testSuite.name()).isEqualTo('my cool behavior');
   });
@@ -33,6 +33,12 @@ suite('test suite behavior', () => {
 
     assert.that(testSuite.locationPath()).isEqualTo(fileURL);
   });
+
+  test('a suite with no file path is not allowed', () => {
+    assert
+        .that(() => new TestSuite('a suite', () => {}, emptySuiteCallbacks))
+        .raises(new Error('Suite does not have a valid file path. Please enter a valid file path string for this suite.'));
+  })
 
   test('more than one before block is not allowed', () => {
     mySuite.before(() => 3 + 4);
