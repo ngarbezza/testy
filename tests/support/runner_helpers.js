@@ -3,7 +3,7 @@ import { TestSuite } from '../../lib/core/test_suite.js';
 import { Asserter, FailureGenerator, PendingMarker } from '../../lib/core/asserter.js';
 import { aTestWithBody } from './tests_factory.js';
 import { Configuration } from '../../lib/config/configuration.js';
-import {fakePathLocation} from "./suites_factory.js";
+import { fakePathLocation } from './suites_factory.js';
 
 const noop = async() => {
   // intentionally empty function

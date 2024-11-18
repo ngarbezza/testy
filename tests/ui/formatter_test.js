@@ -6,8 +6,8 @@ import { Formatter } from '../../lib/ui/formatter.js';
 import { I18n } from '../../lib/i18n/i18n.js';
 import { FakeConsole } from './fake_console.js';
 import { sourceCodeLocationRegex } from '../support/assertion_helpers.js';
-import { emptySuiteCallbacks } from "../support/suites_factory.js";
-import { TestSuite } from "../../lib/core/test_suite.js";
+import { emptySuiteCallbacks } from '../support/suites_factory.js';
+import { TestSuite } from '../../lib/core/test_suite.js';
 
 suite('formatter', () => {
   let formatter, fakeConsole, i18n;
@@ -90,7 +90,7 @@ suite('formatter', () => {
   });
 
   test('displays suite file path in summary', async() => {
-    await withRunner(async(runner) => {
+    await withRunner(async runner => {
       const fileURL = import.meta.url;
       const aSuite = new TestSuite('a suite', () => {}, emptySuiteCallbacks, fileURL);
       runner.addSuite(aSuite);

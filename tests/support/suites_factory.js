@@ -9,7 +9,7 @@ const emptySuiteCallbacks = {
   onFinish: noop,
 };
 
-const fakePathLocation = 'I/am/a/fake/path/location'
+const fakePathLocation = 'I/am/a/fake/path/location';
 
 const newEmptySuite = () =>
   suiteNamed('myTestSuite');
@@ -24,5 +24,5 @@ export {
   suiteNamed,
   emptySuiteBody,
   emptySuiteCallbacks,
-  fakePathLocation
+  fakePathLocation,
 };

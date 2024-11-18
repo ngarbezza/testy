@@ -1,6 +1,6 @@
 import { assert, suite, test } from '../../lib/testy.js';
 import { withRunner } from '../support/runner_helpers.js';
-import {emptySuiteBody, emptySuiteCallbacks, fakePathLocation, suiteNamed} from '../support/suites_factory.js';
+import { emptySuiteBody, emptySuiteCallbacks, fakePathLocation, suiteNamed } from '../support/suites_factory.js';
 import { aFailingTest, anErroredTest, aPassingTest, anExplicitlySkippedTest, emptyTestCallbacks } from '../support/tests_factory.js';
 
 import { TestRunner } from '../../lib/core/test_runner.js';
