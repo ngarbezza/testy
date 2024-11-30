@@ -28,7 +28,7 @@ suite('test suite behavior', () => {
   });
 
   test('it is possible to retrieve the suite location', () => {
-    const path = 'I am a file path'
+    const path = 'I am a file path';
     const testSuite = new TestSuite('my cool behavior', () => {}, emptySuiteCallbacks, path);
 
     assert.that(testSuite.locationPath()).isEqualTo(path);
