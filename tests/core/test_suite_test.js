@@ -28,16 +28,16 @@ suite('test suite behavior', () => {
   });
 
   test('it is possible to retrieve the suite location', () => {
-    const fileURL = import.meta.url;
-    const testSuite = new TestSuite('my cool behavior', () => {}, emptySuiteCallbacks, fileURL);
+    const path = 'I am a file path'
+    const testSuite = new TestSuite('my cool behavior', () => {}, emptySuiteCallbacks, path);
 
-    assert.that(testSuite.locationPath()).isEqualTo(fileURL);
+    assert.that(testSuite.locationPath()).isEqualTo(path);
   });
 
   test('a suite with no file path is not allowed', () => {
     assert
       .that(() => new TestSuite('a suite', () => {}, emptySuiteCallbacks))
-      .raises(new Error('Suite does not have a valid file path. Please enter a valid file path string for this suite.'));
+      .raises(new Error('Suite Location does not have a valid file path. Please enter a valid file path string for this suite location.'));
   });
 
   test('more than one before block is not allowed', () => {
