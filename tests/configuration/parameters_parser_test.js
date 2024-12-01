@@ -99,6 +99,58 @@ suite('Parameters parser', () => {
     test('throws an error when sending unknown params', () => {
       assert
           .that(() => ParametersParser.generateRunConfigurationFromParams(['fake param']))
-          .raises(new Error(`Cannot parse invalid run configuration parameter ${`fake param`}. Please provide a valid configuration to run the tests.`));
+          .raises(new Error(`Cannot parse invalid run configuration parameter ${`fake param`}. Please run --help option to check available options.`));
     })
+
+  test('splits between path params and configuration params', () => {
+    const testPath1 = 'I am a test path'
+    const testPath2 = 'I am another test path'
+
+    const {pathsParams, configurationParams} = ParametersParser.getPathsAndConfigurationParams([testPath1, testPath2, '-f', '-r'])
+    assert.areEqual(pathsParams, [testPath1, testPath2])
+    assert.areEqual(configurationParams, ['-f', '-r'])
+  });
+
+  test('splits between path params and configuration params when path params are empty', () => {
+    const {pathsParams, configurationParams} = ParametersParser.getPathsAndConfigurationParams(['-f', '-r'])
+    assert.areEqual(pathsParams, [])
+    assert.areEqual(configurationParams, ['-f', '-r'])
+  });
+
+  test('splits between path params and configuration params when configuration params are empty', () => {
+    const testPath1 = 'I am a test path'
+    const testPath2 = 'I am another test path'
+
+    const {pathsParams, configurationParams} = ParametersParser.getPathsAndConfigurationParams([testPath1, testPath2])
+    assert.areEqual(pathsParams, [testPath1, testPath2])
+    assert.areEqual(configurationParams, [])
+  });
+
+  test('splits between path params and configuration params when both are empty', () => {
+    const {pathsParams, configurationParams} = ParametersParser.getPathsAndConfigurationParams([])
+    assert.areEqual(pathsParams, [])
+    assert.areEqual(configurationParams, [])
+  })
+
+  test('returns sanitized params when passing a valid list of params', () => {
+    const sanitizedParams = ParametersParser.sanitizeParameters(['-f', '-r'])
+    assert.areEqual(sanitizedParams, ['-f', '-r'])
+  });
+
+  test('returns sanitized params when passing a valid list of params including language params', () => {
+    const sanitizedParams = ParametersParser.sanitizeParameters(['-f', '-l', 'it', '-r'])
+    assert.areEqual(sanitizedParams, ['-f', '-r', '-l it'])
+  });
+
+  test('throws an error when sending invalid language option', () => {
+    assert
+        .that(() => ParametersParser.sanitizeParameters(['-l', 'fakeLanguage']))
+        .raises(new Error(`Invalid language option. Please choose between an option between es for Spanish, en for English or it for Italian`));
+  })
+
+  test('throws an error when language parameters do not have the proper order', () => {
+    assert
+        .that(() => ParametersParser.sanitizeParameters(['it', '-l']))
+        .raises(new Error(`Invalid language option. Please choose between an option between es for Spanish, en for English or it for Italian`));
+  })
 });
