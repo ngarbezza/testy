@@ -3,6 +3,7 @@ import { TestSuite } from '../../lib/core/test_suite.js';
 import { Asserter, FailureGenerator, PendingMarker } from '../../lib/core/asserter.js';
 import { aTestWithBody } from './tests_factory.js';
 import { Configuration } from '../../lib/config/configuration.js';
+import { fakePathLocation } from './suites_factory.js';
 
 const noop = async() => {
   // intentionally empty function
@@ -38,7 +39,7 @@ const resultOfATestWith = async assertBlock =>
 
 const resultOfASuiteWith = async(runner, test, before = noop, after = noop) => {
   const emptySuiteCallbacks = { onStart: noop, onFinish: noop };
-  const suite = new TestSuite(`suite for ${test.name()}`, noop, emptySuiteCallbacks);
+  const suite = new TestSuite(`suite for ${test.name()}`, noop, emptySuiteCallbacks, fakePathLocation);
   suite.addTest(test);
   suite.before(before);
   suite.after(after);

@@ -60,7 +60,8 @@
     "reached_timeout_error": "Timeout of 50ms reached. Your test could not finish its execution.",
     "invalid_actual_object_in_exception_assertion": "Actual value for this assertion must be a function, got %s",
     "invalid_actual_object_in_numerical_comparison": "Actual value for this assertion must be a number, got %s",
-    "invalid_object_in_numerical_comparison": "Value for this assertion must be a number, got %s"
+    "invalid_object_in_numerical_comparison": "Value for this assertion must be a number, got %s",
+    "file": "file"
   },
   "es": {
     "yes": "sí",
@@ -123,7 +124,8 @@
     "reached_timeout_error": "Se alcanzó el tiempo límite de %sms. El test no se terminó de ejecutar.",
     "invalid_actual_object_in_exception_assertion": "Es necesario proveer una función para este tipo de aserción, se obtuvo %s",
     "invalid_actual_object_in_numerical_comparison": "Es necesario proveer un número para este tipo de aserción, se obtuvo %s",
-    "invalid_object_in_numerical_comparison": "Es necesario proveer un número como argumento para este tipo de aserción, se obtuvo %s"
+    "invalid_object_in_numerical_comparison": "Es necesario proveer un número como argumento para este tipo de aserción, se obtuvo %s",
+    "file": "archivo"
   },
   "it": {
     "yes": "sì",
@@ -186,6 +188,7 @@
     "reached_timeout_error": "Timeout %sms raggiunto. Il test non è terminato.",
     "invalid_actual_object_in_exception_assertion": "È necessario fornire una funzione per questo tipo di asserzione. É stato ottenuto %s",
     "invalid_actual_object_in_numerical_comparison": "È necessario fornire un numero per questo tipo di asserzione. É stato ottenuto %s",
-    "invalid_object_in_numerical_comparison": "È necessario fornire un numero come argomento per questo tipo di affermazione. É stato ottenuto %s"
+    "invalid_object_in_numerical_comparison": "È necessario fornire un numero come argomento per questo tipo di affermazione. É stato ottenuto %s",
+    "file": "archivio"
   }
 }
