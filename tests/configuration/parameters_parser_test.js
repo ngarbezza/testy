@@ -145,12 +145,12 @@ suite('Parameters parser', () => {
   test('throws an error when sending invalid language option', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['-l', 'fakeLanguage']))
-      .raises(new Error('Invalid language option. Please choose between an option between es for Spanish, en for English or it for Italian'));
+      .raises(new Error('Invalid language option. Please choose an option between es for Spanish, en for English or it for Italian'));
   });
 
   test('throws an error when language parameters do not have the proper order', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['it', '-l']))
-      .raises(new Error('Invalid language option. Please choose between an option between es for Spanish, en for English or it for Italian'));
+      .raises(new Error('Invalid language option. Please choose an option between es for Spanish, en for English or it for Italian'));
   });
 });
