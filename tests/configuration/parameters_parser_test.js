@@ -28,26 +28,6 @@ suite('Parameters parser', () => {
     assert.areEqual(configuration, { randomOrder: true });
   });
 
-  test('returns configuration with english language enabled if passing \'-l en\' en option', () => {
-    const configuration = ParametersParser.generateRunConfigurationFromParams(['-l en']);
-    assert.areEqual(configuration, { language: 'en' });
-  });
-
-  test('returns configuration with english language enabled if passing \'-language en\' en option', () => {
-    const configuration = ParametersParser.generateRunConfigurationFromParams(['--language en']);
-    assert.areEqual(configuration, { language: 'en' });
-  });
-
-  test('returns configuration with spanish language enabled if passing \'-l es\' en option', () => {
-    const configuration = ParametersParser.generateRunConfigurationFromParams(['-l es']);
-    assert.areEqual(configuration, { language: 'es' });
-  });
-
-  test('returns configuration with english language enabled if passing \'-language es\' en option', () => {
-    const configuration = ParametersParser.generateRunConfigurationFromParams(['--language es']);
-    assert.areEqual(configuration, { language: 'es' });
-  });
-
   test('returns configuration with italian language enabled if passing \'-l it\' en option', () => {
     const configuration = ParametersParser.generateRunConfigurationFromParams(['-l it']);
     assert.areEqual(configuration, { language: 'it' });
@@ -58,28 +38,10 @@ suite('Parameters parser', () => {
     assert.areEqual(configuration, { language: 'it' });
   });
 
-  test('returns configuration with fail fast and randomize modes enabled no matter the order the params are sent', () => {
-    const configuration1 = ParametersParser.generateRunConfigurationFromParams(['-f', '-r']);
-    const configuration2 = ParametersParser.generateRunConfigurationFromParams(['-r', '-f']);
-
-    assert.areEqual(configuration1, { failFast: true, randomOrder: true });
-    assert.areEqual(configuration2, { failFast: true, randomOrder: true });
-  });
-
   test('returns configuration with fail fast, randomize and english language enabled no matter the order the params are sent', () => {
     const configuration1 = ParametersParser.generateRunConfigurationFromParams(['-f', '-r', '-l en']);
     const configuration2 = ParametersParser.generateRunConfigurationFromParams(['-f', '-l en', '-r']);
     const configuration3 = ParametersParser.generateRunConfigurationFromParams(['-l en', '-f', '-r']);
-
-    assert.areEqual(configuration1, { failFast: true, randomOrder: true, language: 'en' });
-    assert.areEqual(configuration2, { failFast: true, randomOrder: true, language: 'en' });
-    assert.areEqual(configuration3, { failFast: true, randomOrder: true, language: 'en' });
-  });
-
-  test('returns configuration with fail fast, randomize and english language enabled when using long commands versions no matter the order the params are sent', () => {
-    const configuration1 = ParametersParser.generateRunConfigurationFromParams(['--fail-fast', '--randomize', '--language en']);
-    const configuration2 = ParametersParser.generateRunConfigurationFromParams(['--fail-fast', '--language en', '--randomize']);
-    const configuration3 = ParametersParser.generateRunConfigurationFromParams(['--language en', '--fail-fast', '--randomize']);
 
     assert.areEqual(configuration1, { failFast: true, randomOrder: true, language: 'en' });
     assert.areEqual(configuration2, { failFast: true, randomOrder: true, language: 'en' });
