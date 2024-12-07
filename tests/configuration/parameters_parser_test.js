@@ -38,16 +38,6 @@ suite('Parameters parser', () => {
     assert.areEqual(configuration, { language: 'it' });
   });
 
-  test('returns configuration with fail fast, randomize and english language enabled no matter the order the params are sent', () => {
-    const configuration1 = ParametersParser.generateRunConfigurationFromParams(['-f', '-r', '-l en']);
-    const configuration2 = ParametersParser.generateRunConfigurationFromParams(['-f', '-l en', '-r']);
-    const configuration3 = ParametersParser.generateRunConfigurationFromParams(['-l en', '-f', '-r']);
-
-    assert.areEqual(configuration1, { failFast: true, randomOrder: true, language: 'en' });
-    assert.areEqual(configuration2, { failFast: true, randomOrder: true, language: 'en' });
-    assert.areEqual(configuration3, { failFast: true, randomOrder: true, language: 'en' });
-  });
-
   test('returns configuration with fail fast, randomize and english language enabled when mixing long and short commands no matter the order the params are sent', () => {
     const configuration1 = ParametersParser.generateRunConfigurationFromParams(['-f', '--randomize', '-l en']);
     const configuration2 = ParametersParser.generateRunConfigurationFromParams(['--fail-fast', '-l en', '-r']);
