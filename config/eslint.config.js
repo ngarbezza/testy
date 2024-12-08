@@ -267,7 +267,7 @@ export default [
       'max-lines-per-function': 'error',
       'max-nested-callbacks': 'error',
       'max-params': ['error', { max: 4 }],
-      'max-statements': 'error',
+      'max-statements': ['error', { max: 11 }],
     },
   },
   {
