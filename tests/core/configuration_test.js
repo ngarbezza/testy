@@ -52,4 +52,10 @@ suite('Configuration parameters', () => {
     assert.that(() => userCustomizedConfiguration.failFastMode())
       .raises(new InvalidConfigurationError('Expected a boolean value for failFast configuration, got: I AM AN INVALID VALUE'));
   });
+
+  test('can send a configuration and values not present will default to default configuration', () => {
+    const userCustomizedConfiguration = Configuration.withConfiguration({language: "es", failFast: true});
+    assert.areEqual(userCustomizedConfiguration.language(), 'es');
+    assert.areEqual(userCustomizedConfiguration.failFastMode(), FailFast.default());
+  });
 });
