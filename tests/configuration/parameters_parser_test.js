@@ -1,5 +1,6 @@
 import { assert, suite, test } from '../../lib/testy.js';
 import { ParametersParser } from '../../lib/config/parameters_parser.js';
+import { I18n } from '../../lib/i18n/i18n.js';
 
 suite('Parameters parser', () => {
 
@@ -84,6 +85,13 @@ suite('Parameters parser', () => {
     assert.areEqual(configurationParams, []);
   });
 
+  test('throws an error when file path params are sent after configuration parameters', () => {
+    const testPath1 = 'I am a test path';
+    assert
+      .that(() => ParametersParser.getPathsAndConfigurationParams(['-f', testPath1]))
+      .raises(new Error('Run configuration parameters should always be sent at the end of test paths routes'));
+  });
+
   test('returns sanitized params when passing a valid list of params', () => {
     const sanitizedParams = ParametersParser.sanitizeParameters(['-f', '-r']);
     assert.areEqual(sanitizedParams, ['-f', '-r']);
@@ -97,12 +105,12 @@ suite('Parameters parser', () => {
   test('throws an error when sending invalid language option', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['-l', 'fakeLanguage']))
-      .raises(new Error('Invalid language option. Please choose an option between es for Spanish, en for English or it for Italian'));
+      .raises(new Error(`Language '${'fakeLanguage'}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
   });
 
   test('throws an error when language parameters do not have the proper order', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['it', '-l']))
-      .raises(new Error('Invalid language option. Please choose an option between es for Spanish, en for English or it for Italian'));
+      .raises(new Error(`Language '${undefined}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
   });
 });

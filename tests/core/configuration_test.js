@@ -54,7 +54,7 @@ suite('Configuration parameters', () => {
   });
 
   test('can send a configuration and values not present will default to default configuration', () => {
-    const userCustomizedConfiguration = Configuration.withConfiguration({language: "es", failFast: true});
+    const userCustomizedConfiguration = Configuration.withConfiguration({ language: 'es', failFast: true });
     assert.areEqual(userCustomizedConfiguration.language(), 'es');
     assert.areEqual(userCustomizedConfiguration.failFastMode(), FailFast.default());
   });
