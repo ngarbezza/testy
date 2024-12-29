@@ -107,8 +107,14 @@ Testy se puede configurar a través de un archivo llamado `.testyrc.json` que de
   "failFast": false,        // habilita/deshabilita el modo "fail fast" (detener la ejecución en el primer fallo)
   "randomOrder": false      // habilita/deshabilita la ejecución de tests en orden aleatorio.
   "timeoutMs": 1000         // asigna el tiempo límite de ejecución por cada test (en milisegundos)
+  "language": "en",         // lenguaje que usara la consola. "es", "it" y "en" disponibles por el momento.
 }
 ```
+Puedes pasar parametros de configuracion a traves de la consola agregando estas opciones despues de las rutas de tests que quieras ejecutar:
+- `-f` o `--fail-fast` para habiltiar el modo fail fast.
+- `-r` o `--randomize` para habilitar la ejecución de tests en orden aleatorio.
+- `-l xx` o `--language xx` done `xx` debe ser `es` para Español, `en` para Ingles o `it` para Italiano.
+Estos parametros por consola pueden ser enviados en el orden que desees y puedes combinarlos como quieras
 
 Estos son todos los parámetros de configuración que existen, ajústalos de acuerdo a tus necesidades.
 Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite de test dentro del directorio `tests`, cuyos nombres de archivos finalicen con `*test.js`.
