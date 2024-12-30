@@ -73,13 +73,15 @@
 <img src="https://img.shields.io/github/commit-activity/m/ngarbezza/testy?logo=npm" alt="activity">
 <img src="https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm" alt="release-date"></p>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<p><a href="#Contributors"><img src="https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative" alt="all-contributors"></a></p>
+<p><a href="#contributors"><img src="https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative" alt="all-contributors"></a></p>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <p>A very simple JS testing framework, for educational purposes. Live at npm at <a href="https://www.npmjs.com/package/@pmoo/testy">@pmoo/testy</a>.</p>
 <p>:arrow_right: <a href="README_es.md">Documentación en español aquí</a>
 :construction_worker: <a href="CONTRIBUTING.md">Contributing guidelines</a></p>
 <h2>Sponsors</h2>
-<p><a href="https://10pines.com"><img alt="10Pines" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a></p>
+<a href="https://10pines.com">
+<img alt="10Pines" src="https://10pines.com/assets/10Pines-logo_reducido-10729182.svg" width="300" height="100" />
+</a>
 <h2>Getting started</h2>
 <p><code>npm install --save-dev @pmoo/testy</code> (if you use <a href="https://www.npmjs.com/">npm</a>) <br>
 <code>yarn add --dev @pmoo/testy</code> (if you use <a href="https://classic.yarnpkg.com/en/">yarn</a>)</p>
@@ -97,18 +99,20 @@ suite(&quot;a boring test suite&quot;, () => {
   });
 });
 </code></pre>
-<p>A test suite represents a grouping of tests, and it is implemented as a function call to <code>suite</code> passing a name and a zero-argument function, which is the suite body.</p>
+<p>A test suite represents a grouping of tests, and it is implemented as a function call to <code>suite</code> passing a name and a
+zero-argument function, which is the suite body.</p>
 <p>A test is implemented as a function call to <code>test()</code>, passing a name and the test body as a zero-argument function.</p>
 <p>Inside the test you can call different assertions that are documented in detail later on.</p>
 <h3>Running Testy</h3>
 <p>You can run an individual test file using:</p>
-<pre class="prettyprint source"><code>$ npx testy my_test.js
+<pre class="prettyprint source lang-sh"><code>npx testy my_test.js
 </code></pre>
-<p>Or, you can run it without arguments to run all the tests (by default it looks on a <code>tests</code> folder located in the project root):</p>
-<pre class="prettyprint source"><code>$ npx testy
+<p>Or, you can run it without arguments to run all the tests (by default it looks on a <code>tests</code> folder located in the project
+root):</p>
+<pre class="prettyprint source lang-sh"><code>npx testy
 </code></pre>
 <p>You can also add it as the <code>test</code> script for npm/yarn in your <code>package.json</code>:</p>
-<pre class="prettyprint source"><code>{
+<pre class="prettyprint source lang-json"><code>{
   ...
   &quot;scripts&quot;: {
     &quot;test&quot;: &quot;npx testy&quot;
@@ -118,46 +122,55 @@ suite(&quot;a boring test suite&quot;, () => {
 </code></pre>
 <p>And then run the tests using <code>npm test</code> or <code>yarn test</code>.</p>
 <h3>Configuring Testy</h3>
-<p>Testy will look for a <code>.testyrc.json</code> configuration file in the project root directory. You can use this configuration as a template (values here are the defaults):</p>
-<pre class="prettyprint source"><code>{
+<p>Testy will look for a <code>.testyrc.json</code> configuration file in the project root directory. You can use this configuration
+as a template (values here are the defaults):</p>
+<pre class="prettyprint source lang-json"><code>{
   &quot;directory&quot;: &quot;./tests&quot;,   // directory including your test files
   &quot;filter&quot;: &quot;.*_test.js$&quot;,  // which convention to use to recognize test files
   &quot;language&quot;: &quot;en&quot;,         // language of the output messages. &quot;es&quot; and &quot;en&quot; supported for now
   &quot;failFast&quot;: false,        // enable/disable fail fast mode (stop as soon as a failed test appears)
   &quot;randomOrder&quot;: false      // enable/disable execution of tests in random order
   &quot;timeoutMs&quot;: 1000         // sets the per-test timeout in milliseconds
-  &quot;language&quot;: &quot;en&quot;, // language of the output messages. &quot;es&quot;, &quot;it&quot; and &quot;en&quot; supported for now
+  &quot;language&quot;: &quot;en&quot;,         // language of the output messages. &quot;es&quot;, &quot;it&quot; and &quot;en&quot; supported for now
 }
 </code></pre>
-<p>You can also pass a configuration through the console when running tests by adding these available options after your test file path:</p>
+<p>You can also pass a configuration through the console when running tests by adding these available options after your
+test file path:</p>
 <ul>
 <li><code>-f</code> or <code>--fail-fast</code> to enable fail fast mode.</li>
 <li><code>-r</code> or <code>--randomize</code> to enable the execution of tests in random order.</li>
-<li><code>-l xx</code> or <code>--language xx</code> where <code>xx</code> must be either <code>es</code> for Spanish, <code>en</code> for English or <code>it</code> for Italian.
-These console parameters can be sent in any order and combined as you want.</li>
+<li><code>-l xx</code> or <code>--language xx</code> where <code>xx</code> must be either <code>es</code> for Spanish, <code>en</code> for English or <code>it</code> for Italian.</li>
 </ul>
+<p>These console parameters can be sent in any order and combined as you want.</p>
 <p>These are all the configuration parameters you can set. Feel free to change it according to your needs.
-When declaring this configuration, every test suite under the <code>tests</code> directory (matching files ending with <code>*test.js</code>) will be executed.</p>
+When declaring this configuration, every test suite under the <code>tests</code> directory (matching files ending with
+<code>*test.js</code>) will be executed.</p>
 <h3>Examples and available assertions</h3>
 <p>There must be at least one assertion on the test to be valid. These are all the supported assertion types:</p>
 <ul>
 <li>Boolean assertions:
 <ul>
-<li><code>assert.that(boolean).isTrue()</code> or <code>assert.isTrue(boolean)</code>. It does a strict comparison against <code>true</code> (<code>object === true</code>)</li>
-<li><code>assert.that(boolean).isFalse()</code> or <code>assert.isFalse(boolean)</code>. It does a strict comparison against <code>false</code> (<code>object === false</code>)</li>
+<li><code>assert.that(boolean).isTrue()</code> or <code>assert.isTrue(boolean)</code>. It does a strict comparison against <code>true</code>
+(<code>object === true</code>)</li>
+<li><code>assert.that(boolean).isFalse()</code> or <code>assert.isFalse(boolean)</code>. It does a strict comparison against <code>false</code>
+(<code>object === false</code>)</li>
 </ul>
 </li>
 <li>Equality assertions:
 <ul>
 <li><code>assert.that(actual).isEqualTo(expected)</code> or <code>assert.areEqual(actual, expected)</code>.</li>
 <li><code>assert.that(actual).isNotEqualTo(expected)</code> or <code>assert.areNotEqual(actual, expected)</code></li>
-<li>Equality assertions use a deep object comparison (based on Node's <code>assert</code> module) and fail if objects under comparison have circular references.</li>
+<li>Equality assertions use a deep object comparison (based on Node's <code>assert</code> module) and fail if objects under
+comparison have circular references.</li>
 <li>Equality criteria on non-primitive objects can be specified:
 <ul>
-<li>Passing an extra two-arg comparator function to <code>isEqualTo(expected, criteria)</code> or <code>areEqual(actual, expected, criteria)</code></li>
-<li>Passing a method name that <code>actual</code> object understands: <code>isEqualTo(expected, 'myEqMessage')</code> or <code>areEqual(actual, expected, 'myEqMessage')</code></li>
+<li>Passing an extra two-arg comparator function to <code>isEqualTo(expected, criteria)</code> or
+<code>areEqual(actual, expected, criteria)</code></li>
+<li>Passing a method name that <code>actual</code> object understands: <code>isEqualTo(expected, 'myEqMessage')</code> or
+<code>areEqual(actual, expected, 'myEqMessage')</code></li>
 <li>By default, if <code>actual</code> has an <code>equals</code> method it will be used.</li>
-<li>If we compare <code>undefined</code> with <code>undefined</code> using <code>isEqualTo()</code>, it will make the test fail. For explicit check for <code>undefined</code>, use the <code>isUndefined()</code>/<code>isNotUndefined()</code> assertions documented above.</li>
+<li>If we compare <code>undefined</code> with <code>undefined</code> using <code>isEqualTo()</code>, it will make the test fail. For explicit
+check for <code>undefined</code>, use the <code>isUndefined()</code>/<code>isNotUndefined()</code> assertions documented above.</li>
 </ul>
 </li>
 </ul>
@@ -200,7 +213,8 @@ When declaring this configuration, every test suite under the <code>tests</code>
 </li>
 <li>Rounding:
 <ul>
-<li><code>assert.that(aNumber).isNearTo(anotherNumber)</code>. There's a second optional argument that indicates the number of digits to be used for precision. Default is <code>4</code>.</li>
+<li><code>assert.that(aNumber).isNearTo(anotherNumber)</code>. There's a second optional argument that indicates the number
+of digits to be used for precision. Default is <code>4</code>.</li>
 </ul>
 </li>
 </ul>
@@ -225,106 +239,109 @@ When declaring this configuration, every test suite under the <code>tests</code>
 </ul>
 </li>
 </ul>
-<p>Please take a look at the <code>tests</code> folder, you'll find examples of each possible test you can write. Testy is self-tested.</p>
+<p>Please take a look at the <code>tests</code> folder, you'll find examples of each possible test you can write. Testy is
+self-tested.</p>
 <h3>Running testy globally</h3>
-<p>If you don't have a NPM project you can install testy globally using <code>npm install -g testy</code> and then run <code>testy &lt;files&gt;</code></p>
+<p>If you don't have a NPM project you can install Testy globally using <code>npm install -g testy</code> and then run
+<code>testy &lt;files&gt;</code>.</p>
 <h3>Other features</h3>
 <ul>
 <li>
 <p><strong>Running code before/after every test</strong>: just like many testing frameworks have, there is a way to execute some code
 before or after each test in a suite using the <code>before()</code> and <code>after()</code> functions, respectively. You can use only one
 definition of <code>before()</code> and <code>after()</code> per suite, and they always receive a function as argument. Example:</p>
-<pre><code>```javascript
-import { suite, test, assert, before, after } from '@pmoo/testy';
+<pre class="prettyprint source lang-javascript"><code>import { suite, test, assert, before, after } from '@pmoo/testy';
 
-suite('using the before() and after() helpers', () =&gt; {
+suite('using the before() and after() helpers', () => {
   let answer;
 
-  before(() =&gt; {
+  before(() => {
     answer = 42;
   });
 
-  test('checking the answer', () =&gt; {
+  test('checking the answer', () => {
     assert.that(answer).isEqualTo(42);
   });
 
-  after(() =&gt; {
+  after(() => {
     answer = undefined;
   });
 });
-```
 </code></pre>
 </li>
 <li>
-<p><strong>Support for pending tests</strong>: if a test has no body, it will be reported as <code>[WIP]</code> and it won't be considered a failure.</p>
+<p><strong>Support for pending tests</strong>: if a test has no body, it will be reported as <code>[WIP]</code> and it won't be considered a
+failure.</p>
 </li>
 <li>
-<p><strong>Support for skipped tests</strong>: you can skip a test by adding <code>.skip()</code> after test declaration, it will be reported as <code>[SKIP]</code> and it won't be executed nor considered a failure.</p>
-<pre><code>```javascript
-import { suite, test, assert } from '@pmoo/testy';
+<p><strong>Support for skipped tests</strong>: you can skip a test by adding <code>.skip()</code> after test declaration, it will be reported
+as <code>[SKIP]</code> and it won't be executed nor considered a failure.</p>
+<pre class="prettyprint source lang-javascript"><code>import { suite, test, assert } from '@pmoo/testy';
 
-suite('I am a suite with a skipped test', () =&gt; {
-  test('I am a skipped test', async () =&gt; {
+suite('I am a suite with a skipped test', () => {
+  test('I am a skipped test', async () => {
     assert.that(1).isEqualTo(1);
   }).skip();
 });
-```
 </code></pre>
 </li>
 <li>
-<p><strong>Support for exclusive tests</strong>: you can mark a test as exclusive for a run by adding <code>.only()</code> after test declaration. If there's at least one test marked as exclusive for run in a suite, only the tests marked as exclusive for run will be executed and the rest will be skipped.</p>
-<pre><code>```javascript
-import { suite, test, assert } from '@pmoo/testy';
+<p><strong>Support for exclusive tests</strong>: you can mark a test as exclusive for a run by adding <code>.only()</code> after test
+declaration. If there's at least one test marked as exclusive for run in a suite, only the tests marked as exclusive
+for run will be executed and the rest will be skipped.</p>
+<pre class="prettyprint source lang-javascript"><code>import { suite, test, assert } from '@pmoo/testy';
 
-suite('I am a suite with an exclusive test', () =&gt; {
+suite('I am a suite with an exclusive test', () => {
 
-  test('I am an exclusive for run test', async () =&gt; {
+  test('I am an exclusive for run test', async () => {
     assert.that(1).isEqualTo(1);
   }).only();
 
 });
-```
 </code></pre>
 </li>
 <li>
-<p><strong>Support for skipped suites</strong>: you can skip a test suite by adding <code>.skip()</code> after suite declaration. All of the suite's test will be reported as <code>[SKIP]</code> and won't be executed nor considered a failure.</p>
+<p><strong>Support for skipped suites</strong>: you can skip a test suite by adding <code>.skip()</code> after suite declaration. All of the
+suite's test will be reported as <code>[SKIP]</code> and won't be executed nor considered a failure.</p>
 </li>
 <li>
 <p><strong>Support for asynchronous tests</strong>: if the code you are testing has <code>async</code> logic, you can <code>await</code> inside the test
 definition and make assertions later. You can also use it on <code>before()</code> and <code>after()</code> declarations. Example:</p>
-<pre><code>```javascript
-import { suite, test, assert, before } from '@pmoo/testy';
+<pre class="prettyprint source lang-javascript"><code>import { suite, test, assert, before } from '@pmoo/testy';
 
-const promiseOne = async () =&gt; Promise.resolve(42);
-const promiseTwo = async () =&gt; Promise.resolve(21);
+const promiseOne = async () => Promise.resolve(42);
+const promiseTwo = async () => Promise.resolve(21);
 
-suite('using async &amp; await', () =&gt; {
+suite('using async & await', () => {
   let answerOne;
 
-  before(async () =&gt; {
+  before(async () => {
     answerOne = await promiseOne();
   });
 
-  test('comparing results from promises', async () =&gt; {
+  test('comparing results from promises', async () => {
     const answerTwo = await promiseTwo();
     assert.that(answerOne).isEqualTo(42);
     assert.that(answerTwo).isEqualTo(21);
   });
 });
-```
 </code></pre>
 </li>
 <li>
-<p><strong>Fail-Fast mode</strong>: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.</p>
+<p><strong>Fail-Fast mode</strong>: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests
+will be marked as skipped.</p>
 </li>
 <li>
-<p><strong>Run tests and suites in random order</strong>: a good test suite does not depend on a particular order. Enabling this setting is a good way to ensure that.</p>
+<p><strong>Run tests and suites in random order</strong>: a good test suite does not depend on a particular order. Enabling this
+setting is a good way to ensure that.</p>
 </li>
 <li>
-<p><strong>Strict check for assertions</strong>: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a &quot;bad&quot; test.</p>
+<p><strong>Strict check for assertions</strong>: if a test does not evaluate any assertion while it is executed, the result is
+considered an error. Basically, a test with no assertion is considered a &quot;bad&quot; test.</p>
 </li>
 <li>
-<p><strong>Explicitly failing or marking a test as pending</strong>: there's a possibility of marking a test as failed or pending, for example:</p>
+<p><strong>Explicitly failing or marking a test as pending</strong>: there's a possibility of marking a test as failed or pending,
+for example:</p>
 <pre class="prettyprint source lang-javascript"><code>import { suite, test, fail, pending } from &quot;@pmoo/testy&quot;;
 
 suite(&quot;marking tests as failed and pending&quot;, () => {
@@ -335,7 +352,7 @@ suite(&quot;marking tests as failed and pending&quot;, () => {
 });
 </code></pre>
 <p>The output includes the messages provided:</p>
-<pre class="prettyprint source"><code>[FAIL] marking as failed
+<pre class="prettyprint source lang-text"><code>[FAIL] marking as failed
   => should not be here
 [WIP] marking as pending
   => did not have time to finish
@@ -343,13 +360,20 @@ suite(&quot;marking tests as failed and pending&quot;, () => {
 </li>
 </ul>
 <h2>Why?</h2>
-<p>Why another testing tool? The main reason is that we want to keep simplicity, something it's hard to see in the main testing tools out there.</p>
+<p>Why another testing tool? The main reason is that we want to keep simplicity, something it's hard to see in the main
+testing tools out there.</p>
 <ul>
-<li><strong>Zero dependencies:</strong> right now, this project does not depend on any npm package, making the tool easy to install, and fast: essential to have immediate feedback while doing TDD. This is also good for installing on places where the internet connection is not good and we don't want to download hundreds of libraries.</li>
-<li><strong>Understandable object-oriented code:</strong> we want to use this tool for teaching, so eventually we'll look at the code during lessons, and students should be able to see what is going on, and even contributing at it, with no dark magic involved. Also, we try to follow good OO practices.</li>
-<li><strong>Unique set of features:</strong> we are not following any specification nor trying to copy behavior from other approaches (like the &quot;xUnit&quot; or &quot;xSpec&quot; way).</li>
+<li><strong>Zero dependencies:</strong> right now, this project does not depend on any npm package, making the tool easy to install,
+and fast: essential to have immediate feedback while doing TDD. This is also good for installing on places where the
+internet connection is not good and we don't want to download hundreds of libraries.</li>
+<li><strong>Understandable object-oriented code:</strong> we want to use this tool for teaching, so eventually we'll look at the code
+during lessons, and students should be able to see what is going on, and even contributing at it, with no dark magic
+involved. Also, we try to follow good OO practices.</li>
+<li><strong>Unique set of features:</strong> we are not following any specification nor trying to copy behavior from other approaches
+(like the &quot;xUnit&quot; or &quot;xSpec&quot; way).</li>
 </ul>
-<p><a href="https://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html">&quot;Design Principles Behind Smalltalk&quot;</a> is a source of inspiration for this work. We try to follow the same principles here.</p>
+<p><a href="https://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html">&quot;Design Principles Behind Smalltalk&quot;</a> is a source of
+inspiration for this work. We try to follow the same principles here.</p>
 <h2>Contributing</h2>
 <p>Please take a look at the <a href="CONTRIBUTING.md">Contributing section</a>.</p>
 <h2>Contributors</h2>
@@ -380,7 +404,8 @@ suite(&quot;marking tests as failed and pending&quot;, () => {
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-<p>This project follows the <a href="https://github.com/all-contributors/all-contributors">all-contributors</a> specification. Contributions of any kind welcome!</p></article>
+<p>This project follows the <a href="https://github.com/all-contributors/all-contributors">all-contributors</a> specification.
+Contributions of any kind welcome!</p></article>
     </section>
 
 
@@ -393,7 +418,7 @@ suite(&quot;marking tests as failed and pending&quot;, () => {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Dec 30 2024 00:08:30 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Dec 30 2024 00:52:16 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
