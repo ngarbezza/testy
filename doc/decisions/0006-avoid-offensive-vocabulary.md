@@ -9,7 +9,7 @@ Accepted
 ## Context
 
 There is an initiative about questioning the technical vocabulary we use, and avoiding some words that are widely used
-and may offend people. This is a project that adheres to this initiative, therefore... 
+and may offend people. This is a project that adheres to this initiative, therefore...
 
 ## Decision
 
@@ -19,5 +19,5 @@ For instance, the use of "master/slave" replaced by "main/replica" (or similar),
 
 ## Consequences
 
-* Supporting causes like Black Lives Matter and let all people know that their voices are heard. 
+* Supporting causes like Black Lives Matter and let all people know that their voices are heard.
 * Having a friendly place for all contributors around the world.

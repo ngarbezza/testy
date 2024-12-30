@@ -18,6 +18,6 @@ Reducing complexity in the `ConsoleUI` object and make it more reusable and test
 ## Consequences
 
 * `Formatter` becomes testable, as well as `ConsoleUI`
-* Responsibilities are better split 
+* Responsibilities are better split
 * There are more control on Node built-in modules, `Formatter` now talks to `console` object, and `ConsoleUI` to
 `process`

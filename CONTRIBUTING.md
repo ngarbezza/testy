@@ -12,15 +12,18 @@ demonstrating the problem, like a small test or suite.
 ## Sending changes
 
 * Base branch: `main`. Please open PRs against `main`.
-* Not mandatory, but nice to have, use [Gitmoji](https://gitmoji.carloscuesta.me) for tagging the type of commits 
-you're adding.
+* Not mandatory, but nice to have, use [Gitmoji](https://gitmoji.carloscuesta.me) for tagging the type of commits
+  you're adding.
+* Sign your commits. There is a check to validate this.
 
 If you add a new feature, please add:
+
 * unit tests for it on the `tests/core` folder
 * an entry in the README explaining how to use it
 * JSDoc on the public API classes and methods (ideally with examples on how to use them)
 
 If you fix a bug, please add:
+
 * unit tests for it on the `tests/core` folder
 
 If you add a utility function, please put it in the `Utils` module. That way we control the complexity

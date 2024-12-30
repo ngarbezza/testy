@@ -20,9 +20,9 @@ mainline. CI will run a mutation testing analysis reporting results on every pus
 
 ## Consequences
 
-* Another way to ensure high quality solutions: mutation score is a qualitative metric that can help us measure the 
+* Another way to ensure high quality solutions: mutation score is a qualitative metric that can help us measure the
 quality of every introduced change.
-* Slowness: the analysis is relatively slow compared with the time it takes to run the test suite, because every 
+* Slowness: the analysis is relatively slow compared with the time it takes to run the test suite, because every
 mutation forces a run of the entire test suite. But given the benefits, we accept this.
 * Spreading mutation testing culture: sadly, mutation testing is not well known among developers, so this is a humble
 attempt to show the benefits of it with concrete and practical examples.

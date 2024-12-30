@@ -17,4 +17,5 @@ making possible for it to use this information when needed.
 
 ## Consequences
 
-One example of use is that the `TestRunner` can indicate each `TestSuite` its own filepath to then be printed as part of the suite run output. 
+One example of use is that the `TestRunner` can indicate each `TestSuite` its own filepath to then be printed as part of
+the suite run output.

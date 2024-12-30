@@ -8,8 +8,8 @@ A brief summary of the problem you are solving and a high level approach of the 
 
 Issue(s) this PR fixes. Example:
 
-* [[feature] better error reporting when loading test suite files](https://github.com/ngarbezza/testy/issues/184)
-* [[bug] pretty print logic not giving details after depth 2](https://github.com/ngarbezza/testy/issues/188)
+- [[feature] better error reporting when loading test suite files](https://github.com/ngarbezza/testy/issues/184)
+- [[bug] pretty print logic not giving details after depth 2](https://github.com/ngarbezza/testy/issues/188)
 
 ## Contribution guidelines
 

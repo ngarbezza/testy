@@ -22,58 +22,58 @@ Some achievements to celebrate this release: 100 closed issues and 14 contributo
 ### Fixed
 
 * [[bug] passing tests even if the objects under comparison are not equal](https://github.com/ngarbezza/testy/issues/285):
-  this was a regression from a refactoring to add private methods in v7, it's not user-facing error. 
+  this was a regression from a refactoring to add private methods in v7, it's not user-facing error.
 
 ## [7.0.2] - 2024-03-04
 
 ### Fixed
 
 * [[bug] async test results mixup](https://github.com/ngarbezza/testy/issues/275). Thank
-you, [@mellster2012](https://github.com/mellster2012), for your first contribution! :tada:
+  you, [@mellster2012](https://github.com/mellster2012), for your first contribution! :tada:
 
 ## [7.0.1] - 2024-02-12
 
 ### Fixed
 
 * [[bug] timer is gone](https://github.com/ngarbezza/testy/issues/272): We restored the timer at the end of the test
-report. 
+  report.
 
 ## [7.0.0] - 2024-02-05
 
 ### Breaking changes
 
 * :boom: We migrated from CommonJS to ES Modules. This was a heavy change, and it will affect all the users, but we
-think it is the right step to go to support modern Node versions. Unfortunately, due to complexity generating the
-package, CommonJS will not be supported.ADR `#0013` was added with more info about this decision.
+  think it is the right step to go to support modern Node versions. Unfortunately, due to complexity generating the
+  package, CommonJS will not be supported.ADR `#0013` was added with more info about this decision.
 
 * :boom: Node 18.x or higher is required. Support for Node 12.x, 14.x and 16.x has dropped. Support for Node 20.x is
-added. [Commit](https://github.com/ngarbezza/testy/commit/b8e62c11321b92bd4bc136293db815de7a554668)
+  added. [Commit](https://github.com/ngarbezza/testy/commit/b8e62c11321b92bd4bc136293db815de7a554668)
 
 ### Added
 
 * [[docs] API docs using JSDoc](https://github.com/ngarbezza/testy/issues/231): all public methods and some internal
-ones are now documented, most of them with simple and easy to understand examples. This conforms a documentation
-more extensive than the README.
+  ones are now documented, most of them with simple and easy to understand examples. This conforms a documentation
+  more extensive than the README.
 
 * [[feature] report source code location on failed/errored tests](https://github.com/ngarbezza/testy/issues/52): if your
-test fails or raises an unexpected error, you'll now see a reference with the failed assertion so it's easier to debug
-tests with multiple assertions. The line is displayed next to the test name and failure message.
+  test fails or raises an unexpected error, you'll now see a reference with the failed assertion so it's easier to debug
+  tests with multiple assertions. The line is displayed next to the test name and failure message.
 
 * [[feature] configurable per test timeout](https://github.com/ngarbezza/testy/issues/255): we have a new configuration
-value, `timeoutMs` and it makes tests to end with error state if they are not executed within that timeout.
+  value, `timeoutMs` and it makes tests to end with error state if they are not executed within that timeout.
 
 * [[feature] Improve feedback for wrong usage of raises()](https://github.com/ngarbezza/testy/issues/264): if any of
-the exception assertions is called with an actual object that is not a function, it will return a translated message
-with better feedback explaining it is invalid. The test is considered error instead of failure.
+  the exception assertions is called with an actual object that is not a function, it will return a translated message
+  with better feedback explaining it is invalid. The test is considered error instead of failure.
 
 ### Fixed
 
 * [[bug] exit code 0 and no tests run when a promise is not settled](https://github.com/ngarbezza/testy/issues/253): bug
-that motivated the addition of the timeout feature. Now if you have tests that for some reason do not resolve or reject
-their promises, the tool will give you feedback about that.
+  that motivated the addition of the timeout feature. Now if you have tests that for some reason do not resolve or
+  reject their promises, the tool will give you feedback about that.
 
 * [[bug] failFast configuration parameter should fail if an invalid value is provided](https://github.com/ngarbezza/testy/issues/203),
-thank you [@ignacio-r](https://github.com/ignacio-r) for your first contribution! :tada:
+  thank you [@ignacio-r](https://github.com/ignacio-r) for your first contribution! :tada:
 
 ### Other changes
 
@@ -86,8 +86,8 @@ thank you [@ignacio-r](https://github.com/ignacio-r) for your first contribution
 ### Added
 
 * [[feature] support for asynchronous tests](https://github.com/ngarbezza/testy/issues/106), thank you
-[@JavierGelatti](https://github.com/JavierGelatti) for the [initial implementation](https://github.com/ngarbezza/testy/pull/82)!
-Now we can use `async`/`await` in test definitions.
+  [@JavierGelatti](https://github.com/JavierGelatti) for the [initial implementation](https://github.com/ngarbezza/testy/pull/82)!
+  Now we can use `async`/`await` in test definitions.
 
 ### Fixed
 
@@ -107,18 +107,21 @@ Now we can use `async`/`await` in test definitions.
 ### Breaking changes
 
 * :boom: Node 12.x or higher is required. Support for Node 8.x and 10.x has dropped.
-There is now an architectural decision record to specify how support will work
-going forward. [#214](https://github.com/ngarbezza/testy/issues/214)
+  There is now an architectural decision record to specify how support will work
+  going forward. [#214](https://github.com/ngarbezza/testy/issues/214)
 
 ### Added
 
-* [[feature] isIdenticalTo() / isNotIdenticalTo() assertions](https://github.com/ngarbezza/testy/issues/182), thank you @franciscojaimesfreyre, for your first contribution!
+* [[feature] isIdenticalTo() / isNotIdenticalTo() assertions](https://github.com/ngarbezza/testy/issues/182), thank you
+  @franciscojaimesfreyre, for your first contribution!
 * [[feature] better error reporting when loading test suite files](https://github.com/ngarbezza/testy/issues/184)
-* [[docs] italian translations](https://github.com/ngarbezza/testy/issues/198), thank you @giovannipessiva for your first contribution!
+* [[docs] italian translations](https://github.com/ngarbezza/testy/issues/198), thank you @giovannipessiva for your
+  first contribution!
 
 ### Fixed
 
-* [[bug] isNotEqualTo does not have expected behaviour when both parts are undefined](https://github.com/ngarbezza/testy/issues/191), thank you, @franciscojaimesfreyre, for reporting and fixing this bug!
+* [[bug] isNotEqualTo does not have expected behaviour when both parts are undefined](https://github.com/ngarbezza/testy/issues/191),
+  thank you, @franciscojaimesfreyre, for reporting and fixing this bug!
 * [[bug] pretty print logic not giving details after depth 2](https://github.com/ngarbezza/testy/issues/188)
 * [[bug] null values in isEqualTo comparison fail with error](https://github.com/ngarbezza/testy/issues/217)
 
@@ -131,26 +134,33 @@ going forward. [#214](https://github.com/ngarbezza/testy/issues/214)
 
 ## [5.1.0] - 2021-01-13
 
-This release includes a lot of contributions (4 new contributors!), and several refactorings to continue improving the quality of the tool.
+This release includes a lot of contributions (4 new contributors!), and several refactorings to continue improving the
+quality of the tool.
 
 ### Added
 
-* [[feature] added after() hook to run code after each test](https://github.com/ngarbezza/testy/issues/135), thank you @adico1!
-* [[feature] isIncludedIn() and isNotIncludedIn() assertions](https://github.com/ngarbezza/testy/issues/75), thank you @ask-imran for your first contribution!
-* [[feature] warning message when no tests found](https://github.com/ngarbezza/testy/issues/157), thank you @niyonx for your first contribution!
-* [[feature] show error when a requested file does not exist](https://github.com/ngarbezza/testy/issues/158), thank you @chelsieng for your first contribution!
+* [[feature] added after() hook to run code after each test](https://github.com/ngarbezza/testy/issues/135), thank you
+  @adico1!
+* [[feature] isIncludedIn() and isNotIncludedIn() assertions](https://github.com/ngarbezza/testy/issues/75), thank you
+  @ask-imran for your first contribution!
+* [[feature] warning message when no tests found](https://github.com/ngarbezza/testy/issues/157), thank you @niyonx for
+  your first contribution!
+* [[feature] show error when a requested file does not exist](https://github.com/ngarbezza/testy/issues/158), thank you
+  @chelsieng for your first contribution!
 * [[feature] global error handler](https://github.com/ngarbezza/testy/issues/177)
 
 ### Fixed
 
 * [[bug] suite and test names cannot be empty](https://github.com/ngarbezza/testy/issues/136), thank you @ask-imran!
-* [[bug] includes() and doesNotInclude() matchers only work on Arrays](https://github.com/ngarbezza/testy/issues/130), thank you @trochepablo for your first contribution!
+* [[bug] includes() and doesNotInclude() matchers only work on Arrays](https://github.com/ngarbezza/testy/issues/130),
+  thank you @trochepablo for your first contribution!
 * [[bug] color for pending summary was not painted](https://github.com/ngarbezza/testy/issues/173)
 * [[bug] it was possible to mark tests as pending without specifying reason](https://github.com/ngarbezza/testy/issues/172)
 
 ### Refactored
 
-* [rename "master" branch to "main"](https://github.com/ngarbezza/testy/issues/133); also, an ADR was added to track the decision that we want a better vocabulary
+* [rename "master" branch to "main"](https://github.com/ngarbezza/testy/issues/133); also, an ADR was added to track the
+  decision that we want a better vocabulary
 * [parametrizable i18n messages](https://github.com/ngarbezza/testy/issues/71)
 * [write more tests for the i18n module](https://github.com/ngarbezza/testy/issues/179)
 * [throw error objects instead of strings](https://github.com/ngarbezza/testy/issues/176)
@@ -171,8 +181,10 @@ It also includes an improvement in the contribution guidelines, and records of a
 
 ### Fixed
 
-* [[bug] isEmpty / isNotEmpty failing when passing an undefined value](https://github.com/ngarbezza/testy/issues/125): thank you, @abraaoduarte for your first contribution!
-* [[bug] validate argument types of test()](https://github.com/ngarbezza/testy/issues/137): thank you, @adico1 for your first contribution!
+* [[bug] isEmpty / isNotEmpty failing when passing an undefined value](https://github.com/ngarbezza/testy/issues/125):
+  thank you, @abraaoduarte for your first contribution!
+* [[bug] validate argument types of test()](https://github.com/ngarbezza/testy/issues/137): thank you, @adico1 for your
+  first contribution!
 * [[bug] raises() does not pass when throwing a non-primitive object](https://github.com/ngarbezza/testy/issues/140)
 * [[bug] toString() is not honored when printing objects](https://github.com/ngarbezza/testy/issues/143)
 * [[bug] cannot run testy binary using npx](https://github.com/ngarbezza/testy/issues/148)
@@ -181,7 +193,8 @@ It also includes an improvement in the contribution guidelines, and records of a
 
 ### Fixed
 
-* [[bug] includesExactly uses === as comparison](https://github.com/ngarbezza/testy/issues/119): Now the same criteria as `isEqualTo` is used in `includes`, `doesNotInclude` and `includesExactly`.
+* [[bug] includesExactly uses === as comparison](https://github.com/ngarbezza/testy/issues/119): Now the same criteria
+  as `isEqualTo` is used in `includes`, `doesNotInclude` and `includesExactly`.
 
 ## [5.0.0] - 2020-05-22
 
@@ -194,22 +207,36 @@ It also includes an improvement in the contribution guidelines, and records of a
 
 ### Added
 
-* [[feature] configuration to run tests in random order](https://github.com/ngarbezza/testy/issues/73): to ensure test isolation and therefore having robust suites :muscle:
-* [[feature] allow to pass multiple test paths to run testy](https://github.com/ngarbezza/testy/issues/86): this allows to have more flexibility and control which files we want to run
-* [[documentation] docs in Spanish](https://github.com/ngarbezza/testy/issues/90): now both README and CONTRIBUTING files are translated and updated in English and Spanish.
-* [[feature] testy binary](https://github.com/ngarbezza/testy/issues/17): **breaking change**, this makes testy more easy to be executed. There's a `testy` script that can be run globally or through `npx`.
-* [[feature] read configuration parameters from JSON file](https://github.com/ngarbezza/testy/issues/94): in order to run testy from a binary file, we now need a place to specify the configuration. Starting on v5, every project can have a `.testyrc.json` with the desired configuration parameters. Default values will be used in case the file is not present.
-* [[feature] testy start message](https://github.com/ngarbezza/testy/issues/100): now testy says "Hi!" when starting to run tests.
-* [[documentation] v5 revamped docs](https://github.com/ngarbezza/testy/issues/91): new README with all the v5 features, and a more clear step by step guide. Also, there are links for v4 docs. Spanish and English.
-* [[feature] -h/--help command line option](https://github.com/ngarbezza/testy/issues/108): now that we have a binary, we need a help option! Added a simple.
-* [[feature] -v/--version command line option](https://github.com/ngarbezza/testy/issues/109): simple text displaying the current version.
-* [[feature] isNull() and isNotNull() assertions](https://github.com/ngarbezza/testy/issues/66): checking for null now has a specific assertion with a helpful error message.
-* [[feature] matches() assertion](https://github.com/ngarbezza/testy/issues/113): other important assertion added to the core; check if a string matches a regex (or another string!).
+* [[feature] configuration to run tests in random order](https://github.com/ngarbezza/testy/issues/73): to ensure test
+  isolation and therefore having robust suites :muscle:
+* [[feature] allow to pass multiple test paths to run testy](https://github.com/ngarbezza/testy/issues/86): this allows
+  to have more flexibility and control which files we want to run
+* [[documentation] docs in Spanish](https://github.com/ngarbezza/testy/issues/90): now both README and CONTRIBUTING
+  files are translated and updated in English and Spanish.
+* [[feature] testy binary](https://github.com/ngarbezza/testy/issues/17): **breaking change**, this makes testy easier
+  to be executed. There's a `testy` script that can be run globally or through `npx`.
+* [[feature] read configuration parameters from JSON file](https://github.com/ngarbezza/testy/issues/94): in order to
+  run testy from a binary file, we now need a place to specify the configuration. Starting on v5, every project can have
+  a `.testyrc.json` with the desired configuration parameters. Default values will be used in case the file is not
+  present.
+* [[feature] testy start message](https://github.com/ngarbezza/testy/issues/100): now testy says "Hi!" when starting to
+  run tests.
+* [[documentation] v5 revamped docs](https://github.com/ngarbezza/testy/issues/91): new README with all the v5 features,
+  and a more clear step-by-step guide. Also, there are links for v4 docs. Spanish and English.
+* [[feature] -h/--help command line option](https://github.com/ngarbezza/testy/issues/108): now that we have a binary,
+  we need a help option! Added a simple.
+* [[feature] -v/--version command line option](https://github.com/ngarbezza/testy/issues/109): simple text displaying
+  the current version.
+* [[feature] isNull() and isNotNull() assertions](https://github.com/ngarbezza/testy/issues/66): checking for null now
+  has a specific assertion with a helpful error message.
+* [[feature] matches() assertion](https://github.com/ngarbezza/testy/issues/113): other important assertion added to the
+  core; check if a string matches a regex (or another string!).
 
 ### Changed
 
 * [version] Node 8.x is the minimum version (**breaking change**)
-* [[internal] use eslint as linter for the tool](https://github.com/ngarbezza/testy/issues/89): this is a good step forward having more consistency in this codebase.
+* [[internal] use eslint as linter for the tool](https://github.com/ngarbezza/testy/issues/89): this is a good step
+  forward having more consistency in this codebase.
 * [documentation] add documentation issue type: keeping the repo more accessible for contributors.
 * [documentation] explain how CI and our linter works: helpful for contributors
 
@@ -224,20 +251,24 @@ First release in 2020! Release emoji: :muscle:
 
 ### Added
 
-* [[feature] isUndefined() and isNotUndefined() assertions](https://github.com/ngarbezza/testy/issues/74): Thank you [@JavierGelatti](https://github.com/JavierGelatti)!
-* [[feature] comparing undefined with undefined should fail](https://github.com/ngarbezza/testy/issues/65): a feature for preventing false positives
-* [[feature] isNearTo() assertion](https://github.com/ngarbezza/testy/issues/67): `0.1 + 0.2` is not a problem anymore :)
+* [[feature] isUndefined() and isNotUndefined() assertions](https://github.com/ngarbezza/testy/issues/74): Thank
+  you, [@JavierGelatti](https://github.com/JavierGelatti)!
+* [[feature] comparing undefined with undefined should fail](https://github.com/ngarbezza/testy/issues/65): a feature
+  for preventing false positives
+* [[feature] isNearTo() assertion](https://github.com/ngarbezza/testy/issues/67): `0.1 + 0.2` is not a problem
+  anymore :)
 * [[feature] allow to mark tests as explicitly pending](https://github.com/ngarbezza/testy/issues/26)
 * [documentation] Add refactoring issue type for better reporting of potential refactorings
 
 ### Changed
 
-* [[ui] Improve styles of test suite report](https://github.com/ngarbezza/testy/pull/79): Thank you [@JavierGelatti](https://github.com/JavierGelatti)!
+* [[ui] Improve styles of test suite report](https://github.com/ngarbezza/testy/pull/79): Thank
+  you, [@JavierGelatti](https://github.com/JavierGelatti)!
 * [documentation] Improved README:
-  * Make a more guided setup with recommendations and concrete examples
-  * Add all the available assertions
-  * Describe what we call a suite and what a test
-  * Add section to explain `before()` helper
+    * Make a more guided setup with recommendations and concrete examples
+    * Add all the available assertions
+    * Describe what we call a suite and what a test
+    * Add section to explain `before()` helper
 * [infrastructure] Removed Travis CI support. Builds are executed only by Github Actions now.
 * [refactoring] Centralized utility functions in a single module
 
@@ -286,7 +317,8 @@ Release emoji :heavy_plus_sign:
 
 ### Fixed
 
-* [Poor error message when custom equality method is not found](https://github.com/ngarbezza/testy/issues/35): Thank you, [@TomerPacific](https://github.com/@TomerPacific)!
+* [Poor error message when custom equality method is not found](https://github.com/ngarbezza/testy/issues/35): Thank
+  you, [@TomerPacific](https://github.com/@TomerPacific)!
 
 ## [4.1.1] - 2019-10-05
 
@@ -294,13 +326,17 @@ Release emoji: :zero:
 
 ### Added
 
-* [Failures summary section](https://github.com/ngarbezza/testy/issues/31): Now at the end of the console output, we should see (in case there are failures or errors) a summary so you don't have to scroll up to find the problems!
-* [New matchers: isEmpty(), isNotEmpty()](https://github.com/ngarbezza/testy/issues/34). Now strings and arrays can be tested using these matchers.
+* [Failures summary section](https://github.com/ngarbezza/testy/issues/31): Now at the end of the console output, we
+  should see (in case there are failures or errors) a summary so you don't have to scroll up to find the problems!
+* [New matchers: isEmpty(), isNotEmpty()](https://github.com/ngarbezza/testy/issues/34). Now strings and arrays can be
+  tested using these matchers.
 
 ### Changed
 
-* [Remove `require-dir` dependency](https://github.com/ngarbezza/testy/issues/36): Zero dependencies goal reached! :muscle:
-* [Increased "debuggability"](https://github.com/ngarbezza/testy/issues/33): Nobody should be afraid of debugging inside the code of this tool! If something is not understandable, let's change it.
+* [Remove `require-dir` dependency](https://github.com/ngarbezza/testy/issues/36): Zero dependencies goal reached!
+  :muscle:
+* [Increased "debuggability"](https://github.com/ngarbezza/testy/issues/33): Nobody should be afraid of debugging inside
+  the code of this tool! If something is not understandable, let's change it.
 
 ## [4.0.1] - 2019-07-19
 
@@ -317,8 +353,10 @@ Major release! Including breaking changes.
 
 ### Changed
 
-* [Change `runTesty` to be more object-oriented](https://github.com/ngarbezza/testy/issues/27). This deprecates the `runTesty` function way of configuring Testy. README is up to date with the new configuration way.
-* [Deprecate context object passed to before() blocks](https://github.com/ngarbezza/testy/issues/23). Tests using this feature will break from now on.
+* [Change `runTesty` to be more object-oriented](https://github.com/ngarbezza/testy/issues/27). This deprecates the
+  `runTesty` function way of configuring Testy. README is up to date with the new configuration way.
+* [Deprecate context object passed to before() blocks](https://github.com/ngarbezza/testy/issues/23). Tests using this
+  feature will break from now on.
 
 ### Added
 
@@ -388,28 +426,53 @@ readable and extensible. It also includes a huge internal refactor to make the t
 * Fix passed count at test runner level (no reported issue)
 
 [Unreleased]: https://github.com/ngarbezza/testy/compare/v7.1.0...HEAD
+
 [7.1.0]: https://github.com/ngarbezza/testy/compare/v7.0.2...v7.1.0
+
 [7.0.2]: https://github.com/ngarbezza/testy/compare/v7.0.1...v7.0.2
+
 [7.0.1]: https://github.com/ngarbezza/testy/compare/v7.0.0...v7.0.1
+
 [7.0.0]: https://github.com/ngarbezza/testy/compare/v6.1.0...v7.0.0
+
 [6.1.0]: https://github.com/ngarbezza/testy/compare/v6.0.0...v6.1.0
+
 [6.0.0]: https://github.com/ngarbezza/testy/compare/v5.1.0...v6.0.0
+
 [5.1.0]: https://github.com/ngarbezza/testy/compare/v5.0.2...v5.1.0
+
 [5.0.2]: https://github.com/ngarbezza/testy/compare/v5.0.1...v5.0.2
+
 [5.0.1]: https://github.com/ngarbezza/testy/compare/v5.0.0...v5.0.1
+
 [5.0.0]: https://github.com/ngarbezza/testy/compare/v4.4.0...v5.0.0
+
 [4.4.0]: https://github.com/ngarbezza/testy/compare/v4.3.0...v4.4.0
+
 [4.3.0]: https://github.com/ngarbezza/testy/compare/v4.2.2...v4.3.0
+
 [4.2.2]: https://github.com/ngarbezza/testy/compare/v4.2.1...v4.2.2
+
 [4.2.1]: https://github.com/ngarbezza/testy/compare/v4.2.0...v4.2.1
+
 [4.2.0]: https://github.com/ngarbezza/testy/compare/v4.1.1...v4.2.0
+
 [4.1.1]: https://github.com/ngarbezza/testy/compare/v4.0.1...v4.1.1
+
 [4.0.1]: https://github.com/ngarbezza/testy/compare/v4.0.0...v4.0.1
+
 [4.0.0]: https://github.com/ngarbezza/testy/compare/v3.1.1...v4.0.0
+
 [3.1.1]: https://github.com/ngarbezza/testy/compare/v3.0.1...v3.1.1
+
 [3.0.1]: https://github.com/ngarbezza/testy/compare/v3.0.0...v3.0.1
+
 [3.0.0]: https://github.com/ngarbezza/testy/compare/v2.11.0...v3.0.0
+
 [2.11.0]: https://github.com/ngarbezza/testy/compare/v2.10.0...v2.11.0
+
 [2.10.0]: https://github.com/ngarbezza/testy/compare/v2.9.1...v2.10.0
+
 [2.9.1]: https://github.com/ngarbezza/testy/compare/v2.9.0...v2.9.1
+
 [2.9.0]: https://github.com/ngarbezza/testy/compare/v2.8.1...v2.9.0

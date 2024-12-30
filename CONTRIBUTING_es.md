@@ -5,22 +5,25 @@ esta herramienta.
 
 ## Para reportar _issues_
 
-Existen diferentes _issue types_ para diferentes usos. Por favor, ajústate a alguno de ellos a menos que tengas una razón
-fuerte para no hacerlo. Si envías reportes de bugs, sería genial si incluyes también un ejemplo minimal que demuestre el
-problema, como una suite o un test de ejemplo.
+Existen diferentes _issue types_ para diferentes usos. Por favor, ajústate a alguno de ellos a menos que tengas una
+razón fuerte para no hacerlo. Si envías reportes de bugs, sería genial si incluyes también un ejemplo minimal que
+demuestre el problema, como una suite o un test de ejemplo.
 
 ## Para enviar cambios
 
 * Rama principal: `main`. Por favor, abrir pull requests hacia `main`.
 * Utilizamos [Gitmoji](https://gitmoji.carloscuesta.me) como convención para anotar mensajes de commit. No es
-obligatorio, pero si lo quieres seguir es bienvenido.
+  obligatorio, pero si lo quieres seguir es bienvenido.
+* Firma tus commits. Hay un chequeo que valida esto al momento de evaluar un _pull request_.
 
 Al agregar una nueva funcionalidad, por favor agregar:
+
 * test para dicha funcionalidad en el directorio `tests/core`
 * si es posible, una entrada en el README indicando cómo utilizarla
 * comentarios JSDoc para todas las clases y métodos públicos, idealmente con ejemplos para ilustrar su uso
 
 Si solucionas un bug, por favor agregar:
+
 * tests que verifican que el error está arreglado en el directorio `tests/core`
 
 Si agregas una función utilitaria, por favor ubícala en el módulo `Utils`. De esa manera, podemos controlar la
@@ -42,6 +45,7 @@ reportándolo al dashboard de Stryker.
 
 ## Conventions and standards
 
-Este proyecto utiliza [Registros de Decisiones Arquitecturales (Architectural Decision Records, ADR)](https://adr.github.io/).
-El directorio `doc/decisions` contiene todas las decisiones tomadas hasta el momento. Por favor, verifica que los cambios
-que envíes estén en conformidad con estas decisiones.
+Este proyecto
+utiliza [Registros de Decisiones Arquitecturales (Architectural Decision Records, ADR)](https://adr.github.io/).
+El directorio `doc/decisions` contiene todas las decisiones tomadas hasta el momento. Por favor, verifica que los
+cambios que envíes estén en conformidad con estas decisiones.

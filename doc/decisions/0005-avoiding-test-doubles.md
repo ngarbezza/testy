@@ -14,7 +14,7 @@ system.
 ## Decision
 
 Avoid introducing test doubles as much as possible. The only allowed exception is to stub/simulate external systems we
-can't control. Library code should never be stubbed. 
+can't control. Library code should never be stubbed.
 
 ## Consequences
 

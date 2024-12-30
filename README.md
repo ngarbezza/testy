@@ -25,7 +25,7 @@
 ![release-date](https://img.shields.io/github/release-date/ngarbezza/testy.svg?logo=npm)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![all-contributors](https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative)](#Contributors)
+[![all-contributors](https://img.shields.io/github/all-contributors/ngarbezza/testy?logo=open-source-initiative)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A very simple JS testing framework, for educational purposes. Live at npm at [@pmoo/testy](https://www.npmjs.com/package/@pmoo/testy).
@@ -35,7 +35,9 @@ A very simple JS testing framework, for educational purposes. Live at npm at [@p
 
 ## Sponsors
 
-<a href="https://10pines.com"><img alt="10Pines" src="https://10pines.com/static/media/10Pines-logo_reducido.f830b358.svg" width="300" height="100" /></a>
+<a href="https://10pines.com">
+<img alt="10Pines" src="https://10pines.com/assets/10Pines-logo_reducido-10729182.svg" width="300" height="100" />
+</a>
 
 ## Getting started
 
@@ -62,7 +64,8 @@ suite("a boring test suite", () => {
 });
 ```
 
-A test suite represents a grouping of tests, and it is implemented as a function call to `suite` passing a name and a zero-argument function, which is the suite body.
+A test suite represents a grouping of tests, and it is implemented as a function call to `suite` passing a name and a
+zero-argument function, which is the suite body.
 
 A test is implemented as a function call to `test()`, passing a name and the test body as a zero-argument function.
 
@@ -72,19 +75,20 @@ Inside the test you can call different assertions that are documented in detail 
 
 You can run an individual test file using:
 
-```
-$ npx testy my_test.js
+```sh
+npx testy my_test.js
 ```
 
-Or, you can run it without arguments to run all the tests (by default it looks on a `tests` folder located in the project root):
+Or, you can run it without arguments to run all the tests (by default it looks on a `tests` folder located in the project
+root):
 
-```
-$ npx testy
+```sh
+npx testy
 ```
 
 You can also add it as the `test` script for npm/yarn in your `package.json`:
 
-```
+```json
 {
   ...
   "scripts": {
@@ -98,9 +102,10 @@ And then run the tests using `npm test` or `yarn test`.
 
 ### Configuring Testy
 
-Testy will look for a `.testyrc.json` configuration file in the project root directory. You can use this configuration as a template (values here are the defaults):
+Testy will look for a `.testyrc.json` configuration file in the project root directory. You can use this configuration
+as a template (values here are the defaults):
 
-```
+```json
 {
   "directory": "./tests",   // directory including your test files
   "filter": ".*_test.js$",  // which convention to use to recognize test files
@@ -108,73 +113,86 @@ Testy will look for a `.testyrc.json` configuration file in the project root dir
   "failFast": false,        // enable/disable fail fast mode (stop as soon as a failed test appears)
   "randomOrder": false      // enable/disable execution of tests in random order
   "timeoutMs": 1000         // sets the per-test timeout in milliseconds
-  "language": "en", // language of the output messages. "es", "it" and "en" supported for now
+  "language": "en",         // language of the output messages. "es", "it" and "en" supported for now
 }
 ```
 
-You can also pass a configuration through the console when running tests by adding these available options after your test file path:
+You can also pass a configuration through the console when running tests by adding these available options after your
+test file path:
+
 - `-f` or `--fail-fast` to enable fail fast mode.
 - `-r` or `--randomize` to enable the execution of tests in random order.
 - `-l xx` or `--language xx` where `xx` must be either `es` for Spanish, `en` for English or `it` for Italian.
+
 These console parameters can be sent in any order and combined as you want.
 
 These are all the configuration parameters you can set. Feel free to change it according to your needs.
-When declaring this configuration, every test suite under the `tests` directory (matching files ending with `*test.js`) will be executed.
+When declaring this configuration, every test suite under the `tests` directory (matching files ending with
+`*test.js`) will be executed.
 
 ### Examples and available assertions
 
 There must be at least one assertion on the test to be valid. These are all the supported assertion types:
 
 - Boolean assertions:
-  - `assert.that(boolean).isTrue()` or `assert.isTrue(boolean)`. It does a strict comparison against `true` (`object === true`)
-  - `assert.that(boolean).isFalse()` or `assert.isFalse(boolean)`. It does a strict comparison against `false` (`object === false`)
+    - `assert.that(boolean).isTrue()` or `assert.isTrue(boolean)`. It does a strict comparison against `true`
+      (`object === true`)
+    - `assert.that(boolean).isFalse()` or `assert.isFalse(boolean)`. It does a strict comparison against `false`
+      (`object === false`)
 - Equality assertions:
-  - `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
-  - `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
-  - Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under comparison have circular references.
-  - Equality criteria on non-primitive objects can be specified:
-    - Passing an extra two-arg comparator function to `isEqualTo(expected, criteria)` or `areEqual(actual, expected, criteria)`
-    - Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or `areEqual(actual, expected, 'myEqMessage')`
-    - By default, if `actual` has an `equals` method it will be used.
-    - If we compare `undefined` with `undefined` using `isEqualTo()`, it will make the test fail. For explicit check for `undefined`, use the `isUndefined()`/`isNotUndefined()` assertions documented above.
+    - `assert.that(actual).isEqualTo(expected)` or `assert.areEqual(actual, expected)`.
+    - `assert.that(actual).isNotEqualTo(expected)` or `assert.areNotEqual(actual, expected)`
+    - Equality assertions use a deep object comparison (based on Node's `assert` module) and fail if objects under
+      comparison have circular references.
+    - Equality criteria on non-primitive objects can be specified:
+        - Passing an extra two-arg comparator function to `isEqualTo(expected, criteria)` or
+          `areEqual(actual, expected, criteria)`
+        - Passing a method name that `actual` object understands: `isEqualTo(expected, 'myEqMessage')` or
+          `areEqual(actual, expected, 'myEqMessage')`
+        - By default, if `actual` has an `equals` method it will be used.
+        - If we compare `undefined` with `undefined` using `isEqualTo()`, it will make the test fail. For explicit
+          check for `undefined`, use the `isUndefined()`/`isNotUndefined()` assertions documented above.
 - Identity assertions:
-  - `assert.that(actual).isIdenticalTo(expected)` or `assert.areIdentical(actual, expected)`
-  - `assert.that(actual).isNotIdenticalTo(expected)` or `assert.areNotIdentical(actual, expected)`
-  - Identity assertions check if two references point to the same object using the `===` operator.
+    - `assert.that(actual).isIdenticalTo(expected)` or `assert.areIdentical(actual, expected)`
+    - `assert.that(actual).isNotIdenticalTo(expected)` or `assert.areNotIdentical(actual, expected)`
+    - Identity assertions check if two references point to the same object using the `===` operator.
 - Check for `undefined` presence/absence:
-  - `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
-  - `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`
+    - `assert.that(aValue).isUndefined()` or `assert.isUndefined(aValue)`
+    - `assert.that(aValue).isNotUndefined()` or `assert.isNotUndefined(aValue)`
 - Check for `null` presence/absence:
-  - `assert.that(aValue).isNull()` or `assert.isNull(aValue)`
-  - `assert.that(aValue).isNotNull()` or `assert.isNotNull(aValue)`
+    - `assert.that(aValue).isNull()` or `assert.isNull(aValue)`
+    - `assert.that(aValue).isNotNull()` or `assert.isNotNull(aValue)`
 - Exception testing:
-  - `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
-  - `assert.that(() => { ... }).doesNotRaise(error)`
-  - `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
+    - `assert.that(() => { ... }).raises(error)` or with regex `.raises(/part of message/)`
+    - `assert.that(() => { ... }).doesNotRaise(error)`
+    - `assert.that(() => { ... }).doesNotRaiseAnyErrors()`
 - Numeric assertions:
-  - Comparators:
-    - `assert.that(aNumber).isGreaterThan(anotherNumber)`
-    - `assert.that(aNumber).isLessThan(anotherNumber)`
-    - `assert.that(aNumber).isGreaterThanOrEqualTo(anotherNumber)`
-    - `assert.that(aNumber).isLessThanOrEqualTo(anotherNumber)`
-  - Rounding:
-    - `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number of digits to be used for precision. Default is `4`.
+    - Comparators:
+        - `assert.that(aNumber).isGreaterThan(anotherNumber)`
+        - `assert.that(aNumber).isLessThan(anotherNumber)`
+        - `assert.that(aNumber).isGreaterThanOrEqualTo(anotherNumber)`
+        - `assert.that(aNumber).isLessThanOrEqualTo(anotherNumber)`
+    - Rounding:
+        - `assert.that(aNumber).isNearTo(anotherNumber)`. There's a second optional argument that indicates the number
+          of digits to be used for precision. Default is `4`.
 - String assertions:
-  - `assert.that(string).matches(regexOrString)` or `assert.isMatching(string, regexOrString)`
+    - `assert.that(string).matches(regexOrString)` or `assert.isMatching(string, regexOrString)`
 - Array inclusion:
-  - `assert.that(collection).includes(object)`
-  - `assert.that(collection).doesNotInclude(object)`
-  - `assert.that(collection).includesExactly(...objects)`
+    - `assert.that(collection).includes(object)`
+    - `assert.that(collection).doesNotInclude(object)`
+    - `assert.that(collection).includesExactly(...objects)`
 - Emptiness
-  - `assert.that(collection).isEmpty()` or `assert.isEmpty(collection)`
-  - `assert.that(collection).isNotEmpty()` or `assert.isNotEmpty(collection)`
-  - the collection under test can be an `Array`, a `String` or a `Set`
+    - `assert.that(collection).isEmpty()` or `assert.isEmpty(collection)`
+    - `assert.that(collection).isNotEmpty()` or `assert.isNotEmpty(collection)`
+    - the collection under test can be an `Array`, a `String` or a `Set`
 
-Please take a look at the `tests` folder, you'll find examples of each possible test you can write. Testy is self-tested.
+Please take a look at the `tests` folder, you'll find examples of each possible test you can write. Testy is
+self-tested.
 
 ### Running testy globally
 
-If you don't have a NPM project you can install testy globally using `npm install -g testy` and then run `testy <files>`
+If you don't have a NPM project you can install Testy globally using `npm install -g testy` and then run
+`testy <files>`.
 
 ### Other features
 
@@ -182,83 +200,92 @@ If you don't have a NPM project you can install testy globally using `npm instal
   before or after each test in a suite using the `before()` and `after()` functions, respectively. You can use only one
   definition of `before()` and `after()` per suite, and they always receive a function as argument. Example:
 
-      ```javascript
-      import { suite, test, assert, before, after } from '@pmoo/testy';
+    ```javascript
+    import { suite, test, assert, before, after } from '@pmoo/testy';
 
-      suite('using the before() and after() helpers', () => {
-        let answer;
+    suite('using the before() and after() helpers', () => {
+      let answer;
 
-        before(() => {
-          answer = 42;
-        });
-
-        test('checking the answer', () => {
-          assert.that(answer).isEqualTo(42);
-        });
-
-        after(() => {
-          answer = undefined;
-        });
+      before(() => {
+        answer = 42;
       });
-      ```
 
-- **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a failure.
-- **Support for skipped tests**: you can skip a test by adding `.skip()` after test declaration, it will be reported as `[SKIP]` and it won't be executed nor considered a failure.
-
-      ```javascript
-      import { suite, test, assert } from '@pmoo/testy';
-
-      suite('I am a suite with a skipped test', () => {
-        test('I am a skipped test', async () => {
-          assert.that(1).isEqualTo(1);
-        }).skip();
+      test('checking the answer', () => {
+        assert.that(answer).isEqualTo(42);
       });
-      ```
 
-- **Support for exclusive tests**: you can mark a test as exclusive for a run by adding `.only()` after test declaration. If there's at least one test marked as exclusive for run in a suite, only the tests marked as exclusive for run will be executed and the rest will be skipped.
-
-      ```javascript
-      import { suite, test, assert } from '@pmoo/testy';
-
-      suite('I am a suite with an exclusive test', () => {
-
-        test('I am an exclusive for run test', async () => {
-          assert.that(1).isEqualTo(1);
-        }).only();
-
+      after(() => {
+        answer = undefined;
       });
-      ```
+    });
+    ```
 
-- **Support for skipped suites**: you can skip a test suite by adding `.skip()` after suite declaration. All of the suite's test will be reported as `[SKIP]` and won't be executed nor considered a failure.
+- **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a
+  failure.
+- **Support for skipped tests**: you can skip a test by adding `.skip()` after test declaration, it will be reported
+  as `[SKIP]` and it won't be executed nor considered a failure.
+
+    ```javascript
+    import { suite, test, assert } from '@pmoo/testy';
+
+    suite('I am a suite with a skipped test', () => {
+      test('I am a skipped test', async () => {
+        assert.that(1).isEqualTo(1);
+      }).skip();
+    });
+    ```
+
+- **Support for exclusive tests**: you can mark a test as exclusive for a run by adding `.only()` after test
+  declaration. If there's at least one test marked as exclusive for run in a suite, only the tests marked as exclusive
+  for run will be executed and the rest will be skipped.
+
+    ```javascript
+    import { suite, test, assert } from '@pmoo/testy';
+
+    suite('I am a suite with an exclusive test', () => {
+
+      test('I am an exclusive for run test', async () => {
+        assert.that(1).isEqualTo(1);
+      }).only();
+
+    });
+    ```
+
+- **Support for skipped suites**: you can skip a test suite by adding `.skip()` after suite declaration. All of the
+  suite's test will be reported as `[SKIP]` and won't be executed nor considered a failure.
 
 - **Support for asynchronous tests**: if the code you are testing has `async` logic, you can `await` inside the test
   definition and make assertions later. You can also use it on `before()` and `after()` declarations. Example:
 
-      ```javascript
-      import { suite, test, assert, before } from '@pmoo/testy';
+    ```javascript
+    import { suite, test, assert, before } from '@pmoo/testy';
 
-      const promiseOne = async () => Promise.resolve(42);
-      const promiseTwo = async () => Promise.resolve(21);
+    const promiseOne = async () => Promise.resolve(42);
+    const promiseTwo = async () => Promise.resolve(21);
 
-      suite('using async & await', () => {
-        let answerOne;
+    suite('using async & await', () => {
+      let answerOne;
 
-        before(async () => {
-          answerOne = await promiseOne();
-        });
-
-        test('comparing results from promises', async () => {
-          const answerTwo = await promiseTwo();
-          assert.that(answerOne).isEqualTo(42);
-          assert.that(answerTwo).isEqualTo(21);
-        });
+      before(async () => {
+        answerOne = await promiseOne();
       });
-      ```
 
-- **Fail-Fast mode**: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests will be marked as skipped.
-- **Run tests and suites in random order**: a good test suite does not depend on a particular order. Enabling this setting is a good way to ensure that.
-- **Strict check for assertions**: if a test does not evaluate any assertion while it is executed, the result is considered an error. Basically, a test with no assertion is considered a "bad" test.
-- **Explicitly failing or marking a test as pending**: there's a possibility of marking a test as failed or pending, for example:
+      test('comparing results from promises', async () => {
+        const answerTwo = await promiseTwo();
+        assert.that(answerOne).isEqualTo(42);
+        assert.that(answerTwo).isEqualTo(21);
+      });
+    });
+    ```
+
+- **Fail-Fast mode**: if enabled, it stops execution in the first test that fails (or has an error). Remaining tests
+  will be marked as skipped.
+- **Run tests and suites in random order**: a good test suite does not depend on a particular order. Enabling this
+  setting is a good way to ensure that.
+- **Strict check for assertions**: if a test does not evaluate any assertion while it is executed, the result is
+  considered an error. Basically, a test with no assertion is considered a "bad" test.
+- **Explicitly failing or marking a test as pending**: there's a possibility of marking a test as failed or pending,
+  for example:
 
   ```javascript
   import { suite, test, fail, pending } from "@pmoo/testy";
@@ -273,7 +300,7 @@ If you don't have a NPM project you can install testy globally using `npm instal
 
   The output includes the messages provided:
 
-  ```
+  ```text
   [FAIL] marking as failed
     => should not be here
   [WIP] marking as pending
@@ -282,13 +309,20 @@ If you don't have a NPM project you can install testy globally using `npm instal
 
 ## Why?
 
-Why another testing tool? The main reason is that we want to keep simplicity, something it's hard to see in the main testing tools out there.
+Why another testing tool? The main reason is that we want to keep simplicity, something it's hard to see in the main
+testing tools out there.
 
-- **Zero dependencies:** right now, this project does not depend on any npm package, making the tool easy to install, and fast: essential to have immediate feedback while doing TDD. This is also good for installing on places where the internet connection is not good and we don't want to download hundreds of libraries.
-- **Understandable object-oriented code:** we want to use this tool for teaching, so eventually we'll look at the code during lessons, and students should be able to see what is going on, and even contributing at it, with no dark magic involved. Also, we try to follow good OO practices.
-- **Unique set of features:** we are not following any specification nor trying to copy behavior from other approaches (like the "xUnit" or "xSpec" way).
+- **Zero dependencies:** right now, this project does not depend on any npm package, making the tool easy to install,
+  and fast: essential to have immediate feedback while doing TDD. This is also good for installing on places where the
+  internet connection is not good and we don't want to download hundreds of libraries.
+- **Understandable object-oriented code:** we want to use this tool for teaching, so eventually we'll look at the code
+  during lessons, and students should be able to see what is going on, and even contributing at it, with no dark magic
+  involved. Also, we try to follow good OO practices.
+- **Unique set of features:** we are not following any specification nor trying to copy behavior from other approaches
+  (like the "xUnit" or "xSpec" way).
 
-["Design Principles Behind Smalltalk"](https://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html) is a source of inspiration for this work. We try to follow the same principles here.
+["Design Principles Behind Smalltalk"](https://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html) is a source of
+inspiration for this work. We try to follow the same principles here.
 
 ## Contributing
 
@@ -327,4 +361,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
+Contributions of any kind welcome!
