@@ -13,8 +13,8 @@ that is only supported in Node, and not in other environments like Deno or the b
 
 This article contains a detailed comparison of CommonJS and ES Modules: https://www.knowledgehut.com/blog/web-development/commonjs-vs-es-modules
 
-This tool uses modules a lot, as it dynamically requires files written by the users of Testy, and the asyncronous
-features of ES makes things easier and brings more reliability than synchronous CommonJS modules.  
+This tool uses modules a lot, as it dynamically requires files written by the users of Testy, and the asynchronous
+features of ES makes things easier and brings more reliability than synchronous CommonJS modules.
 
 ## Decision
 
@@ -25,5 +25,5 @@ which is against the spirit of this project.
 ## Consequences
 
 * This is a disruptive change for users. Projects that uses CommonJS will need to migrate to ES, at least to load the
-tests.
+  tests.
 * This will represent a breaking change, to be released in a new major version.

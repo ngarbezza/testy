@@ -108,8 +108,15 @@ Testy will look for a `.testyrc.json` configuration file in the project root dir
   "failFast": false,        // enable/disable fail fast mode (stop as soon as a failed test appears)
   "randomOrder": false      // enable/disable execution of tests in random order
   "timeoutMs": 1000         // sets the per-test timeout in milliseconds
+  "language": "en", // language of the output messages. "es", "it" and "en" supported for now
 }
 ```
+
+You can also pass a configuration through the console when running tests by adding these available options after your test file path:
+- `-f` or `--fail-fast` to enable fail fast mode.
+- `-r` or `--randomize` to enable the execution of tests in random order.
+- `-l xx` or `--language xx` where `xx` must be either `es` for Spanish, `en` for English or `it` for Italian.
+These console parameters can be sent in any order and combined as you want.
 
 These are all the configuration parameters you can set. Feel free to change it according to your needs.
 When declaring this configuration, every test suite under the `tests` directory (matching files ending with `*test.js`) will be executed.

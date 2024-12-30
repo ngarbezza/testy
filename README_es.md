@@ -61,7 +61,7 @@ suite('una suite de tests aburrida', () => {
 });
 ```
 
-Una suite representa un agrupamiento de tests, y se define llamando a la función `suite(name, body)`, que toma como parámetro el nombre de este agrupamiendo y una función sin argumentos, que representa el contenido de la suite. 
+Una suite representa un agrupamiento de tests, y se define llamando a la función `suite(name, body)`, que toma como parámetro el nombre de este agrupamiento y una función sin argumentos, que representa el contenido de la suite. 
 
 Un test se escribe llamando a la función `test(name, body)`, que toma como parámetro el nombre del caso de test y una función sin parámetros que representa el cuerpo del test. 
 
@@ -107,11 +107,22 @@ Testy se puede configurar a través de un archivo llamado `.testyrc.json` que de
   "failFast": false,        // habilita/deshabilita el modo "fail fast" (detener la ejecución en el primer fallo)
   "randomOrder": false      // habilita/deshabilita la ejecución de tests en orden aleatorio.
   "timeoutMs": 1000         // asigna el tiempo límite de ejecución por cada test (en milisegundos)
+  "language": "en",         // lenguaje que usara la consola. "es", "it" y "en" disponibles por el momento.
 }
 ```
 
+Puedes pasar parámetros de configuración a través de la consola agregando estas opciones después de las rutas de tests
+que quieras ejecutar:
+- `-f` o `--fail-fast` para habilitar el modo _fail fast_.
+- `-r` o `--randomize` para habilitar la ejecución de tests en orden aleatorio.
+- `-l xx` o `--language xx` done `xx` debe ser `es` para español, `en` para inglés o `it` para italiano.
+
+Estos parámetros por consola pueden ser enviados en el orden que desees y puedes combinarlos como quieras. Toman
+precedencia respecto a los que estén configurados en `.testyrc.json`.
+
 Estos son todos los parámetros de configuración que existen, ajústalos de acuerdo a tus necesidades.
-Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite de test dentro del directorio `tests`, cuyos nombres de archivos finalicen con `*test.js`.
+Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite de test dentro del directorio `tests`,
+cuyos nombres de archivos finalicen con `*test.js`.
 
 ### Ejemplos y aserciones disponibles
 
@@ -201,7 +212,7 @@ _suite_. `before()` y `after()` reciben una función como parámetro y pueden ut
       ```
 
 * **Soporte para tests asíncronos**: si el código que estás testeando requiere de `async`, es posible hacer `await`
-dentro de la definicion del test y luego escribir las aserciones. También es posible hacer llamados asincrónicos en
+dentro de la definición del test y luego escribir las aserciones. También es posible hacer llamados asincrónicos en
 `before()` y `after()`. Ejemplo:
 
     ```javascript
@@ -225,7 +236,7 @@ dentro de la definicion del test y luego escribir las aserciones. También es po
     });
     ```
 * **Modo "fail-fast"**: cuando está habilitado, se detiene apenas encuentra un test que falle o lance un error. Los tests restantes serán marcados como no ejecutados (_skipped_).
-* **Ejecutar tests en orden aleatorio**: una buena suite de tests no depende de un orden particular de tests para ejecutarse correctamentee. Activando esta configuración es una buena forma de asegurar eso.
+* **Ejecutar tests en orden aleatorio**: una buena suite de tests no depende de un orden particular de tests para ejecutarse correctamente. Activando esta configuración es una buena forma de asegurar eso.
 * **Chequeo estricto de presencia de aserciones**: si un test no evalúa ninguna aserción durante su ejecución, el resultado se considera un error. Básicamente, un test que no tiene aserciones es un "mal" test.
 * **Explícitamente, marcar un test como fallido o pendiente**: Ejemplos:
 
