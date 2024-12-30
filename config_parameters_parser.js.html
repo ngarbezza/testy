@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FailureGenerator - Documentation</title>
+    <title>config/parameters_parser.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,301 +29,165 @@
 
 <div id="main">
     
-    <h1 class="page-title">FailureGenerator</h1>
+    <h1 class="page-title">config/parameters_parser.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        FailureGenerator
-        </h2>
-        
-            <div class="class-description"><p>I report failures to the <a href="TestRunner.html">test runner</a>. The type of failures I report are not from failed
-assertions, but user explicit requests for failures.</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="FailureGenerator"><span class="type-signature"></span>new FailureGenerator<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_asserter.js.html">core/asserter.js</a>, <a href="core_asserter.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="with"><span class="type-signature"></span>with<span class="signature">(description)</span><span class="type-signature"> &rarr; {void}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Makes the current test to explicitly fail, indicating an exceptional scenario.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_asserter.js.html">core/asserter.js</a>, <a href="core_asserter.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>description</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>A reason to explain why we are explicitly failing.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>void</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>fail.with('The code should not reach this point')</code></pre>
-
-</div>
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { I18n } from '../i18n/i18n.js';
+import { isString } from '../utils.js';
+
+/**
+ * I transform a list of console parameters into a valid configuration object.
+ * I can also differentiate between path parameters and configuration parameters.
+ */
+export class ParametersParser {
+
+  static generateRunConfigurationFromParams(params) {
+    const sanitizedParams = this.sanitizeParameters(params);
+    return this.generateRunConfigurationFromSanitizedParams(sanitizedParams);
+  }
+
+  static generateRunConfigurationFromSanitizedParams(sanitizedParams) {
+    let generatedParams = {};
+    sanitizedParams.forEach(param => {
+      const runParameter = this.generateRunConfigurationParameter(param);
+      generatedParams = { ...generatedParams, ...runParameter };
+    });
+
+    return generatedParams;
+  }
+
+  static generateRunConfigurationParameter(param) {
+    const paramParser = [FailFastConfigurationParameterParser, RandomizeConfigurationParameterParser, LanguageConfigurationParameterParser, InvalidConfigurationParameter].find(configurationParameterParser => configurationParameterParser.canHandle(param));
+    return paramParser.handle(param);
+  }
+
+  static sanitizeParameters(params) {
+    const languageParamIndex = params.findIndex(param => param === '-l' || param === '--language');
+    if (languageParamIndex >= 0) {
+      return this.sanitizeLanguageParamOptions(params, languageParamIndex);
+    }
+    return params;
+  }
+
+  static sanitizeLanguageParamOptions(params, languageParamIndex) {
+    const languageOption = this.validateLanguageOption(params, languageParamIndex);
+    const languageConfig = [`-l ${languageOption}`];
+    this.removeLanguageParameters(params, languageParamIndex);
+    return [...params, ...languageConfig];
+  }
+
+  static validateLanguageOption(params, languageParamIndex) {
+    const languageOption = params[languageParamIndex + 1];
+    const supportedLanguages = I18n.supportedLanguages();
+    if (!supportedLanguages.includes(languageOption)) {
+      I18n.unsupportedLanguageException(languageOption, supportedLanguages);
+    }
+    return languageOption;
+  }
+
+  static removeLanguageParameters(params, languageParamIndex) {
+    params.splice(languageParamIndex, 2);
+  }
+
+  static getPathsAndConfigurationParams(allParams) {
+    const firstConfigParamIndex = allParams.findIndex(param => this.isRawConfigurationParam(param));
+
+    if (firstConfigParamIndex >= 0) {
+      const paramsAfterFirstConfigurationParam = allParams.slice(firstConfigParamIndex);
+      const thereIsPathParamAfterConfigParams = paramsAfterFirstConfigurationParam.some(param => !this.isRawConfigurationParam(param));
+      if (thereIsPathParamAfterConfigParams) {
+        throw new Error('Run configuration parameters should always be sent at the end of test paths routes');
+      }
+      return {
+        pathsParams: allParams.slice(0, firstConfigParamIndex),
+        configurationParams: allParams.slice(firstConfigParamIndex),
+      };
+    }
+
+    return {
+      pathsParams: allParams,
+      configurationParams: [],
+    };
+  }
+
+  static isConfigurationParam(param) {
+    return this.isFailFastParam(param) || this.isRandomizeParam(param) || this.isLanguageParam(param);
+  }
+
+  static isRawConfigurationParam(param) {
+    // pre sanitization
+    const supportedLanguages = I18n.supportedLanguages();
+    return this.isConfigurationParam(param) || supportedLanguages.includes(param);
+  }
+
+  static isFailFastParam(string) {
+    return isString(string) &amp;&amp; (string === '-f' || string === '--fail-fast');
+  }
+
+  static isRandomizeParam(string) {
+    return isString(string) &amp;&amp; (string === '-r' || string === '--randomize');
+  }
+
+  static isLanguageParam(param) {
+    const options = param.split(' ');
+    return isString(options[0]) &amp;&amp; (options[0] === '-l' || options[0] === '--language');
+  };
+}
+
+class FailFastConfigurationParameterParser {
+
+  static canHandle(consoleParam) {
+    return ParametersParser.isFailFastParam(consoleParam);
+  }
+
+  static handle(_consoleParam) {
+    return { failFast: true };
+  }
+}
+
+class RandomizeConfigurationParameterParser {
+
+  static canHandle(consoleParam) {
+    return ParametersParser.isRandomizeParam(consoleParam);
+  }
+
+  static handle(_consoleParam) {
+    return { randomOrder: true };
+  }
+}
+
+class LanguageConfigurationParameterParser {
+
+  static canHandle(consoleParam) {
+    return ParametersParser.isLanguageParam(consoleParam);
+  }
+
+  static handle(consoleParam) {
+
+    const options = consoleParam.split(' ');
+    return { language: options[1] };
+  }
+}
+
+class InvalidConfigurationParameter {
+  static canHandle(_consoleParam) {
+    return true;
+  }
+
+  static handle(configurationParam) {
+    throw new Error(`Cannot parse invalid run configuration parameter ${configurationParam}. Please run --help option to check available options.`);
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
