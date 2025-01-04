@@ -170,6 +170,8 @@ context of a <a href="TestRunner.html">TestRunner</a>.</p>
     <h4 class="name" id="doesNotRaise"><span class="type-signature"></span>doesNotRaise<span class="signature">(notExpectedError)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object (in this case, a function) to not raise an exception that matches the given criteria.</p>
+    
 
 
 
@@ -341,6 +343,8 @@ assert.that(() => throw new Error("oops")).doesNotRaise(/ay/)</code></pre>
     <h4 class="name" id="doesNotRaiseAnyErrors"><span class="type-signature"></span>doesNotRaiseAnyErrors<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object (in this case, a function) to not raise any exception at all.</p>
+    
 
 
 
@@ -452,6 +456,8 @@ This is the most accurate way to ensure that a piece of code does not fail.</p>
 
     <h4 class="name" id="includes"><span class="type-signature"></span>includes<span class="signature">(expectedObject, equalityCriteria<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual collection object to include an expected object.</p>
     
 
 
@@ -670,6 +676,8 @@ assert.that('42').includes('4')</code></pre>
     <h4 class="name" id="isEmpty"><span class="type-signature"></span>isEmpty<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object to be an empty collection (arrays, strings, sets and maps).</p>
+    
 
 
 
@@ -787,6 +795,8 @@ assert.isEmpty('')</code></pre>
 
     <h4 class="name" id="isEqualTo"><span class="type-signature"></span>isEqualTo<span class="signature">(expected, criteria<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object to be equal to an expected object, according to a default or custom criteria.</p>
     
 
 
@@ -1004,6 +1014,8 @@ assert.that([2, 3]).isEqualTo(['x', 'y'], (a, b) => a.length === b.length)</code
     <h4 class="name" id="isFalse"><span class="type-signature"></span>isFalse<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object to be strictly equal to <code>false</code>.</p>
+    
 
 
 
@@ -1119,6 +1131,8 @@ assert.isFalse(3 >= 4)</code></pre>
 
     <h4 class="name" id="isGreaterThan"><span class="type-signature"></span>isGreaterThan<span class="signature">(number)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object (in this case, a number) to be strictly greater than the given one.</p>
     
 
 
@@ -1283,6 +1297,8 @@ assert.isFalse(3 >= 4)</code></pre>
     <h4 class="name" id="isGreaterThanOrEqualTo"><span class="type-signature"></span>isGreaterThanOrEqualTo<span class="signature">(number)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object (in this case, a number) to be greater or equal than the given one.</p>
+    
 
 
 
@@ -1445,6 +1461,8 @@ assert.isFalse(3 >= 4)</code></pre>
 
     <h4 class="name" id="isIdenticalTo"><span class="type-signature"></span>isIdenticalTo<span class="signature">(expected)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object to be identical (be the same reference) to an expected one.</p>
     
 
 
@@ -1617,6 +1635,8 @@ assert.that(object).isIdenticalTo(object)</code></pre>
 
     <h4 class="name" id="isIncludedIn"><span class="type-signature"></span>isIncludedIn<span class="signature">(expectedCollection, equalityCriteria<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object to be included on an expected collection.</p>
     
 
 
@@ -1835,6 +1855,8 @@ assert.that('lo').isIncludedIn('hello')</code></pre>
     <h4 class="name" id="isLessThan"><span class="type-signature"></span>isLessThan<span class="signature">(number)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object (in this case, a number) to be strictly less than the given one.</p>
+    
 
 
 
@@ -1997,6 +2019,8 @@ assert.that('lo').isIncludedIn('hello')</code></pre>
 
     <h4 class="name" id="isLessThanOrEqualTo"><span class="type-signature"></span>isLessThanOrEqualTo<span class="signature">(number)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object (in this case, a number) to be less or equal than the given one.</p>
     
 
 
@@ -2161,6 +2185,8 @@ assert.that('lo').isIncludedIn('hello')</code></pre>
     <h4 class="name" id="isNotEmpty"><span class="type-signature"></span>isNotEmpty<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object to be a non-empty collection (arrays, strings, sets and maps).</p>
+    
 
 
 
@@ -2278,6 +2304,8 @@ assert.isNotEmpty('hello')</code></pre>
 
     <h4 class="name" id="isNotEqualTo"><span class="type-signature"></span>isNotEqualTo<span class="signature">(expected, criteria<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object to be not equal to an expected object, according to a default or custom criteria.</p>
     
 
 
@@ -2495,6 +2523,8 @@ assert.that([2, 3]).isNotEqualTo(['x'], (a, b) => a.length === b.length)</code><
     <h4 class="name" id="isNotNull"><span class="type-signature"></span>isNotNull<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object to be different from <code>null</code>.</p>
+    
 
 
 
@@ -2609,6 +2639,8 @@ assert.isNotNull('something')</code></pre>
 
     <h4 class="name" id="isNotUndefined"><span class="type-signature"></span>isNotUndefined<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object to be not strictly equal to <code>undefined</code>.</p>
     
 
 
@@ -2725,6 +2757,8 @@ assert.isNotUndefined("hello".length)</code></pre>
     <h4 class="name" id="isNull"><span class="type-signature"></span>isNull<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object to be strictly equal to <code>null</code>.</p>
+    
 
 
 
@@ -2839,6 +2873,8 @@ assert.isNull(null)</code></pre>
 
     <h4 class="name" id="isTrue"><span class="type-signature"></span>isTrue<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object to be strictly equal to <code>true</code>.</p>
     
 
 
@@ -2956,6 +2992,8 @@ assert.isTrue(3 &lt; 4)</code></pre>
     <h4 class="name" id="isUndefined"><span class="type-signature"></span>isUndefined<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
+    <p class="summary">Expects the actual object to be strictly equal to <code>undefined</code>.</p>
+    
 
 
 
@@ -3070,6 +3108,8 @@ assert.isUndefined(object.missingProperty)</code></pre>
 
     <h4 class="name" id="raises"><span class="type-signature"></span>raises<span class="signature">(errorExpectation)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
+    
+    <p class="summary">Expects the actual object (in this case, a function) to raise an exception that matches the given expectation.</p>
     
 
 
@@ -3250,7 +3290,7 @@ assert.that(() => throw new Error("oops I did it again")).raises(/oops/)</code><
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Dec 30 2024 00:52:16 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Sat Jan 04 2025 05:01:24 GMT+0000 (Coordinated Universal Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
