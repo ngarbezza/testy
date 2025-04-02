@@ -6,7 +6,7 @@ const sourceCodeLocationRegex = /.* at .*:\d+:\d+/;
 
 const expectSuccess = result => {
   // my status
-  assert.isTrue(result.isSuccess());
+  assert.isSuccessfulTestResult(result);
   assert.isEmpty(result.location());
 
   // other statuses
@@ -32,7 +32,7 @@ const expectPendingResultOn = (result, reason) => {
 
 const expectFailureOn = (result, failureMessage) => {
   // my status
-  assert.isTrue(result.isFailure());
+  assert.isFailedTestResultWithMessage(result, failureMessage);
   assert.areEqual(result.failureMessage(), failureMessage);
   assert.that(result.location()).matches(sourceCodeLocationRegex);
 
