@@ -39,7 +39,8 @@
     "expectation_no_error": "Expected error %s not to happen",
     "expectation_no_errors": "Expected no errors to happen, but %s was raised",
     "expectation_different_error": "Expected error %s to happen, but got %s instead",
-    "expectation_failure_to_happen": "Expected test to fail with message '%s' but got successful result instead",
+    "expectation_failure_to_happen": "Expected test to fail but did not happen",
+    "expectation_wrong_failure_message": "Expected failed message to be '%s' but got message '%s'",
     "equality_assertion_be_equal_to": "Expected %s to be equal to %s",
     "equality_assertion_be_not_equal_to": "Expected %s to be not equal to %s",
     "equality_assertion_failed_due_to_undetermination": "Equality cannot be determined. Both parts are undefined",
@@ -62,6 +63,7 @@
     "invalid_actual_object_in_exception_assertion": "Actual value for this assertion must be a function, got %s",
     "invalid_actual_object_in_numerical_comparison": "Actual value for this assertion must be a number, %s argument has type %s",
     "invalid_object_in_numerical_comparison": "Value for this assertion must be a number, %s argument has type %s",
+    "invalid_object_in_test_result_assertion": "Actual object needs to be a TestResult. Got %s instead",
     "file": "file"
   },
   "es": {
@@ -104,7 +106,8 @@
     "expectation_no_error": "No se esperaba que ocurra el error %s",
     "expectation_no_errors": "No se esperaban errores, pero %s fue lanzado",
     "expectation_different_error": "Se esperaba que ocurra el error %s, pero en su lugar ocurrió el error %s",
-    "expectation_failure_to_happen": "Se esperaba que el test falle con el mensahe '%s' pero se obtuvo un test exitoso",
+    "expectation_failure_to_happen": "Se esperaba que el test falle pero no sucedió",
+    "expectation_wrong_failure_message": "Se esperaba que el test falle con el mensaje '%s' pero falló con el mensaje '%s",
     "equality_assertion_be_equal_to": "Se esperaba que %s sea igual a %s",
     "equality_assertion_be_not_equal_to": "Se esperaba que %s no sea igual a %s",
     "equality_assertion_failed_due_to_undetermination": "La igualdad no puede ser determinada. Ambas partes son undefined",
@@ -127,6 +130,7 @@
     "invalid_actual_object_in_exception_assertion": "Es necesario proveer una función para este tipo de aserción, se obtuvo %s",
     "invalid_actual_object_in_numerical_comparison": "Es necesario proveer un número para este tipo de aserción, el argumento %s tiene tipo %s",
     "invalid_object_in_numerical_comparison": "Es necesario proveer un número como argumento para este tipo de aserción, el argumento %s tiene tipo %s",
+    "invalid_object_in_test_result_assertion": "El objeto actual debe ser un TestResult. Se obtuvo un objeto del tipo %s",
     "file": "archivo"
   },
   "it": {
@@ -169,7 +173,8 @@
     "expectation_no_error": "Atteso che l'errore %s non venisse sollevato",
     "expectation_no_errors": "Atteso che non venissero sollevati errori, ma %s è stato sollevato",
     "expectation_different_error": "Atteso che l'errore %s venisse sollevato, ma invece è stato sollevato %s",
-    "expectation_failure_to_happen": "Si prevedeva che il test fallisse con il messaggio '%s' ma è stato ottenuto un test positivo",
+    "expectation_failure_to_happen": "Ci si aspettava che il test fallisse, ma così non è stato",
+    "expectation_wrong_failure_message": "Si prevedeva che il test fallisse con il messaggio '%s' ma è fallito con il messaggio '%s'",
     "equality_assertion_be_equal_to": "Atteso che %s fosse uguale a %s",
     "equality_assertion_be_not_equal_to": "Atteso che %s non fosse uguale a %s",
     "equality_assertion_failed_due_to_undetermination": "L'uguaglianza non può essere determinata. Entrambe le parti sono undefined",
@@ -192,6 +197,7 @@
     "invalid_actual_object_in_exception_assertion": "È necessario fornire una funzione per questo tipo di asserzione. É stato ottenuto %s",
     "invalid_actual_object_in_numerical_comparison": "È necessario fornire un numero per questo tipo di asserzione. L'argomento %s ha un tipo %s",
     "invalid_object_in_numerical_comparison": "È necessario fornire un numero come argomento per questo tipo di affermazione. L'argomento %s ha un tipo %s",
+    "invalid_object_in_test_result_assertion": "Era previsto un oggetto di tipo TestResult. È stato ottenuto un oggetto di tipo %s",
     "file": "archivio"
   }
 }
