@@ -14,7 +14,7 @@ const isSuccessfulTestResult = testResult => {
   validateIsTestResult(testResult);
   const isSuccessful = testResult.isSuccess();
   if (!isSuccessful) {
-    fail.reportFailure(testResult.hasFailureMessage() ? testResult.failureMessage() : I18nMessage.of('expected_test_succeed_result_fail', getTestResultStatusMessage(testResult)));
+    fail.with(testResult.hasFailureMessage() ? testResult.failureMessage() : I18nMessage.of('expected_test_succeed_result_fail', getTestResultStatusMessage(testResult)));
   }
 };
 
@@ -43,7 +43,7 @@ const validateIsExpectedFailureMessage = (actualFailureMessage, expectedFailureM
   const expectedMessage = expectedFailureMessage instanceof I18nMessage ? expectedFailureMessage.expressedIn(I18n.default()) : expectedFailureMessage;
   const isSameFailureMessage = actualMessage === expectedMessage;
   if (!isSameFailureMessage) {
-    fail.reportFailure(I18nMessage.of('expectation_wrong_failure_message', expectedMessage, actualMessage));
+    fail.with(I18nMessage.of('expectation_wrong_failure_message', expectedMessage, actualMessage));
   }
 };
 
