@@ -80,8 +80,8 @@ suite('formatter', () => {
   });
 
   test('display failure status in red including assertion failed message', async() => {
-    await withRunner(async(runner, assert, _fail) => {
-      const failedTest = aTestWithBody(() => assert.that(true).isFalse());
+    await withRunner(async(runner, asserter, _fail) => {
+      const failedTest = aTestWithBody(() => asserter.that(true).isFalse());
       await resultOfASuiteWith(runner, failedTest);
       formatter.displayFailureResult(failedTest, 'fail');
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
@@ -91,8 +91,8 @@ suite('formatter', () => {
   });
 
   test('display failure status in red including custom assertion failed message', async() => {
-    await withRunner(async(runner, assert, _fail) => {
-      const failedTest = aTestWithBody(() => assert.withDescription('el fallo').that(true).isFalse());
+    await withRunner(async(runner, asserter, _fail) => {
+      const failedTest = aTestWithBody(() => asserter.withDescription('el fallo').that(true).isFalse());
       await resultOfASuiteWith(runner, failedTest);
       formatter.displayFailureResult(failedTest, 'fail');
       const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
