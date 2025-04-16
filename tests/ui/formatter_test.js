@@ -1,6 +1,6 @@
 import { assert, before, suite, test } from '../../lib/testy.js';
 import { resultOfASuiteWith, withRunner } from '../support/runner_helpers.js';
-import { aPendingTest, aTestWithBody, anExplicitlySkippedTest } from '../support/tests_factory.js';
+import { anExplicitlySkippedTest, aPendingTest, aTestWithBody } from '../support/tests_factory.js';
 
 import { Formatter } from '../../lib/ui/formatter.js';
 import { I18n } from '../../lib/i18n/i18n.js';
@@ -79,6 +79,28 @@ suite('formatter', () => {
     });
   });
 
+  test('display failure status in red including assertion failed message', async() => {
+    await withRunner(async(runner, assert, _fail) => {
+      const failedTest = aTestWithBody(() => assert.that(true).isFalse());
+      await resultOfASuiteWith(runner, failedTest);
+      formatter.displayFailureResult(failedTest, 'fail');
+      const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
+      const failureDetailMessage = '  => Expected true to be false';
+      expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, failureDetailMessage);
+    });
+  });
+
+  test('display failure status in red including custom assertion failed message', async() => {
+    await withRunner(async(runner, assert, _fail) => {
+      const failedTest = aTestWithBody(() => assert.withDescription('el fallo').that(true).isFalse());
+      await resultOfASuiteWith(runner, failedTest);
+      formatter.displayFailureResult(failedTest, 'fail');
+      const testResultMessage = '[\u001b[31m\u001b[1mFAIL\u001b[0m] \u001b[31mjust a test\u001b[0m';
+      const failureDetailMessage = '  => el fallo';
+      expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, failureDetailMessage);
+    });
+  });
+
   test('display pending status in yellow and no reason if the test is empty', async() => {
     await withRunner(async runner => {
       const pendingTest = aPendingTest();
@@ -92,7 +114,8 @@ suite('formatter', () => {
   test('displays suite file path in summary', async() => {
     await withRunner(async runner => {
       const fileURL = import.meta.url;
-      const aSuite = new TestSuite('a suite', () => {}, emptySuiteCallbacks, fileURL);
+      const aSuite = new TestSuite('a suite', () => {
+      }, emptySuiteCallbacks, fileURL);
       runner.addSuite(aSuite);
       await runner.run();
       formatter.displaySuiteEnd(aSuite);

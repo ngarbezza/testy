@@ -20,7 +20,7 @@ suite('collection assertions', () => {
   test('includes does not pass if the actual object is not an array', async() => {
     const result = await resultOfATestWith(assert => assert.that([]).includes('hey'));
 
-    expectFailureOn(result, I18nMessage.of('expectation_include', '[]', "'hey'"));
+    expectFailureOn(result, I18nMessage.of('expectation_include', '[]', '\'hey\''));
   });
 
   test('includes works with non-primitives', async() => {
@@ -32,7 +32,7 @@ suite('collection assertions', () => {
   test('includes fails if objects are not strictly equal', async() => {
     const result = await resultOfATestWith(assert => assert.that([{ asd: '1' }]).includes({ asd: '2' }));
 
-    expectFailureOn(result, I18nMessage.of('expectation_include', "[ { asd: '1' } ]", "{ asd: '2' }"));
+    expectFailureOn(result, I18nMessage.of('expectation_include', '[ { asd: \'1\' } ]', '{ asd: \'2\' }'));
   });
 
   test('includes works with Sets', async() => {
@@ -77,7 +77,7 @@ suite('collection assertions', () => {
   test('doesNotInclude fails if the object is in the array', async() => {
     const result = await resultOfATestWith(assert => assert.that(['hey']).doesNotInclude('hey'));
 
-    expectFailureOn(result, I18nMessage.of('expectation_not_include', "[ 'hey' ]", "'hey'"));
+    expectFailureOn(result, I18nMessage.of('expectation_not_include', '[ \'hey\' ]', '\'hey\''));
   });
 
   test('doesNotInclude passes if the object is not an array', async() => {
@@ -89,7 +89,7 @@ suite('collection assertions', () => {
   test('doesNotInclude fails properly with non-primitives', async() => {
     const result = await resultOfATestWith(assert => assert.that([{ asd: '1' }]).doesNotInclude({ asd: '1' }));
 
-    expectFailureOn(result, I18nMessage.of('expectation_not_include', "[ { asd: '1' } ]", "{ asd: '1' }"));
+    expectFailureOn(result, I18nMessage.of('expectation_not_include', '[ { asd: \'1\' } ]', '{ asd: \'1\' }'));
   });
 
   test('doesNotInclude works with Sets', async() => {
@@ -127,25 +127,25 @@ suite('collection assertions', () => {
   test('includesExactly fails if the collection has more objects than expected', async() => {
     const result = await resultOfATestWith(assert => assert.that(['hey', 'ho']).includesExactly('hey'));
 
-    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey', 'ho' ]", "[ 'hey' ]"));
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', '[ \'hey\', \'ho\' ]', '[ \'hey\' ]'));
   });
 
   test('includesExactly fails if the collection has less objects than expected', async() => {
     const result = await resultOfATestWith(assert => assert.that(['hey']).includesExactly('hey', 'ho'));
 
-    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey' ]", "[ 'hey', 'ho' ]"));
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', '[ \'hey\' ]', '[ \'hey\', \'ho\' ]'));
   });
 
   test('includesExactly fails if none of the objects are included at all', async() => {
     const result = await resultOfATestWith(assert => assert.that(['hey']).includesExactly('ho'));
 
-    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey' ]", "[ 'ho' ]"));
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', '[ \'hey\' ]', '[ \'ho\' ]'));
   });
 
   test('includesExactly fails if some of the objects are included but others do not', async() => {
     const result = await resultOfATestWith(assert => assert.that(['hey', 'ho']).includesExactly('ho', 'go'));
 
-    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', "[ 'hey', 'ho' ]", "[ 'ho', 'go' ]"));
+    expectFailureOn(result, I18nMessage.of('expectation_include_exactly', '[ \'hey\', \'ho\' ]', '[ \'ho\', \'go\' ]'));
   });
 
   test('includesExactly passes with many items no matter the order', async() => {
@@ -171,7 +171,7 @@ suite('collection assertions', () => {
   test('isEmpty does not pass if the array has elements', async() => {
     const result = await resultOfATestWith(assert => assert.that(['hey']).isEmpty());
 
-    expectFailureOn(result, I18nMessage.of('expectation_be_empty', "[ 'hey' ]"));
+    expectFailureOn(result, I18nMessage.of('expectation_be_empty', '[ \'hey\' ]'));
   });
 
   test('isEmpty passes with an empty string', async() => {
@@ -259,7 +259,7 @@ suite('collection assertions', () => {
   test('isIncludedIn fails when the actual object is not part of the expected list', async() => {
     const result = await resultOfATestWith(assert => assert.that('hey').isIncludedIn([1, 2, 3]));
 
-    expectFailureOn(result, I18nMessage.of('expectation_be_included_in', "'hey'", '[ 1, 2, 3 ]'));
+    expectFailureOn(result, I18nMessage.of('expectation_be_included_in', '\'hey\'', '[ 1, 2, 3 ]'));
   });
 
   // isNotIncludedIn() assertion tests
