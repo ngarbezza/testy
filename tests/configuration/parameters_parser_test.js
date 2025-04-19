@@ -118,4 +118,23 @@ suite('Parameters parser', () => {
       .that(() => ParametersParser.sanitizeParameters(['it', '-l']))
       .raises(new UnsupportedLanguageError(`Language '${undefined}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
   });
+
+  test('validateConfigurationParams fails if a path param is sent', () => {
+    const testPath1 = 'I am a test path';
+    assert
+      .that(() => ParametersParser.validateConfigurationParams(['-f', testPath1]))
+      .raises(new InvalidConfigurationParametersOrderError('Run configuration parameters should always be sent at the end of test paths routes'));
+  });
+
+  test('validateConfigurationParams fails if language option is not valid', () => {
+    assert
+      .that(() => ParametersParser.validateConfigurationParams(['-l', 'de']))
+      .raises(new UnsupportedLanguageError(`Language 'de' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
+  });
+
+  test('validateConfigurationParams passes if language option is valid', () => {
+    assert
+      .that(() => ParametersParser.validateConfigurationParams(['-l', 'it']))
+      .doesNotRaiseAnyErrors();
+  });
 });
