@@ -1,11 +1,7 @@
 import { assert, suite, test } from '../../lib/testy.js';
 import { ParametersParser } from '../../lib/config/parameters_parser.js';
 import { I18n } from '../../lib/i18n/i18n.js';
-import {
-  InvalidConfigurationParameterError,
-  InvalidConfigurationParametersOrderError,
-  UnsupportedLanguageError,
-} from '../../lib/errors.js';
+import { ConfigurationParsingError, InvalidConfigurationError } from '../../lib/errors.js';
 
 suite('Parameters parser', () => {
 
@@ -49,28 +45,46 @@ suite('Parameters parser', () => {
     const configuration2 = ParametersParser.generateRunConfigurationFromParams(['--fail-fast', '-l en', '-r']);
     const configuration3 = ParametersParser.generateRunConfigurationFromParams(['--language en', '-f', '-r']);
 
-    assert.areEqual(configuration1, { failFast: true, randomOrder: true, language: 'en' });
-    assert.areEqual(configuration2, { failFast: true, randomOrder: true, language: 'en' });
-    assert.areEqual(configuration3, { failFast: true, randomOrder: true, language: 'en' });
+    assert.areEqual(configuration1, {
+      failFast: true,
+      randomOrder: true,
+      language: 'en',
+    });
+    assert.areEqual(configuration2, {
+      failFast: true,
+      randomOrder: true,
+      language: 'en',
+    });
+    assert.areEqual(configuration3, {
+      failFast: true,
+      randomOrder: true,
+      language: 'en',
+    });
   });
 
   test('throws an error when sending unknown params', () => {
     assert
       .that(() => ParametersParser.generateRunConfigurationFromParams(['fake param']))
-      .raises(new InvalidConfigurationParameterError(`Cannot parse invalid run configuration parameter ${'fake param'}.`));
+      .raises(new ConfigurationParsingError(`Cannot parse invalid run configuration parameter ${'fake param'}.`));
   });
 
   test('splits between path params and configuration params', () => {
     const testPath1 = 'I am a test path';
     const testPath2 = 'I am another test path';
 
-    const { pathsParams, configurationParams } = ParametersParser.getPathsAndConfigurationParams([testPath1, testPath2, '-f', '-r']);
+    const {
+      pathsParams,
+      configurationParams,
+    } = ParametersParser.getPathsAndConfigurationParams([testPath1, testPath2, '-f', '-r']);
     assert.areEqual(pathsParams, [testPath1, testPath2]);
     assert.areEqual(configurationParams, ['-f', '-r']);
   });
 
   test('splits between path params and configuration params when path params are empty', () => {
-    const { pathsParams, configurationParams } = ParametersParser.getPathsAndConfigurationParams(['-f', '-r']);
+    const {
+      pathsParams,
+      configurationParams,
+    } = ParametersParser.getPathsAndConfigurationParams(['-f', '-r']);
     assert.areEqual(pathsParams, []);
     assert.areEqual(configurationParams, ['-f', '-r']);
   });
@@ -79,13 +93,19 @@ suite('Parameters parser', () => {
     const testPath1 = 'I am a test path';
     const testPath2 = 'I am another test path';
 
-    const { pathsParams, configurationParams } = ParametersParser.getPathsAndConfigurationParams([testPath1, testPath2]);
+    const {
+      pathsParams,
+      configurationParams,
+    } = ParametersParser.getPathsAndConfigurationParams([testPath1, testPath2]);
     assert.areEqual(pathsParams, [testPath1, testPath2]);
     assert.areEqual(configurationParams, []);
   });
 
   test('splits between path params and configuration params when both are empty', () => {
-    const { pathsParams, configurationParams } = ParametersParser.getPathsAndConfigurationParams([]);
+    const {
+      pathsParams,
+      configurationParams,
+    } = ParametersParser.getPathsAndConfigurationParams([]);
     assert.areEqual(pathsParams, []);
     assert.areEqual(configurationParams, []);
   });
@@ -94,7 +114,7 @@ suite('Parameters parser', () => {
     const testPath1 = 'I am a test path';
     assert
       .that(() => ParametersParser.getPathsAndConfigurationParams(['-f', testPath1]))
-      .raises(new InvalidConfigurationParametersOrderError('Run configuration parameters should always be sent at the end of test paths routes'));
+      .raises(new ConfigurationParsingError('Run configuration parameters should always be sent at the end of test paths routes'));
   });
 
   test('returns sanitized params when passing a valid list of params', () => {
@@ -110,26 +130,26 @@ suite('Parameters parser', () => {
   test('throws an error when sending invalid language option', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['-l', 'fakeLanguage']))
-      .raises(new UnsupportedLanguageError(`Language '${'fakeLanguage'}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
+      .raises(new InvalidConfigurationError(`Language '${'fakeLanguage'}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
   });
 
   test('throws an error when language parameters do not have the proper order', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['it', '-l']))
-      .raises(new UnsupportedLanguageError(`Language '${undefined}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
+      .raises(new InvalidConfigurationError(`Language '${undefined}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
   });
 
   test('validateConfigurationParams fails if a path param is sent', () => {
     const testPath1 = 'I am a test path';
     assert
       .that(() => ParametersParser.validateConfigurationParams(['-f', testPath1]))
-      .raises(new InvalidConfigurationParametersOrderError('Run configuration parameters should always be sent at the end of test paths routes'));
+      .raises(new ConfigurationParsingError('Run configuration parameters should always be sent at the end of test paths routes'));
   });
 
   test('validateConfigurationParams fails if language option is not valid', () => {
     assert
       .that(() => ParametersParser.validateConfigurationParams(['-l', 'de']))
-      .raises(new UnsupportedLanguageError(`Language 'de' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
+      .raises(new InvalidConfigurationError(`Language 'de' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
   });
 
   test('validateConfigurationParams passes if language option is valid', () => {
