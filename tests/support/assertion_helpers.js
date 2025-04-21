@@ -1,21 +1,24 @@
-import { assert } from '../../lib/testy.js';
+import { assert, fail } from '../../lib/testy.js';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
 import { I18n } from '../../lib/i18n/i18n.js';
-
+import { TestWithDefinition } from '../../lib/core/test_result.js';
 const sourceCodeLocationRegex = /.* at .*:\d+:\d+/;
 
 const expectSuccess = result => {
   // my status
-  assert.isTrue(result.isSuccess());
+  isSuccessfulTestResult(result);
   assert.isEmpty(result.location());
-
-  // other statuses
-  assert.isFalse(result.isFailure());
-  assert.isFalse(result.isError());
-  assert.isFalse(result.isPending());
-  assert.isFalse(result.isSkipped());
 };
 
+const isSuccessfulTestResult = testResult => {
+  validateIsTestResult(testResult);
+  const isSuccessful = testResult.isSuccess();
+  if (!isSuccessful) {
+    fail.with(testResult.hasFailureMessage() ? testResult.failureMessage() : I18nMessage.of('expected_test_succeed_result_fail', getTestResultStatusMessage(testResult)));
+  }
+};
+
+const getTestResultStatusMessage = testResult => testResult.resultAsText().expressedIn(I18n.default());
 const expectPendingResultOn = (result, reason) => {
   // my status
   assert.isTrue(result.isPending());
@@ -30,17 +33,28 @@ const expectPendingResultOn = (result, reason) => {
   assert.isFalse(result.isError());
 };
 
-const expectFailureOn = (result, failureMessage) => {
-  // my status
-  assert.isTrue(result.isFailure());
-  assert.areEqual(result.failureMessage(), failureMessage);
-  assert.that(result.location()).matches(sourceCodeLocationRegex);
+const validateIsTestResult = object => {
+  if (!(object instanceof TestWithDefinition)) {
+    throw new Error(I18nMessage.of('invalid_object_in_test_result_assertion', typeof object)); 
+  }
+};
+const validateIsExpectedFailureMessage = (actualFailureMessage, expectedFailureMessage) => {
+  const actualMessage = actualFailureMessage instanceof I18nMessage ? actualFailureMessage.expressedIn(I18n.default()) : actualFailureMessage;
+  const expectedMessage = expectedFailureMessage instanceof I18nMessage ? expectedFailureMessage.expressedIn(I18n.default()) : expectedFailureMessage;
+  const isSameFailureMessage = actualMessage === expectedMessage;
+  if (!isSameFailureMessage) {
+    fail.with(I18nMessage.of('expectation_wrong_failure_message', expectedMessage, actualMessage));
+  }
+};
 
-  // other statuses
-  assert.isFalse(result.isSuccess());
-  assert.isFalse(result.isError());
-  assert.isFalse(result.isSkipped());
-  assert.isFalse(result.isPending());
+const expectFailureOn = (result, failureMessage) => {
+  validateIsTestResult(result);
+  const isFailedTestResult = result.isFailure();
+  if (!isFailedTestResult) {
+    fail.reportFailure(I18nMessage.of('expectation_failure_to_happen', getTestResultStatusMessage(result)));
+  }
+  validateIsExpectedFailureMessage(result.failureMessage(), failureMessage);
+  assert.that(result.location()).matches(sourceCodeLocationRegex);
 };
 
 const expectErrorOn = (result, errorMessage, locationRegex = sourceCodeLocationRegex) => {
