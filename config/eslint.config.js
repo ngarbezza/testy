@@ -10,8 +10,16 @@ export default [
     ],
     languageOptions: {
       ecmaVersion: 'latest',
+      parserOptions: {
+        ecmaFeatures: {
+          impliedStrict: true,
+        },
+      },
       sourceType: 'module',
       globals: {
+        console: 'off',
+        process: 'off',
+        Promise: 'readonly',
         setTimeout: 'readonly',
       },
     },
