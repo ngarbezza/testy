@@ -1,7 +1,9 @@
-import { assert, fail } from '../../lib/testy.js';
+import { assert } from '../../lib/testy.js';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
 import { I18n } from '../../lib/i18n/i18n.js';
 import { TestWithDefinition } from '../../lib/core/test_result.js';
+import { classNameOf } from '../../lib/utils.js';
+
 const sourceCodeLocationRegex = /.* at .*:\d+:\d+/;
 
 const expectSuccess = result => {
@@ -12,10 +14,9 @@ const expectSuccess = result => {
 
 const isSuccessfulTestResult = testResult => {
   validateIsTestResult(testResult);
-  const isSuccessful = testResult.isSuccess();
-  if (!isSuccessful) {
-    fail.with(testResult.hasFailureMessage() ? testResult.failureMessage() : I18nMessage.of('expected_test_succeed_result_fail', getTestResultStatusMessage(testResult)));
-  }
+  assert
+    .withDescription(`Expected test to be successful, got a ${getTestResultStatusMessage(testResult)} test instead`)
+    .isTrue(testResult.isSuccess());
 };
 
 const getTestResultStatusMessage = testResult => testResult.resultAsText().expressedIn(I18n.default());
@@ -34,25 +35,22 @@ const expectPendingResultOn = (result, reason) => {
 };
 
 const validateIsTestResult = object => {
-  if (!(object instanceof TestWithDefinition)) {
-    throw new Error(I18nMessage.of('invalid_object_in_test_result_assertion', typeof object)); 
-  }
+  assert
+    .withDescription(`Actual object needs to be a TestWithDefinition. Got ${classNameOf(object)} instead`)
+    .isTrue(object instanceof TestWithDefinition);
 };
+
 const validateIsExpectedFailureMessage = (actualFailureMessage, expectedFailureMessage) => {
   const actualMessage = actualFailureMessage instanceof I18nMessage ? actualFailureMessage.expressedIn(I18n.default()) : actualFailureMessage;
   const expectedMessage = expectedFailureMessage instanceof I18nMessage ? expectedFailureMessage.expressedIn(I18n.default()) : expectedFailureMessage;
-  const isSameFailureMessage = actualMessage === expectedMessage;
-  if (!isSameFailureMessage) {
-    fail.with(I18nMessage.of('expectation_wrong_failure_message', expectedMessage, actualMessage));
-  }
+  assert.areEqual(actualMessage, expectedMessage);
 };
 
 const expectFailureOn = (result, failureMessage) => {
   validateIsTestResult(result);
-  const isFailedTestResult = result.isFailure();
-  if (!isFailedTestResult) {
-    fail.reportFailure(I18nMessage.of('expectation_failure_to_happen', getTestResultStatusMessage(result)));
-  }
+  assert
+    .withDescription(`Expected failure status, got ${getTestResultStatusMessage(result)}`)
+    .isTrue(result.isFailure());
   validateIsExpectedFailureMessage(result.failureMessage(), failureMessage);
   assert.that(result.location()).matches(sourceCodeLocationRegex);
 };

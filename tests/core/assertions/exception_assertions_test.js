@@ -1,6 +1,6 @@
 import { suite, test } from '../../../lib/testy.js';
 import { resultOfATestWith } from '../../support/runner_helpers.js';
-import { expectSuccess, expectFailureOn, expectErrorOn } from '../../support/assertion_helpers.js';
+import { expectErrorOn, expectFailureOn, expectSuccess } from '../../support/assertion_helpers.js';
 
 import { I18nMessage } from '../../../lib/i18n/i18n_messages.js';
 
@@ -52,19 +52,29 @@ suite('exception assertions', () => {
       }).raises(/happiness/),
     );
 
-    expectFailureOn(result, I18nMessage.of('expectation_different_error', '/happiness/', "'a terrible error'"));
+    expectFailureOn(result, I18nMessage.of('expectation_different_error', '/happiness/', 'RegExp', '\'a terrible error\'', 'String'));
+  });
+
+  test('raises() can receive a regex and it fails if there is not a match in the error message', async() => {
+    const result = await resultOfATestWith(assert =>
+      assert.that(() => {
+        throw new Error('invalid input');
+      }).raises('invalid input'),
+    );
+
+    expectFailureOn(result, I18nMessage.of('expectation_different_error', '\'invalid input\'', 'String', 'Error: invalid input', 'Error'));
   });
 
   test('raises() fails when no errors occur in the given function', async() => {
     const result = await resultOfATestWith(assert => assert.that(() => 1 + 2).raises('a weird error'));
 
-    expectFailureOn(result, I18nMessage.of('expectation_error', "'a weird error'"));
+    expectFailureOn(result, I18nMessage.of('expectation_error', '\'a weird error\''));
   });
 
   test('raises() returns an assertion invalid error if the actual object is not a function', async() => {
     const result = await resultOfATestWith(assert => assert.that('hello').raises('a weird error'));
 
-    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"), '');
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', '\'hello\''), '');
   });
 
   test('doesNotRaise() passes when no errors happen at all', async() => {
@@ -90,13 +100,13 @@ suite('exception assertions', () => {
       }).doesNotRaise('this problem'),
     );
 
-    expectFailureOn(result, I18nMessage.of('expectation_no_error', "'this problem'"));
+    expectFailureOn(result, I18nMessage.of('expectation_no_error', '\'this problem\''));
   });
 
   test('doesNotRaise() returns an assertion invalid error if the actual object is not a function', async() => {
     const result = await resultOfATestWith(assert => assert.that('hello').doesNotRaise('a weird error'));
 
-    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"), '');
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', '\'hello\''), '');
   });
 
   test('doesNoRaiseAnyErrors() passes when no errors occur in the given function', async() => {
@@ -112,12 +122,12 @@ suite('exception assertions', () => {
       }).doesNotRaiseAnyErrors(),
     );
 
-    expectFailureOn(result, I18nMessage.of('expectation_no_errors', "'an unexpected error'"));
+    expectFailureOn(result, I18nMessage.of('expectation_no_errors', '\'an unexpected error\''));
   });
 
   test('doesNoRaiseAnyErrors() returns an assertion invalid error if the actual object is not a function', async() => {
     const result = await resultOfATestWith(assert => assert.that('hello').doesNotRaiseAnyErrors());
 
-    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', "'hello'"), '');
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_exception_assertion', '\'hello\''), '');
   });
 });
