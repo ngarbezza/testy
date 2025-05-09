@@ -2,7 +2,7 @@ import { assert } from '../../lib/testy.js';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
 import { I18n } from '../../lib/i18n/i18n.js';
 import { TestWithDefinition } from '../../lib/core/test_result.js';
-import { classNameOf } from '../../lib/utils.js';
+import { classNameOf } from '../../lib/utils/index.js';
 
 const sourceCodeLocationRegex = /.* at .*:\d+:\d+/;
 
