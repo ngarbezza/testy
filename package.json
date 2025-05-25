@@ -1,6 +1,7 @@
 {
   "name": "@pmoo/testy",
   "version": "7.1.0",
+  "types": "types/index.d.ts",
   "description": "A minimal testing framework, for educational purposes.",
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
