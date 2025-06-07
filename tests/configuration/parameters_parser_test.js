@@ -162,8 +162,8 @@ suite('Parameters parser', () => {
 
   test('throws an error when directory parameter does not have an argument', () => {
     assert
-        .that(() => ParametersParser.sanitizeParameters(['-d']))
-        .raises(new ConfigurationParsingError('Must send a route for --directory option'));
+      .that(() => ParametersParser.sanitizeParameters(['-d']))
+      .raises(new ConfigurationParsingError('Must send a route for --directory option'));
   });
 
   test('validateConfigurationParams fails if a path param is sent', () => {
