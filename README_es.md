@@ -124,6 +124,7 @@ que quieras ejecutar:
 - `-f` o `--fail-fast` para habilitar el modo _fail fast_.
 - `-r` o `--randomize` para habilitar la ejecución de tests en orden aleatorio.
 - `-l xx` o `--language xx` done `xx` debe ser `es` para español, `en` para inglés o `it` para italiano.
+- `-d ruta` or `--directory ruta` donde `ruta` debe ser un directorio que contiene archivos de test. Si se proveen rutas explicitas de tests para ejecutar, este parametro será ignorado.
 
 Estos parámetros por consola pueden ser enviados en el orden que desees y puedes combinarlos como quieras. Toman
 precedencia respecto a los que estén configurados en `.testyrc.json`.

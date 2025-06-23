@@ -123,6 +123,7 @@ test file path:
 - `-f` or `--fail-fast` to enable fail fast mode.
 - `-r` or `--randomize` to enable the execution of tests in random order.
 - `-l xx` or `--language xx` where `xx` must be either `es` for Spanish, `en` for English or `it` for Italian.
+- `-d route` or `--directory route` where `route` must be a directory that contains test files. If explicit test routes are provided, this directory parameter will be ignored.
 
 These console parameters can be sent in any order and combined as you want.
 
