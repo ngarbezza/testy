@@ -190,8 +190,8 @@ suite('Parameters parser', () => {
 
   test('throws an error when extension parameter does not have an argument', () => {
     assert
-        .that(() => ParametersParser.sanitizeParameters(['-e']))
-        .raises(new ConfigurationParsingError('Must send a route for -e option'));
+      .that(() => ParametersParser.sanitizeParameters(['-e']))
+      .raises(new ConfigurationParsingError('Must send a route for -e option'));
   });
 
   test('validateConfigurationParams fails if a path param is sent', () => {
