@@ -40,10 +40,33 @@ suite('Parameters parser', () => {
     assert.areEqual(configuration, { language: 'it' });
   });
 
+  test('returns configuration with specific directory is passing --directory option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['--directory ./my_tests']);
+    assert.areEqual(configuration, { directory: './my_tests' });
+  });
+
+  test('returns configuration with specific directory if passing -d option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['-d ./my_tests']);
+    assert.areEqual(configuration, { directory: './my_tests' });
+  });
+
+  test('returns configuration with specific file extension if passing --extension option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['--extension .*_test.rb$']);
+    assert.areEqual(configuration, { filter: '.*_test.rb$' });
+  });
+
+  test('returns configuration with specific file extension if passing --e option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['-e .*_test.rb$']);
+    assert.areEqual(configuration, { filter: '.*_test.rb$' });
+  });
+
+
   test('returns configuration with fail fast, randomize and english language enabled when mixing long and short commands no matter the order the params are sent', () => {
     const configuration1 = ParametersParser.generateRunConfigurationFromParams(['-f', '--randomize', '-l en']);
     const configuration2 = ParametersParser.generateRunConfigurationFromParams(['--fail-fast', '-l en', '-r']);
     const configuration3 = ParametersParser.generateRunConfigurationFromParams(['--language en', '-f', '-r']);
+    const configuration4 = ParametersParser.generateRunConfigurationFromParams(['--directory ./a_directory', '-l it', '-r']);
+    const configuration5 = ParametersParser.generateRunConfigurationFromParams(['--extension .*_test.rb$', '-l it', '-r']);
 
     assert.areEqual(configuration1, {
       failFast: true,
@@ -59,6 +82,16 @@ suite('Parameters parser', () => {
       failFast: true,
       randomOrder: true,
       language: 'en',
+    });
+    assert.areEqual(configuration4, {
+      directory: './a_directory',
+      randomOrder: true,
+      language: 'it',
+    });
+    assert.areEqual(configuration5, {
+      filter: '.*_test.rb$',
+      randomOrder: true,
+      language: 'it',
     });
   });
 
@@ -127,6 +160,16 @@ suite('Parameters parser', () => {
     assert.areEqual(sanitizedParams, ['-f', '-r', '-l it']);
   });
 
+  test('returns sanitized params when passing a valid list of params including directory params', () => {
+    const sanitizedParams = ParametersParser.sanitizeParameters(['-f', '-d', './a_directory', '-r']);
+    assert.areEqual(sanitizedParams, ['-f', '-r', '-d ./a_directory']);
+  });
+
+  test('returns sanitized params when passing a valid list of params including extension params', () => {
+    const sanitizedParams = ParametersParser.sanitizeParameters(['-f', '-d', './a_directory', '-r', '--extension', '.*_test.rb$']);
+    assert.areEqual(sanitizedParams, ['-f', '-r', '-d ./a_directory', '-e .*_test.rb$']);
+  });
+
   test('throws an error when sending invalid language option', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['-l', 'fakeLanguage']))
@@ -137,6 +180,18 @@ suite('Parameters parser', () => {
     assert
       .that(() => ParametersParser.sanitizeParameters(['it', '-l']))
       .raises(new InvalidConfigurationError(`Language '${undefined}' is not supported. Allowed values: ${I18n.supportedLanguages().join(', ')}`));
+  });
+
+  test('throws an error when directory parameter does not have an argument', () => {
+    assert
+      .that(() => ParametersParser.sanitizeParameters(['-d']))
+      .raises(new ConfigurationParsingError('Must send a route for -d option'));
+  });
+
+  test('throws an error when extension parameter does not have an argument', () => {
+    assert
+      .that(() => ParametersParser.sanitizeParameters(['-e']))
+      .raises(new ConfigurationParsingError('Must send a route for -e option'));
   });
 
   test('validateConfigurationParams fails if a path param is sent', () => {
