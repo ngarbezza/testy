@@ -125,6 +125,7 @@ que quieras ejecutar:
 - `-r` o `--randomize` para habilitar la ejecución de tests en orden aleatorio.
 - `-l xx` o `--language xx` done `xx` debe ser `es` para español, `en` para inglés o `it` para italiano.
 - `-d ruta` or `--directory ruta` donde `ruta` debe ser un directorio que contiene archivos de test. Si se proveen rutas explicitas de tests para ejecutar, este parametro será ignorado.
+- `-e filtro` or `--extension filtro` donde `filtro` es la extension (sufijo) de los tests que se quieren ejecutar.
 
 Estos parámetros por consola pueden ser enviados en el orden que desees y puedes combinarlos como quieras. Toman
 precedencia respecto a los que estén configurados en `.testyrc.json`.
