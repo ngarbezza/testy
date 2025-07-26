@@ -1,0 +1,37 @@
+// tsconfig.json (at the root of your Testy project)
+{
+  "compilerOptions": {
+    "target": "ES2020",                  /* Target a modern JS version for async/await, Promise */
+    "module": "NodeNext",                /* Emit Node.js ES Modules */
+    "moduleResolution": "NodeNext",      /* Crucial for modern Node.js module resolution */
+    "lib": [
+      "ES2020",                          /* Correctly aligned with your target */
+      "dom"                              /* Correctly cased 'dom' */
+    ],
+    "typeRoots": [                       /* Explicitly tell TS where to find type definitions */
+      "./node_modules/@types"            /* Standard location for installed @types packages */
+    ],
+
+    "allowJs": true,                     /* Allow JS files to be processed */
+    "checkJs": false,                    /* No strict type-checking on JS source (unless you want it) */
+    "declaration": true,                 /* Generate .d.ts files */
+    "emitDeclarationOnly": true,         /* CRITICAL: ONLY emit .d.ts, no other files (like another tsconfig.json) */
+    "outDir": "./dist/types",            /* Output directory for generated declarations */
+
+    "esModuleInterop": true,             /* Enables emit interoperability for CommonJS/ES Modules */
+    "allowSyntheticDefaultImports": true,/* Allow default imports from modules with no default export */
+    "forceConsistentCasingInFileNames": true, /* Consistent casing for paths */
+    "strict": true,                      /* Enable all strict type-checking options */
+    "skipLibCheck": true                 /* Skip type checking of declaration files (crucial for ignoring @types/node issues) */
+  },
+  "include": [
+    "lib/**/*.js",                       /* Include your library's JS source for declaration generation */
+    "bin/**/*.js",                       /* Include your bin scripts */
+    "lib/**/*.d.ts",                     /* Include any existing d.ts */
+    "tests/**/*.ts"                      /* Include your TS test files so this tsconfig applies to them */
+  ],
+  "exclude": [
+    "node_modules",                      /* Exclude the node_modules directory from compilation */
+    "dist"                               /* Exclude your build output directory */
+  ]
+}
