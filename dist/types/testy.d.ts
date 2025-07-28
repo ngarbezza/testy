@@ -1,3 +1,7 @@
+import {TestSuite} from "./core/test_suite";
+import { Asserter } from './core/asserter.js';
+import { FailureGenerator } from './core/asserter.js';
+import { PendingMarker } from './core/asserter.js';
 import {Test} from "./core/test";
 
 /**
@@ -15,7 +19,7 @@ import {Test} from "./core/test";
  * @param {!function} suiteBody the suite definition, written as a zero-argument function.
  * @returns {void}
  */
-export function suite(name: string, suiteBody: Function | (() => Promise<any>)): TestSuite;
+export function suite(name: string, suiteBody: Function): TestSuite;
 /**
  * Defines a new test. Each test belongs to a [test suite]{@link suite} and defines assertions in the body.
  *
@@ -32,7 +36,7 @@ export function suite(name: string, suiteBody: Function | (() => Promise<any>)):
  * @param {!function} testBody the test definition, written as a zero-argument function.
  * @returns {void}
  */
-export function test(name: string, testBody: Function | (() => Promise<any>)): Test;
+export function test(name: string, testBody: Function): Test;
 /**
  * Object used for writing assertions. [Assertions]{@link Assertion} are created with method calls to this object.
  * Please refer to the comment of each assertion for more information.
@@ -85,7 +89,7 @@ export const pending: PendingMarker;
  * @param {!function} initialization a zero argument function containing the code you want to execute before each test.
  * @returns {void}
  */
-export function before(initialization: Function | (() => Promise<any>)): void;
+export function before(initialization: Function): void;
 /**
  * Specifies a piece of code that should be executed after each {@link test} in a {@link suite}.
  * Only one after block is allowed per suite. The most common use of this feature is to ensure you are releasing
@@ -94,8 +98,4 @@ export function before(initialization: Function | (() => Promise<any>)): void;
  * @param {!function} releaseBlock a zero argument function containing the code you want to execute after each test.
  * @returns {void}
  */
-export function after(releaseBlock: Function | (() => Promise<any>)): void;
-import { Asserter } from './core/asserter.js';
-import { FailureGenerator } from './core/asserter.js';
-import { PendingMarker } from './core/asserter.js';
-import {TestSuite} from "./core/test_suite";
+export function after(releaseBlock: Function): void;
