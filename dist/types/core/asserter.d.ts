@@ -1,4 +1,3 @@
-/// <reference lib="ES2020" />
 /**
  * I am the entry point for generating different types of assertions and reporting their results to the
  * [test runner]{@link TestRunner}.
@@ -219,7 +218,7 @@ export class Asserter {
      *
      * @returns {void}
      */
-    isEmpty(actual: any[] | string | Set<any> | Map<any, any>): void;
+    isEmpty(actual: any): void;
     /**
      * Expects a given object to be a non-empty collection (arrays, strings, sets and maps).
      * This is a shortcut of the [that]{@link Asserter#that} syntax followed by a [isNotEmpty]{@link Assertion#isNotEmpty} assertion.
@@ -237,7 +236,7 @@ export class Asserter {
      *
      * @returns {void}
      */
-    isNotEmpty(actual: any[] | string | Set<any> | Map<any, any>): void;
+    isNotEmpty(actual: any): void;
     /**
      * Expects a given string to match a given regexp.
      * This is a shortcut of the [that]{@link Asserter#that} syntax followed by a [matches]{@link Assertion#matches} assertion.
@@ -292,5 +291,7 @@ import { Assertion } from './assertion.js';
  * See {@link Asserter#withDescription} for more information on how to use this asserter.
  */
 declare class DescribedAsserter extends Asserter {
+    constructor(runner: any, description: any);
     customDescription(): any;
 }
+export {};

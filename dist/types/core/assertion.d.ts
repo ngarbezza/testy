@@ -6,7 +6,8 @@
  *
  * When the expectation is evaluated, it reports the results to the {@link TestRunner}.
  */
-export class Assertion{
+export class Assertion {
+    constructor(runner: any, actual: any, customDescription: any);
     /**
      * Expects the actual object to be strictly equal to `true`. Other "truthy" values according to Javascript rules
      * will be considered not true.
@@ -202,7 +203,7 @@ export class Assertion{
      *
      * @returns {void}
      */
-    isIncludedIn(expectedCollection: any[] | Set<any> | Map<any, any> | string, equalityCriteria?: Function): void;
+    isIncludedIn(expectedCollection: any[], equalityCriteria?: Function): void;
     /**
      * Expects the actual collection object to not include an expected object. Works for Array, Strings, Set and Maps.
      * It works in the same way as {@link includes} but negating the result.
