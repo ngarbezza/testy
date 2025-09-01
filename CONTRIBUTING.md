@@ -37,7 +37,7 @@ Github Actions runs the CI builds. There are four steps on every build:
 * npm build and install in every supported Node version
 * lint check via `eslint`
 * unit tests
-* analyzing test coverage and code quality and send reports (Codeclimate and Sonarcloud)
+* analyzing test coverage and code quality and send reports (QLTY and Sonarcloud)
 
 There's also a build that runs only on the main branch that will calculate the mutation score and report it to the
 Stryker Dashboard.
