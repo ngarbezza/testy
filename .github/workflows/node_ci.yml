@@ -31,7 +31,7 @@ jobs:
           CI: true
       - if: matrix.node-version == '20.x'
         name: QLTY Coverage Action
-        uses: qlty-sh/qlty-coverage-action@v1
+        uses: qltysh/qlty-action/coverage@v2
         with:
           coverage_files: reports/coverage/lcov.info
       - if: matrix.node-version == '20.x'
