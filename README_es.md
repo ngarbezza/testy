@@ -2,9 +2,6 @@
 
 ![ci](https://img.shields.io/github/actions/workflow/status/ngarbezza/testy/node_ci.yml?logo=github&branch=main)
 \
-[![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
-[![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
-[![coverage](https://img.shields.io/codeclimate/coverage/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&logo=stryker&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fngarbezza%2Ftesty%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ngarbezza/testy/main)
 \
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)

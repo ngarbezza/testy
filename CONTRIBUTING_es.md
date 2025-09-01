@@ -38,7 +38,7 @@ Github Actions ejecuta builds de integración continua. En cada build se ejecuta
 * build en todas las versiones soportadas de Node
 * chequeo estático de reglas de estilo via `eslint`
 * ejecución de tests unitarios
-* análisis de cobertura de tests y calidad del código con sus respectivos reportes (Codeclimate y Sonarcloud)
+* análisis de cobertura de tests y calidad del código con sus respectivos reportes (QLTY y Sonarcloud)
 
 También existe un build que corre únicamente en el branch principal y calcula el porcentaje de mutation score,
 reportándolo al dashboard de Stryker.
