@@ -50,6 +50,7 @@
     "explicitly_failed": "Explicitly failed",
     "running_tests_in": "Running tests in",
     "fail_fast": "Fail fast",
+    "missing_typescript_dependency": "The 'typescript' package could not be found. Please ensure it is installed in your project using 'npm install typescript' as it is a required peer dependency of Testy.",
     "random_order": "Random order",
     "starting_testy": "Starting Testy!",
     "invalid_pending_reason": "In order to mark a test as pending, you need to specify a reason.",
@@ -121,6 +122,7 @@
     "explicitly_failed": "Explícitamente marcado como fallido",
     "running_tests_in": "Ejecutando tests en",
     "fail_fast": "Fallo rápido",
+    "missing_typescript_dependency": "El paquete 'typescript' no fue encontrado. Por favor, instalelo en su proyecto utilizando 'npm install typescript' ya que es una dependencia requerida por Testy.",
     "random_order": "Orden aleatorio",
     "starting_testy": "Comenzando a ejecutar Testy!",
     "invalid_pending_reason": "Para marcar un test como pendiente, es necesario especificar un motivo.",
@@ -189,6 +191,7 @@
     "explicitly_failed": "Fallito esplicitamente",
     "running_tests_in": "Test in esecuzione in",
     "fail_fast": "Fallisci rapidamente",
+    "missing_typescript_dependency": "Il pacchetto 'typescript' non è stato trovato. Installalo nel tuo progetto usando 'npm install typescript', poiché è una dipendenza richiesta da Testy.",
     "random_order": "Ordine casuale",
     "starting_testy": "Caricamento Testy!",
     "invalid_pending_reason": "Per impostare un test come in corso, devi indicare una motivazione.",
@@ -263,6 +266,7 @@
     "explicitly_failed": "Explicitamente marcado como falhado",
     "running_tests_in": "Executando testes em",
     "fail_fast": "Falha rápida",
+    "missing_typescript_dependency": "O pacote 'typescript' não foi encontrado. Instale-o no seu projeto usando 'npm install typescript', pois é uma dependência exigida pelo Testy.",
     "random_order": "Ordem aleatória",
     "starting_testy": "Iniciando Testy!",
     "invalid_pending_reason": "Para marcar um teste como pendente, você precisa especificar um motivo.",
@@ -280,6 +284,7 @@
     "test_explicitly_marked_pending_result_message": "explicitamente marcado como pendente",
     "test_errored_result_message": "com erro",
     "test_succeeded_result_message": "bem-sucedido",
-    "test_failed_result_message": "falhado"
+    "test_failed_result_message": "falhado",
+    "error_deleting_temporary_file": "[Testy] Aviso: Falha ao excluir o arquivo temporário %s"
   }
 }

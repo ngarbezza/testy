@@ -309,6 +309,7 @@ If you don't have a NPM project you can install Testy globally using `npm instal
 ### TypeScript Support
 
 Testy now supports writing your tests in TypeScript out of the box, with no extra plugins needed. Testy will automatically detect and transpile your `.ts` files during the test run. all test files must be saved with UTF-8 encoding.
+Testy uses Typescript as a peer dependency, which means this package is not directly installed in the library. To run Typescript test files please install Typescript in your project by running ```npm install typescript```.
 Here's an example of a test file written in TypeScript:
 
 ```typescript

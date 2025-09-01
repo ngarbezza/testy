@@ -287,7 +287,9 @@ testeado en sí mismo.
 
 ### Soporte para TypeScript
 
-Testy ahora soporta escribir tus tests en TypeScript directamente, sin necesidad de plugins adicionales. Testy detectará y transpilará automáticamente tus archivos `.ts` durante la ejecución de los tests. Todos los archivos de tests deben guardarse con codificación UTF-8.
+Testy ahora soporta escribir tus tests en TypeScript directamente, sin necesidad de plugins adicionales. Testy detectará y transpilará automáticamente tus archivos `.ts` durante la ejecución de los tests.
+Testy utiliza Typescript como peer dependency, lo cual siginfica que dicho paquete no está instalado directamente en la libreria. Para poder ejecutar tests escritos en Typescript por favor instala Typescript en tu proyecto con ```npm install typescript```
+Todos los archivos de tests deben guardarse con codificación UTF-8.
 
 Aquí hay un ejemplo de un archivo de test escrito en TypeScript:
 
