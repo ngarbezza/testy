@@ -23,6 +23,12 @@ suite('assertions about strings match', () => {
     expectSuccess(result);
   });
 
+  test('isMatching() shortcut fails with meaningful message when actual is undefined', async() => {
+    const result = await resultOfATestWith(assert => assert.isMatching(undefined, /ll/));
+
+    expectErrorOn(result, I18nMessage.of('invalid_actual_object_in_string_match', 'undefined'), '');
+  });
+
   test('matches() passes with a exact string', async() => {
     const result = await resultOfATestWith(assert => assert.that('hola').matches('hola'));
 
