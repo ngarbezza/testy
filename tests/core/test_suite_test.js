@@ -313,9 +313,9 @@ suite('test suite behavior', () => {
   test('onStart callback is executed when the suite runs', async() => {
     let onStartCalled = false;
     const testCallbacks = {
-      onStart: (suite) => {
+      onStart: testSuite => {
         onStartCalled = true;
-        assert.that(suite).isNotNull();
+        assert.that(testSuite).isNotNull();
       },
       onFinish: () => {},
     };
@@ -338,9 +338,9 @@ suite('test suite behavior', () => {
     let onFinishCalled = false;
     const testCallbacks = {
       onStart: () => {},
-      onFinish: (suite) => {
+      onFinish: testSuite => {
         onFinishCalled = true;
-        assert.that(suite).isNotNull();
+        assert.that(testSuite).isNotNull();
       },
     };
 
