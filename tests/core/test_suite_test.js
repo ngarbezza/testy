@@ -4,6 +4,7 @@ import { emptySuiteCallbacks, fakePathLocation, newEmptySuite } from '../support
 import { aFailingTest, anErroredTest, aPassingTest, aPendingTest } from '../support/tests_factory.js';
 
 import { TestSuite } from '../../lib/core/test_suite.js';
+import { FailFast } from '../../lib/config/fail_fast.js';
 
 suite('test suite behavior', () => {
   let runner, mySuite;
@@ -307,5 +308,53 @@ suite('test suite behavior', () => {
     await runner.run();
 
     assert.that(count).isEqualTo(1);
+  });
+
+  test('onStart callback is executed when the suite runs', async() => {
+    let onStartCalled = false;
+    const testCallbacks = {
+      onStart: testSuite => {
+        onStartCalled = true;
+        assert.that(testSuite).isNotNull();
+      },
+      onFinish: () => {},
+    };
+
+    const suiteWithCallbacks = new TestSuite('test suite', () => {}, testCallbacks, fakePathLocation);
+    suiteWithCallbacks.addTest(passingTest);
+    
+    const context = {
+      failFastMode: FailFast.disabled(),
+      randomOrderMode: false,
+      testExecutionTimeoutMs: 50,
+    };
+    
+    await suiteWithCallbacks.run(context);
+
+    assert.that(onStartCalled).isTrue();
+  });
+
+  test('onFinish callback is executed when the suite runs', async() => {
+    let onFinishCalled = false;
+    const testCallbacks = {
+      onStart: () => {},
+      onFinish: testSuite => {
+        onFinishCalled = true;
+        assert.that(testSuite).isNotNull();
+      },
+    };
+
+    const suiteWithCallbacks = new TestSuite('test suite', () => {}, testCallbacks, fakePathLocation);
+    suiteWithCallbacks.addTest(passingTest);
+    
+    const context = {
+      failFastMode: FailFast.disabled(),
+      randomOrderMode: false,
+      testExecutionTimeoutMs: 50,
+    };
+    
+    await suiteWithCallbacks.run(context);
+
+    assert.that(onFinishCalled).isTrue();
   });
 });
