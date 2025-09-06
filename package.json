@@ -15,6 +15,18 @@
   },
   "type": "module",
   "main": "lib/testy.js",
+  "types": "dist/types/testy.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/testy.d.ts",
+      "import": "./lib/testy.js"
+    }
+  },
+  "files": [
+    "bin",
+    "lib",
+    "dist/types"
+  ],
   "scripts": {
     "jsdoc": "npx jsdoc@latest --package package.json --recurse lib/ --destination doc/jsdoc --configure config/jsdoc.json",
     "see:jsdoc": "open doc/jsdoc/index.html",
@@ -32,15 +44,12 @@
     "see:dependencies": "npx madge@latest -i reports/testy-dependencies.png lib/ bin/",
     "see:complexity": "npx code-complexity@latest . --filter='lib/**' --sort=score",
     "contributors:add": "npx all-contributors@latest add",
-    "contributors:generate": "npx all-contributors@latest generate"
+    "contributors:generate": "npx all-contributors@latest generate",
+    "build:types": "tsc --project tsconfig.json"
   },
   "bin": {
     "testy": "bin/testy_cli.js"
   },
-  "files": [
-    "bin",
-    "lib"
-  ],
   "directories": {
     "lib": "./lib"
   },
@@ -58,5 +67,8 @@
   "devDependencies": {
     "@eslint/js": "^9.24.0",
     "eslint": "^9.24.0"
+  },
+  "dependencies": {
+    "typescript": "^5.9.2"
   }
 }

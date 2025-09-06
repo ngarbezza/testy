@@ -285,6 +285,44 @@ testeado en sí mismo.
       => no hubo tiempo de finalizarlo
     ```
 
+### Soporte para TypeScript
+
+Testy ahora soporta escribir tus tests en TypeScript directamente, sin necesidad de plugins adicionales. Testy detectará y transpilará automáticamente tus archivos `.ts` durante la ejecución de los tests. Todos los archivos de tests deben guardarse con codificación UTF-8.
+
+Aquí hay un ejemplo de un archivo de test escrito en TypeScript:
+
+```typescript
+// mi_test_tipado.ts
+import { suite, test, assert } from "@pmoo/testy";
+
+suite("una suite de tests tipada", () => {
+  test("la suma de dos números funciona", () => {
+    const a: number = 21;
+    const b: number = 21;
+    assert.that(a + b).isEqualTo(42);
+  });
+});
+```
+
+Para asegurarte de que tu proyecto TypeScript funcione correctamente con Testy, necesitarás un archivo tsconfig.json en el directorio raíz de tu proyecto.
+- Asegúrate de tener typescript instalado como una dependencia de desarrollo:
+  npm install --save-dev typescript
+- Crea un archivo tsconfig.json con la siguiente configuración recomendada:
+
+```json
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
+```
 ## ¿Por qué?
 
 ¿Por qué tener una herramienta de tests cuando ya existen otras? La razón principal es que deseamos mantener la
