@@ -306,6 +306,43 @@ If you don't have a NPM project you can install Testy globally using `npm instal
     => did not have time to finish
   ```
 
+### TypeScript Support
+
+Testy now supports writing your tests in TypeScript out of the box, with no extra plugins needed. Testy will automatically detect and transpile your `.ts` files during the test run. all test files must be saved with UTF-8 encoding.
+Testy uses Typescript as a peer dependency, which means this package is not directly installed in the library. To run Typescript test files please install Typescript in your project by running ```npm install typescript```.
+Here's an example of a test file written in TypeScript:
+
+```typescript
+// my_typed_test.ts
+import { suite, test, assert } from "@pmoo/testy";
+
+suite("a typed test suite", () => {
+  test("the sum of two numbers works", () => {
+    const a: number = 21;
+    const b: number = 21;
+    assert.that(a + b).isEqualTo(42);
+  });
+});
+```
+
+To ensure your TypeScript project works correctly with Testy, you'll need a tsconfig.json file in your project's root directory.
+- Make sure you have typescript installed as a dev dependency: npm install --save-dev typescript
+- Create a tsconfig.json file with the following recommended settings:
+
+```json
+{
+  "compilerOptions": {
+  "module": "NodeNext",
+  "moduleResolution": "NodeNext",
+  "target": "ES2022",
+  "lib": ["ES2022", "DOM"],
+  "esModuleInterop": true,
+  "forceConsistentCasingInFileNames": true,
+  "strict": true,
+  "skipLibCheck": true
+  }
+}
+```
 ## Why?
 
 Why another testing tool? The main reason is that we want to keep simplicity, something it's hard to see in the main
