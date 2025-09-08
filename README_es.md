@@ -2,9 +2,6 @@
 
 ![ci](https://img.shields.io/github/actions/workflow/status/ngarbezza/testy/node_ci.yml?logo=github&branch=main)
 \
-[![maintainability](https://img.shields.io/codeclimate/maintainability/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
-[![tech-debt](https://img.shields.io/codeclimate/tech-debt/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
-[![coverage](https://img.shields.io/codeclimate/coverage/ngarbezza/testy?logo=code-climate)](https://codeclimate.com/github/ngarbezza/testy)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&logo=stryker&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fngarbezza%2Ftesty%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ngarbezza/testy/main)
 \
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ngarbezza_testy&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ngarbezza_testy)
@@ -288,6 +285,46 @@ testeado en sí mismo.
       => no hubo tiempo de finalizarlo
     ```
 
+### Soporte para TypeScript
+
+Testy ahora soporta escribir tus tests en TypeScript directamente, sin necesidad de plugins adicionales. Testy detectará y transpilará automáticamente tus archivos `.ts` durante la ejecución de los tests.
+Testy utiliza Typescript como peer dependency, lo cual siginfica que dicho paquete no está instalado directamente en la libreria. Para poder ejecutar tests escritos en Typescript por favor instala Typescript en tu proyecto con ```npm install typescript```
+Todos los archivos de tests deben guardarse con codificación UTF-8.
+
+Aquí hay un ejemplo de un archivo de test escrito en TypeScript:
+
+```typescript
+// mi_test_tipado.ts
+import { suite, test, assert } from "@pmoo/testy";
+
+suite("una suite de tests tipada", () => {
+  test("la suma de dos números funciona", () => {
+    const a: number = 21;
+    const b: number = 21;
+    assert.that(a + b).isEqualTo(42);
+  });
+});
+```
+
+Para asegurarte de que tu proyecto TypeScript funcione correctamente con Testy, necesitarás un archivo tsconfig.json en el directorio raíz de tu proyecto.
+- Asegúrate de tener typescript instalado como una dependencia de desarrollo:
+  npm install --save-dev typescript
+- Crea un archivo tsconfig.json con la siguiente configuración recomendada:
+
+```json
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
+```
 ## ¿Por qué?
 
 ¿Por qué tener una herramienta de tests cuando ya existen otras? La razón principal es que deseamos mantener la

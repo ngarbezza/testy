@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2020", "es2015.Collection"],
+    // --- Declaration File Settings ---
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist/types",
+    "rootDir": "./lib", // This makes the output structure predictable
+
+    // --- Interoperability & Checks ---
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "lib/**/*.js" // Only include your actual source files
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
