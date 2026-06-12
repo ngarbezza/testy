@@ -4,5 +4,6 @@
   "language": "en",
   "failFast": false,
   "randomOrder": false,
-  "timeoutMs": 1000
+  "timeoutMs": 1000,
+  "output": "console"
 }

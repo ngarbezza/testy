@@ -95,6 +95,22 @@ suite('Parameters parser', () => {
     });
   });
 
+  test('returns configuration with json output if passing --output option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['--output', 'json']);
+    assert.areEqual(configuration, { output: 'json' });
+  });
+
+  test('returns configuration with tap output if passing -o option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['-o', 'tap']);
+    assert.areEqual(configuration, { output: 'tap' });
+  });
+
+  test('throws an error when passing an unsupported output format', () => {
+    assert
+      .that(() => ParametersParser.generateRunConfigurationFromParams(['-o', 'nonsense']))
+      .raises(/Invalid output format/);
+  });
+
   test('throws an error when sending unknown params', () => {
     assert
       .that(() => ParametersParser.generateRunConfigurationFromParams(['fake param']))
