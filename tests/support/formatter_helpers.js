@@ -44,6 +44,7 @@ const dispatchResultTo = (formatter, test) => {
  * formatter, exactly as ConsoleUI would during a real run.
  */
 const driveFormatter = (formatter, runner, suite) => {
+  formatter.startTimer();
   formatter.displaySuiteStart(suite);
   suite.tests().forEach(test => dispatchResultTo(formatter, test));
   formatter.displaySuiteEnd(suite);
