@@ -129,6 +129,15 @@ suite('Parameters parser', () => {
     assert.areEqual(configurationParams, ['-f', '-r']);
   });
 
+  test('accepts the output flag after test path routes', () => {
+    const {
+      pathsParams,
+      configurationParams,
+    } = ParametersParser.getPathsAndConfigurationParams(['some_test.js', '-o', 'tap']);
+    assert.areEqual(pathsParams, ['some_test.js']);
+    assert.areEqual(configurationParams, ['-o', 'tap']);
+  });
+
   test('splits between path params and configuration params when path params are empty', () => {
     const {
       pathsParams,
