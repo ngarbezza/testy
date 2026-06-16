@@ -111,6 +111,7 @@ as a template (values here are the defaults):
   "randomOrder": false      // enable/disable execution of tests in random order
   "timeoutMs": 1000         // sets the per-test timeout in milliseconds
   "language": "en",         // language of the output messages. "es", "it" and "en" supported for now
+  "output": "console"       // output format: "console" (human), "tap" or "json"
 }
 ```
 
@@ -122,12 +123,24 @@ test file path:
 - `-l xx` or `--language xx` where `xx` must be either `es` for Spanish, `en` for English or `it` for Italian.
 - `-d route` or `--directory route` where `route` must be a directory that contains test files. If explicit test routes are provided, this directory parameter will be ignored.
 - `-e filter` or `--extension filter` where `filter` is the extension (suffix) of the test files you want to run.
+- `-o format` or `--output format` where `format` must be `console`, `tap` or `json`. Defaults to `console`.
 
 These console parameters can be sent in any order and combined as you want.
 
 These are all the configuration parameters you can set. Feel free to change it according to your needs.
 When declaring this configuration, every test suite under the `tests` directory (matching files ending with
 `*test.js`) will be executed.
+
+### Machine-readable output
+
+By default Testy prints human-readable colored output (`console`). For consumption by agents or other tools you can
+select a machine-readable format with the `output` config key or the `-o`/`--output` flag: `tap` produces TAP version 13
+(one line per test, streamed as tests run), and `json` produces a single structured JSON object printed at the end.
+
+```sh
+npx testy -o tap
+npx testy -o json
+```
 
 ### Examples and available assertions
 
