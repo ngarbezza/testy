@@ -14,3 +14,6 @@ doc/jsdoc/
 
 # Playground file
 tests/playground_test.js
+
+# Implementation plans (AI-assisted, ephemeral)
+doc/plans/

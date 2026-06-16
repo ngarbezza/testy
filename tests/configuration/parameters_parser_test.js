@@ -95,6 +95,22 @@ suite('Parameters parser', () => {
     });
   });
 
+  test('returns configuration with json output if passing --output option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['--output', 'json']);
+    assert.areEqual(configuration, { output: 'json' });
+  });
+
+  test('returns configuration with tap output if passing -o option', () => {
+    const configuration = ParametersParser.generateRunConfigurationFromParams(['-o', 'tap']);
+    assert.areEqual(configuration, { output: 'tap' });
+  });
+
+  test('throws an error when passing an unsupported output format', () => {
+    assert
+      .that(() => ParametersParser.generateRunConfigurationFromParams(['-o', 'nonsense']))
+      .raises(/Invalid output format/);
+  });
+
   test('throws an error when sending unknown params', () => {
     assert
       .that(() => ParametersParser.generateRunConfigurationFromParams(['fake param']))
@@ -111,6 +127,15 @@ suite('Parameters parser', () => {
     } = ParametersParser.getPathsAndConfigurationParams([testPath1, testPath2, '-f', '-r']);
     assert.areEqual(pathsParams, [testPath1, testPath2]);
     assert.areEqual(configurationParams, ['-f', '-r']);
+  });
+
+  test('accepts the output flag after test path routes', () => {
+    const {
+      pathsParams,
+      configurationParams,
+    } = ParametersParser.getPathsAndConfigurationParams(['some_test.js', '-o', 'tap']);
+    assert.areEqual(pathsParams, ['some_test.js']);
+    assert.areEqual(configurationParams, ['-o', 'tap']);
   });
 
   test('splits between path params and configuration params when path params are empty', () => {

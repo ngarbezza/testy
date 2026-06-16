@@ -53,6 +53,16 @@ suite('Configuration parameters', () => {
       .raises(new InvalidConfigurationError('Expected a boolean value for failFast configuration, got: I AM AN INVALID VALUE'));
   });
 
+  test('output defaults to console when only the default config provides it', () => {
+    const defaultOutputConfiguration = new Configuration({}, { output: 'console' });
+    assert.areEqual(defaultOutputConfiguration.output(), 'console');
+  });
+
+  test('user configuration for output overrides the default', () => {
+    const userOutputConfiguration = new Configuration({ output: 'tap' }, { output: 'console' });
+    assert.areEqual(userOutputConfiguration.output(), 'tap');
+  });
+
   test('can send a configuration and values not present will default to default configuration', () => {
     const userCustomizedConfiguration = Configuration.withConfiguration({ language: 'es', failFast: true });
     assert.areEqual(userCustomizedConfiguration.language(), 'es');

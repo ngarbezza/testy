@@ -112,6 +112,7 @@ defecto):
   "randomOrder": false      // habilita/deshabilita la ejecución de tests en orden aleatorio.
   "timeoutMs": 1000         // asigna el tiempo límite de ejecución por cada test (en milisegundos)
   "language": "en",         // lenguaje que usara la consola. "es", "it" y "en" disponibles por el momento.
+  "output": "console"       // formato de salida: "console" (humano), "tap" o "json"
 }
 ```
 
@@ -123,6 +124,7 @@ que quieras ejecutar:
 - `-l xx` o `--language xx` done `xx` debe ser `es` para español, `en` para inglés o `it` para italiano.
 - `-d ruta` or `--directory ruta` donde `ruta` debe ser un directorio que contiene archivos de test. Si se proveen rutas explicitas de tests para ejecutar, este parametro será ignorado.
 - `-e filtro` or `--extension filtro` donde `filtro` es la extension (sufijo) de los tests que se quieren ejecutar.
+- `-o formato` o `--output formato` donde `formato` debe ser `console`, `tap` o `json`. El valor por defecto es `console`.
 
 Estos parámetros por consola pueden ser enviados en el orden que desees y puedes combinarlos como quieras. Toman
 precedencia respecto a los que estén configurados en `.testyrc.json`.
@@ -130,6 +132,18 @@ precedencia respecto a los que estén configurados en `.testyrc.json`.
 Estos son todos los parámetros de configuración que existen, ajústalos de acuerdo a tus necesidades.
 Siguiendo este ejemplo de configuración, lo que se va a ejecutar es cada suite de test dentro del directorio `tests`,
 cuyos nombres de archivos finalicen con `*test.js`.
+
+### Salida para consumo por herramientas
+
+Por defecto Testy imprime una salida coloreada y legible para personas (`console`). Para que la consuman agentes u otras
+herramientas puedes elegir un formato procesable mediante la clave de configuración `output` o el flag `-o`/`--output`:
+`tap` produce TAP versión 13 (una línea por test, emitida a medida que los tests se ejecutan), y `json` produce un único
+objeto JSON estructurado impreso al final.
+
+```sh
+npx testy -o tap
+npx testy -o json
+```
 
 ### Ejemplos y aserciones disponibles
 

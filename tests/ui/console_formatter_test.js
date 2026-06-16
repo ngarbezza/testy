@@ -2,21 +2,21 @@ import { assert, before, suite, test } from '../../lib/testy.js';
 import { resultOfASuiteWith, withRunner } from '../support/runner_helpers.js';
 import { anExplicitlySkippedTest, aPendingTest, aTestWithBody } from '../support/tests_factory.js';
 
-import { Formatter } from '../../lib/ui/formatter.js';
+import { ConsoleFormatter } from '../../lib/ui/console_formatter.js';
 import { I18n } from '../../lib/i18n/i18n.js';
 import { FakeConsole } from './fake_console.js';
 import { sourceCodeLocationRegex } from '../support/assertion_helpers.js';
 import { emptySuiteCallbacks } from '../support/suites_factory.js';
 import { TestSuite } from '../../lib/core/test_suite.js';
 
-suite('formatter', () => {
+suite('console formatter', () => {
   let formatter, fakeConsole, i18n;
 
   before(() => {
     fakeConsole = new FakeConsole();
 
     i18n = I18n.default();
-    formatter = new Formatter(fakeConsole, i18n);
+    formatter = new ConsoleFormatter(fakeConsole, i18n);
   });
 
   test('display errors in red', () => {
