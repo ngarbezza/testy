@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>testy.js - Documentation</title>
+    <title>ConsoleFormatter - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,258 +29,140 @@
 
 <div id="main">
     
-    <h1 class="page-title">testy.js</h1>
+    <h1 class="page-title">ConsoleFormatter</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*eslint max-statements: 'off'*/
-import process from 'node:process';
-import console from 'node:console';
-import { TestRunner } from './core/test_runner.js';
-import { Asserter, FailureGenerator, PendingMarker } from './core/asserter.js';
-import { ConsoleUI } from './ui/console_ui.js';
-import { allFilesMatching, errorDetailOf, resolvePathFor } from './utils/index.js';
-import { I18nMessage } from './i18n/i18n_messages.js';
-import fs from 'fs';
-import pathUtils from 'path';
-import { pathToFileURL } from 'url';
-import { TypescriptTranspiler } from './typescript/typescript_transpiler.js';
+        <h2>
+        ConsoleFormatter
+        </h2>
+        
+            <div class="class-description"><p>I present all the events from Testy as formatted text to a <a href="ConsoleUI.html">console</a>.</p></div>
+        
+    
+</header>
 
-const ui = new ConsoleUI(process, console);
-const testRunner = new TestRunner(ui.testRunnerCallbacks());
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-/**
- * Object used for writing assertions. [Assertions]{@link Assertion} are created with method calls to this object.
- * Please refer to the comment of each assertion for more information.
- *
- * @example
- * assert.isFalse(3 > 4)
- * @example
- * assert.that(['hey']).isNotEmpty()
- *
- * @type {Asserter}
- */
-const assert = new Asserter(testRunner);
+    
+    <h2>Constructor</h2>
+    
 
-/**
- * Generates an explicit failure.
- *
- * @example
- * fail.with('a descriptive message')
- *
- * @type {FailureGenerator}
- */
-const fail = new FailureGenerator(testRunner);
+    <h4 class="name" id="ConsoleFormatter"><span class="type-signature"></span>new ConsoleFormatter<span class="signature">()</span><span class="type-signature"></span></h4>
 
-/**
- * Marks a test as pending, which is a status that is reported separately, and it's not considered success/failure.
- * It is useful to mark in-progress work and catch the developers attention in the resulting report.
- *
- * @example
- * pending.dueTo('finish the set-up process')
- *
- * @type {PendingMarker}
- */
-const pending = new PendingMarker(testRunner);
+    
 
-/**
- * Defines a new test. Each test belongs to a [test suite]{@link suite} and defines assertions in the body.
- *
- * For info about assertions, take a look at the {@link assert} object.
- *
- * Tests are represented internally as instances of {@link Test}.
- *
- * @example
- * test('arithmetic works', () => {
- *   assert.areEqual(3 + 4, 7);
- * });
- *
- * @param {!string} name how you would like to call the test. Non-empty string.
- * @param {!function} testBody the test definition, written as a zero-argument function.
- * @returns {void}
- */
-function test(name, testBody) {
-  return testRunner.registerTest(name, testBody, ui.testCallbacks());
-}
 
-/**
- * Defines a new test suite. Suites are expected to define [tests]{@link test} inside it.
- * There can be more than one suite per file, but it is not possible to nest suites.
- *
- * @example
- * suite('arithmetic operations', () => {
- *   test('the sum of two number works', () => {
- *     assert.areEqual(3 + 4, 7);
- *   });
- * });
- *
- * @param {!string} name how you would like to call the suite. Non-empty string.
- * @param {!function} suiteBody the suite definition, written as a zero-argument function.
- * @returns {void}
- */
-function suite(name, suiteBody) {
-  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
-}
 
-/**
- * Specifies a piece of code that should be executed before each {@link test} in a {@link suite}.
- * Only one before block is allowed per suite. The most common use of this feature is to initialize objects you want
- * to reference in each test.
- *
- * @example
- * suite('using a before() initializer', () => {
- *   let number;
- *
- *   before(() => {
- *     number = 42;
- *   });
- *
- *   test('has the initialized value', () => {
- *     assert.that(number).isEqualTo(42);
- *   });
- * });
- *
- * @param {!function} initialization a zero argument function containing the code you want to execute before each test.
- * @returns {void}
- */
-function before(initialization) {
-  testRunner.registerBefore(initialization);
-}
 
-/**
- * Specifies a piece of code that should be executed after each {@link test} in a {@link suite}.
- * Only one after block is allowed per suite. The most common use of this feature is to ensure you are releasing
- * resources that are used on each test, like files.
- *
- * @param {!function} releaseBlock a zero argument function containing the code you want to execute after each test.
- * @returns {void}
- */
-function after(releaseBlock) {
-  testRunner.registerAfter(releaseBlock);
-}
 
-class Testy {
-  #configuration;
-  #requestedPaths;
 
-  // instance creation
 
-  static configuredWith(configuration) {
-    return new Testy(configuration);
-  }
+<dl class="details">
 
-  constructor(configuration) {
-    this.#initializeConfiguredWith(configuration);
-  }
+    
 
-  // running
+    
 
-  async run(requestedPaths) {
-    this.#requestedPaths = requestedPaths;
-    await this.#loadAllRequestedFiles();
-    ui.start(this.#configuration, this.#testFilesPathsToRun());
-    try {
-      await testRunner.run();
-    } catch (err) {
-      ui.exitWithError(I18nMessage.of('error_running_suites'), errorDetailOf(err));
-    }
-  }
+    
 
-  // initialization
+    
 
-  #initializeConfiguredWith(configuration) {
-    this.#configuration = configuration;
-    ui.configureWith(this.#configuration);
-    testRunner.configureWith(this.#configuration);
-  }
+    
 
-  // private
+    
 
-  async #loadAllRequestedFiles() {
-    try {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const path of this.#resolvedTestFilesPathsToRun()) {
-        // eslint-disable-next-line no-await-in-loop
-        await this.#loadAllFilesIn(path);
-      }
-    } catch (err) {
-      ui.exitWithError(I18nMessage.of('error_path_not_found', err.path));
-    }
-  }
+    
 
-  async #loadAllFilesIn(path) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const file of allFilesMatching(path, this.#testFilesFilter())) {
-      // eslint-disable-next-line no-await-in-loop
-      await this.#loadFileHandlingErrors(file);
-    }
-  }
+    
 
-  async #loadFileHandlingErrors(filePath) {
-    let importPath = filePath;
-    let isTempFileCreated = false;
+    
 
-    try {
-      testRunner.loadingFile(filePath);
-      const fileExtension = pathUtils.extname(filePath);
+    
 
-      if (fileExtension === '.ts') {
-        const transpilationResult = await TypescriptTranspiler.generateTemporalJavascriptFromTypescript(filePath);
-        ({ importPath, isTempFileCreated } = transpilationResult);
-      }
+    
 
-      const fileUrl = pathToFileURL(importPath);
-      await import(fileUrl);
-    } catch (err) {
-      ui.exitWithError(
-        I18nMessage.of('error_loading_suite', filePath), errorDetailOf(err),
-        I18nMessage.of('feedback_for_error_loading_suite'),
-      );
-    } finally {
-      this.#cleanupTemporaryFile(isTempFileCreated, importPath);
-    }
-  }
+    
 
-  #cleanupTemporaryFile(shouldRemoveFile, path) {
-    if (shouldRemoveFile &amp;&amp; path &amp;&amp; fs.existsSync(path)) {
-      try {
-        fs.unlinkSync(path);
-      } catch (cleanupError) {
-        ui.exitWithError(
-          I18nMessage.of('error_deleting_temporary_file', path), errorDetailOf(cleanupError),
-        );
-      }
-    }
-  }
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ui_console_formatter.js.html">ui/console_formatter.js</a>, <a href="ui_console_formatter.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
 
-  #testFilesPathsToRun() {
-    const requestedPaths = this.#requestedPaths;
-    return requestedPaths.length > 0 ? requestedPaths : [this.#pathForAllTests()];
-  }
+    
 
-  #resolvedTestFilesPathsToRun() {
-    return this.#testFilesPathsToRun().map(path => resolvePathFor(path));
-  }
+    
 
-  #pathForAllTests() {
-    return this.#configuration.directory();
-  }
+    
+</dl>
 
-  #testFilesFilter() {
-    return this.#configuration.filter();
-  }
-}
 
-export { Testy, suite, test, assert, fail, pending, before, after };
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="ConsoleFormatter.html">ConsoleFormatter</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

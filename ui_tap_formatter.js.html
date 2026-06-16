@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>testy.js - Documentation</title>
+    <title>ui/tap_formatter.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">testy.js</h1>
+    <h1 class="page-title">ui/tap_formatter.js</h1>
     
 
     
@@ -39,245 +39,75 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/*eslint max-statements: 'off'*/
-import process from 'node:process';
-import console from 'node:console';
-import { TestRunner } from './core/test_runner.js';
-import { Asserter, FailureGenerator, PendingMarker } from './core/asserter.js';
-import { ConsoleUI } from './ui/console_ui.js';
-import { allFilesMatching, errorDetailOf, resolvePathFor } from './utils/index.js';
-import { I18nMessage } from './i18n/i18n_messages.js';
-import fs from 'fs';
-import pathUtils from 'path';
-import { pathToFileURL } from 'url';
-import { TypescriptTranspiler } from './typescript/typescript_transpiler.js';
-
-const ui = new ConsoleUI(process, console);
-const testRunner = new TestRunner(ui.testRunnerCallbacks());
+            <pre class="prettyprint source linenums"><code>import { Formatter } from './formatter.js';
+import { normalizeToSingleLine } from '../utils/index.js';
 
 /**
- * Object used for writing assertions. [Assertions]{@link Assertion} are created with method calls to this object.
- * Please refer to the comment of each assertion for more information.
- *
- * @example
- * assert.isFalse(3 > 4)
- * @example
- * assert.that(['hey']).isNotEmpty()
- *
- * @type {Asserter}
+ * I present test results in TAP (Test Anything Protocol) version 13: a compact, line-oriented,
+ * machine-readable format. I stream one line per test and finish with a trailing plan and summary.
  */
-const assert = new Asserter(testRunner);
+export class TapFormatter extends Formatter {
+  #testNumber;
+  #startTime;
 
-/**
- * Generates an explicit failure.
- *
- * @example
- * fail.with('a descriptive message')
- *
- * @type {FailureGenerator}
- */
-const fail = new FailureGenerator(testRunner);
-
-/**
- * Marks a test as pending, which is a status that is reported separately, and it's not considered success/failure.
- * It is useful to mark in-progress work and catch the developers attention in the resulting report.
- *
- * @example
- * pending.dueTo('finish the set-up process')
- *
- * @type {PendingMarker}
- */
-const pending = new PendingMarker(testRunner);
-
-/**
- * Defines a new test. Each test belongs to a [test suite]{@link suite} and defines assertions in the body.
- *
- * For info about assertions, take a look at the {@link assert} object.
- *
- * Tests are represented internally as instances of {@link Test}.
- *
- * @example
- * test('arithmetic works', () => {
- *   assert.areEqual(3 + 4, 7);
- * });
- *
- * @param {!string} name how you would like to call the test. Non-empty string.
- * @param {!function} testBody the test definition, written as a zero-argument function.
- * @returns {void}
- */
-function test(name, testBody) {
-  return testRunner.registerTest(name, testBody, ui.testCallbacks());
-}
-
-/**
- * Defines a new test suite. Suites are expected to define [tests]{@link test} inside it.
- * There can be more than one suite per file, but it is not possible to nest suites.
- *
- * @example
- * suite('arithmetic operations', () => {
- *   test('the sum of two number works', () => {
- *     assert.areEqual(3 + 4, 7);
- *   });
- * });
- *
- * @param {!string} name how you would like to call the suite. Non-empty string.
- * @param {!function} suiteBody the suite definition, written as a zero-argument function.
- * @returns {void}
- */
-function suite(name, suiteBody) {
-  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
-}
-
-/**
- * Specifies a piece of code that should be executed before each {@link test} in a {@link suite}.
- * Only one before block is allowed per suite. The most common use of this feature is to initialize objects you want
- * to reference in each test.
- *
- * @example
- * suite('using a before() initializer', () => {
- *   let number;
- *
- *   before(() => {
- *     number = 42;
- *   });
- *
- *   test('has the initialized value', () => {
- *     assert.that(number).isEqualTo(42);
- *   });
- * });
- *
- * @param {!function} initialization a zero argument function containing the code you want to execute before each test.
- * @returns {void}
- */
-function before(initialization) {
-  testRunner.registerBefore(initialization);
-}
-
-/**
- * Specifies a piece of code that should be executed after each {@link test} in a {@link suite}.
- * Only one after block is allowed per suite. The most common use of this feature is to ensure you are releasing
- * resources that are used on each test, like files.
- *
- * @param {!function} releaseBlock a zero argument function containing the code you want to execute after each test.
- * @returns {void}
- */
-function after(releaseBlock) {
-  testRunner.registerAfter(releaseBlock);
-}
-
-class Testy {
-  #configuration;
-  #requestedPaths;
-
-  // instance creation
-
-  static configuredWith(configuration) {
-    return new Testy(configuration);
+  constructor(console, i18n) {
+    super(console, i18n);
+    this.#testNumber = 0;
+    this.#startTime = 0;
   }
 
-  constructor(configuration) {
-    this.#initializeConfiguredWith(configuration);
+  startTimer() {
+    this.#startTime = Date.now();
   }
 
-  // running
-
-  async run(requestedPaths) {
-    this.#requestedPaths = requestedPaths;
-    await this.#loadAllRequestedFiles();
-    ui.start(this.#configuration, this.#testFilesPathsToRun());
-    try {
-      await testRunner.run();
-    } catch (err) {
-      ui.exitWithError(I18nMessage.of('error_running_suites'), errorDetailOf(err));
-    }
+  displayInitialInformation(_configuration, _paths) {
+    this.print('TAP version 13');
   }
 
-  // initialization
-
-  #initializeConfiguredWith(configuration) {
-    this.#configuration = configuration;
-    ui.configureWith(this.#configuration);
-    testRunner.configureWith(this.#configuration);
+  displaySuccessResult(test) {
+    this.print(`ok ${this.#nextNumber()} - ${test.name()}`);
   }
 
-  // private
-
-  async #loadAllRequestedFiles() {
-    try {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const path of this.#resolvedTestFilesPathsToRun()) {
-        // eslint-disable-next-line no-await-in-loop
-        await this.#loadAllFilesIn(path);
-      }
-    } catch (err) {
-      ui.exitWithError(I18nMessage.of('error_path_not_found', err.path));
-    }
+  displaySkippedResult(test) {
+    this.print(`ok ${this.#nextNumber()} - ${test.name()} # SKIP`);
   }
 
-  async #loadAllFilesIn(path) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const file of allFilesMatching(path, this.#testFilesFilter())) {
-      // eslint-disable-next-line no-await-in-loop
-      await this.#loadFileHandlingErrors(file);
-    }
+  displayPendingResult(test) {
+    this.print(`ok ${this.#nextNumber()} - ${test.name()} # TODO`);
   }
 
-  async #loadFileHandlingErrors(filePath) {
-    let importPath = filePath;
-    let isTempFileCreated = false;
-
-    try {
-      testRunner.loadingFile(filePath);
-      const fileExtension = pathUtils.extname(filePath);
-
-      if (fileExtension === '.ts') {
-        const transpilationResult = await TypescriptTranspiler.generateTemporalJavascriptFromTypescript(filePath);
-        ({ importPath, isTempFileCreated } = transpilationResult);
-      }
-
-      const fileUrl = pathToFileURL(importPath);
-      await import(fileUrl);
-    } catch (err) {
-      ui.exitWithError(
-        I18nMessage.of('error_loading_suite', filePath), errorDetailOf(err),
-        I18nMessage.of('feedback_for_error_loading_suite'),
-      );
-    } finally {
-      this.#cleanupTemporaryFile(isTempFileCreated, importPath);
-    }
+  displayFailureResult(test, failType) {
+    const severity = failType === 'error' ? 'error' : 'failure';
+    this.print(`not ok ${this.#nextNumber()} - ${test.name()}`);
+    this.#printDiagnostic(test, severity);
   }
 
-  #cleanupTemporaryFile(shouldRemoveFile, path) {
-    if (shouldRemoveFile &amp;&amp; path &amp;&amp; fs.existsSync(path)) {
-      try {
-        fs.unlinkSync(path);
-      } catch (cleanupError) {
-        ui.exitWithError(
-          I18nMessage.of('error_deleting_temporary_file', path), errorDetailOf(cleanupError),
-        );
-      }
-    }
+  displayRunnerEnd(runner) {
+    this.print(`1..${runner.totalCount()}`);
+    this.print(`# tests ${runner.totalCount()}`);
+    this.print(`# pass ${runner.successCount()}`);
+    this.print(`# fail ${runner.failuresCount()}`);
+    this.print(`# error ${runner.errorsCount()}`);
+    this.print(`# pending ${runner.pendingCount()}`);
+    this.print(`# skip ${runner.skippedCount()}`);
+    this.print(`# time ${Date.now() - this.#startTime}ms`);
   }
 
-  #testFilesPathsToRun() {
-    const requestedPaths = this.#requestedPaths;
-    return requestedPaths.length > 0 ? requestedPaths : [this.#pathForAllTests()];
+  #printDiagnostic(test, severity) {
+    const message = normalizeToSingleLine(this.internationalized(test.result().failureMessage()));
+    const location = this.internationalized(test.result().location());
+    this.print('  ---');
+    this.print(`  message: ${message}`);
+    this.print(`  at: ${location}`);
+    this.print(`  severity: ${severity}`);
+    this.print('  ---');
   }
 
-  #resolvedTestFilesPathsToRun() {
-    return this.#testFilesPathsToRun().map(path => resolvePathFor(path));
-  }
-
-  #pathForAllTests() {
-    return this.#configuration.directory();
-  }
-
-  #testFilesFilter() {
-    return this.#configuration.filter();
+  #nextNumber() {
+    this.#testNumber += 1;
+    return this.#testNumber;
   }
 }
-
-export { Testy, suite, test, assert, fail, pending, before, after };
 </code></pre>
         </article>
     </section>
