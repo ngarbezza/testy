@@ -65,8 +65,8 @@
   "author": "Nahuel Garbezza <n.garbezza@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@eslint/js": "^9.24.0",
-    "eslint": "^9.24.0"
+    "@eslint/js": "^10.0.0",
+    "eslint": "^10.0.0"
   },
   "dependencies": {
     "typescript": "^5.9.2"
