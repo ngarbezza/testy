@@ -20,6 +20,8 @@ npm run lint:fix                  # ESLint auto-fix
 npm run playground:reset          # copy template → tests/playground_test.js
 npm run playground:run            # run playground file
 npm run playground:clear          # delete playground file
+npm run test:coverage              # coverage report via c8 (see reports/coverage/)
+npm run test:mutation              # mutation testing via Stryker (slow, see reports/mutation/)
 ```
 
 Node 22+ is required. The repo uses asdf; `.tool-versions` pins `nodejs 22.21.0`.
@@ -87,9 +89,4 @@ Node 22+ is required. The repo uses asdf; `.tool-versions` pins `nodejs 22.21.0`
 
 - **Self-testing is mandatory** — every feature or fix must be accompanied by a test in `tests/`. If Testy cannot test its own change, something is wrong with the design.
 - **One PR, one concept** — no opportunistic refactors bundled in the same PR.
-- **Extra quality commands:**
-
-```bash
-npm run test:coverage   # coverage report via c8
-npm run test:mutation   # mutation testing via Stryker
-```
+- **Run `npm test` and `npm run lint` before opening a PR** — CI will catch failures, but it's faster to catch them locally.
