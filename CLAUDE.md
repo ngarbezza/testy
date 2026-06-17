@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project DNA
+
+These values act as a filter for every proposed change. Reject anything that violates them.
+
+- **Zero dependencies** — no runtime npm dependencies, ever (see `doc/decisions/0003-zero-dependencies.md`). Refuse any change that adds an `import` from an external package.
+- **No dark magic** — no Proxies, no monkey-patching, no metaprogramming. Every line must be readable in a classroom without prior explanation.
+- **OOP in the Smalltalk spirit** — behaviour through message sends and polymorphism, not conditionals over types. Add a method to an object before adding a `switch`/`if` chain in a caller.
+
 ## Commands
 
 ```bash
