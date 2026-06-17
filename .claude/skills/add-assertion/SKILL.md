@@ -73,7 +73,7 @@ No des la tarea por terminada hasta confirmar que todos los tests pasan.
 ## Paso 5 — Cierre
 
 Preguntale al usuario:
-- ¿Agregó JSDoc al método nuevo en `assertion.js`? Todos los métodos públicos deben tener `@example`, `@param` y `@returns`.
+- ¿Agregó JSDoc al método nuevo en `assertion.js`? Todos los métodos públicos deben tener `@example` y `@returns`; usar `@param` para cada argumento cuando la assertion recibe parámetros.
 - ¿El PR tiene un solo concepto y viene con tests?
 
 Recordale el mandato del proyecto: *simple, legible, sin magia*.
