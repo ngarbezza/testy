@@ -53,7 +53,7 @@ escribe los tests, el alumno no aprende). Las ideas más interesantes respetan e
   patrones existentes ("no dark magic").
 - **Guardián de simplicidad**: bloquea/avisa en CI cuando un PR agrega dependencias, sube
   complejidad o introduce magia. Defiende el valor #1 del proyecto.
-- **Triage de Renovate**: evaluar si un bump de dependencia/Node es seguro de mergear.
+- **Triage de Dependabot**: evaluar si un bump de dependencia/Node es seguro de mergear.
 
 ### Meta: toolkit de desarrollo con AI
 - **`CLAUDE.md` + skills propias de Testy**: que cualquier maintainer/contributor tenga un
