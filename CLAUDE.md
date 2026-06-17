@@ -20,8 +20,8 @@ npm run lint:fix                  # ESLint auto-fix
 npm run playground:reset          # copy template → tests/playground_test.js
 npm run playground:run            # run playground file
 npm run playground:clear          # delete playground file
-npm run test:coverage              # coverage report via c8 (see reports/coverage/)
-npm run test:mutation              # mutation testing via Stryker (slow, see reports/mutation/)
+npm run test:coverage             # coverage report via c8 (see reports/coverage/)
+npm run test:mutation             # mutation testing via Stryker (slow, see reports/mutation/)
 ```
 
 Node 22+ is required. The repo uses asdf; `.tool-versions` pins `nodejs 22.21.0`.
