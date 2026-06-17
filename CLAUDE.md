@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project DNA
+
+These values act as a filter for every proposed change. Reject anything that violates them.
+
+- **Zero dependencies** — no runtime npm dependencies in library code (see `doc/decisions/0003-zero-dependencies.md`). Refuse any change that adds an `import` from an external package inside `lib/` or `bin/`.
+- **No dark magic** — no Proxies, no monkey-patching, no metaprogramming. Every line must be readable in a classroom without prior explanation.
+- **OOP in the Smalltalk spirit** — behaviour through message sends and polymorphism, not conditionals over types. Add a method to an object before adding a `switch`/`if` chain in a caller.
+
 ## Commands
 
 ```bash
@@ -12,6 +20,8 @@ npm run lint:fix                  # ESLint auto-fix
 npm run playground:reset          # copy template → tests/playground_test.js
 npm run playground:run            # run playground file
 npm run playground:clear          # delete playground file
+npm run test:coverage             # coverage report via c8 (see reports/coverage/)
+npm run test:mutation             # mutation testing via Stryker (slow, see reports/mutation/)
 ```
 
 Node 22+ is required. The repo uses asdf; `.tool-versions` pins `nodejs 22.21.0`.
@@ -74,3 +84,9 @@ Node 22+ is required. The repo uses asdf; `.tool-versions` pins `nodejs 22.21.0`
 **New output format:** create a subclass of `Formatter`, override the event methods you need, register it in `FormatterFactory`.
 
 **New i18n message:** add the key to all four language sections in `lib/i18n/translations.json`, then use `I18nMessage.of('key')` or `this.translated('key')` in a formatter.
+
+## Contributing conventions
+
+- **Self-testing is mandatory** — every feature or fix must be accompanied by a test in `tests/`. If Testy cannot test its own change, something is wrong with the design.
+- **One PR, one concept** — no opportunistic refactors bundled in the same PR.
+- **Run `npm test` and `npm run lint` before opening a PR** — CI will catch failures, but it's faster to catch them locally.
