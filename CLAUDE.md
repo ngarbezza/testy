@@ -82,3 +82,14 @@ Node 22+ is required. The repo uses asdf; `.tool-versions` pins `nodejs 22.21.0`
 **New output format:** create a subclass of `Formatter`, override the event methods you need, register it in `FormatterFactory`.
 
 **New i18n message:** add the key to all four language sections in `lib/i18n/translations.json`, then use `I18nMessage.of('key')` or `this.translated('key')` in a formatter.
+
+## Contributing conventions
+
+- **Self-testing is mandatory** — every feature or fix must be accompanied by a test in `tests/`. If Testy cannot test its own change, something is wrong with the design.
+- **One PR, one concept** — no opportunistic refactors bundled in the same PR.
+- **Extra quality commands:**
+
+```bash
+npm run test:coverage   # coverage report via c8
+npm run test:mutation   # mutation testing via Stryker
+```
