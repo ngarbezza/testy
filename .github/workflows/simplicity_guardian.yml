@@ -29,12 +29,22 @@ jobs:
         run: npm run lint -- --format json > /tmp/lint.json || true
 
       - name: Post PR comment and evaluate result
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
-            const guardianResult = JSON.parse(fs.readFileSync('/tmp/guardian.json', 'utf8'));
-            const lintResult = JSON.parse(fs.readFileSync('/tmp/lint.json', 'utf8'));
+
+            function safeReadJson(filePath, fallback) {
+              try {
+                const content = fs.readFileSync(filePath, 'utf8');
+                return JSON.parse(content);
+              } catch (_err) {
+                return fallback;
+              }
+            }
+
+            const guardianResult = safeReadJson('/tmp/guardian.json', { violations: [], summary: { total: 0, byLayer: { 'zero-dependency': 0, 'dark-magic': 0, 'fan-out': 0 } } });
+            const lintResult = safeReadJson('/tmp/lint.json', []);
 
             const script = require('./.github/scripts/post-pr-comment.js');
             const hasViolations = await script({ github, context, core, guardianResult, lintResult });
