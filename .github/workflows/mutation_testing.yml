@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: 22.x
       - name: Install Deps
-        run: npm install
+        run: npm ci --ignore-scripts
       - name: Install Stryker
-        run: npm install -g @stryker-mutator/core
+        run: npm install -g @stryker-mutator/core --ignore-scripts
       - name: Run Stryker (and report results)
         run: npm run test:mutation:ci
         env:
