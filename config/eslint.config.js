@@ -176,6 +176,14 @@ export default [
           message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
           selector: 'WithStatement',
         },
+        {
+          message: 'Proxy is dark magic — violates no-dark-magic DNA.',
+          selector: 'NewExpression[callee.name="Proxy"]',
+        },
+        {
+          message: 'Object.defineProperty/ies is dark magic — violates no-dark-magic DNA.',
+          selector: 'CallExpression[callee.object.name="Object"][callee.property.name=/^definePropert/u]',
+        },
       ],
       'no-return-assign': 'error',
       'no-script-url': 'error',
@@ -270,12 +278,15 @@ export default [
       'bin/**/*.js',
     ],
     rules: {
+      'class-methods-use-this': 'error',
+      'max-classes-per-file': ['error', 1],
       'max-depth': 'error',
       'max-lines': 'error',
       'max-lines-per-function': 'error',
       'max-nested-callbacks': 'error',
       'max-params': ['error', { max: 4 }],
       'max-statements': 'error',
+      'no-else-return': 'error',
     },
   },
   {
@@ -292,6 +303,18 @@ export default [
       'no-return-assign': 'off',
       'no-self-compare': 'off',
       'no-throw-literal': 'off',
+    },
+  },
+  {
+    name: 'testy-core-layer-guard',
+    files: ['lib/core/**/*.js'],
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [{
+          group: ['*/ui/*', '../ui/*'],
+          message: 'core/ must not depend on ui/ — violates the dependency direction (bin → ui → core)',
+        }],
+      }],
     },
   },
 ];
