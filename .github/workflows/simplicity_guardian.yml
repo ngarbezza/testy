@@ -1,0 +1,44 @@
+name: Simplicity Guardian
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run simplicity guardian
+        run: node bin/simplicity-guardian.js --format json > /tmp/guardian.json || true
+
+      - name: Run ESLint (JSON output)
+        run: npm run lint -- --format json > /tmp/lint.json || true
+
+      - name: Post PR comment and evaluate result
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const guardianResult = JSON.parse(fs.readFileSync('/tmp/guardian.json', 'utf8'));
+            const lintResult = JSON.parse(fs.readFileSync('/tmp/lint.json', 'utf8'));
+
+            const script = require('./.github/scripts/post-pr-comment.js');
+            const hasViolations = await script({ github, context, core, guardianResult, lintResult });
+
+            if (hasViolations) {
+              core.setFailed('Simplicity violations found — see PR comment for details');
+            }
