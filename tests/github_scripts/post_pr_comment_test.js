@@ -1,10 +1,11 @@
 import { createRequire } from 'module';
 import { assert, suite, test } from '../../lib/testy.js';
 
+// post-pr-comment uses CommonJS (module.exports) because it is loaded via require() inside actions/github-script
 const require = createRequire(import.meta.url);
 const script = require('../../.github/scripts/post-pr-comment.cjs');
 
-const { buildViolationsComment, buildCleanComment, formatGuardianLayer, formatEslintSection } = script;
+const { buildViolationsComment, buildCleanComment, formatGuardianLayer, formatEslintSection, countEslintErrors } = script;
 
 suite('post-pr-comment formatting', () => {
   suite('formatGuardianLayer', () => {
@@ -77,6 +78,20 @@ suite('post-pr-comment formatting', () => {
     test('includes all checks passed message', () => {
       const result = buildCleanComment();
       assert.that(result.includes('✅ All checks passed')).isTrue();
+    });
+  });
+
+  suite('countEslintErrors', () => {
+    test('returns 0 when no results', () => {
+      assert.that(countEslintErrors([])).isEqualTo(0);
+    });
+
+    test('counts errors (severity 2) across all files', () => {
+      const lintResult = [
+        { filePath: 'lib/a.js', messages: [{ severity: 2, line: 1, message: 'err' }, { severity: 1, line: 2, message: 'warn' }] },
+        { filePath: 'lib/b.js', messages: [{ severity: 2, line: 1, message: 'err' }] },
+      ];
+      assert.that(countEslintErrors(lintResult)).isEqualTo(2);
     });
   });
 });
