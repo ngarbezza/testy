@@ -1,7 +1,7 @@
 # Ideas de AI para Testy
 
 > Documento vivo de exploración.
-> Última actualización: 2026-06-23.
+> Última actualización: 2026-06-29.
 
 **Leyenda de estados:** ✅ hecho · 🔄 en curso · 🔲 pendiente
 
@@ -198,7 +198,7 @@ cubierto sin él, y el benchmark de costo funciona igual con Bash + JSON output.
 
 ### En el radar (segunda ola)
 
-- 🔲 **Guardián de simplicidad (CI)**: predica con el ejemplo; refuerza el relato (D3).
+- 🔄 **Guardián de simplicidad (CI)**: predica con el ejemplo; refuerza el relato (D3).
 - 🔲 **Tutor de TDD socrático**: la gran apuesta **pedagógica** (D2b). Candidata fuerte a
   "identidad AI" de Testy.
 - 🔲 **Asistente de mutantes (Stryker)**, **explicación de fallos en NL**, **i18n asistido**.
