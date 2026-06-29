@@ -7,6 +7,7 @@ export default [
       'doc/**/*.mjs',
       'doc/**/*.cjs',
       'doc/**/*.js',
+      '.github/scripts/**/*.cjs',
     ],
     languageOptions: {
       ecmaVersion: 'latest',

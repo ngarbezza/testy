@@ -46,7 +46,7 @@ jobs:
             const guardianResult = safeReadJson('/tmp/guardian.json', { violations: [], summary: { total: 0, byLayer: { 'zero-dependency': 0, 'dark-magic': 0, 'fan-out': 0 } } });
             const lintResult = safeReadJson('/tmp/lint.json', []);
 
-            const script = require('./.github/scripts/post-pr-comment.js');
+            const script = require('./.github/scripts/post-pr-comment.cjs');
             const hasViolations = await script({ github, context, core, guardianResult, lintResult });
 
             if (hasViolations) {
