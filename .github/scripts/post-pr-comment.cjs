@@ -11,6 +11,10 @@ function formatGuardianLayer(violations, layer, label) {
   return `### ❌ ${label} (${layerViolations.length})\n${items}`;
 }
 
+function countEslintErrors(lintResult) {
+  return lintResult.flatMap(file => file.messages.filter(msg => msg.severity === 2)).length;
+}
+
 function formatEslintSection(lintResult) {
   const errors = lintResult.flatMap(file =>
     file.messages
@@ -41,7 +45,7 @@ function buildCleanComment() {
 }
 
 async function findExistingComment(github, context) {
-  const { data: comments } = await github.rest.issues.listComments({
+  const comments = await github.paginate(github.rest.issues.listComments, {
     owner: context.repo.owner,
     repo: context.repo.repo,
     issue_number: context.issue.number,
@@ -68,7 +72,16 @@ async function upsertComment(github, context, body, existingComment) {
 }
 
 module.exports = async function postPrComment({ github, context, core, guardianResult, lintResult }) {
-  const eslintErrors = lintResult.flatMap(file => file.messages.filter(msg => msg.severity === 2)).length;
+  if (!guardianResult || typeof guardianResult.summary?.total !== 'number') {
+    core.setFailed('Simplicity Guardian: invalid guardianResult — check that the guardian script ran successfully');
+    return true;
+  }
+  if (!Array.isArray(lintResult)) {
+    core.setFailed('Simplicity Guardian: invalid lintResult — check that ESLint ran successfully');
+    return true;
+  }
+
+  const eslintErrors = countEslintErrors(lintResult);
   const hasViolations = guardianResult.summary.total > 0 || eslintErrors > 0;
 
   const existingComment = await findExistingComment(github, context);
@@ -91,3 +104,4 @@ module.exports.buildViolationsComment = buildViolationsComment;
 module.exports.buildCleanComment = buildCleanComment;
 module.exports.formatGuardianLayer = formatGuardianLayer;
 module.exports.formatEslintSection = formatEslintSection;
+module.exports.countEslintErrors = countEslintErrors;
