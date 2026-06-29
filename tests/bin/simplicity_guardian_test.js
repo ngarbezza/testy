@@ -40,6 +40,14 @@ suite('simplicity guardian — detection functions', () => {
       const source = "import { foo } from '/absolute/path.js';";
       assert.that(detectExternalImports(source, 'lib/test.js')).isEmpty();
     });
+
+    test('detects a side-effect external import (without from clause)', async() => {
+      const source = "import 'chalk';";
+      const violations = detectExternalImports(source, 'lib/test.js');
+
+      assert.that(violations.length).isEqualTo(1);
+      assert.isTrue(violations[0].message.includes('chalk'));
+    });
   });
 
   suite('detectDarkMagic', () => {
@@ -70,6 +78,17 @@ suite('simplicity guardian — detection functions', () => {
       const violations = detectDarkMagic(source, 'lib/test.js');
 
       assert.that(violations.length).isEqualTo(1);
+      assert.isTrue(violations[0].message.includes('Object.defineProperty'));
+    });
+
+    test('detects multiple patterns in the same source', async() => {
+      const source = [
+        'const proxy = new Proxy(target, handler);',
+        'obj.__proto__ = parent;',
+      ].join('\n');
+      const violations = detectDarkMagic(source, 'lib/test.js');
+
+      assert.that(violations.length).isEqualTo(2);
     });
 
     test('detects __proto__ assignment', async() => {

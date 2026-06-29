@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const EXTERNAL_IMPORT_PATTERN = /^import\s+.+\s+from\s+['"](?!\.|\/|node:)/u;
+const EXTERNAL_IMPORT_PATTERN = /^import\s+(?:.+\s+from\s+)?['"](?!\.|\/|node:)(?<pkg>[^'"]+)['"]/u;
 const FAN_OUT_THRESHOLD = 7;
 const DARK_MAGIC_PATTERNS = [
   { pattern: /new\s+Proxy\s*\(/u, label: 'Proxy' },
@@ -13,12 +13,12 @@ export function detectExternalImports(source, filePath) {
     .map((line, index) => ({ line, lineNumber: index + 1 }))
     .filter(({ line }) => EXTERNAL_IMPORT_PATTERN.test(line))
     .map(({ line, lineNumber }) => {
-      const [, packageName] = line.match(/from\s+['"](?<pkg>[^'"]+)['"]/u) ?? [];
+      const { pkg: packageName } = line.match(EXTERNAL_IMPORT_PATTERN)?.groups ?? {};
       return {
         layer: 'zero-dependency',
         file: filePath,
         line: lineNumber,
-        message: `External import '${packageName}' — violates zero-dependency DNA`,
+        message: `External import '${packageName ?? '(unknown)'}' — violates zero-dependency DNA`,
       };
     });
 }
@@ -38,6 +38,7 @@ export function detectDarkMagic(source, filePath) {
 }
 
 export function detectHighFanOut(source, filePath) {
+  // Count all imports regardless of source — total coupling is what matters
   const importCount = source.split('\n')
     .filter(line => /^import\s+.+\s+from\s+/u.test(line))
     .length;
