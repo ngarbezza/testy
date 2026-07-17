@@ -3,6 +3,9 @@ import {
   detectExternalImports,
   detectMetaprogramming,
   detectHighFanOut,
+  analyzeFile,
+  buildSummary,
+  formatTextOutput,
 } from '../../bin/simplicity-guardian.js';
 
 suite('simplicity guardian — detection functions', () => {
@@ -126,6 +129,59 @@ suite('simplicity guardian — detection functions', () => {
         `import { x${index} } from './x${index}.js';`,
       ).join('\n');
       assert.that(detectHighFanOut(imports, 'lib/test.js')).isEmpty();
+    });
+  });
+
+  suite('analyzeFile', () => {
+    test('returns no violations for the guardian script itself', async() => {
+      const violations = analyzeFile('bin/simplicity-guardian.js');
+      assert.that(violations).isEmpty();
+    });
+
+    test('returns violations when the file has metaprogramming patterns', async() => {
+      const violations = analyzeFile('tests/bin/fixtures/metaprogramming_file.js');
+      assert.that(violations.length).isEqualTo(1);
+      assert.that(violations[0].layer).isEqualTo('metaprogramming');
+    });
+  });
+
+  suite('buildSummary', () => {
+    test('returns zero counts when there are no violations', async() => {
+      const summary = buildSummary([]);
+      assert.that(summary.total).isEqualTo(0);
+      assert.that(summary.byLayer['zero-dependency']).isEqualTo(0);
+      assert.that(summary.byLayer.metaprogramming).isEqualTo(0);
+      assert.that(summary.byLayer['fan-out']).isEqualTo(0);
+    });
+
+    test('counts violations by layer', async() => {
+      const violations = [
+        { layer: 'zero-dependency', file: 'lib/a.js', line: 1, message: 'msg' },
+        { layer: 'metaprogramming', file: 'lib/b.js', line: 2, message: 'msg' },
+        { layer: 'zero-dependency', file: 'lib/c.js', line: 3, message: 'msg' },
+      ];
+      const summary = buildSummary(violations);
+      assert.that(summary.total).isEqualTo(3);
+      assert.that(summary.byLayer['zero-dependency']).isEqualTo(2);
+      assert.that(summary.byLayer.metaprogramming).isEqualTo(1);
+      assert.that(summary.byLayer['fan-out']).isEqualTo(0);
+    });
+  });
+
+  suite('formatTextOutput', () => {
+    test('returns success message when there are no violations', async() => {
+      const output = formatTextOutput([]);
+      assert.isTrue(output.includes('all checks passed'));
+    });
+
+    test('formats each violation as a line with file, layer and message', async() => {
+      const violations = [
+        { layer: 'zero-dependency', file: 'lib/a.js', line: 5, message: "External import 'chalk'" },
+      ];
+      const output = formatTextOutput(violations);
+      assert.isTrue(output.includes('lib/a.js:5'));
+      assert.isTrue(output.includes('[zero-dependency]'));
+      assert.isTrue(output.includes("External import 'chalk'"));
     });
   });
 

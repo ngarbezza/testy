@@ -1,0 +1,1 @@
+const proxy = new Proxy({}, {});

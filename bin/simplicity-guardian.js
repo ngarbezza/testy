@@ -5,7 +5,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-const EXTERNAL_IMPORT_PATTERN = /^import\s+(?:.+\s+from\s+)?['"](?!\.|\/|node:)(?<pkg>[^'"]+)['"]/u;
+const EXTERNAL_IMPORT_PATTERN = /^import\s+(?:.+?\s+from\s+)?['"](?!\.|\/|node:)(?<pkg>[^'"]+)['"]/u;
 const FAN_OUT_THRESHOLD = 7;
 // Object.defineProperty is also caught by ESLint no-restricted-syntax (AST-based).
 // We keep it here too so the guardian produces a unified JSON report that drives the PR comment
@@ -48,7 +48,7 @@ export function detectMetaprogramming(source, filePath) {
 export function detectHighFanOut(source, filePath) {
   // Count all imports regardless of source — total coupling is what matters
   const importCount = source.split('\n')
-    .filter(line => /^import\s+.+\s+from\s+/u.test(line))
+    .filter(line => /^import\s+.+?\s+from\s+/u.test(line))
     .length;
   if (importCount <= FAN_OUT_THRESHOLD) {
     return [];
@@ -81,7 +81,7 @@ function collectFiles(dir) {
     });
 }
 
-function buildSummary(violations) {
+export function buildSummary(violations) {
   return {
     total: violations.length,
     byLayer: {
@@ -92,7 +92,7 @@ function buildSummary(violations) {
   };
 }
 
-function formatTextOutput(violations) {
+export function formatTextOutput(violations) {
   if (violations.length === 0) {
     return '✅ Simplicity Guardian: all checks passed\n';
   }

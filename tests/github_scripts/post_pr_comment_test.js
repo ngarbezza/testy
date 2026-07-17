@@ -1,4 +1,4 @@
-import { createRequire } from 'module';
+import { createRequire } from 'node:module';
 import { assert, suite, test } from '../../lib/testy.js';
 
 // comment.cjs uses CommonJS (module.exports) because it is loaded via require() inside actions/github-script
