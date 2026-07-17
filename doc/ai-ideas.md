@@ -1,7 +1,9 @@
 # Ideas de AI para Testy
 
-> Documento vivo de exploración. Estado: **recolección de ideas** (etapa divergente).
-> Última actualización: 2026-06-05.
+> Documento vivo de exploración.
+> Última actualización: 2026-06-23.
+
+**Leyenda de estados:** ✅ hecho · 🔄 en curso · 🔲 pendiente
 
 El objetivo de este documento es recolectar ideas sobre cómo incorporar AI en Testy
 en tres dimensiones: el **ciclo de vida de desarrollo**, la **evolución del producto**
@@ -175,25 +177,29 @@ CLAUDE.md + skills   ─┼─►  MCP server  ─►  Benchmark de costo agént
 ### Roadmap por fases (lente D2a-dominante)
 
 **Fase 0 — Quick wins que alimentan la tesis de costo**
-1. **Output / reporter LLM-friendly**: modo de salida compacto y parseable (estructurado o
+1. ✅ **Output / reporter LLM-friendly**: modo de salida compacto y parseable (estructurado o
    tipo TAP), pensado para que un agente lo consuma con pocos tokens. Es la base medible de la
-   tesis y de bajo esfuerzo. _(D2a alto, costo bajo)_
-2. **`CLAUDE.md` + skills propias**: dogfooding; deja a Testy "listo para agentes" y demuestra
-   que una tool simple se integra sin fricción. _(costo bajo, habilitador)_
+   tesis y de bajo esfuerzo. _(D2a alto, costo bajo)_ — [PR #382](https://github.com/ngarbezza/testy/pull/382)
+2. ✅ **`CLAUDE.md` + skills propias**: dogfooding; deja a Testy "listo para agentes" y demuestra
+   que una tool simple se integra sin fricción. _(costo bajo, habilitador)_ — [PR #389](https://github.com/ngarbezza/testy/pull/389)
 
-**Fase 1 — Keystone**
-3. **MCP server de Testy**: permite que un agente corra tests, lea resultados e itere TDD de
-   forma estructurada. Habilita el benchmark y el uso agéntico. _(D1/D3 alto, costo medio)_
+~~**Fase 1 — Keystone**~~  
+~~3. **MCP server de Testy**~~ — **descartado**. El output JSON/TAP ya permite que un agente corra
+`npm test` vía Bash y lea resultados estructurados. Un MCP server agregaría ergonomía marginal
+(herramientas con nombre semántico, objetos tipados) pero violaría zero-dependencies — cualquier
+implementación real requiere el SDK de MCP. El caso de uso primario (agente haciendo TDD) está
+cubierto sin él, y el benchmark de costo funciona igual con Bash + JSON output.
 
-**Fase 2 — Flagship: la tesis hecha carne**
-4. **Benchmark de costo agéntico**: experimento medible (tokens, costo, nº de iteraciones hasta
+**Fase 1 — Flagship: la tesis hecha carne**
+3. 🔄 **Benchmark de costo agéntico**: experimento medible (tokens, costo, nº de iteraciones hasta
    verde) de un agente haciendo TDD con Testy vs. herramientas pesadas. Material publicable
-   (blog/charla/README). _(D2a alto, D1/D3 alto, costo medio; depende de 1 y 3)_
+   (blog/charla/README). _(D2a alto, D1/D3 alto, costo medio; depende de items 1 y 2)_ — repo:
+   [testy-benchmark](https://github.com/ngarbezza/testy-benchmark)
 
-### En el radar (segunda ola, no ahora)
+### En el radar (segunda ola)
 
-- **Guardián de simplicidad (CI)**: predica con el ejemplo; refuerza el relato (D3).
-- **Tutor de TDD socrático**: la gran apuesta **pedagógica** (D2b). Queda para una segunda ola
-  porque hoy manda D2a, pero es candidata fuerte a "identidad AI" de Testy.
-- **Asistente de mutantes (Stryker)**, **explicación de fallos en NL**, **i18n asistido**.
-- **Bots de comunidad / dashboards docentes**: valiosos, pero bajos contra los drivers actuales.
+- 🔲 **Guardián de simplicidad (CI)**: predica con el ejemplo; refuerza el relato (D3).
+- 🔲 **Tutor de TDD socrático**: la gran apuesta **pedagógica** (D2b). Candidata fuerte a
+  "identidad AI" de Testy.
+- 🔲 **Asistente de mutantes (Stryker)**, **explicación de fallos en NL**, **i18n asistido**.
+- 🔲 **Bots de comunidad / dashboards docentes**: valiosos, pero bajos contra los drivers actuales.
