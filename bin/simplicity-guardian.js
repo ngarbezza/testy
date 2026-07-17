@@ -7,7 +7,10 @@ import { fileURLToPath } from 'node:url';
 
 const EXTERNAL_IMPORT_PATTERN = /^import\s+(?:.+\s+from\s+)?['"](?!\.|\/|node:)(?<pkg>[^'"]+)['"]/u;
 const FAN_OUT_THRESHOLD = 7;
-const DARK_MAGIC_PATTERNS = [
+// Object.defineProperty is also caught by ESLint no-restricted-syntax (AST-based).
+// We keep it here too so the guardian produces a unified JSON report that drives the PR comment
+// independently of ESLint's separate output.
+const METAPROGRAMMING_PATTERNS = [
   { pattern: /new\s+Proxy\s*\(/u, label: 'Proxy' },
   { pattern: /Object\.definePropert(?:y|ies)\s*\(/u, label: 'Object.defineProperty' },
   { pattern: /__proto__\s*=/u, label: '__proto__ assignment' },
@@ -28,16 +31,16 @@ export function detectExternalImports(source, filePath) {
     });
 }
 
-export function detectDarkMagic(source, filePath) {
+export function detectMetaprogramming(source, filePath) {
   return source.split('\n')
     .flatMap((line, index) =>
-      DARK_MAGIC_PATTERNS
+      METAPROGRAMMING_PATTERNS
         .filter(({ pattern }) => pattern.test(line))
         .map(({ label }) => ({
-          layer: 'dark-magic',
+          layer: 'metaprogramming',
           file: filePath,
           line: index + 1,
-          message: `'${label}' is dark magic — violates no-dark-magic DNA`,
+          message: `'${label}' is a metaprogramming pattern — Testy avoids runtime interception`,
         })),
     );
 }
@@ -62,7 +65,7 @@ export function analyzeFile(filePath) {
   const source = fs.readFileSync(filePath, 'utf8');
   return [
     ...detectExternalImports(source, filePath),
-    ...detectDarkMagic(source, filePath),
+    ...detectMetaprogramming(source, filePath),
     ...detectHighFanOut(source, filePath),
   ];
 }
@@ -83,7 +86,7 @@ function buildSummary(violations) {
     total: violations.length,
     byLayer: {
       'zero-dependency': violations.filter(violation => violation.layer === 'zero-dependency').length,
-      'dark-magic': violations.filter(violation => violation.layer === 'dark-magic').length,
+      metaprogramming: violations.filter(violation => violation.layer === 'metaprogramming').length,
       'fan-out': violations.filter(violation => violation.layer === 'fan-out').length,
     },
   };

@@ -1,9 +1,9 @@
 import { createRequire } from 'module';
 import { assert, suite, test } from '../../lib/testy.js';
 
-// post-pr-comment uses CommonJS (module.exports) because it is loaded via require() inside actions/github-script
+// comment.cjs uses CommonJS (module.exports) because it is loaded via require() inside actions/github-script
 const require = createRequire(import.meta.url);
-const script = require('../../.github/scripts/post-pr-comment.cjs');
+const script = require('../../.github/scripts/simplicity-guardian/comment.cjs');
 
 const { buildViolationsComment, buildCleanComment, formatGuardianLayer, formatEslintSection, countEslintErrors } = script;
 
@@ -24,7 +24,7 @@ suite('post-pr-comment formatting', () => {
 
     test('filters violations by layer', () => {
       const violations = [
-        { layer: 'dark-magic', file: 'lib/core/test.js', line: 5, message: 'Proxy is dark magic' },
+        { layer: 'metaprogramming', file: 'lib/core/test.js', line: 5, message: "'Proxy' is a metaprogramming pattern — Testy avoids runtime interception" },
         { layer: 'zero-dependency', file: 'lib/ui/formatter.js', line: 3, message: "External import 'chalk'" },
       ];
       const result = formatGuardianLayer(violations, 'zero-dependency', 'Zero-dependency');

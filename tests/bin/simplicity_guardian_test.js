@@ -1,7 +1,7 @@
 import { assert, suite, test } from '../../lib/testy.js';
 import {
   detectExternalImports,
-  detectDarkMagic,
+  detectMetaprogramming,
   detectHighFanOut,
 } from '../../bin/simplicity-guardian.js';
 
@@ -50,24 +50,24 @@ suite('simplicity guardian — detection functions', () => {
     });
   });
 
-  suite('detectDarkMagic', () => {
+  suite('detectMetaprogramming', () => {
     test('returns empty array for clean code', async() => {
       const source = 'const x = 42;';
-      assert.that(detectDarkMagic(source, 'lib/test.js')).isEmpty();
+      assert.that(detectMetaprogramming(source, 'lib/test.js')).isEmpty();
     });
 
     test('detects new Proxy', async() => {
       const source = 'const proxy = new Proxy(target, handler);';
-      const violations = detectDarkMagic(source, 'lib/test.js');
+      const violations = detectMetaprogramming(source, 'lib/test.js');
 
       assert.that(violations.length).isEqualTo(1);
-      assert.that(violations[0].layer).isEqualTo('dark-magic');
+      assert.that(violations[0].layer).isEqualTo('metaprogramming');
       assert.isTrue(violations[0].message.includes('Proxy'));
     });
 
     test('detects Object.defineProperty', async() => {
       const source = 'Object.defineProperty(obj, "key", { value: 1 });';
-      const violations = detectDarkMagic(source, 'lib/test.js');
+      const violations = detectMetaprogramming(source, 'lib/test.js');
 
       assert.that(violations.length).isEqualTo(1);
       assert.isTrue(violations[0].message.includes('Object.defineProperty'));
@@ -75,7 +75,7 @@ suite('simplicity guardian — detection functions', () => {
 
     test('detects Object.defineProperties', async() => {
       const source = 'Object.defineProperties(obj, { key: { value: 1 } });';
-      const violations = detectDarkMagic(source, 'lib/test.js');
+      const violations = detectMetaprogramming(source, 'lib/test.js');
 
       assert.that(violations.length).isEqualTo(1);
       assert.isTrue(violations[0].message.includes('Object.defineProperty'));
@@ -86,14 +86,14 @@ suite('simplicity guardian — detection functions', () => {
         'const proxy = new Proxy(target, handler);',
         'obj.__proto__ = parent;',
       ].join('\n');
-      const violations = detectDarkMagic(source, 'lib/test.js');
+      const violations = detectMetaprogramming(source, 'lib/test.js');
 
       assert.that(violations.length).isEqualTo(2);
     });
 
     test('detects __proto__ assignment', async() => {
       const source = 'obj.__proto__ = parent;';
-      const violations = detectDarkMagic(source, 'lib/test.js');
+      const violations = detectMetaprogramming(source, 'lib/test.js');
 
       assert.that(violations.length).isEqualTo(1);
       assert.isTrue(violations[0].message.includes('__proto__'));

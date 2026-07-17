@@ -32,23 +32,5 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const fs = require('fs');
-
-            function safeReadJson(filePath, fallback) {
-              try {
-                const content = fs.readFileSync(filePath, 'utf8');
-                return JSON.parse(content);
-              } catch (_err) {
-                return fallback;
-              }
-            }
-
-            const guardianResult = safeReadJson('/tmp/guardian.json', { violations: [], summary: { total: 0, byLayer: { 'zero-dependency': 0, 'dark-magic': 0, 'fan-out': 0 } } });
-            const lintResult = safeReadJson('/tmp/lint.json', []);
-
-            const script = require('./.github/scripts/post-pr-comment.cjs');
-            const hasViolations = await script({ github, context, core, guardianResult, lintResult });
-
-            if (hasViolations) {
-              core.setFailed('Simplicity violations found — see PR comment for details');
-            }
+            const run = require('./.github/scripts/simplicity-guardian/entrypoint.cjs');
+            await run({ github, context, core });

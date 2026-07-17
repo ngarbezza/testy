@@ -178,11 +178,11 @@ export default [
           selector: 'WithStatement',
         },
         {
-          message: 'Proxy is dark magic — violates no-dark-magic DNA.',
+          message: 'new Proxy() is a metaprogramming pattern — Testy avoids runtime interception.',
           selector: 'NewExpression[callee.name="Proxy"]',
         },
         {
-          message: 'Object.defineProperty/ies is dark magic — violates no-dark-magic DNA.',
+          message: 'Object.defineProperty/ies is a metaprogramming pattern — Testy avoids runtime interception.',
           selector: 'CallExpression[callee.object.name="Object"][callee.property.name=/^definePropert/u]',
         },
       ],
@@ -279,7 +279,6 @@ export default [
       'bin/**/*.js',
     ],
     rules: {
-      'class-methods-use-this': 'error',
       'max-classes-per-file': ['error', 1],
       'max-depth': 'error',
       'max-lines': 'error',

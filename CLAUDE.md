@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 These values act as a filter for every proposed change. Reject anything that violates them.
 
 - **Zero dependencies** — no runtime npm dependencies in library code (see `doc/decisions/0003-zero-dependencies.md`). Refuse any change that adds an `import` from an external package inside `lib/` or `bin/`.
-- **No dark magic** — no Proxies, no monkey-patching, no metaprogramming. Every line must be readable in a classroom without prior explanation.
+- **No metaprogramming** — no Proxies, no `Object.defineProperty`, no `__proto__` assignment. Every property access must follow the normal prototype chain. Every line must be readable in a classroom without prior explanation.
 - **OOP in the Smalltalk spirit** — behaviour through message sends and polymorphism, not conditionals over types. Add a method to an object before adding a `switch`/`if` chain in a caller.
 
 ## Commands
@@ -65,6 +65,26 @@ Node 22+ is required. The repo uses asdf; `.tool-versions` pins `nodejs 22.21.0`
 - **`tests_factory.js`** — factories for `Test` instances in each result state (`aPassingTest`, `aFailingTest`, `anErroredTest`, `aPendingTest`, `anExplicitlySkippedTest`). Factories accept an `asserter` argument.
 - **`formatter_helpers.js`** — `runResultsWith(suiteName, ...factories)` runs tests and returns `{ runner, suite }`; `driveFormatter(formatter, runner, suite)` replays the full event stream into a formatter.
 - **`runner_helpers.js` / `suites_factory.js`** — lower-level helpers for building runners and suites in tests.
+
+## Simplicity Guardian
+
+A CI check that blocks PRs violating Testy's simplicity contract. It runs on every PR against `main`.
+See `doc/decisions/0017-simplicity-guardian.md` for the full decision record.
+
+**Run locally:**
+```bash
+node bin/simplicity-guardian.js          # text output, exits 1 on violations
+node bin/simplicity-guardian.js --format json   # machine-readable output
+```
+
+**Three layers checked:**
+- **Zero-dependency** — no external package imports in `lib/` or `bin/`
+- **Metaprogramming** — no `new Proxy`, `Object.defineProperty`, or `__proto__=`
+- **Fan-out** — no file with more than 7 imports
+
+**ESLint note:** `class-methods-use-this` is intentionally absent from Testy's ESLint config.
+In Smalltalk-style OOP, methods are polymorphic message handlers — a method that doesn't reference
+`this` today may still be meant for subclass override. OO purity takes precedence over JS idioms.
 
 ## Key conventions
 

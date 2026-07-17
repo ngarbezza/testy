@@ -34,7 +34,7 @@ function buildViolationsComment(guardianResult, lintResult) {
     '## 🛡️ Simplicity Guardian',
     '',
     formatGuardianLayer(violations, 'zero-dependency', 'Zero-dependency'),
-    formatGuardianLayer(violations, 'dark-magic', 'No dark magic'),
+    formatGuardianLayer(violations, 'metaprogramming', 'Metaprogramming'),
     formatGuardianLayer(violations, 'fan-out', 'Fan-out'),
     formatEslintSection(lintResult),
   ].join('\n');
