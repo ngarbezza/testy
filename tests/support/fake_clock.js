@@ -17,7 +17,7 @@ export class FakeClock {
   }
 
   now() {
-    const { [this.#index]: instant } = this.#instants;
+    const instant = this.#instants[this.#index];
     if (this.#index < this.#instants.length - 1) {
       this.#index += 1;
     }
