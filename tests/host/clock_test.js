@@ -28,4 +28,10 @@ suite('fake clock', () => {
     assert.that(clock.now()).isEqualTo(5);
     assert.that(clock.now()).isEqualTo(5);
   });
+
+  test('defaults to instant zero when created with no instants', () => {
+    const clock = FakeClock.startingAt();
+    assert.that(clock.now()).isEqualTo(0);
+    assert.that(clock.now()).isEqualTo(0);
+  });
 });
