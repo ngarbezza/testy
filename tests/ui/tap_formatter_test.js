@@ -4,13 +4,14 @@ import { runResultsWith, driveFormatter } from '../support/formatter_helpers.js'
 import { TapFormatter } from '../../lib/ui/tap_formatter.js';
 import { I18n } from '../../lib/i18n/i18n.js';
 import { FakeConsole } from './fake_console.js';
+import { FakeClock } from '../support/fake_clock.js';
 
 suite('tap formatter', () => {
   let formatter, fakeConsole;
 
   before(() => {
     fakeConsole = new FakeConsole();
-    formatter = new TapFormatter(fakeConsole, I18n.default());
+    formatter = new TapFormatter(fakeConsole, I18n.default(), FakeClock.startingAt(1000, 1350));
   });
 
   test('emits the TAP version header on initial information', () => {
@@ -57,5 +58,11 @@ suite('tap formatter', () => {
     assert.that(messages).includes('not ok 1 - an unexpected error');
     assert.that(messages).includes('  severity: error');
     assert.that(messages).includes('# error 1');
+  });
+
+  test('reports the elapsed time from the injected clock', async() => {
+    const { runner, suite: ranSuite } = await runResultsWith('s', aPassingTest);
+    driveFormatter(formatter, runner, ranSuite);
+    assert.that(fakeConsole.messages()).includes('# time 350ms');
   });
 });
