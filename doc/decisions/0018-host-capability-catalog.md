@@ -1,4 +1,4 @@
-# 17. Host capability catalog
+# 18. Host capability catalog
 
 Date: 2026-07-22
 
