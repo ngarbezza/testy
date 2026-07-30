@@ -4,6 +4,7 @@ import { runResultsWith, driveFormatter } from '../support/formatter_helpers.js'
 import { JsonFormatter } from '../../lib/ui/json_formatter.js';
 import { I18n } from '../../lib/i18n/i18n.js';
 import { FakeConsole } from './fake_console.js';
+import { FakeClock } from '../support/fake_clock.js';
 
 suite('json formatter', () => {
   let formatter, fakeConsole;
@@ -12,7 +13,7 @@ suite('json formatter', () => {
 
   before(() => {
     fakeConsole = new FakeConsole();
-    formatter = new JsonFormatter(fakeConsole, I18n.default());
+    formatter = new JsonFormatter(fakeConsole, I18n.default(), FakeClock.startingAt(1000, 1350));
   });
 
   test('emits exactly one JSON document', async() => {
@@ -40,7 +41,7 @@ suite('json formatter', () => {
     assert.that(summary.errored).isEqualTo(1);
     assert.that(summary.pending).isEqualTo(1);
     assert.that(summary.skipped).isEqualTo(1);
-    assert.that(summary.durationMs).isGreaterThanOrEqualTo(0);
+    assert.that(summary.durationMs).isEqualTo(350);
   });
 
   test('records each test name, status, and the suite file', async() => {
