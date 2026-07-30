@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Configuration - Documentation</title>
+    <title>host/clock.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,142 +29,29 @@
 
 <div id="main">
     
-    <h1 class="page-title">Configuration</h1>
+    <h1 class="page-title">host/clock.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Configuration
-        </h2>
-        
-            <div class="class-description"><p>I load, parse and expose the user configuration parameters. I merge the user configurations with the tool defaults,
-the users choices are prioritary.</p>
-<p>Please refer to <code>.testyrc.json</code> file in the root folder to see all the configuration options available.</p></div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="Configuration"><span class="type-signature"></span>new Configuration<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="config_configuration.js.html">config/configuration.js</a>, <a href="config_configuration.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Configuration.html">Configuration</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * I am the host clock: the source of the current time. Isolating time behind a message
+ * send lets tests inject a deterministic clock (the test-double exception of decision
+ * 0005, since the clock is an external system we cannot control). See decision 0018.
+ */
+export class SystemClock {
+  now() {
+    return Date.now();
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
