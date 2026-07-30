@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>core/test_suite.js - Documentation</title>
+    <title>TestFileLoader - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,281 +29,144 @@
 
 <div id="main">
     
-    <h1 class="page-title">core/test_suite.js</h1>
+    <h1 class="page-title">TestFileLoader</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import { isFunction, isStringWithContent, isUndefined, shuffle } from '../utils/index.js';
-import { SuiteLocation } from '../location/suite_location.js';
+        <h2>
+        TestFileLoader
+        </h2>
+        
+            <div class="class-description"><p>I discover, transpile (when needed), load and clean up the test files matching a
+given set of paths and a filter. I am injected with <code>ui</code> and <code>testRunner</code> so I can
+report progress and errors the same way <code>Testy</code> does. Extracting me out of <code>Testy</code>
+keeps <code>lib/testy.js</code>'s import count under the Simplicity Guardian's fan-out
+threshold (see decision 0017).</p></div>
+        
+    
+</header>
 
-/**
- * I represent a grouping of [tests]{@link Test} under a name, that will be executed by a
- * [runner]{@link TestRunner}. I can run some code [before]{@link TestSuite#before} and
- * [after]{@link TestSuite#after} each test.
- */
-export class TestSuite {
-  #name;
-  #body;
-  #tests;
-  #currentTest;
-  #callbacks;
-  #before;
-  #after;
-  #isSkipped;
-  #location;
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-  static BEFORE_HOOK_NAME = 'before';
-  static AFTER_HOOK_NAME = 'after';
+    
+    <h2>Constructor</h2>
+    
 
-  // Error messages
+    <h4 class="name" id="TestFileLoader"><span class="type-signature"></span>new TestFileLoader<span class="signature">()</span><span class="type-signature"></span></h4>
 
-  static invalidSuiteNameErrorMessage() {
-    return 'Suite does not have a valid name. Please enter a non-empty string to name this suite.';
-  }
+    
 
-  static invalidSuiteDefinitionBodyErrorMessage() {
-    return 'Suite does not have a valid body. Please provide a function to declare the suite body.';
-  }
 
-  static alreadyDefinedHookErrorMessage(hookName) {
-    return `There is already a ${hookName}() block. Please leave just one ${hookName}() block and run again the tests.`;
-  }
 
-  static hookWasNotInitializedWithAFunctionErrorMessage(hookName) {
-    return `The ${hookName}() hook must include a function. Please provide a function or remove the ${hookName}() and run again the tests.`;
-  }
 
-  // Instance creation
 
-  constructor(name, body, callbacks, pathLocation) {
-    this.#initializeName(name);
-    this.#initializeBody(body);
-    this.#initializeLocation(pathLocation);
-    this.#tests = [];
-    this.#callbacks = callbacks;
-    this.#before = undefined;
-    this.#after = undefined;
-    this.#isSkipped = false;
-  }
 
-  // Initializing / Configuring
 
-  /**
-   * Adds a new test to the suite.
-   *
-   * @param {!Test} test the test we'd like to add.
-   * @returns {void}
-   */
-  addTest(test) {
-    this.#tests.push(test);
-  }
+<dl class="details">
 
-  /**
-   * Registers a piece of code that should be executed before each test. There should be one `before` per suite, so it
-   * will fail if there's already a `before` block in the suite.
-   *
-   * @param {!Function} initializationBlock the code you'd like to execute before each test.
-   * @returns {void}
-   */
-  before(initializationBlock) {
-    this.#validateHook(TestSuite.BEFORE_HOOK_NAME, initializationBlock, this.#before);
+    
 
-    this.#before = initializationBlock;
-  }
+    
 
-  /**
-   * Registers a piece of code that should be executed after each test. There should be one `after` per suite, so it
-   * will fail if there's already an `after` block in the suite.
-   *
-   * @param {!Function} releasingBlock the code you'd like to execute after each test.
-   * @returns {void}
-   */
-  after(releasingBlock) {
-    this.#validateHook(TestSuite.AFTER_HOOK_NAME, releasingBlock, this.#after);
+    
 
-    this.#after = releasingBlock;
-  }
+    
 
-  // Skipping
-  skip() {
-    this.#isSkipped = true;
-  }
+    
 
-  isSkipped() {
-    return this.#isSkipped;
-  }
+    
 
-  #skipAllTests() {
-    this.tests().forEach(test => {
-      test.skip();
-      test.finishWithSkippedStatus();
-    });
-  }
+    
 
-  // Executing
+    
 
-  async run(context) {
-    this.#callbacks.onStart(this);
-    this.#evaluateSuiteDefinition();
-    if (this.isSkipped()) {
-      this.#skipAllTests();
-    } else {
-      await this.#runTests(context);
-    }
-    this.#callbacks.onFinish(this);
-  }
+    
 
-  // Counting
+    
 
-  totalCount() {
-    return this.tests().length;
-  }
+    
 
-  successCount() {
-    return this.tests().filter(test => test.isSuccess()).length;
-  }
+    
 
-  pendingCount() {
-    return this.tests().filter(test => test.isPending()).length;
-  }
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="core_test_file_loader.js.html">core/test_file_loader.js</a>, <a href="core_test_file_loader.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
 
-  errorsCount() {
-    return this.tests().filter(test => test.isError()).length;
-  }
+    
 
-  skippedCount() {
-    return this.tests().filter(test => test.isSkipped() || test.isExplicitlySkipped()).length;
-  }
+    
 
-  failuresCount() {
-    return this.totalCount() - this.successCount() - this.pendingCount() - this.errorsCount() - this.skippedCount();
-  }
+    
+</dl>
 
-  // Accessing
 
-  name() {
-    return this.#name;
-  }
 
-  locationPath() {
-    return this.#location.getPath();
-  }
 
-  currentTest() {
-    return this.#currentTest;
-  }
 
-  tests() {
-    return this.#tests;
-  }
 
-  allFailuresAndErrors() {
-    return this.tests().filter(test => test.isFailure() || test.isError());
-  }
 
-  // Private - Validations
 
-  #initializeBody(body) {
-    this.#ensureBodyIsValid(body);
-    this.#body = body;
-  }
 
-  #initializeName(name) {
-    this.#ensureNameIsValid(name);
-    this.#name = name;
-  }
 
-  #initializeLocation(pathLocation) {
-    this.#location = new SuiteLocation(pathLocation);
-  }
 
-  #ensureNameIsValid(name) {
-    if (!isStringWithContent(name)) {
-      throw new Error(TestSuite.invalidSuiteNameErrorMessage());
-    }
-  }
 
-  #ensureBodyIsValid(body) {
-    if (!isFunction(body)) {
-      throw new Error(TestSuite.invalidSuiteDefinitionBodyErrorMessage());
-    }
-  }
 
-  #validateHook(hookName, hookToSet, existingHook) {
-    this.#validateTheHookIsNotAlreadyDeclared(existingHook, hookName);
-    this.#validateTheHookBlockIsAFunction(hookToSet, hookName);
-  }
 
-  #validateTheHookIsNotAlreadyDeclared(hookBlock, hookName) {
-    if (!isUndefined(hookBlock)) {
-      throw new Error(TestSuite.alreadyDefinedHookErrorMessage(hookName));
-    }
-  }
 
-  #validateTheHookBlockIsAFunction(hookBlock, hookName) {
-    if (!isFunction(hookBlock)) {
-      throw new Error(TestSuite.hookWasNotInitializedWithAFunctionErrorMessage(hookName));
-    }
-  }
 
-  // Private - Running
 
-  #randomizeTests() {
-    shuffle(this.tests());
-  }
 
-  #evaluateSuiteDefinition() {
-    this.#body.call();
-    this.#evaluateExclusiveRunsMarks();
-  }
 
-  #evaluateExclusiveRunsMarks() {
-    if (this.#thereAreTestsMarkedAsExclusive()) {
-      this.#skipTestsNotMarkedAsExclusive();
-    }
-  }
 
-  #thereAreTestsMarkedAsExclusive() {
-    return this.tests().some(test => test.isMarkedAsExclusiveForRun());
-  }
 
-  #skipTestsNotMarkedAsExclusive() {
-    this.tests().forEach(test => {
-      if (!test.isMarkedAsExclusiveForRun()) {
-        test.skip();
-      }
-    });
-  }
 
-  async #runTests(context) {
-    if (context.randomOrderMode) {
-      this.#randomizeTests();
-    }
 
-    context.hooks = {
-      [TestSuite.BEFORE_HOOK_NAME]: this.#before,
-      [TestSuite.AFTER_HOOK_NAME]: this.#after,
-    };
+</div>
+    
+    </div>
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const test of this.tests()) {
-      // NOTE: test will run in sequence, by design. The tool is not (yet) supporting parallel execution.
-      this.#currentTest = test;
+    
 
-      // eslint-disable-next-line no-await-in-loop
-      await test.run(context);
-    }
-  }
-}
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="TestFileLoader.html">TestFileLoader</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

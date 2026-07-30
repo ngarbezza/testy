@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>core/test_suite.js - Documentation</title>
+    <title>dsl.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">core/test_suite.js</h1>
+    <h1 class="page-title">dsl.js</h1>
     
 
     
@@ -39,268 +39,126 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { isFunction, isStringWithContent, isUndefined, shuffle } from '../utils/index.js';
-import { SuiteLocation } from '../location/suite_location.js';
+            <pre class="prettyprint source linenums"><code>import process from 'node:process';
+import console from 'node:console';
+import { TestRunner } from './core/test_runner.js';
+import { Asserter, FailureGenerator, PendingMarker } from './core/asserter.js';
+import { ConsoleUI } from './ui/console_ui.js';
+
+const ui = new ConsoleUI(process, console);
+const testRunner = new TestRunner(ui.testRunnerCallbacks());
 
 /**
- * I represent a grouping of [tests]{@link Test} under a name, that will be executed by a
- * [runner]{@link TestRunner}. I can run some code [before]{@link TestSuite#before} and
- * [after]{@link TestSuite#after} each test.
+ * Object used for writing assertions. [Assertions]{@link Assertion} are created with method calls to this object.
+ * Please refer to the comment of each assertion for more information.
+ *
+ * @example
+ * assert.isFalse(3 > 4)
+ * @example
+ * assert.that(['hey']).isNotEmpty()
+ *
+ * @type {Asserter}
  */
-export class TestSuite {
-  #name;
-  #body;
-  #tests;
-  #currentTest;
-  #callbacks;
-  #before;
-  #after;
-  #isSkipped;
-  #location;
+const assert = new Asserter(testRunner);
 
-  static BEFORE_HOOK_NAME = 'before';
-  static AFTER_HOOK_NAME = 'after';
+/**
+ * Generates an explicit failure.
+ *
+ * @example
+ * fail.with('a descriptive message')
+ *
+ * @type {FailureGenerator}
+ */
+const fail = new FailureGenerator(testRunner);
 
-  // Error messages
+/**
+ * Marks a test as pending, which is a status that is reported separately, and it's not considered success/failure.
+ * It is useful to mark in-progress work and catch the developers attention in the resulting report.
+ *
+ * @example
+ * pending.dueTo('finish the set-up process')
+ *
+ * @type {PendingMarker}
+ */
+const pending = new PendingMarker(testRunner);
 
-  static invalidSuiteNameErrorMessage() {
-    return 'Suite does not have a valid name. Please enter a non-empty string to name this suite.';
-  }
-
-  static invalidSuiteDefinitionBodyErrorMessage() {
-    return 'Suite does not have a valid body. Please provide a function to declare the suite body.';
-  }
-
-  static alreadyDefinedHookErrorMessage(hookName) {
-    return `There is already a ${hookName}() block. Please leave just one ${hookName}() block and run again the tests.`;
-  }
-
-  static hookWasNotInitializedWithAFunctionErrorMessage(hookName) {
-    return `The ${hookName}() hook must include a function. Please provide a function or remove the ${hookName}() and run again the tests.`;
-  }
-
-  // Instance creation
-
-  constructor(name, body, callbacks, pathLocation) {
-    this.#initializeName(name);
-    this.#initializeBody(body);
-    this.#initializeLocation(pathLocation);
-    this.#tests = [];
-    this.#callbacks = callbacks;
-    this.#before = undefined;
-    this.#after = undefined;
-    this.#isSkipped = false;
-  }
-
-  // Initializing / Configuring
-
-  /**
-   * Adds a new test to the suite.
-   *
-   * @param {!Test} test the test we'd like to add.
-   * @returns {void}
-   */
-  addTest(test) {
-    this.#tests.push(test);
-  }
-
-  /**
-   * Registers a piece of code that should be executed before each test. There should be one `before` per suite, so it
-   * will fail if there's already a `before` block in the suite.
-   *
-   * @param {!Function} initializationBlock the code you'd like to execute before each test.
-   * @returns {void}
-   */
-  before(initializationBlock) {
-    this.#validateHook(TestSuite.BEFORE_HOOK_NAME, initializationBlock, this.#before);
-
-    this.#before = initializationBlock;
-  }
-
-  /**
-   * Registers a piece of code that should be executed after each test. There should be one `after` per suite, so it
-   * will fail if there's already an `after` block in the suite.
-   *
-   * @param {!Function} releasingBlock the code you'd like to execute after each test.
-   * @returns {void}
-   */
-  after(releasingBlock) {
-    this.#validateHook(TestSuite.AFTER_HOOK_NAME, releasingBlock, this.#after);
-
-    this.#after = releasingBlock;
-  }
-
-  // Skipping
-  skip() {
-    this.#isSkipped = true;
-  }
-
-  isSkipped() {
-    return this.#isSkipped;
-  }
-
-  #skipAllTests() {
-    this.tests().forEach(test => {
-      test.skip();
-      test.finishWithSkippedStatus();
-    });
-  }
-
-  // Executing
-
-  async run(context) {
-    this.#callbacks.onStart(this);
-    this.#evaluateSuiteDefinition();
-    if (this.isSkipped()) {
-      this.#skipAllTests();
-    } else {
-      await this.#runTests(context);
-    }
-    this.#callbacks.onFinish(this);
-  }
-
-  // Counting
-
-  totalCount() {
-    return this.tests().length;
-  }
-
-  successCount() {
-    return this.tests().filter(test => test.isSuccess()).length;
-  }
-
-  pendingCount() {
-    return this.tests().filter(test => test.isPending()).length;
-  }
-
-  errorsCount() {
-    return this.tests().filter(test => test.isError()).length;
-  }
-
-  skippedCount() {
-    return this.tests().filter(test => test.isSkipped() || test.isExplicitlySkipped()).length;
-  }
-
-  failuresCount() {
-    return this.totalCount() - this.successCount() - this.pendingCount() - this.errorsCount() - this.skippedCount();
-  }
-
-  // Accessing
-
-  name() {
-    return this.#name;
-  }
-
-  locationPath() {
-    return this.#location.getPath();
-  }
-
-  currentTest() {
-    return this.#currentTest;
-  }
-
-  tests() {
-    return this.#tests;
-  }
-
-  allFailuresAndErrors() {
-    return this.tests().filter(test => test.isFailure() || test.isError());
-  }
-
-  // Private - Validations
-
-  #initializeBody(body) {
-    this.#ensureBodyIsValid(body);
-    this.#body = body;
-  }
-
-  #initializeName(name) {
-    this.#ensureNameIsValid(name);
-    this.#name = name;
-  }
-
-  #initializeLocation(pathLocation) {
-    this.#location = new SuiteLocation(pathLocation);
-  }
-
-  #ensureNameIsValid(name) {
-    if (!isStringWithContent(name)) {
-      throw new Error(TestSuite.invalidSuiteNameErrorMessage());
-    }
-  }
-
-  #ensureBodyIsValid(body) {
-    if (!isFunction(body)) {
-      throw new Error(TestSuite.invalidSuiteDefinitionBodyErrorMessage());
-    }
-  }
-
-  #validateHook(hookName, hookToSet, existingHook) {
-    this.#validateTheHookIsNotAlreadyDeclared(existingHook, hookName);
-    this.#validateTheHookBlockIsAFunction(hookToSet, hookName);
-  }
-
-  #validateTheHookIsNotAlreadyDeclared(hookBlock, hookName) {
-    if (!isUndefined(hookBlock)) {
-      throw new Error(TestSuite.alreadyDefinedHookErrorMessage(hookName));
-    }
-  }
-
-  #validateTheHookBlockIsAFunction(hookBlock, hookName) {
-    if (!isFunction(hookBlock)) {
-      throw new Error(TestSuite.hookWasNotInitializedWithAFunctionErrorMessage(hookName));
-    }
-  }
-
-  // Private - Running
-
-  #randomizeTests() {
-    shuffle(this.tests());
-  }
-
-  #evaluateSuiteDefinition() {
-    this.#body.call();
-    this.#evaluateExclusiveRunsMarks();
-  }
-
-  #evaluateExclusiveRunsMarks() {
-    if (this.#thereAreTestsMarkedAsExclusive()) {
-      this.#skipTestsNotMarkedAsExclusive();
-    }
-  }
-
-  #thereAreTestsMarkedAsExclusive() {
-    return this.tests().some(test => test.isMarkedAsExclusiveForRun());
-  }
-
-  #skipTestsNotMarkedAsExclusive() {
-    this.tests().forEach(test => {
-      if (!test.isMarkedAsExclusiveForRun()) {
-        test.skip();
-      }
-    });
-  }
-
-  async #runTests(context) {
-    if (context.randomOrderMode) {
-      this.#randomizeTests();
-    }
-
-    context.hooks = {
-      [TestSuite.BEFORE_HOOK_NAME]: this.#before,
-      [TestSuite.AFTER_HOOK_NAME]: this.#after,
-    };
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const test of this.tests()) {
-      // NOTE: test will run in sequence, by design. The tool is not (yet) supporting parallel execution.
-      this.#currentTest = test;
-
-      // eslint-disable-next-line no-await-in-loop
-      await test.run(context);
-    }
-  }
+/**
+ * Defines a new test. Each test belongs to a [test suite]{@link suite} and defines assertions in the body.
+ *
+ * For info about assertions, take a look at the {@link assert} object.
+ *
+ * Tests are represented internally as instances of {@link Test}.
+ *
+ * @example
+ * test('arithmetic works', () => {
+ *   assert.areEqual(3 + 4, 7);
+ * });
+ *
+ * @param {!string} name how you would like to call the test. Non-empty string.
+ * @param {!function} testBody the test definition, written as a zero-argument function.
+ * @returns {void}
+ */
+function test(name, testBody) {
+  return testRunner.registerTest(name, testBody, ui.testCallbacks());
 }
+
+/**
+ * Defines a new test suite. Suites are expected to define [tests]{@link test} inside it.
+ * There can be more than one suite per file, but it is not possible to nest suites.
+ *
+ * @example
+ * suite('arithmetic operations', () => {
+ *   test('the sum of two number works', () => {
+ *     assert.areEqual(3 + 4, 7);
+ *   });
+ * });
+ *
+ * @param {!string} name how you would like to call the suite. Non-empty string.
+ * @param {!function} suiteBody the suite definition, written as a zero-argument function.
+ * @returns {void}
+ */
+function suite(name, suiteBody) {
+  return testRunner.registerSuite(name, suiteBody, ui.suiteCallbacks());
+}
+
+/**
+ * Specifies a piece of code that should be executed before each {@link test} in a {@link suite}.
+ * Only one before block is allowed per suite. The most common use of this feature is to initialize objects you want
+ * to reference in each test.
+ *
+ * @example
+ * suite('using a before() initializer', () => {
+ *   let number;
+ *
+ *   before(() => {
+ *     number = 42;
+ *   });
+ *
+ *   test('has the initialized value', () => {
+ *     assert.that(number).isEqualTo(42);
+ *   });
+ * });
+ *
+ * @param {!function} initialization a zero argument function containing the code you want to execute before each test.
+ * @returns {void}
+ */
+function before(initialization) {
+  testRunner.registerBefore(initialization);
+}
+
+/**
+ * Specifies a piece of code that should be executed after each {@link test} in a {@link suite}.
+ * Only one after block is allowed per suite. The most common use of this feature is to ensure you are releasing
+ * resources that are used on each test, like files.
+ *
+ * @param {!function} releaseBlock a zero argument function containing the code you want to execute after each test.
+ * @returns {void}
+ */
+function after(releaseBlock) {
+  testRunner.registerAfter(releaseBlock);
+}
+
+export { ui, testRunner, assert, fail, pending, test, suite, before, after };
 </code></pre>
         </article>
     </section>
