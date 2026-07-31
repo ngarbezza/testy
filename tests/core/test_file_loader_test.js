@@ -2,6 +2,7 @@ import { assert, suite, test, before } from '../../lib/testy.js';
 import { TestFileLoader } from '../../lib/core/test_file_loader.js';
 import { ConsoleUI } from '../../lib/ui/console_ui.js';
 import { NodeFileSystem } from '../../lib/host/file_system.js';
+import { NodeModuleLoader } from '../../lib/host/module_loader.js';
 import { FakeProcess } from '../ui/fake_process.js';
 import { FakeConsole } from '../ui/fake_console.js';
 import { withRunner } from '../support/runner_helpers.js';
@@ -57,6 +58,23 @@ suite('TestFileLoader', () => {
         },
       });
       const loader = new TestFileLoader(ui, runner, recordingFileSystem);
+
+      await loader.loadAll([fixturesDir], /loader_fixture_ok\.js$/u);
+
+      assert.that(seen.length).isGreaterThan(0);
+    });
+  });
+
+  test('uses the injected module loader to evaluate matched files', async() => {
+    await withRunner(async runner => {
+      const seen = [];
+      const recordingModuleLoader = Object.assign(new NodeModuleLoader(), {
+        load(filePath) {
+          seen.push(filePath);
+          return NodeModuleLoader.prototype.load.call(this, filePath);
+        },
+      });
+      const loader = new TestFileLoader(ui, runner, new NodeFileSystem(), recordingModuleLoader);
 
       await loader.loadAll([fixturesDir], /loader_fixture_ok\.js$/u);
 
