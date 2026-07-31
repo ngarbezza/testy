@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>host/file_system.js - Documentation</title>
+    <title>utils/formatting.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">host/file_system.js</h1>
+    <h1 class="page-title">utils/formatting.js</h1>
     
 
     
@@ -39,42 +39,30 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from 'node:fs';
-import path from 'node:path';
-import process from 'node:process';
+            <pre class="prettyprint source linenums"><code>import util from 'node:util';
+import { notNullOrUndefined } from './types.js';
 
 /**
- * I am the host file system. I expose, in domain terms, the file and path operations Testy
- * needs: find test files under a directory, resolve a path, answer a path's extension, read
- * a JSON document, and remove a temporary file. The core never names Node's fs/path APIs
- * directly. See decision 0018 (host capability catalog).
+ * Reimplementable-semantics seam (ADR 0018): object inspection for failure messages. A port
+ * targeting another language reimplements this formatting natively rather than depending on
+ * Node's `util.inspect`.
  */
-export class NodeFileSystem {
-  resolvePathFor(relativePath) {
-    return path.resolve(process.cwd(), relativePath);
-  }
+const prettyPrint = object => {
+  const excludedToStrings = [Object.prototype.toString, String.prototype.toString, Array.prototype.toString];
+  const shouldUseToStringMethod = notNullOrUndefined(object) &amp;&amp; !excludedToStrings.includes(object.toString);
+  return shouldUseToStringMethod ? object.toString() : util.inspect(object, {
+    depth: Infinity,
+    compact: true,
+  });
+};
 
-  allFilesMatching(dir, regex) {
-    if (fs.lstatSync(dir).isFile()) {
-      return dir.match(regex) ? [dir] : [];
-    }
-    return fs.readdirSync(dir).flatMap(entry => this.allFilesMatching(path.join(dir, entry), regex));
-  }
+const normalizeToSingleLine = text =>
+  String(text).split('\n').map(part => part.trim()).filter(part => part.length > 0).join(' ');
 
-  extensionOf(filePath) {
-    return path.extname(filePath);
-  }
-
-  deleteFileIfExists(filePath) {
-    if (filePath &amp;&amp; fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
-  }
-
-  readJson(filePath) {
-    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  }
-}
+export {
+  prettyPrint,
+  normalizeToSingleLine,
+};
 </code></pre>
         </article>
     </section>
