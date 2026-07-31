@@ -8,6 +8,9 @@ updates:
       time: "08:00"
     allow:
       - dependency-type: "all"
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
     commit-message:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"
