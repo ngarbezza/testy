@@ -1,6 +1,7 @@
 import { assert, suite, test, before } from '../../lib/testy.js';
 import { TestFileLoader } from '../../lib/core/test_file_loader.js';
 import { ConsoleUI } from '../../lib/ui/console_ui.js';
+import { NodeFileSystem } from '../../lib/host/file_system.js';
 import { FakeProcess } from '../ui/fake_process.js';
 import { FakeConsole } from '../ui/fake_console.js';
 import { withRunner } from '../support/runner_helpers.js';
@@ -43,6 +44,23 @@ suite('TestFileLoader', () => {
       await loader.loadAll([fixturesDir], /loader_fixture_throws\.js$/u);
 
       assert.that(fakeProcess.lastExitCode()).isEqualTo(ConsoleUI.failedExitCode());
+    });
+  });
+
+  test('uses the injected file system to discover files', async() => {
+    await withRunner(async runner => {
+      const seen = [];
+      const recordingFileSystem = Object.assign(new NodeFileSystem(), {
+        allFilesMatching(dir, regex) {
+          seen.push(dir);
+          return NodeFileSystem.prototype.allFilesMatching.call(this, dir, regex);
+        },
+      });
+      const loader = new TestFileLoader(ui, runner, recordingFileSystem);
+
+      await loader.loadAll([fixturesDir], /loader_fixture_ok\.js$/u);
+
+      assert.that(seen.length).isGreaterThan(0);
     });
   });
 });
