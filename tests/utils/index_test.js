@@ -17,8 +17,6 @@ import {
   numberOfElements,
   convertToArray,
   asFloat,
-  resolvePathFor,
-  allFilesMatching,
   subclassResponsibility,
   errorDetailOf,
   detectUserCallingLocation,
@@ -45,8 +43,6 @@ suite('utils index', () => {
     assert.that(numberOfElements).isNotUndefined();
     assert.that(convertToArray).isNotUndefined();
     assert.that(asFloat).isNotUndefined();
-    assert.that(resolvePathFor).isNotUndefined();
-    assert.that(allFilesMatching).isNotUndefined();
     assert.that(subclassResponsibility).isNotUndefined();
     assert.that(errorDetailOf).isNotUndefined();
     assert.that(detectUserCallingLocation).isNotUndefined();
