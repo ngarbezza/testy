@@ -47,4 +47,10 @@ suite('node file system', () => {
     fileSystem.deleteFileIfExists(path.join(tempDir, 'ghost.js'));
     assert.isTrue(true);
   });
+
+  test('reads and parses a JSON document', () => {
+    const jsonFile = path.join(tempDir, 'data.json');
+    fs.writeFileSync(jsonFile, JSON.stringify({ name: 'testy', nested: { ok: true } }));
+    assert.that(fileSystem.readJson(jsonFile)).isEqualTo({ name: 'testy', nested: { ok: true } });
+  });
 });
