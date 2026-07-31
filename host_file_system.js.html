@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Formatter - Documentation</title>
+    <title>host/file_system.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,144 +29,51 @@
 
 <div id="main">
     
-    <h1 class="page-title">Formatter</h1>
+    <h1 class="page-title">host/file_system.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Formatter
-        </h2>
-        
-            <div class="class-description"><p>I am the base of the formatter family. I define the protocol of events that a
-<a href="ConsoleUI.html">ConsoleUI</a> sends (lifecycle + display of test results) with no-op defaults,
-and I provide protected helpers for my subclasses to print and translate text.</p>
-<p>Concrete subclasses: <a href="ConsoleFormatter.html">ConsoleFormatter</a> (human output), <a href="TapFormatter.html">TapFormatter</a>,
-<a href="JsonFormatter.html">JsonFormatter</a> (machine-readable output).</p></div>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
 
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
+/**
+ * I am the host file system. I expose, in domain terms, the file and path operations Testy
+ * needs: find test files under a directory, resolve a path, answer a path's extension, and
+ * remove a temporary file. The core never names Node's fs/path APIs directly. See decision
+ * 0018 (host capability catalog).
+ */
+export class NodeFileSystem {
+  resolvePathFor(relativePath) {
+    return path.resolve(process.cwd(), relativePath);
+  }
 
-    
-    <h2>Constructor</h2>
-    
+  allFilesMatching(dir, regex) {
+    if (fs.lstatSync(dir).isFile()) {
+      return dir.match(regex) ? [dir] : [];
+    }
+    return fs.readdirSync(dir).flatMap(entry => this.allFilesMatching(path.join(dir, entry), regex));
+  }
 
-    <h4 class="name" id="Formatter"><span class="type-signature"></span>new Formatter<span class="signature">()</span><span class="type-signature"></span></h4>
+  extensionOf(filePath) {
+    return path.extname(filePath);
+  }
 
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ui_formatter.js.html">ui/formatter.js</a>, <a href="ui_formatter.js.html#line12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Formatter.html">Formatter</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  deleteFileIfExists(filePath) {
+    if (filePath &amp;&amp; fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
