@@ -110,3 +110,13 @@ In Smalltalk-style OOP, methods are polymorphic message handlers — a method th
 - **Self-testing is mandatory** — every feature or fix must be accompanied by a test in `tests/`. If Testy cannot test its own change, something is wrong with the design.
 - **One PR, one concept** — no opportunistic refactors bundled in the same PR.
 - **Run `npm test` and `npm run lint` before opening a PR** — CI will catch failures, but it's faster to catch them locally.
+
+## Claude Code session workflow
+
+Applies to any session that will modify files in this repo:
+
+- **Start from a fresh `main`** — fetch and pull the latest `main` before branching off work.
+- **Default to a worktree** — do the work in a git worktree unless the user explicitly says otherwise for that session.
+- **Ask about issue tracking** — before starting, ask the user whether the task should be tracked with a GitHub issue.
+- **Run the test suite before touching anything** — confirm `npm test` is green on the starting point, so any later failure is known to be caused by the new change, not a pre-existing one.
+- **Don't call the task done until CI is green** — wait for CI checks on the PR to pass before reporting completion. If a check fails, attempt one fix; if it's still failing after that, stop and ask the user how to proceed.
