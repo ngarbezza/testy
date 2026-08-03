@@ -103,6 +103,7 @@ suite('equality assertions', () => {
       constructor(asd) {
         this.asd = asd;
       }
+
       myEqualMessage() {
         return true;
       }
@@ -119,6 +120,7 @@ suite('equality assertions', () => {
       constructor(asd) {
         this.asd = asd;
       }
+
       equals() {
         return true;
       }
@@ -289,6 +291,7 @@ suite('equality assertions', () => {
       constructor(asd) {
         this.asd = asd;
       }
+
       myEqualMessage() {
         return true;
       }
@@ -305,6 +308,7 @@ suite('equality assertions', () => {
       constructor(asd) {
         this.asd = asd;
       }
+
       equals() {
         return true;
       }

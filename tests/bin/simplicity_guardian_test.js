@@ -9,7 +9,6 @@ import {
 } from '../../bin/simplicity-guardian.js';
 
 suite('simplicity guardian — detection functions', () => {
-
   suite('detectExternalImports', () => {
     test('returns empty array for a relative import', async() => {
       const source = "import { foo } from './foo.js';";
@@ -184,5 +183,4 @@ suite('simplicity guardian — detection functions', () => {
       assert.isTrue(output.includes("External import 'chalk'"));
     });
   });
-
 });

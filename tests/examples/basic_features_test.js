@@ -1,7 +1,8 @@
 import { after, assert, before, suite, test } from '../../lib/testy.js';
 
 suite('testing testy - basic features', () => {
-  const circular = {}; circular.yourself = circular;
+  const circular = {};
+  circular.yourself = circular;
   let myVar = 8;
 
   before(() => myVar = 7);

@@ -4,7 +4,6 @@ import { I18n } from '../../lib/i18n/i18n.js';
 import { ConfigurationParsingError, InvalidConfigurationError } from '../../lib/errors.js';
 
 suite('Parameters parser', () => {
-
   test('returns empty configuration if passing an empty params list', () => {
     const configuration = ParametersParser.generateRunConfigurationFromParams([]);
     assert.areEqual(configuration, {});

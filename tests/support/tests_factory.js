@@ -39,7 +39,6 @@ const aTestWithNoAssertions = () =>
 
 const aTestRunningFor = (millis, asserter) =>
   new Test('sleepFor', async() => {
-
     const sleep = ms => new Promise(resolve => {
       setTimeout(resolve, ms);
     });
