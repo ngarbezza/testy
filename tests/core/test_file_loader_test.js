@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { assert, suite, test, before } from '../../lib/testy.js';
 import { TestFileLoader } from '../../lib/core/test_file_loader.js';
 import { ConsoleUI } from '../../lib/ui/console_ui.js';
@@ -62,6 +63,18 @@ suite('TestFileLoader', () => {
       await loader.loadAll([fixturesDir], /loader_fixture_ok\.js$/u);
 
       assert.that(seen.length).isGreaterThan(0);
+    });
+  });
+
+  test('transpiles a TypeScript file and never deletes the original source file', async() => {
+    await withRunner(async runner => {
+      const loader = new TestFileLoader(ui, runner);
+      const originalSourcePath = `${fixturesDir}/loader_fixture_ok.ts`;
+
+      await loader.loadAll([fixturesDir], /loader_fixture_ok\.ts$/u);
+
+      assert.that(fakeProcess.lastExitCode()).isNull();
+      assert.isTrue(existsSync(originalSourcePath));
     });
   });
 
