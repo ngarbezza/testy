@@ -322,13 +322,13 @@ suite('test suite behavior', () => {
 
     const suiteWithCallbacks = new TestSuite('test suite', () => {}, testCallbacks, fakePathLocation);
     suiteWithCallbacks.addTest(passingTest);
-    
+
     const context = {
       failFastMode: FailFast.disabled(),
       randomOrderMode: false,
       testExecutionTimeoutMs: 50,
     };
-    
+
     await suiteWithCallbacks.run(context);
 
     assert.that(onStartCalled).isTrue();
@@ -346,13 +346,13 @@ suite('test suite behavior', () => {
 
     const suiteWithCallbacks = new TestSuite('test suite', () => {}, testCallbacks, fakePathLocation);
     suiteWithCallbacks.addTest(passingTest);
-    
+
     const context = {
       failFastMode: FailFast.disabled(),
       randomOrderMode: false,
       testExecutionTimeoutMs: 50,
     };
-    
+
     await suiteWithCallbacks.run(context);
 
     assert.that(onFinishCalled).isTrue();

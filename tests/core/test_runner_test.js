@@ -127,7 +127,6 @@ suite('test runner', () => {
 
   test('explicitly skipped count is one with an explicitly skipped test', async() => {
     await withRunner(async(runner, asserter) => {
-
       const suiteWithAnExplicitlySkippedTest = suiteNamed('with one explicitly skipped test');
 
       const explicitlySkippedTest = anExplicitlySkippedTest(asserter);
