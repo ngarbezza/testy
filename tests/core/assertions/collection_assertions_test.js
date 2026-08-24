@@ -262,6 +262,24 @@ suite('collection assertions', () => {
     expectFailureOn(result, I18nMessage.of('expectation_be_included_in', '\'hey\'', '[ 1, 2, 3 ]'));
   });
 
+  test('isIncludedIn works with Sets', async() => {
+    const result = await resultOfATestWith(assert => assert.that(3).isIncludedIn(new Set([1, 2, 3])));
+
+    expectSuccess(result);
+  });
+
+  test('isIncludedIn works with Maps', async() => {
+    const result = await resultOfATestWith(assert => assert.that(42).isIncludedIn(new Map([['key', 42]])));
+
+    expectSuccess(result);
+  });
+
+  test('isIncludedIn works with Strings', async() => {
+    const result = await resultOfATestWith(assert => assert.that('l').isIncludedIn('hello'));
+
+    expectSuccess(result);
+  });
+
   // isNotIncludedIn() assertion tests
 
   test('isNotIncludedIn is successful when the actual object is not part of the expected list', async() => {
@@ -274,5 +292,23 @@ suite('collection assertions', () => {
     const result = await resultOfATestWith(assert => assert.that(1).isNotIncludedIn([1, 2, 3]));
 
     expectFailureOn(result, I18nMessage.of('expectation_be_not_included_in', '1', '[ 1, 2, 3 ]'));
+  });
+
+  test('isNotIncludedIn works with Sets', async() => {
+    const result = await resultOfATestWith(assert => assert.that(4).isNotIncludedIn(new Set([1, 2, 3])));
+
+    expectSuccess(result);
+  });
+
+  test('isNotIncludedIn works with Maps', async() => {
+    const result = await resultOfATestWith(assert => assert.that(4).isNotIncludedIn(new Map([['key', 42]])));
+
+    expectSuccess(result);
+  });
+
+  test('isNotIncludedIn works with Strings', async() => {
+    const result = await resultOfATestWith(assert => assert.that('x').isNotIncludedIn('hello'));
+
+    expectSuccess(result);
   });
 });
