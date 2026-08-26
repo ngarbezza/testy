@@ -9,6 +9,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released :tada:
 
+## [8.1.0] - 2026-08-26
+
+### Added
+
+* [[feature] LLM-friendly output formats](https://github.com/ngarbezza/testy/pull/382): added a new `-o`/`--output`
+  CLI flag and `output` configuration key to choose the report format. Besides the default `console` format, you can
+  now get `tap` (TAP version 13, streamed one line per test) or `json` (a single structured JSON document emitted at
+  the end of the run) — handy for feeding results to other tools or LLM agents.
+* Completed the Portuguese (`pt`) translations, so all UI messages are now available in `en`, `es`, `it` and `pt`.
+* Added a Simplicity Guardian CI check that enforces Testy's zero-dependency, no-metaprogramming and low-fan-out
+  design rules on every PR against `main`. See `doc/decisions/0017-simplicity-guardian.md` for the full rationale.
+
+### Changed
+
+* [[fix] typescript should not be a required runtime dependency](https://github.com/ngarbezza/testy/pull/419):
+  `typescript` moved from a regular dependency to an optional peer dependency. If you don't write your tests in
+  TypeScript, it's no longer installed as part of Testy.
+* Internal: file system access, dynamic module loading and time reads now go through explicit host roles
+  (`NodeFileSystem`, `NodeModuleLoader`, `SystemClock`), improving testability of the core. This is not a
+  user-facing change. See `doc/decisions/0018-host-capability-catalog.md`.
+* Upgraded ESLint to v10 with additional core rules; migrated dependency updates from Renovate to Dependabot and the
+  SonarCloud CI step to the maintained `sonarqube-scan-action`.
+
+### Fixed
+
+* [[bug] TestFileLoader could delete the original source file](https://github.com/ngarbezza/testy/pull/421): fixed a
+  bug where transpiling a TypeScript test file could end up deleting the original `.ts` source.
+* [[bug] JSDoc/behavior inconsistencies in assertions](https://github.com/ngarbezza/testy/pull/426): several
+  assertion methods now match their documented behavior.
+* The `matches()` assertion now reports a meaningful failure message instead of a cryptic one when compared against
+  `undefined`.
+
 ## [7.1.0] - 2024-05-23
 
 Some achievements to celebrate this release: 100 closed issues and 14 contributors (1 new!)
