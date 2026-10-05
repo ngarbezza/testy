@@ -96,6 +96,16 @@ suite('i18n', () => {
     assert.that(I18n.allKeysForLanguage('es', translations)).includesExactly('key1', 'key2');
   });
 
+  test('placeholder count is zero for a text without placeholders', () => {
+    const translations = { en: { key: 'plain text' } };
+    assert.areEqual(I18n.placeholderCountFor('key', 'en', translations), 0);
+  });
+
+  test('placeholder count is the number of %s in the text', () => {
+    const translations = { en: { key: 'the answer to %s is %s' } };
+    assert.areEqual(I18n.placeholderCountFor('key', 'en', translations), 2);
+  });
+
   test('fails when a key is not present on all languages', () => {
     const translations = { es: { key1: 'value1', key2: 'value2' }, jp: { key1: 'value3' } };
     assert

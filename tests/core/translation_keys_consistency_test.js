@@ -16,5 +16,13 @@ suite('translation keys consistency', () => {
     test(`detects extra keys in ${language} language`, () => {
       assert.that(extraKeys).isEmpty();
     });
+
+    test(`${language} language uses the same number of %s placeholders as the default language`, () => {
+      const keysWithDifferentPlaceholders = baseLanguageTranslations
+        .filter(key => languageKeys.includes(key))
+        .filter(key => I18n.placeholderCountFor(key, language) !== I18n.placeholderCountFor(key, I18n.defaultLanguage()));
+
+      assert.that(keysWithDifferentPlaceholders).isEmpty();
+    });
   });
 });

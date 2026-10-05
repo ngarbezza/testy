@@ -101,6 +101,17 @@ suite('console formatter', () => {
     });
   });
 
+  test('display error status in red including the timeout when the test does not finish in time', async() => {
+    await withRunner(async runner => {
+      const neverEndingTest = aTestWithBody(() => new Promise(() => {}));
+      await resultOfASuiteWith(runner, neverEndingTest);
+      formatter.displayFailureResult(neverEndingTest, 'error');
+      const testResultMessage = '[\u001b[31m\u001b[1mERROR\u001b[0m] \u001b[31mjust a test\u001b[0m';
+      const timeoutDetailMessage = '  => Timeout of 50ms reached. Your test could not finish its execution.';
+      expectFailureMessagesIncludingSourceCodeLocation(testResultMessage, timeoutDetailMessage);
+    });
+  });
+
   test('display pending status in yellow and no reason if the test is empty', async() => {
     await withRunner(async runner => {
       const pendingTest = aPendingTest();
