@@ -1,8 +1,11 @@
 import { assert, suite, test } from '../../lib/testy.js';
-import { aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor, aFailingTest } from '../support/tests_factory.js';
+import {
+  aPassingTest, aTestWithBody, aTestWithNoAssertions, aTestRunningFor, aFailingTest, emptyTestCallbacks,
+} from '../support/tests_factory.js';
 import { resultOfASuiteWith, resultOfATestWith, withRunner } from '../support/runner_helpers.js';
 import { expectErrorOn, expectFailureOn, expectSuccess } from '../support/assertion_helpers.js';
 
+import { FailFast } from '../../lib/config/fail_fast.js';
 import { Test } from '../../lib/core/test.js';
 import { I18nMessage } from '../../lib/i18n/i18n_messages.js';
 
@@ -91,6 +94,25 @@ suite('tests behavior', () => {
     });
 
     expectErrorOn(result, I18nMessage.of('reached_timeout_error', 50));
+  });
+
+  test('a failure while reporting a timeout rejects the run instead of being left uncaught', async() => {
+    const brokenCallbacks = {
+      ...emptyTestCallbacks,
+      whenErrored: () => {
+        throw new Error('the reporter is broken');
+      },
+    };
+    const neverEndingTest = new Test('never ends', promiseThatNeverEnds, brokenCallbacks);
+    let rejection;
+
+    try {
+      await neverEndingTest.run({ testExecutionTimeoutMs: 50, failFastMode: FailFast.disabled(), hooks: {} });
+    } catch (error) {
+      rejection = error;
+    }
+
+    assert.that(rejection.message).isEqualTo('the reporter is broken');
   });
 
   test('a test does not fail by timeout when previous timeout promise resolves', async() => {
