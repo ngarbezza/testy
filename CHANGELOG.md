@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Everything is released :tada:
+### Changed
+
+* :boom: Node 22.x or higher is required. Support for Node 20.x has dropped, as it reached its end of life. CI now
+  runs on Node 22.x, 24.x and 26.x. ([#435](https://github.com/ngarbezza/testy/issues/435))
 
 ## [8.1.0] - 2026-10-05
 
