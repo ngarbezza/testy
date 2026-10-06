@@ -7,7 +7,7 @@ Always reference these instructions first and fallback to search or bash command
 ## Working Effectively
 
 ### Setup and Installation
-- Install Node.js 20.x or higher (project supports 20.x, 22.x, 24.x)
+- Install Node.js 22.x or higher (project supports 22.x, 24.x, 26.x)
 - Run `npm install` -- takes ~5 seconds. NEVER CANCEL.
 - Permission fix required after clone: `chmod +x bin/testy_cli.js`
 
@@ -58,9 +58,9 @@ ALWAYS validate testy functionality by creating and running test scenarios:
 - ALWAYS verify test file naming convention requirements
 
 ### CI Validation
-- GitHub Actions CI runs on Node.js 20.x, 22.x, 24.x
+- GitHub Actions CI runs on Node.js 22.x, 24.x, 26.x
 - Pipeline: `npm install` → `npm run lint` → `npm run test`
-- Coverage and code quality analysis runs on Node.js 20.x only
+- Coverage and code quality analysis runs on Node.js 22.x only
 - ALWAYS run `npm run lint` before committing or CI will fail
 
 ## Project Structure
