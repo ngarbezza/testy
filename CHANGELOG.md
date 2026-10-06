@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Everything is released :tada:
 
-## [8.1.0] - 2026-08-26
+## [8.1.0] - 2026-10-05
 
 ### Added
 
@@ -40,6 +40,11 @@ Everything is released :tada:
   assertion methods now match their documented behavior.
 * The `matches()` assertion now reports a meaningful failure message instead of a cryptic one when compared against
   `undefined`.
+* [[bug] Test timeouts crashed the whole process](https://github.com/ngarbezza/testy/issues/432): the `en` message for
+  a timed-out test had the timeout hardcoded instead of a placeholder (and `expectation_different_error` had the same
+  kind of mismatch in `es` and `it`), which made rendering it throw inside a timer callback and crash the process. The
+  translations are fixed, a consistency test now requires every language to use the same number of placeholders, and
+  a failure while reporting a timeout now rejects the run and is reported as a regular execution error.
 
 ## [7.1.0] - 2024-05-23
 
