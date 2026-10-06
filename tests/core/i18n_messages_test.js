@@ -10,6 +10,20 @@ suite('i18n messages', () => {
   const aSingleMessageWithKey = (key, ...params) => I18nMessage.of(key, ...params);
   const aJoinedMessageOf = (...messages) => I18nMessage.joined(messages, ',');
 
+  I18n.supportedLanguages().forEach(language => {
+    test(`the timeout error message can be expressed in ${language} including the timeout`, () => {
+      const timeoutMessage = I18nMessage.of('reached_timeout_error', 50);
+
+      assert.that(timeoutMessage.expressedIn(new I18n(language))).matches(/\b50ms\b/);
+    });
+
+    test(`the different-error expectation message can be expressed in ${language}`, () => {
+      const differentErrorMessage = I18nMessage.of('expectation_different_error', 'A', 'ClassA', 'B', 'ClassB');
+
+      assert.that(() => differentErrorMessage.expressedIn(new I18n(language))).doesNotRaiseAnyErrors();
+    });
+  });
+
   test('empty messages return an empty string and have no associated keys', () => {
     const emptyMessage = anEmptyMessage();
 
