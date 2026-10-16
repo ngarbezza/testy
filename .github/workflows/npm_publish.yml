@@ -24,6 +24,8 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      - name: Install an npm version that supports staged publishing
+        run: npm install -g npm@^11.15.0
+      - run: npm stage publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
