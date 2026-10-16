@@ -5,7 +5,7 @@
   "homepage": "https://ngarbezza.github.io/testy/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ngarbezza/testy"
+    "url": "git+https://github.com/ngarbezza/testy.git"
   },
   "bugs": {
     "url": "https://github.com/ngarbezza/testy/issues"
