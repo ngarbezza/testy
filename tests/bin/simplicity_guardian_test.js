@@ -50,6 +50,26 @@ suite('simplicity guardian — detection functions', () => {
       assert.that(violations.length).isEqualTo(1);
       assert.isTrue(violations[0].message.includes('chalk'));
     });
+
+    test('detects a side-effect external import with extra spaces after import', () => {
+      const violations = detectExternalImports("import    'chalk';", 'lib/test.js');
+
+      assert.that(violations.length).isEqualTo(1);
+    });
+
+    test('detects an external import with several bindings', () => {
+      const violations = detectExternalImports('import chalk, { red } from "chalk";', 'lib/test.js');
+
+      assert.that(violations.length).isEqualTo(1);
+    });
+
+    test('ignores identifiers that merely start with import', () => {
+      assert.that(detectExternalImports("importPattern = 'chalk';", 'lib/test.js')).isEmpty();
+    });
+
+    test('ignores dynamic imports', () => {
+      assert.that(detectExternalImports("import('chalk');", 'lib/test.js')).isEmpty();
+    });
   });
 
   suite('detectMetaprogramming', () => {

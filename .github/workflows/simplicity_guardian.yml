@@ -23,10 +23,10 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Run simplicity guardian
-        run: node bin/simplicity-guardian.js --format json > /tmp/guardian.json || true
+        run: node bin/simplicity-guardian.js --format json > "$RUNNER_TEMP/guardian.json" || true
 
       - name: Run ESLint (JSON output)
-        run: npm run lint -- --format json > /tmp/lint.json || true
+        run: npm run lint -- --format json > "$RUNNER_TEMP/lint.json" || true
 
       - name: Post PR comment and evaluate result
         uses: actions/github-script@v9
