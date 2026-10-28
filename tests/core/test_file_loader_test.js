@@ -78,6 +78,16 @@ suite('TestFileLoader', () => {
     });
   });
 
+  test('loads a TypeScript file that imports a sibling module through a relative path', async() => {
+    await withRunner(async runner => {
+      const loader = new TestFileLoader(ui, runner);
+
+      await loader.loadAll([fixturesDir], /loader_fixture_imports_local\.ts$/u);
+
+      assert.that(fakeProcess.lastExitCode()).isNull();
+    });
+  });
+
   test('uses the injected module loader to evaluate matched files', async() => {
     await withRunner(async runner => {
       const seen = [];
