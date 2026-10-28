@@ -9,8 +9,7 @@ reports/
 # Mutation testing temp files
 .stryker-tmp
 
-# TypeScript transpilation cache and temporary files
-.testy-cache
+# TypeScript transpilation temporary files
 *.ts.testy-tmp.js
 
 # JSDoc
