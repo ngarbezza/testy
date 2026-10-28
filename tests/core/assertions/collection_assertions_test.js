@@ -53,6 +53,31 @@ suite('collection assertions', () => {
     expectSuccess(result);
   });
 
+  test('includes works with substrings of Strings', async() => {
+    const result = await resultOfATestWith(assert => assert.that('hello').includes('ell'));
+
+    expectSuccess(result);
+  });
+
+  test('includes works when the matching element is falsy', async() => {
+    const result = await resultOfATestWith(assert => assert.that([0, 1]).includes(0));
+
+    expectSuccess(result);
+  });
+
+  test('includes fails when a String does not contain the substring', async() => {
+    const result = await resultOfATestWith(assert => assert.that('hello').includes('xyz'));
+
+    expectFailureOn(result, I18nMessage.of('expectation_include', '\'hello\'', '\'xyz\''));
+  });
+
+  test('includes on Strings uses the equality criteria when given, comparing character by character', async() => {
+    const result = await resultOfATestWith(assert =>
+      assert.that('hello').includes('L', (character, expected) => character.toLowerCase() === expected.toLowerCase()));
+
+    expectSuccess(result);
+  });
+
   test('includes using the equality criteria for a positive case', async() => {
     const result = await resultOfATestWith(assert => {
       assert.that([{ hello: 'world' }]).includes(
@@ -108,6 +133,18 @@ suite('collection assertions', () => {
     const result = await resultOfATestWith(assert => assert.that('24').doesNotInclude('5'));
 
     expectSuccess(result);
+  });
+
+  test('doesNotInclude is successful when a String does not contain the substring', async() => {
+    const result = await resultOfATestWith(assert => assert.that('hello').doesNotInclude('xyz'));
+
+    expectSuccess(result);
+  });
+
+  test('doesNotInclude fails when a String contains the substring', async() => {
+    const result = await resultOfATestWith(assert => assert.that('hello').doesNotInclude('ell'));
+
+    expectFailureOn(result, I18nMessage.of('expectation_not_include', '\'hello\'', '\'ell\''));
   });
 
   // includesExactly() assertion tests
@@ -280,6 +317,18 @@ suite('collection assertions', () => {
     expectSuccess(result);
   });
 
+  test('isIncludedIn works with substrings of Strings', async() => {
+    const result = await resultOfATestWith(assert => assert.that('ell').isIncludedIn('hello'));
+
+    expectSuccess(result);
+  });
+
+  test('isIncludedIn fails when the String does not contain the substring', async() => {
+    const result = await resultOfATestWith(assert => assert.that('xyz').isIncludedIn('hello'));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_included_in', '\'xyz\'', '\'hello\''));
+  });
+
   // isNotIncludedIn() assertion tests
 
   test('isNotIncludedIn is successful when the actual object is not part of the expected list', async() => {
@@ -310,5 +359,17 @@ suite('collection assertions', () => {
     const result = await resultOfATestWith(assert => assert.that('x').isNotIncludedIn('hello'));
 
     expectSuccess(result);
+  });
+
+  test('isNotIncludedIn is successful when the String does not contain the substring', async() => {
+    const result = await resultOfATestWith(assert => assert.that('xyz').isNotIncludedIn('hello'));
+
+    expectSuccess(result);
+  });
+
+  test('isNotIncludedIn fails when the String contains the substring', async() => {
+    const result = await resultOfATestWith(assert => assert.that('ell').isNotIncludedIn('hello'));
+
+    expectFailureOn(result, I18nMessage.of('expectation_be_not_included_in', '\'ell\'', '\'hello\''));
   });
 });

@@ -193,6 +193,8 @@ There must be at least one assertion on the test to be valid. These are all the 
     - `assert.that(collection).includes(object)`
     - `assert.that(collection).doesNotInclude(object)`
     - `assert.that(collection).includesExactly(...objects)`
+    - when the collection is a `String`, `includes`, `doesNotInclude`, `isIncludedIn` and `isNotIncludedIn` work with
+      substrings, e.g. `assert.that('hello').includes('ell')`
 - Emptiness
     - `assert.that(collection).isEmpty()` or `assert.isEmpty(collection)`
     - `assert.that(collection).isNotEmpty()` or `assert.isNotEmpty(collection)`
