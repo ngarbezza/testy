@@ -7,15 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.0.0] - 2026-10-29
+
+### Added
+
+* `includes`, `doesNotInclude`, `isIncludedIn` and `isNotIncludedIn` now support substrings when both the collection
+  and the searched object are Strings (e.g. `assert.that('hello world').includes('lo wo')`).
+  ([#449](https://github.com/ngarbezza/testy/issues/449))
+
 ### Changed
 
 * :boom: Node 22.x or higher is required. Support for Node 20.x has dropped, as it reached its end of life. CI now
   runs on Node 22.x, 24.x and 26.x. ([#435](https://github.com/ngarbezza/testy/issues/435))
+* TypeScript test files are now transpiled to a temporary file next to the original (deleted after loading) instead of
+  to `.testy-cache/`. The `.testy-cache` directory is no longer created.
+* Internal: the release workflow now publishes to npm using staged publishing, and development dependencies were
+  upgraded (ESLint 10.13, TypeScript 5.9.3).
 
 ### Fixed
 
 * Running specific test files (e.g. `npx testy some_test.js`) from a directory without a `.testyrc.json` no longer
   crashes; the default configuration is used instead. ([#439](https://github.com/ngarbezza/testy/issues/439))
+* `.ts` test files that import sibling modules with relative paths (e.g. `import { greet } from "./greet.ts"`) fail to
+  load (regression introduced in 8.1.0): relative imports now resolve from the original file's directory.
+  ([#438](https://github.com/ngarbezza/testy/issues/438), [#450](https://github.com/ngarbezza/testy/issues/450))
+* `includes` on a collection no longer fails when the matching element is falsy (e.g. `0`).
+* Error locations are now correctly reported for users whose checkout directory has been renamed.
+  ([#444](https://github.com/ngarbezza/testy/pull/444), thanks [@Jason10191019999](https://github.com/Jason10191019999)!)
 
 ## [8.1.0] - 2026-10-05
 
@@ -470,7 +488,11 @@ readable and extensible. It also includes a huge internal refactor to make the t
 
 * Fix passed count at test runner level (no reported issue)
 
-[Unreleased]: https://github.com/ngarbezza/testy/compare/v7.1.0...HEAD
+[Unreleased]: https://github.com/ngarbezza/testy/compare/v9.0.0...HEAD
+
+[9.0.0]: https://github.com/ngarbezza/testy/compare/v8.1.0...v9.0.0
+
+[8.1.0]: https://github.com/ngarbezza/testy/compare/v8.0.0...v8.1.0
 
 [7.1.0]: https://github.com/ngarbezza/testy/compare/v7.0.2...v7.1.0
 
