@@ -89,6 +89,13 @@ This decision does **not** commit to the concrete shape of a `Platform` /
 `Environment` object. It fixes the contract and the classification; the concrete
 injection design is deferred to its own decision.
 
+### Test-author facilities
+
+Some host services are not needed by the core but offered to the people writing tests.
+`TempDir` / `withTempDir` (`lib/host/temp_dir.js`, issue #447) is one: it manages a temporary
+directory through `node:fs`, `node:os` and `node:path`. A port provides its own equivalent in
+its host's terms; the core does not depend on it.
+
 ### Out of scope
 
 The TypeScript transpiler (`lib/typescript/`) is a host-specific extension, not

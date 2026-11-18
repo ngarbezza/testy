@@ -1,33 +1,28 @@
-import { assert, after, before, suite, test } from '../../lib/testy.js';
+import { assert, suite, test, withTempDir } from '../../lib/testy.js';
 import { NodeFileSystem } from '../../lib/host/file_system.js';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
 
 suite('node file system', () => {
-  let fileSystem, tempDir;
+  const fileSystem = new NodeFileSystem();
 
-  before(() => {
-    fileSystem = new NodeFileSystem();
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testy-fs-'));
-    fs.writeFileSync(path.join(tempDir, 'a_test.js'), '');
-    fs.writeFileSync(path.join(tempDir, 'helper.js'), '');
-    fs.mkdirSync(path.join(tempDir, 'nested'));
-    fs.writeFileSync(path.join(tempDir, 'nested', 'b_test.js'), '');
+  const withFixtureDir = body => withTempDir(tempDir => {
+    tempDir.writeFile('a_test.js', '');
+    tempDir.writeFile('helper.js', '');
+    tempDir.writeFile(path.join('nested', 'b_test.js'), '');
+    return body(tempDir);
   });
 
-  after(() => fs.rmSync(tempDir, { recursive: true, force: true }));
-
-  test('finds files matching a pattern recursively', () => {
-    const found = fileSystem.allFilesMatching(tempDir, /_test\.js$/u);
+  test('finds files matching a pattern recursively', () => withFixtureDir(tempDir => {
+    const found = fileSystem.allFilesMatching(tempDir.path(), /_test\.js$/u);
     assert.that(found.length).isEqualTo(2);
-  });
+  }));
 
-  test('excludes files that do not match', () => {
-    const found = fileSystem.allFilesMatching(tempDir, /_test\.js$/u);
+  test('excludes files that do not match', () => withFixtureDir(tempDir => {
+    const found = fileSystem.allFilesMatching(tempDir.path(), /_test\.js$/u);
     assert.that(found.some(file => file.endsWith('helper.js'))).isFalse();
-  });
+  }));
 
   test('resolves a relative path against the current working directory', () => {
     assert.that(fileSystem.resolvePathFor('x.json')).isEqualTo(path.resolve(process.cwd(), 'x.json'));
@@ -37,20 +32,19 @@ suite('node file system', () => {
     assert.that(fileSystem.extensionOf('/tmp/foo.ts')).isEqualTo('.ts');
   });
 
-  test('deletes an existing file', () => {
-    const target = path.join(tempDir, 'a_test.js');
+  test('deletes an existing file', () => withFixtureDir(tempDir => {
+    const target = tempDir.pathTo('a_test.js');
     fileSystem.deleteFileIfExists(target);
     assert.that(fs.existsSync(target)).isFalse();
-  });
+  }));
 
-  test('does nothing when deleting a missing file', () => {
-    fileSystem.deleteFileIfExists(path.join(tempDir, 'ghost.js'));
+  test('does nothing when deleting a missing file', () => withFixtureDir(tempDir => {
+    fileSystem.deleteFileIfExists(tempDir.pathTo('ghost.js'));
     assert.isTrue(true);
-  });
+  }));
 
-  test('reads and parses a JSON document', () => {
-    const jsonFile = path.join(tempDir, 'data.json');
-    fs.writeFileSync(jsonFile, JSON.stringify({ name: 'testy', nested: { ok: true } }));
+  test('reads and parses a JSON document', () => withTempDir(tempDir => {
+    const jsonFile = tempDir.writeFile('data.json', JSON.stringify({ name: 'testy', nested: { ok: true } }));
     assert.that(fileSystem.readJson(jsonFile)).isEqualTo({ name: 'testy', nested: { ok: true } });
-  });
+  }));
 });
