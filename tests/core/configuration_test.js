@@ -1,8 +1,5 @@
-import { after, assert, before, suite, test } from '../../lib/testy.js';
+import { assert, suite, test, withTempDir } from '../../lib/testy.js';
 import { execFileSync } from 'node:child_process';
-import fs from 'node:fs';
-import os from 'node:os';
-import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath, URL } from 'node:url';
 
@@ -79,20 +76,13 @@ suite('Configuration parameters', () => {
 suite('Configuration without a user configuration file', () => {
   const cliPath = fileURLToPath(new URL('../../bin/testy_cli.js', import.meta.url));
   const testyUrl = new URL('../../lib/testy.js', import.meta.url).href;
-  let tempDir;
 
-  before(() => {
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testy-no-rc-'));
-    fs.writeFileSync(
-      path.join(tempDir, 'some_test.js'),
+  test('running a single file falls back to the default configuration', () => withTempDir(tempDir => {
+    tempDir.writeFile(
+      'some_test.js',
       `import { suite, test, assert } from '${testyUrl}';\nsuite('s', () => { test('t', () => assert.that(1).isEqualTo(1)); });\n`,
     );
-  });
-
-  after(() => fs.rmSync(tempDir, { recursive: true, force: true }));
-
-  test('running a single file falls back to the default configuration', () => {
-    const output = execFileSync(process.execPath, [cliPath, 'some_test.js'], { cwd: tempDir, encoding: 'utf8' });
+    const output = execFileSync(process.execPath, [cliPath, 'some_test.js'], { cwd: tempDir.path(), encoding: 'utf8' });
     assert.that(output).matches(/1 passed/);
-  });
+  }));
 });
