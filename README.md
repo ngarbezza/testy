@@ -234,6 +234,24 @@ If you don't have a NPM project you can install Testy globally using `npm instal
     });
     ```
 
+- **Temporary directories for tests**: if a test needs to read or write files, use `withTempDir()`. It creates a unique
+  temporary directory, gives it to your function as a `TempDir` object, and removes it (with all its contents) when the
+  function ends, even if the test fails. Remember to **return** the result so Testy waits for it. Example:
+
+    ```javascript
+    import { suite, test, assert, withTempDir } from '@pmoo/testy';
+
+    suite('using withTempDir()', () => {
+      test('writes and reads a file', () => withTempDir(tempDir => {
+        tempDir.writeFile('notes/hello.txt', 'hi');
+
+        assert.that(tempDir.readFile('notes/hello.txt')).isEqualTo('hi');
+      }));
+    });
+    ```
+
+  A `TempDir` answers `path()`, `pathTo(...segments)`, `writeFile(relativePath, content)` and `readFile(relativePath)`.
+
 - **Support for pending tests**: if a test has no body, it will be reported as `[WIP]` and it won't be considered a
   failure.
 - **Support for skipped tests**: you can skip a test by adding `.skip()` after test declaration, it will be reported
